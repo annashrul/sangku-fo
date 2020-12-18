@@ -12,8 +12,10 @@ import bags from "../../../../assets/bags.png"
 import jacket from "../../../../assets/jacket.png"
 import jas from "../../../../assets/jas.png"
 // import shoes from "../../../../assets/shoes.png"
+import bycrypt from 'bcryptjs';
 
 import ParticlesBg from "particles-bg";
+import {sendOtp} from "../../../../redux/actions/authActions";
 
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
@@ -46,6 +48,7 @@ class Login extends Component {
             nohp: '',
             otp: false,
             otp_val: '',
+            isError:false,
             // disableButton:false,
             // server_price:0,
             // acc_name:"",
@@ -106,6 +109,14 @@ class Login extends Component {
 
 
     componentWillReceiveProps = (nextProps)=>{
+        if(nextProps.auth.isErrorNo===true){
+            this.timer = 0;
+            let timeLeftVar = this.secondsToTime(resendTime);
+            this.setState({otp:true,seconds:resendTime,time:timeLeftVar});
+            setTimeout(function() { //Start the timer
+                this.startTimer()
+            }.bind(this), 500)
+        }
         this.getProps(nextProps)
      }
      componentWillMount(){
@@ -125,32 +136,30 @@ class Login extends Component {
         event.preventDefault();
         const {email,password,type,nohp} = this.state;
         if(type!=='otp'){
-            if(email!==''&&password!==''){
-                const user = {
-                    username: email,
-                    password: password
-                }
-                this.props.loginUser(user);
-            }else{
-                Swal.fire(
-                    'Isi Username dan Password Terlebih Dahulu! ',
-                    'Lengkapi form untuk melanjutkan.',
-                    'error'
-                )
-            }
+            // if(email!==''&&password!==''){
+            //     const user = {
+            //         username: email,
+            //         password: password
+            //     }
+            //     this.props.loginUser(user);
+            // }else{
+            //     Swal.fire(
+            //         'Isi Username dan Password Terlebih Dahulu! ',
+            //         'Lengkapi form untuk melanjutkan.',
+            //         'error'
+            //     )
+            // }
+
         } else {
             if(nohp!==''){
                 const user = {
                     type: type,
-                    nohp: nohp
+                    nomor: nohp,
+                    islogin: true,
                 }
-                this.props.loginUser(user);
-                this.timer = 0
-                let timeLeftVar = this.secondsToTime(resendTime);
-                this.setState({otp:true,seconds:resendTime,time:timeLeftVar})
-                setTimeout(function() { //Start the timer
-                    this.startTimer()
-                }.bind(this), 500)
+                this.props.sendOtp(user);
+
+
             }else{
                 Swal.fire(
                     'No Hp Belum Diisi! ',
@@ -161,21 +170,41 @@ class Login extends Component {
 
         }
     }
-    submitOtp = (event)=>{
+
+
+
+    submitOtp = async (event)=>{
         event.preventDefault();
-        const {otp_val} = this.state;
-        alert(this.props.auth.user.otp)
-        if(otp_val===this.props.auth.user.otp){
-            this.props.setLoggedin(true);
-            const token = this.props.auth.user.token;
-            localStorage.setItem('sangku', btoa(token));
-        }else{
+        const res = await bycrypt.compare(this.state.otp_val,this.props.auth.user.sender_id);
+        if(res){
+            const {email,password,type,nohp} = this.state;
+            const user = {
+                type: type,
+                nohp: nohp
+            };
+            this.props.loginUser(user);
+
+        }
+        else{
             Swal.fire(
-                'OTP Tidak Sesuai! ',
-                'Masukan OTP dengan benar.',
+                'Perhatian !! ',
+                'OTP Tidak Sesuai.',
                 'error'
             )
         }
+        // const {otp_val} = this.state;
+        // alert(this.props.auth.user.otp);
+        // if(otp_val===this.props.auth.user.otp){
+        //     this.props.setLoggedin(true);
+        //     const token = this.props.auth.user.token;
+        //     localStorage.setItem('sangku', btoa(token));
+        // }else{
+        //     Swal.fire(
+        //         'OTP Tidak Sesuai! ',
+        //         'Masukan OTP dengan benar.',
+        //         'error'
+        //     )
+        // }
     }
 
     handleInputChange =(event)=> {
@@ -207,9 +236,7 @@ class Login extends Component {
     startTimer() {
         if (this.timer === 0 && this.state.seconds > 0) {
             this.timer = setInterval(this.countDown, 1000);
-            console.log('true')
         }
-        console.log('false')
     }
 
     countDown() {
@@ -228,8 +255,6 @@ class Login extends Component {
 
     render() {
         const {otp_val,nohp, email,password, errors,disableButton} = this.state;
-        console.log(this.props)
-        console.log("String(this.state.time.m+this.state.time.s)",String(this.state.time.m)+String(this.state.time.s))
         return (
         <div className="limiter">
             <ParticlesBg type="cobweb" bg={true}/>
@@ -305,7 +330,7 @@ class Login extends Component {
                                                 <div>
                                                     <button type="button" className="btn btn-link btn-block">Kirim ulang otp dalam {this.state.time.m +":"+this.state.time.s}</button>
                                                     <div className="container-login100-form-btn">
-                                                        <button className="login100-form-btn" onClick={this.submitOtp}>
+                                                        <button className="login100-form-btn" onClick={async (event)=>(await this.submitOtp(event))}>
                                                             Validate
                                                         </button>
                                                     </div>
@@ -365,16 +390,18 @@ class Login extends Component {
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
+    sendOtp: PropTypes.func.isRequired,
     setLoggedin: PropTypes.func.isRequired,
     auth: PropTypes.object,
     errors: PropTypes.object
 }
 
 const mapStateToProps = ({auth, errors}) =>{
+
     return{
         auth : auth,
-        errors: errors.errors
+        errors: errors
     }
 }
 
-export default connect(mapStateToProps,{loginUser,setLoggedin})(Login);
+export default connect(mapStateToProps,{loginUser,setLoggedin,sendOtp})(Login);

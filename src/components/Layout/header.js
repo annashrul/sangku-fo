@@ -17,6 +17,7 @@ import {
     DropdownToggle
 } from 'reactstrap';
 import Default from 'assets/default.png';
+import {getCart} from "../../redux/actions/product/cart.action";
 
 class Header extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Header extends Component {
     this.handleToggleMobileNav=this.handleToggleMobileNav.bind(this)
     this.handleNotif=this.handleNotif.bind(this)
     this.state = {
+        totCart:0,
         toggleMobileNav:false,
         isShowNotif:false,
         isDay:7,
@@ -96,6 +98,13 @@ class Header extends Component {
             }
         )
 
+  }
+
+  componentWillReceiveProps(nextProps){
+      if(nextProps.resCart.data.length !== this.state.totCart){
+          this.setState({totCart:nextProps.resCart.data.length});
+      }
+      // console.log(nextProps.resCart.data);
   }
 
 
@@ -179,8 +188,6 @@ class Header extends Component {
 
               {/* <!-- Top Bar Nav --> */}
               <ul className={"right-side-content d-flex align-items-center " + (this.state.toggleMobileNav === true? "active":"")}>
-               
-
                   <li className="nav-item dropdown">
                         <UncontrolledButtonDropdown nav inNavbar>
                                 <DropdownToggle caret inNavbar className="nohover">
@@ -221,28 +228,35 @@ class Header extends Component {
                             </DropdownMenu>
                         </UncontrolledButtonDropdown>
                   </li>
-
+                  <li className="nav-item dropdown">
+                     <Link to={"/cart"}>
+                         <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                         <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                     </Link>
+                  </li>
                 </ul>
           </div>
       </header>
       );
   }
-};
+}
+
 Header.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   setEcaps: PropTypes.func.isRequired,
   setMobileEcaps: PropTypes.func.isRequired,
   auth: PropTypes.object,
+  cartReducer: PropTypes.object,
   triggerEcaps: PropTypes.bool,
   triggerMobileEcaps: PropTypes.bool,
 };
 
-const mapStateToProps = ({auth,siteReducer}) =>{
+const mapStateToProps = ({auth,siteReducer,cartReducer}) =>{
      return{
-       auth: auth,
+        resCart:cartReducer,
+        auth: auth,
         triggerEcaps: siteReducer.triggerEcaps,
         triggerMobileEcaps: siteReducer.triggerMobileEcaps
-
      }
 }
 export default connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps})(Header);
