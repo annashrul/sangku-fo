@@ -7,7 +7,7 @@ import connect from "react-redux/es/connect/connect";
 // import { HEADERS } from '../../../../redux/actions/_constants';
 // import ListUserLevel from "./user_level/list";
 import jQuery from 'jquery';
-import ReactDOM from 'react-dom'
+// import ReactDOM from 'react-dom'
 // let items = [];
 class Product extends Component{
     constructor(props){
@@ -18,7 +18,7 @@ class Product extends Component{
             selectedIndex : 0,
         };
         this.trigger_click = this.trigger_click.bind(this)
-        this.getOffsetLeft = React.createRef();
+        // this.getOffsetLeft = React.createRef();
     }
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
@@ -51,7 +51,7 @@ class Product extends Component{
 
 
     trigger_click(target,parent_id, obj, me){
-        console.log("-=-=-=-=-=-=-=-=-=-=-",obj.target)
+        // console.log("-=-=-=-=-=-=-=-=-=-=-",obj.target)
             let flag=false;
             jQuery('.binary-genealogy-tree').each(function(){
                 if(flag){
@@ -72,7 +72,7 @@ class Product extends Component{
                 jQuery(this).parent().removeClass('vertical_line');
     
             });
-            jQuery(obj).parent().addClass('vertical_line');
+            jQuery('#vl-'+parent_id).addClass('vertical_line');
     
     
             if(parent_id.length){
@@ -641,17 +641,18 @@ class Product extends Component{
                 </div>
                 </div>`;
                     jQuery('#block-system-main').append(response);
-                    let w= ReactDOM.findDOMNode(this.getOffsetLeft(parent_id).current).getBoundingClientRect().left;
+                    // let w= ReactDOM.findDOMNode(this.getOffsetLeft.current).getBoundingClientRect().left;
                     // let w= 1549+obj.target.offsetLeft;
+                    let w= jQuery('#fa-2x-'+parent_id).offset().left;
                     // let w= 1630;
-                    console.log("obj",jQuery(obj.target).find('.fa-2x').prevObject[0].offsetLeft)
+                    // console.log("obj",jQuery(obj.target).find('.fa-2x').prevObject[0].offsetLeft)
                     console.log("obj",obj)
                     // console.log("w",w)
                     console.log("jQuery(obj).find('.fa-2x')",jQuery(obj).find('.fa-2x').offset.left)
     
-                    var tte = ReactDOM.findDOMNode(this.getOffsetLeft.current).getBoundingClientRect()
-                    console.log("tedsdsdsd",tte.left)
-                    console.log("let offsetTop = this.someRefName.current.offsetTop;",this.getOffsetLeft.current.right)
+                    // var tte = ReactDOM.findDOMNode(this.getOffsetLeft.current).getBoundingClientRect()
+                    // console.log("tedsdsdsd",tte.left)
+                    // console.log("let offsetTop = this.someRefName.current.offsetTop;",this.getOffsetLeft.current.right)
                     let tt = jQuery('.binary-genealogy-tree').eq( jQuery('.binary-genealogy-tree').length -1).find('.binary-node-single-item').eq(0).offset().left;
                     // console.log("tt",tt)
 
@@ -665,7 +666,7 @@ class Product extends Component{
                         class_div = "binar-hr-line-left";
                         width = w - tt;
                         css_style = 'margin-right';
-                        w = jQuery('.binary-genealogy-tree').eq(jQuery('.binary-genealogy-tree').length - 1).width() - (ReactDOM.findDOMNode(this.getOffsetLeft(parent_id).current).getBoundingClientRect().left - jQuery('.binary-genealogy-tree').eq(jQuery('.binary-genealogy-tree').length - 1).offset().left + jQuery('.fa-2x').width() / 2);
+                        w = jQuery('.binary-genealogy-tree').eq(jQuery('.binary-genealogy-tree').length - 1).width() - (jQuery('#fa-2x-'+parent_id).offset().left - jQuery('.binary-genealogy-tree').eq(jQuery('.binary-genealogy-tree').length - 1).offset().left + jQuery('.fa-2x').width() / 2);
                         if (jQuery(obj).parent().parent().hasClass('node-right-item')) {
                             w += 2;
                         }
@@ -1528,7 +1529,7 @@ class Product extends Component{
                       </div>
                     </div>
                     <div className="node-right-item binary-level-width-50"> <span className="binary-hr-line binar-hr-line-right binary-hr-line-width-25" />
-                      <div className="node-item-1-child-right">
+                      <div id="vl-42" className="node-item-1-child-right">
                         <div className="binary-node-single-item user-block user-12"><div className="images_wrapper"><img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src="https://binary.epixelmlmsoftware.com/sites/binary/files/styles/genealogy-view/public/genealogy-img/common.png?itok=TpmAMsZE" width={70} height={70} alt="dexaxe" title="dexaxe" /></div>
                           <span className="wrap_content ">dexaxe</span>
                           <div className="pop-up-content right_tooltip">
@@ -1565,7 +1566,7 @@ class Product extends Component{
                               </div>
                             </div>
                           </div></div>
-                        <div className="last_level_user mt-4" onClick={(e)=>this.trigger_click(e.target,'42',e,this)}><i ref={this.getOffsetLeft('42')} className="fa fa-plus-circle fa-2x" /></div>
+                        <div className="last_level_user" onClick={(e)=>this.trigger_click(e.target,'42',e.target,this)}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
                       </div>
                     </div>
                   </div>
@@ -1617,10 +1618,10 @@ class Product extends Component{
                       </div>
                     </div>
                     <div className="node-right-item binary-level-width-50"> <span className="binary-hr-line binar-hr-line-right binary-hr-line-width-25" />
-                      <div className="node-item-1-child-right">
+                      <div id="vl-39" className="node-item-1-child-right">
                         <div className="binary-node-single-item user-block user-14"><div className="images_wrapper"><img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src="https://binary.epixelmlmsoftware.com/sites/binary/files/styles/genealogy-view/public/genealogy-img/common.png?itok=TpmAMsZE" width={70} height={70} alt="hileca" title="hileca" /></div>
                           <span className="wrap_content ">hileca</span>
-                          {/* <div className="pop-up-content right_tooltip">
+                          <div className="pop-up-content right_tooltip">
                             <div className="profile_tooltip_pick">
                               <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src="https://binary.epixelmlmsoftware.com/sites/binary/files/styles/genealogy-view/public/genealogy-img/common.png?itok=TpmAMsZE" width={70} height={70} alt="hileca" title="hileca" /></div>
                               <div className="full-name">Cade Padilla</div>
@@ -1653,9 +1654,9 @@ class Product extends Component{
                                 <span className="text-value">2019-07-24 08:30:00</span>
                               </div>
                             </div>
-                          </div> */}
                           </div>
-                        <div className="last_level_user mt-3" onClick={(e)=>this.trigger_click(e.target,'39',e,this)}><i ref={this.getOffsetLeft('39')}  className="fa fa-plus-circle fa-2x" /></div>
+                          </div>
+                        <div className="last_level_user" onClick={(e)=>this.trigger_click(e.target,'39',e.target,this)}><i id="fa-2x-39" className="fa fa-plus-circle fa-2x" /></div>
                       </div>
                     </div>
                   </div>
