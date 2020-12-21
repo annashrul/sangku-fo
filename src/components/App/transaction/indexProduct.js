@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Card, CardBody, CardHeader} from "reactstrap";
 import Layout from 'components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import {toRp} from "../../../helper";
+import {noImage, toRp} from "../../../helper";
 import {getPaket} from "../../../redux/actions/product/paket.action";
 import {getCart, postCart} from "../../../redux/actions/product/cart.action";
 
@@ -12,10 +11,12 @@ class IndexProduct extends Component{
         super(props);
         this.handleCart    = this.handleCart.bind(this);
     }
+
     componentWillMount(){
         this.props.dispatch(getPaket(`page=1`));
         this.props.dispatch(getCart());
     }
+
     handleCart(e,i){
         e.preventDefault();
         console.log(this.props.resPaket.data[i].id);
@@ -28,19 +29,12 @@ class IndexProduct extends Component{
 
     render(){
         const {
-            total,
-            per_page,
-            offset,
-            to,
-            last_page,
-            current_page,
-            from,
             data
         } = this.props.resPaket;
         return(
             <Layout page="Product">
-                <Card>
-                    <CardBody>
+                <div className="card">
+                    <div className="card-body">
                         <div className="row">
                             {
                                 typeof data==='object'?data.length>0?data.map((v,i)=>{
@@ -49,7 +43,9 @@ class IndexProduct extends Component{
                                             <div className="single-product-item mb-30">
                                                 <div className="product-card">
                                                     <h3 className="product font-16 mb-15">{v.title}</h3>
-                                                    <a className="product-thumb" href=""><img src="http://192.168.100.10/theme/motrila2/img/shop-img/5.png" alt="Product"/></a>
+                                                    <a className="product-thumb" href="#!">
+                                                        <img src={v.foto} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/>
+                                                    </a>
                                                     <h4 className="product-price">{toRp(v.harga)}</h4>
                                                     <div className="badge badge-success badge-pill mb-20">{v.kategori}</div>
                                                     <div className="product-sell-info">
@@ -66,7 +62,7 @@ class IndexProduct extends Component{
                                                     </div>
 
                                                     <div className="product-buttons">
-                                                        <a className="btn btn-primary mt-30" href="javascript:void(0)" onClick={(event)=>this.handleCart(event,i)}>+ keranjang</a>
+                                                        <a className="btn btn-primary mt-30" href="#" onClick={(event)=>this.handleCart(event,i)}>+ keranjang</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,7 +76,7 @@ class IndexProduct extends Component{
                                                 <div className="single-product-item mb-30">
                                                     <div className="product-card">
                                                         <h3 className="product font-16 mb-15"><Skeleton/></h3>
-                                                        <a className="product-thumb" href=""><img src="https://lh3.googleusercontent.com/proxy/hwMlI7KoKuW_oIs8pvnoroemAhmP3HcfjL9cudBO12gzd4pattkPMSGzTnMtCY-MtL2h55LJF6Kn4pl-HCRGa7euvUlHl8Bhyumf" alt="Product"/></a>
+                                                        <a className="product-thumb" href=""><img src={noImage()} alt="Product"/></a>
                                                         <h4 className="product-price"><Skeleton/></h4>
                                                         <div className="product-sell-info">
                                                             <div className="row">
@@ -96,7 +92,7 @@ class IndexProduct extends Component{
                                                         </div>
 
                                                         <div className="product-buttons">
-                                                            <a className="mt-30" href="cart.html"><Skeleton/></a>
+                                                            <a className="mt-30" href=""><Skeleton/></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,8 +103,8 @@ class IndexProduct extends Component{
                                 })()
                             }
                         </div>
-                    </CardBody>
-                </Card>
+                    </div>
+                </div>
             </Layout>
         );
     }

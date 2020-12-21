@@ -10,6 +10,7 @@ import IndexProduct from '../App/transaction/indexProduct';
 import IndexCart from '../App/transaction/indexCart';
 import IndexCheckout from '../App/transaction/indexCheckout';
 import AddMember from '../App/Member/AddMember';
+import IndexAlamat from '../App/Member/Alamat/indexAlamat';
 import Test from '../App/Masterdata/user';
 import Testt from '../App/Masterdata/test';
 
@@ -24,6 +25,7 @@ const Routes = (
            
             {/* DASHBOARD SECTION START */}
             <PrivateRoute path="/" exact strict component={Dashboard} />
+            <PrivateRoute path="/alamat" exact strict component={IndexAlamat} />
             {/* DASHBOARD SECTION END */}
             {/* TRANSACTION SECTION START */}
             <PrivateRoute path="/product" exact strict component={IndexProduct} />

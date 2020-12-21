@@ -72,7 +72,7 @@ class SideMenu extends Component {
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
-        if(path==='/member/add'){
+        if(path==='/member/add'||path==='/alamat'){
             this.setState({
                 isNetwork:true
             })
@@ -83,6 +83,7 @@ class SideMenu extends Component {
             })
         }
     }
+
     componentWillReceiveProps = (nextProps) => {
         this.getProps(nextProps);
         if (this.props.activePath !== nextProps.activePath) {
@@ -125,61 +126,14 @@ class SideMenu extends Component {
                     {/* DASHBOARD MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Transaction</span></Link></li>
                     {/* DASHBOARD MODUL END */}
-
                     {/* NETWORK MODUL START */}
-                    <li className={"treeview" +(this.state.isNetwork===true || path==='/member/add' ?" active menu-open" : "")}>
+                    <li className={"treeview" +(this.state.isNetwork===true || path==='/member/add'||path==='/alamat' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Member</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
                             <li className={path==='/member/add'?"active":''}><Link to="/member/add" style={{width:'fit-content'}}> Add Member</Link></li>
+                            <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
                         </ul>
                     </li>
-
-                        {/*<li className={ "treeview" +*/}
-                            {/*(this.state.isNetwork===true*/}
-                                {/*?" active menu-open" : "")*/}
-                        {/*} >*/}
-
-                            {/*<a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Network</span> <i className="fa fa-angle-right" /></a>*/}
-                            {/*<ul className={"treeview-menu animate__animated" + (this.state.isNetwork===true ?" animate__bounceInRight " : " animate__fadeOutLeft ") + "animate__faster"} style={{display:this.state.isNetwork===true*/}
-                            {/*?"block" : "none"}}>*/}
-                                {/*{new_member!=='1'       ?<li className={path==='/member/add'?"active":''}><Link to="/member/add" style={{width:'fit-content'}}> <i className="fa fa-add" />Add New member</Link></li>:''}*/}
-                            {/*</ul>*/}
-                        {/*</li>*/}
-
-                    {/*}*/}
-                    {/* NETWORK MODUL END */}
-
-                    {/* REPORT MODUL START */}
-                    {/* {md_report?
-                        <li className={ "treeview" +
-                            (this.state.isReport===true
-                                ?" active menu-open" : "")
-                        } >
-
-                            <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Report</span> <i className="fa fa-angle-right" /></a>
-                            <ul className={"treeview-menu animate__animated" + (this.state.isReport===true ?" animate__bounceInRight " : " animate__fadeOutLeft ") + "animate__faster"} style={{display:this.state.isReport===true
-                            ?"block" : "none"}}> */}
-                                {/* SUBLAPORAN PEMBAYARAN MODUL START */}
-                                {/* {md_report_inventory?
-                                    <li className={"treeview" + (this.state.isReportAdjustment===true || 
-                                        path==='/report/adjustmnet'
-                                        ?" active menu-open" : "")}>
-
-                                        <a href="!#" onClick={(e) => this.changeMenu(e,'isReport','isReportAdjustment')}><i className="fa fa-money"/>Inventory <i className="fa fa-angle-right"/></a>
-                                        <ul className={"treeview-menu animate__animated" + (this.state.isReportAdjustment===true ?" animate__bounceInRight " : " animate__fadeOutLeft ") + "animate__faster"} style={{display:this.state.isReportAdjustment===true
-                                        ?"block" : "none"}}>
-                                            {r_adjusment==='1'      ?<li className={path==='/report/adjustment'?"active":''}><Link to="/report/adjustment" style={{width:'fit-content'}}> <i className="fa fa-dollar" />Adjustment</Link></li>:''}
-                                        </ul>
-                                    </li>
-                                    :''
-                                } */}
-                                {/* SUBLAPORAN PEMBAYARAN MODUL END */}
-                            {/* </ul>
-                        </li>
-                        :''
-                    } */}
-                    {/* REPORT MODUL END */}
-
                     {/* LOGOUT MODUL START */}
                     <li><a href={null} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
                     {/* LOGOUT MODUL END */}

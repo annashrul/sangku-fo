@@ -127,3 +127,48 @@ export const CART = {
     FAILED: 'FAILED_CART',
     DETAIL: 'DETAIL_CART',
 }
+/****************
+ CHECKOUT
+ *****************/
+export const CHECKOUT = {
+    LOADING_POST: 'SET_CART_LOADING_POST',
+    IS_ERROR: 'SET_CART_IS_ERROR',
+}
+
+
+/****************
+ ALAMAT
+ *****************/
+export const ALAMAT = {
+    LOADING: 'SET_ALAMAT_LOADING',
+    LOADING_POST: 'SET_ALAMAT_LOADING_POST',
+    LOADING_DETAIL: 'SET_ALAMAT_LOADING_DETAIL',
+    IS_ERROR: 'SET_ALAMAT_IS_ERROR',
+    SUCCESS: 'SUCCESS_ALAMAT',
+    FAILED: 'FAILED_ALAMAT',
+    DETAIL: 'DETAIL_ALAMAT',
+}
+
+/****************
+ PROVINSI
+ *****************/
+export const PROVINSI = {
+    LOADING: 'SET_PROVINSI_LOADING',
+    SUCCESS: 'SUCCESS_PROVINSI',
+}
+
+/****************
+ KOTA
+ *****************/
+export const KOTA = {
+    LOADING: 'SET_KOTA_LOADING',
+    SUCCESS: 'SUCCESS_KOTA',
+}
+
+/****************
+ KECAMATAN
+ *****************/
+export const KECAMATAN = {
+    LOADING: 'SET_KECAMATAN_LOADING',
+    SUCCESS: 'SUCCESS_KECAMATAN',
+}

@@ -7,6 +7,11 @@ import {siteReducer} from './site.reducer';
 import {productReducer} from "./product/product.reducer";
 import {paketReducer} from "./product/paket.reducer";
 import {cartReducer} from "./product/cart.reducer";
+import {checkoutReducer} from "./product/checkout.reducer";
+import {alamatReducer} from "./member/alamat.reducer";
+import {provinsiReducer} from "./member/provinsi.reducer";
+import {kotaReducer} from "./member/kota.reducer";
+import {kecamatanReducer} from "./member/kecamatan.reducer";
 
 
 export default combineReducers({
@@ -17,6 +22,11 @@ export default combineReducers({
     productReducer,
     paketReducer,
     cartReducer,
+    checkoutReducer,
+    alamatReducer,
+    provinsiReducer,
+    kotaReducer,
+    kecamatanReducer,
     auth: authReducer,
     errors : errorsReducer
 });

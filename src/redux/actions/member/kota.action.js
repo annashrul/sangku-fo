@@ -1,66 +1,33 @@
 import axios from "axios"
 import Swal from "sweetalert2";
-import {PAKET, HEADERS} from "../_constants";
+import {KOTA, HEADERS} from "../_constants";
+
 
 export function setLoading(load) {
     return {
-        type: PAKET.LOADING,
+        type: KOTA.LOADING,
         load
     }
 }
 
-export function setLoadingDetail(load) {
-    return {
-        type: PAKET.LOADING_DETAIL,
-        load
-    }
-}
-export function setLoadingPost(load) {
-    return {
-        type: PAKET.LOADING_POST,
-        load
-    }
-}
-export function setIsError(load) {
-    return {
-        type: PAKET.IS_ERROR,
-        load
-    }
-}
 
 export function setData(data = []) {
     return {
-        type: PAKET.SUCCESS,
+        type: KOTA.SUCCESS,
         data
     }
 }
 
-export function setDataDetail(data = []) {
-    return {
-        type: PAKET.DETAIL,
-        data
-    }
-}
 
-export function setDataFailed(data = []) {
-    return {
-        type: PAKET.FAILED,
-        data
-    }
-}
-
-export const getPaket = (where) => {
+export const getKota = (where) => {
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = 'package';
-        if(where){
-            url+=`?${where}`;
-        }
-
+        let url = `transaction/kurir/kota?id=${where}`;
+        console.log(url);
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
+                console.log(response);
                 const data = response.data;
-                console.log(data);
                 dispatch(setData(data));
                 dispatch(setLoading(false));
             })
@@ -77,5 +44,3 @@ export const getPaket = (where) => {
 
     }
 };
-
-

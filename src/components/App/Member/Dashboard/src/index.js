@@ -95,11 +95,11 @@ class Index extends Component {
         this.HandleChangeLokasi = this.HandleChangeLokasi.bind(this);
     }
 
-    componentDidMount(){
+    UNSAFE_componentDidMount(){
         this.props.dispatch(FetchStock());
     }
 
-    componentWillReceiveProps = (nextProps) => {
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
           let lk = [{
               value: "-",
