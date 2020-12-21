@@ -9,8 +9,15 @@ import Routes from 'components/Routes/Routes';
 import { DBConfig } from 'DBConfig';
 import { initDB } from 'react-indexed-db';
  import {get} from "components/model/app.model";
+import {HEADERS} from "../../redux/actions/_constants";
+import axios from 'axios';
 
 initDB(DBConfig);
+axios.defaults.headers.common['username'] = `${HEADERS.USERNAME}`;
+axios.defaults.headers.common['password'] = `${HEADERS.PASSWORD}`;
+axios.defaults.headers.common['myconnection'] = `apps`;
+axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencoded`;
+
 // Check token in localStorage
   if (localStorage.sangku) {
     setAuthToken(atob(localStorage.sangku));

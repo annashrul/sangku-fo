@@ -12,6 +12,12 @@ export const TOKEN = {
   GET: "GET_TOKEN"
 }
 
+export const NOTIF_ALERT = {
+    SUCCESS: "Data Berhasil Disimpan",
+    FAILED: "Data Gagal Disimpan",
+    CHECKING : "Pengecekan Data",
+    NO_DATA: "https://www.mediseller.com/front_assets/img/search.png"
+}
 export const HEADERS ={
   URL: atob(document.getElementById("hellyeah").value),
   TOKEN:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwY2RiN2M5OC0wNWNmLTQ4NDgtOGM3Yy0yZTFiYTczZGUwNmYiLCJpYXQiOjE1NzAxNzM0ODYsImV4cCI6MTU3MDc3ODI4Nn0.1NiWtt2luG83am8FJSvWpL5p35Oxd8GSJJTwhFmAdgw",
@@ -42,7 +48,9 @@ export const AUTH = {
   GET_ERRORS:'GET_ERRORS',
   TEST_DISPATCH:'TEST_DISPATCH',
   SET_CURRENT_USER:'SET_CURRENT_USER',
-  SET_LOGGED_USER:'SET_LOGGED_USER'
+  SET_CURRENT_OTP:'SET_CURRENT_OTP',
+  SET_LOGGED_USER:'SET_LOGGED_USER',
+    IS_ERROR_NO:'IS_ERROR_NO'
 }
 export const REGISTER = {
   PROCESS: 'SET_REGISTER_PROCESS',
@@ -78,4 +86,44 @@ export const SITE = {
   TRIGGER_ECAPS: 'SET_TRIGGER_ECAPS',
   DOWNLOAD_TXT: 'SET_DOWNLOAD_TXT',
   TRIGGER_MOBILE_ECAPS: 'SET_TRIGGER_MOBILE_ECAPS'
+}
+
+/****************
+ BARANG
+ *****************/
+export const PRODUCT = {
+    LOADING: 'SET_PRODUCT_LOADING',
+    LOADING_POST: 'SET_PRODUCT_LOADING_POST',
+    IS_ERROR: 'SET_PRODUCT_IS_ERROR',
+    SUCCESS: 'SUCCESS_PRODUCT',
+    FAILED: 'FAILED_PRODUCT',
+    DETAIL: 'DETAIL_PRODUCT',
+}
+
+
+/****************
+ PAKET
+ *****************/
+export const PAKET = {
+    LOADING: 'SET_PAKET_LOADING',
+    LOADING_POST: 'SET_PAKET_LOADING_POST',
+    LOADING_DETAIL: 'SET_PAKET_LOADING_DETAIL',
+    IS_ERROR: 'SET_PAKET_IS_ERROR',
+    SUCCESS: 'SUCCESS_PAKET',
+    FAILED: 'FAILED_PAKET',
+    DETAIL: 'DETAIL_PAKET',
+}
+
+
+/****************
+ CART
+ *****************/
+export const CART = {
+    LOADING: 'SET_CART_LOADING',
+    LOADING_POST: 'SET_CART_LOADING_POST',
+    LOADING_DETAIL: 'SET_CART_LOADING_DETAIL',
+    IS_ERROR: 'SET_CART_IS_ERROR',
+    SUCCESS: 'SUCCESS_CART',
+    FAILED: 'FAILED_CART',
+    DETAIL: 'DETAIL_CART',
 }

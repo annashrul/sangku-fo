@@ -4,8 +4,58 @@ import Swal from 'sweetalert2'
 import {store,destroy} from "components/model/app.model";
 import setAuthToken from '../../utils/setAuthToken';
 import {HEADERS} from "./_constants";
+import {getPaket} from "./product/paket.action";
+import {getCart} from "./product/cart.action";
 
 // user register
+
+export const sendOtp = (userData) =>
+    async dispatch =>{
+        Swal.fire({
+            title: 'Please Wait.',
+            html: 'Checking your account.',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+            onClose: () => {}
+        })
+        dispatch(setIsError(false));
+        axios.post(HEADERS.URL+'auth/otp', userData)
+            .then(res=>{
+                setTimeout(
+                    function () {
+                        Swal.close()
+                        // save token to localStorage
+                        console.log(res);
+                        dispatch(setCurrentOtp(res.data.result));
+                        dispatch(setIsError(true));
+                    },800)
+
+            }).catch(err =>{
+            Swal.close();
+            if (err.message === 'Network Error') {
+                dispatch(setIsError(false));
+                Swal.fire(
+                    'Server tidak tersambung!.',
+                    'Periksa koneksi internet anda.',
+                    'error'
+                )
+            }else{
+                dispatch(setIsError(false));
+                Swal.fire(
+                    err.response.data.msg,
+                    '',
+                    'error'
+                );
+                dispatch({type: AUTH.GET_ERRORS, payload: err.response.data.msg})
+
+            }
+            // window.location.reload();
+        });
+    }
+
+
+
 
 // Login user -- get token
 export const loginUser = (userData) =>
@@ -37,16 +87,19 @@ export const loginUser = (userData) =>
                     status: res.data.result.status,
                     picture: res.data.result.picture,
                     otp: res.data.result.otp,
-                })
+                });
             
                 // Set token to Auth Header 
                 setAuthToken(token);
                 // decode token to set user data
                 dispatch(setCurrentUser(res.data.result));
-                if(res.data.result.otp===''&&res.data.result.otp===undefined){
-                    dispatch(setLoggedin(true));
-                    localStorage.setItem('sangku', btoa(token));
-                }
+                dispatch(setLoggedin(true));
+                localStorage.setItem('sangku', btoa(token));
+                dispatch(getCart());
+                // if(res.data.result.otp===''&&res.data.result.otp===undefined){
+                //     dispatch(setLoggedin(true));
+                //     localStorage.setItem('sangku', btoa(token));
+                // }
             },800)
 
         }).catch(err =>{
@@ -70,6 +123,20 @@ export const loginUser = (userData) =>
             
         });
     }
+
+export function setIsError(load) {
+    return {
+        type: AUTH.IS_ERROR_NO,
+        load
+    }
+}
+
+export const setCurrentOtp = decoded =>{
+    return{
+        type: AUTH.SET_CURRENT_USER,
+        payload: decoded
+    }
+}
 // set user data
 export const setCurrentUser = decoded =>{
     return{

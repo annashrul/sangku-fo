@@ -4,6 +4,9 @@ import { dashboardReducer } from './dashboard/dashboard.reducer'
 import authReducer from './authReducer';
 import errorsReducer from './errorsReducer';
 import {siteReducer} from './site.reducer';
+import {productReducer} from "./product/product.reducer";
+import {paketReducer} from "./product/paket.reducer";
+import {cartReducer} from "./product/cart.reducer";
 
 
 export default combineReducers({
@@ -11,7 +14,9 @@ export default combineReducers({
     modalTypeReducer,
     dashboardReducer,
     siteReducer,
-    
+    productReducer,
+    paketReducer,
+    cartReducer,
     auth: authReducer,
     errors : errorsReducer
 });
