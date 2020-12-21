@@ -72,7 +72,7 @@ class SideMenu extends Component {
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
-        if(path==='/member/add'){
+        if(path==='/member/add' || path==='/binary' || path==='/sponsor'){
             this.setState({
                 isNetwork:true
             })
@@ -128,9 +128,11 @@ class SideMenu extends Component {
 
                     {/* NETWORK MODUL START */}
                     <li className={"treeview" +(this.state.isNetwork===true || path==='/member/add' ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Member</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Network</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
+                            <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Binary Tree</Link></li>
                             <li className={path==='/member/add'?"active":''}><Link to="/member/add" style={{width:'fit-content'}}> Add Member</Link></li>
+                            <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Sponsor Tree</Link></li>
                         </ul>
                     </li>
 

@@ -10,7 +10,8 @@ import IndexProduct from '../App/transaction/indexProduct';
 import IndexCart from '../App/transaction/indexCart';
 import IndexCheckout from '../App/transaction/indexCheckout';
 import AddMember from '../App/Member/AddMember';
-import Test from '../App/Masterdata/user';
+import Binary from '../App/Member/Binary';
+import Sponsor from '../App/Member/Sponsor';
 import Testt from '../App/Masterdata/test';
 
 const Routes = (
@@ -19,7 +20,8 @@ const Routes = (
             <Route path="/login" exact strict component={Login} />
             <Route path="/login/process" exact strict component={LoginProcess} />
 
-            <PrivateRoute path="/test" exact strict component={Test} />
+            <PrivateRoute path="/binary" exact strict component={Binary} />
+            <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />
            
             {/* DASHBOARD SECTION START */}
