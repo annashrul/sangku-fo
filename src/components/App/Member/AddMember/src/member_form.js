@@ -2,9 +2,9 @@ import React,{Component} from 'react';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 import {stringifyFormData} from "helper";
-import FileBase64 from "react-file-base64";
-import Select from 'react-select'
+import File64 from "components/common/File64";
 import { Card, CardBody, CardHeader } from 'reactstrap';
+import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
 class MemberForm extends Component{
     constructor(props){
         super(props);
@@ -13,23 +13,33 @@ class MemberForm extends Component{
         this.handleLevel = this.handleLevel.bind(this);
         this.handleChangeImage = this.handleChangeImage.bind(this);
         this.state = {
-            id:'',
-            level:'',
-            level_data:[],
-            nama:'',
-            username:'',
-            password:'',
-            status:'',
-            photo:'',
+            full_name:'',
+            mobile_no:'',
+            id_card:'',
+            pin:'',
+            picture:'',
+            membership:'3a385e1d-21f7-4c73-9554-c818f0078c6f',
+            device_id:'',
+            signup_source:'',
+            sponsor:'SK5711868830',
+            upline:'SK5711868828',
+            pin_regist:'SK1D43250000',
+            prev:'',
             error:{
-                id:'',
-                level:'',
-                nama:'',
-                username:'',
-                password:'',
-                status:'',
-                photo:'',}
+                full_name:'',
+                mobile_no:'',
+                id_card:'',
+                pin:'',
+                picture:'',
+                membership:'',
+                device_id:'',
+                signup_source:'',
+                sponsor:'',
+                upline:'',
+                pin_regist:'',
+                prev:'',}
         };
+        this.handleMembership = this.handleMembership.bind(this);
     }
     getProps(param){
         if (param.detail !== undefined) {
@@ -40,7 +50,7 @@ class MemberForm extends Component{
                     username: param.detail.data.username,
                     // password: param.detail.data.password,
                     status: param.detail.data.status,
-                    photo: param.detail.data.photo,
+                    picture: param.detail.data.picture,
                     id: param.detail.data.id,
                 })
             }
@@ -53,7 +63,7 @@ class MemberForm extends Component{
                 username:'',
                 password:'',
                 status:'',
-                photo:'',
+                picture:'',
             })
         }
     }
@@ -97,7 +107,7 @@ class MemberForm extends Component{
         parseData['username'] = this.state.username;
         parseData['password'] = this.state.password;
         parseData['status'] = this.state.status;
-        parseData['photo'] = this.state.image===undefined?'':this.state.image.base64;
+        parseData['picture'] = this.state.image===undefined?'':this.state.image.base64;
         let err = this.state.error;
 
         console.log("dddddddddddddddd",parseData)
@@ -122,8 +132,8 @@ class MemberForm extends Component{
             if(parseData['password']===''||parseData['password']===undefined){
                 delete parseData.password
             }
-            if(parseData['photo']===''||parseData['photo']===undefined){
-                delete parseData.photo
+            if(parseData['picture']===''||parseData['picture']===undefined){
+                delete parseData.picture
             }
             if (this.props.detail !== undefined) {
                 console.log("tes")
@@ -135,8 +145,8 @@ class MemberForm extends Component{
                     err = Object.assign({}, err, {password:"password tidak boleh kosong"});
                     this.setState({error: err});
                 }
-                else if(parseData['photo']===''||parseData['photo']===undefined){
-                    err = Object.assign({}, err, {photo:"photo tidak boleh kosong"});
+                else if(parseData['picture']===''||parseData['picture']===undefined){
+                    err = Object.assign({}, err, {picture:"picture tidak boleh kosong"});
                     this.setState({error: err});
                 } else {
                     // this.props.dispatch(createUsers(parseData));
@@ -148,7 +158,14 @@ class MemberForm extends Component{
     }
     handleChangeImage(files) {
         this.setState({
-            image: files
+            picture: files
+        })
+    };
+    handleMembership(e,val) {
+        e.preventDefault();
+        console.log(e.target)
+        this.setState({
+            membership: val
         })
     };
     render(){
@@ -159,61 +176,134 @@ class MemberForm extends Component{
                     <form onSubmit={this.handleSubmit}>
                             <div className="row">
                                 <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Nama Lengkap</label>
-                                        <input type="text" className="form-control form-control-lg" name="nama" value={this.state.nama} onChange={this.handleChange}  />
-                                        <div className="invalid-feedback" style={this.state.error.nama!==""?{display:'block'}:{display:'none'}}>
-                                            {this.state.error.nama}
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>No. Telp.</label>
-                                        <input type="text" className="form-control form-control-lg" name="nama" value={this.state.nama} onChange={this.handleChange}  />
-                                        <div className="invalid-feedback" style={this.state.error.nama!==""?{display:'block'}:{display:'none'}}>
-                                            {this.state.error.nama}
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>No. Identitas (KTP)</label>
-                                        <input type="text" className="form-control form-control-lg" name="nama" value={this.state.nama} onChange={this.handleChange}  />
-                                        <div className="invalid-feedback" style={this.state.error.nama!==""?{display:'block'}:{display:'none'}}>
-                                            {this.state.error.nama}
-                                        </div>
-                                    </div>
+                                    <Card>
+                                        <CardBody>
+                                            <div className="form-group">
+                                                <label>Nama Lengkap</label>
+                                                <input type="text" className="form-control form-control-lg" name="full_name" value={this.state.full_name} onChange={this.handleChange}  />
+                                                <div className="invalid-feedback" style={this.state.error.full_name!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.full_name}
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>No. Telp.</label>
+                                                <input
+                                                        type="type"
+                                                        pattern="\d*"
+                                                        maxLength="14"
+                                                        className="form-control form-control-lg"
+                                                        name="mobile_no"
+                                                        value={this.state.mobile_no}
+                                                        onChange={this.handleChange}  />
+                                                <div className="invalid-feedback" style={this.state.error.mobile_no!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.mobile_no}
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>No. Identitas (KTP)</label>
+                                                <input
+                                                        type="type"
+                                                        pattern="\d*"
+                                                        maxLength="24"
+                                                        className="form-control form-control-lg"
+                                                        name="id_card"
+                                                        value={this.state.id_card}
+                                                        onChange={this.handleChange}  />
+                                                <div className="invalid-feedback" style={this.state.error.id_card!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.id_card}
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>PIN</label>
+                                                <input
+                                                        type="type"
+                                                        pattern="\d*"
+                                                        maxLength="6"
+                                                        className="form-control form-control-lg"
+                                                        name="pin"
+                                                        value={this.state.pin}
+                                                        onChange={this.handleChange}  />
+                                                <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.pin}
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="inputState" className="col-form-label">Foto {this.props.data_detail!==undefined?<small>(kosongkan apabila tidak ada perubahan.)</small>:""}</label><br/>
+                                                <File64
+                                                    multiple={ false }
+                                                    maxSize={2048} //in kb
+                                                    fileType='png, jpg' //pisahkan dengan koma
+                                                    className="mr-3 form-control-file"
+                                                    onDone={ this.handleChangeImage }
+                                                    showPreview={true}
+                                                    lang='id'
+                                                    previewLink={this.state.prev}
+                                                    previewConfig={{
+                                                        width:'200px',
+                                                        height: '200px'
+                                                    }}
+                                                    />
+                                                <div className="invalid-feedback" style={this.state.error.logo!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.logo}
+                                                </div>
+                                            </div>
+                                        </CardBody>
+                                    </Card>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Level</label>
-                                        <Select options={this.state.level_data} placeholder="Pilih Level" onChange={this.handleLevel} value={this.state.level_data.find(op => {return op.value === this.state.level})}/>
-                                        <div className="invalid-feedback"
-                                                style={this.state.error.level !== "" ? {display: 'block'} : {display: 'none'}}
-                                                >
-                                            {this.state.error.level}
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="inputState" className="col-form-label">Foto {this.props.detail!==undefined?<small>kosongkan apabila tidak akan diubah</small>:""}</label><br/>
-                                        <FileBase64
-                                            multiple={ false }
-                                            className="mr-3 form-control form-control-lg-file"
-                                            onDone={ this.handleChangeImage } />
-                                            <div className="invalid-feedback"
-                                                style={this.state.error.photo !== "" ? {display: 'block'} : {display: 'none'}}
-                                                    >
-                                                {this.state.error.photo}
+                                    <Card>
+                                        <CardBody>
+                                            <div className="form-group">
+                                                <label>Sponsor</label>
+                                                <input type="text" className="form-control form-control-lg" name="sponsor" value={this.state.sponsor} onChange={this.handleChange} readOnly />
+                                                <div className="invalid-feedback" style={this.state.error.sponsor!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.sponsor}
+                                                </div>
                                             </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Status</label>
-                                        <select className="form-control form-control-lg" name="status" defaultValue={this.state.status} value={this.state.status} onChange={this.handleChange}>
-                                            <option value="">==== Pilih ====</option>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
-                                        </select>
-                                        <div className="invalid-feedback" style={this.state.error.status!==""?{display:'block'}:{display:'none'}}>
-                                            {this.state.error.status}
-                                        </div>
-                                    </div>
+                                            <div className="form-group">
+                                                <label>Upline</label>
+                                                <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
+                                                <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.upline}
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>PIN Regist</label>
+                                                <input type="text" className="form-control form-control-lg" name="pin_regist" value={this.state.pin_regist} onChange={this.handleChange} readOnly />
+                                                <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.pin_regist}
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Membership</label>
+                                                <Tabs>
+                                                    <div className="row">
+                                                        <div className="col-md-3">
+                                                            <TabList>
+                                                                <Tab className="w-100 p-2 text-center cursor-pointer img-thumbnail mb-1" label="Core Courses" onClick={(e) =>this.handleMembership(e,0)}>Bronze</Tab>
+                                                                <Tab className="w-100 p-2 text-center cursor-pointer img-thumbnail mb-1" label="Core Courses" onClick={(e) =>this.handleMembership(e,1)}>Silver</Tab>
+                                                                <Tab className="w-100 p-2 text-center cursor-pointer img-thumbnail mb-1" label="Core Courses" onClick={(e) =>this.handleMembership(e,2)}>Platinum</Tab>
+                                                            </TabList>
+                                                        </div>
+                                                        <div className="col-md-9">
+                                                        <TabPanel>
+                                                            <Card className="bg-primary text-white"><CardBody>Bronze</CardBody></Card>
+                                                        </TabPanel>
+                                                        <TabPanel>
+                                                            <Card className="bg-info text-white"><CardBody>Silver</CardBody></Card>
+                                                        </TabPanel>
+                                                        <TabPanel>
+                                                            <Card className="bg-warning text-white"><CardBody>Platinum</CardBody></Card>
+                                                        </TabPanel>
+                                                        </div>
+                                                    </div>
+                                                </Tabs>
+                                                <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
+                                                    {this.state.error.pin_regist}
+                                                </div>
+                                            </div>
+                                        </CardBody>
+                                    </Card>
                                 </div>
                             </div>
                             <div className="form-group" style={{textAlign:"right"}}>
