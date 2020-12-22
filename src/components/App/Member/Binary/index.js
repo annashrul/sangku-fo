@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 // import jQuery from 'jquery';
-class Product extends Component{
+class Binary extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -15,6 +15,7 @@ class Product extends Component{
                 {
                    "id":25,
                    "parent_id":null,
+                   "sponsor_id":null,
                    "detail":{"name":"Mobiles"},
                    "hasChild":true,
                    "pos":"right"
@@ -22,6 +23,7 @@ class Product extends Component{
                 {
                    "id":30,
                    "parent_id":25,
+                   "sponsor_id":null,
                    "detail":{"name":"Mobiles"},
                    "hasChild":false,
                    "pos":"right"
@@ -29,6 +31,7 @@ class Product extends Component{
                 {
                    "id":26,
                    "parent_id":25,
+                   "sponsor_id":null,
                    "detail":{"name":"Mobile Phones accessories"},
                    "hasChild":true,
                    "pos":"left"
@@ -36,6 +39,7 @@ class Product extends Component{
                 {
                    "id":27,
                    "parent_id":26,
+                   "sponsor_id":null,
                    "detail":{"name":"Computer & Laptop"},
                    "hasChild":true,
                    "pos":"right"
@@ -43,6 +47,7 @@ class Product extends Component{
                 {
                    "id":31,
                    "parent_id":27,
+                   "sponsor_id":null,
                    "detail":null,
                    "hasChild":false,
                    "pos":"right"
@@ -50,6 +55,7 @@ class Product extends Component{
                 {
                    "id":32,
                    "parent_id":29,
+                   "sponsor_id":null,
                    "detail":null,
                    "hasChild":false,
                    "pos":"right"
@@ -57,6 +63,7 @@ class Product extends Component{
                 {
                    "id":33,
                    "parent_id":29,
+                   "sponsor_id":null,
                    "detail":null,
                    "hasChild":false,
                    "pos":"left"
@@ -64,6 +71,7 @@ class Product extends Component{
                 {
                    "id":28,
                    "parent_id":27,
+                   "sponsor_id":null,
                    "detail":{"name":"Laptops"},
                    "hasChild":false,
                    "pos":"left"
@@ -71,6 +79,7 @@ class Product extends Component{
                 {
                    "id":29,
                    "parent_id":26,
+                   "sponsor_id":null,
                    "detail":{"name":"Mobiles Phone"},
                    "hasChild":true,
                    "pos":"left"
@@ -82,7 +91,7 @@ class Product extends Component{
         <div key={`node_${cNode.id}`} className={`node-${cNode.pos}-item binary-level-width-50`}>
             <span className={`binary-hr-line binar-hr-line-${cNode.pos} binary-hr-line-width-25`} style={{display: cNode.parent_id===null?'none':''}}/>
             {cNode.detail===null?
-                <div className={`node-item-1-child-${cNode.pos}`}>
+                <div className={`node-item-1-child-${cNode.pos}`} onClick={(e)=>this.addNew(e,cNode)}>
                     <div className="binary-node-single-item user-block user-11">
                         <div className="images_wrapper">
                             <a href="/afl/ref/17/12/LEFT/add/new-ref?u=eyJzcG9uc29yIjoiMTIiLCJwYXJlbnQiOiIxNyIsInBvc2l0aW9uIjoiTEVGVCIsInJldHVybl9wYXRoIjoiYWZsXC9nZW5lYWxvZ3ktdHJlZSJ9">
@@ -106,9 +115,14 @@ class Product extends Component{
             </div>
         </div>
     ))
+
+    addNew(e,data){
+        e.preventDefault();
+        alert(JSON.stringify(data))
+    }
     render(){
         return (
-            <Layout page="Product">
+            <Layout page="Binary">
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
@@ -145,4 +159,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Product)
+export default connect(mapStateToProps)(Binary)

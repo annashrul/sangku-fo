@@ -61,7 +61,6 @@ export const getAlamat = (where) => {
 
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
-                console.log("ALAMAT",response);
                 const data = response.data;
                 dispatch(setData(data));
                 dispatch(setLoading(false));
@@ -80,32 +79,34 @@ export const getAlamat = (where) => {
     }
 };
 //
-// export const detailPaket = (id,where) => {
-//     return (dispatch) => {
-//         dispatch(setLoadingDetail(true));
-//         let url = `package/${id}`;
-//
-//         axios.get(HEADERS.URL + `${url}`)
-//             .then(function (response) {
-//                 const data = response.data;
-//                 dispatch(setDataDetail(data));
-//                 dispatch(setLoadingDetail(false));
-//             })
-//             .catch(function (error) {
-//                 // handle error
-//                 dispatch(setLoadingDetail(false));
-//                 if (error.message === 'Network Error') {
-//                     Swal.fire(
-//                         'Network Failed!.',
-//                         'Please check your connection',
-//                         'error'
-//                     );
-//
-//                 }
-//             })
-//
-//     }
-// };
+export const detailAlamat = (id,where) => {
+    return (dispatch) => {
+        dispatch(setLoadingDetail(true));
+        let url = `alamat/${id}`;
+        if(where){
+            url+=`?${where}`;
+        }
+        axios.get(HEADERS.URL + `${url}`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setDataDetail(data));
+                dispatch(setLoadingDetail(false));
+            })
+            .catch(function (error) {
+                // handle error
+                dispatch(setLoadingDetail(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+
+                }
+            })
+
+    }
+};
 export const postAlamat = (data) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));

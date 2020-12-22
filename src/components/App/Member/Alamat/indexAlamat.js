@@ -4,11 +4,12 @@ import Layout from 'components/Layout';
 import {DateRangePicker} from "react-bootstrap-daterangepicker";
 import moment from "moment";
 import {getAlamat} from "../../../../redux/actions/member/alamat.action";
-import Preloader from "../../../../Preloader";
 import {ModalToggle, ModalType} from "../../../../redux/actions/modal.action";
-import Paginationq, {rangeDate, toRp} from "../../../../helper";
+import Paginationq, {rangeDate} from "../../../../helper";
 import {NOTIF_ALERT} from "../../../../redux/actions/_constants";
 import FormAlamat from "../../modals/member/alamat/form_alamat"
+import Skeleton from 'react-loading-skeleton';
+
 
 class IndexAlamat extends Component{
     constructor(props){
@@ -113,7 +114,7 @@ class IndexAlamat extends Component{
                     <div className="col-12 box-margin">
                         <div className="card">
                             <div className="card-body">
-                                <div className="row" style={{zoom:"90%"}}>
+                                <div className="row">
                                     <div className="col-6 col-xs-6 col-md-2">
                                         <div className="form-group">
                                             <label>Periode </label>
@@ -137,46 +138,54 @@ class IndexAlamat extends Component{
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{overflowX: "auto",zoom:"80%"}}>
+                                <div style={{overflowX: "auto"}}>
                                     <table className="table table-hover">
                                         <thead className="bg-light">
                                         <tr>
                                             <th className="text-black" style={columnStyle}>No</th>
-                                            <th className="text-black" style={columnStyle}>#</th>
                                             <th className="text-black" style={columnStyle}>Title</th>
-                                            <th className="text-black" style={columnStyle}>Harga</th>
-                                            <th className="text-black" style={columnStyle}>PPN</th>
-                                            <th className="text-black" style={columnStyle}>Satuan</th>
-                                            <th className="text-black" style={columnStyle}>Berat</th>
+                                            <th className="text-black" style={columnStyle}>Penerima</th>
+                                            <th className="text-black" style={columnStyle}>Alamat Utama</th>
+                                            <th className="text-black" style={columnStyle}>No Telepon</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {
-                                            !this.props.isLoading ? typeof data === 'object' ? data.length > 0 ?
+                                            typeof data === 'object' ? data.length > 0 ?
                                                 data.map((v, i) => {
                                                     return (
                                                         <tr key={i}>
                                                             <td style={columnStyle}>
-                                                                <span class="circle">{i+1 + (10 * (parseInt(current_page,10)-1))}</span>
+                                                                <span className="circle">{i+1 + (10 * (parseInt(current_page,10)-1))}</span>
                                                             </td>
-                                                            <td style={columnStyle}>
-                                                                <span class="circle">{i+1 + (10 * (parseInt(current_page,10)-1))}</span>
-                                                            </td>
+
                                                             <td style={columnStyle}>{v.title}</td>
-                                                            <td style={columnStyle}>{toRp(v.harga)}</td>
-                                                            <td style={columnStyle}>{v.ppn}</td>
-                                                            <td style={columnStyle}>{v.satuan}</td>
-                                                            <td style={columnStyle}>{v.berat}</td>
+                                                            <td style={columnStyle}>{v.penerima}</td>
+                                                            <td style={columnStyle}>{v.main_address}</td>
+                                                            <td style={columnStyle}>{v.no_hp}</td>
                                                         </tr>
                                                     );
                                                 })
                                                 : <tr>
                                                     <td colSpan={7} style={columnStyle}><img src={NOTIF_ALERT.NO_DATA}/></td>
                                                 </tr>
-                                                : <tr>
-                                                    <td colSpan={7} style={columnStyle}><img src={NOTIF_ALERT.NO_DATA}/></td>
-                                                </tr>
-                                                :<Preloader/>
+
+                                                :(()=>{
+                                                    let container =[];
+                                                    for(let x=0; x<10; x++){
+                                                        container.push(
+                                                            <tr key={x}>
+                                                                <td style={columnStyle}>{<Skeleton circle={true} height={40} width={40}/>}</td>
+                                                                <td style={columnStyle}>{<Skeleton/>}</td>
+                                                                <td style={columnStyle}>{<Skeleton/>}</td>
+                                                                <td style={columnStyle}>{<Skeleton/>}</td>
+                                                                <td style={columnStyle}>{<Skeleton/>}</td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                    return container;
+                                                })()
+
                                         }
                                         </tbody>
                                     </table>

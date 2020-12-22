@@ -13,6 +13,7 @@ import {getKota} from "../../../../../redux/actions/member/kota.action";
 import {getKecamatan} from "../../../../../redux/actions/member/kecamatan.action";
 import Skeleton from 'react-loading-skeleton';
 import {postAlamat} from "../../../../../redux/actions/member/alamat.action";
+import {ToastQ} from "../../../../../helper";
 
 class FormAlamat extends Component{
     constructor(props){
@@ -123,10 +124,34 @@ class FormAlamat extends Component{
         parsedata['ismain'] = this.state.ismain;
 
         console.log(parsedata);
-        this.props.dispatch(postAlamat(parsedata));
-        if(this.props.isError===true){
-            this.clearState();
+        if(parsedata['title']===''){
+            ToastQ.fire({icon:'error',title:`title tidak boleh kosong`});
         }
+        else if(parsedata['penerima']===''){
+            ToastQ.fire({icon:'error',title:`penerima tidak boleh kosong`});
+        }
+        else if(parsedata['no_hp']===''){
+            ToastQ.fire({icon:'error',title:`penerima tidak boleh kosong`});
+        }
+        else if(parsedata['kd_prov']===''){
+            ToastQ.fire({icon:'error',title:`provinsi tidak boleh kosong`});
+        }
+        else if(parsedata['kd_kota']===''){
+            ToastQ.fire({icon:'error',title:`kota tidak boleh kosong`});
+        }
+        else if(parsedata['kd_kec']===''){
+            ToastQ.fire({icon:'error',title:`kecamatan tidak boleh kosong`});
+        }
+        else if(parsedata['main_address']===''){
+            ToastQ.fire({icon:'error',title:`detail alamat tidak boleh kosong`});
+        }
+        else{
+            this.props.dispatch(postAlamat(parsedata));
+            if(this.props.isError===true){
+                this.clearState();
+            }
+        }
+
     }
 
     render(){
