@@ -16,8 +16,7 @@ import {
     DropdownItem,
     DropdownToggle
 } from 'reactstrap';
-import Default from 'assets/default.png';
-import {getCart} from "../../redux/actions/product/cart.action";
+import {noImage} from "../../helper";
 
 class Header extends Component {
   constructor(props) {
@@ -55,7 +54,7 @@ class Header extends Component {
           toggleMobileNav:!this.state.toggleMobileNav
       })
   }
-  componentWillMount(){
+    UNSAFE_componentWillMount(){
     fetch(HEADERS.URL + `site/logo`)
         .then(res => res.json())
         .then(
@@ -100,7 +99,7 @@ class Header extends Component {
 
   }
 
-  componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
       if(nextProps.resCart.data.length !== this.state.totCart){
           this.setState({totCart:nextProps.resCart.data.length});
       }
@@ -121,6 +120,15 @@ class Header extends Component {
 
       })
   }
+
+  infoCart(e){
+      e.preventDefault();
+      Swal.fire({
+          title:"Perhatian !!",
+          text:"maaf kernjang anda masih kosong",
+          icon:"warning"
+      })
+  }
   render() {
 
       const {isShowNotif,isDay} = this.state;
@@ -130,7 +138,7 @@ class Header extends Component {
           <div className="left-side-content-area d-flex align-items-center">
               {/* Mobile Logo */}
                 <div className="mobile-logo mr-3 mr-sm-4">
-                    <Link to={'./'} ><img src="/favicon.png" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}  alt="Mobile Logo"/></Link>
+                    <Link to={'./'} ><img src="/favicon.png" onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt="Mobile Logo"/></Link>
                 </div>
               {/* <!-- Triggers --> */}
               <div className="ecaps-triggers mr-1 mr-sm-3">
@@ -161,15 +169,15 @@ class Header extends Component {
               {/* <!-- Mobile AREAAAAAA --> */}
               <div className="right-side-trigger" style={{width:'unset',height:'unset',marginRight:'unset'}} >
                 <li className="nav-item dropdown" style={{listStyleType:'none'}}>
-                    <UncontrolledButtonDropdown nav inNavbar>
-                                <DropdownToggle caret inNavbar className="nohover">
-                                    <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}  alt=""/>
+                    <UncontrolledButtonDropdown >
+                                <DropdownToggle className="nohover">
+                                    <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
                                 </DropdownToggle>
                             <DropdownMenu right>
                                 <div className="user-profile-area">
                                     <div className="user-profile-heading">
                                         <div className="profile-img">
-                                            <img className="chat-img mr-2" src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}  alt=""/>
+                                            <img className="chat-img mr-2" src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
                                         </div>
                                         <div className="profile-text">
                                             <h6>{this.props.auth.user.full_name}</h6>
@@ -189,32 +197,27 @@ class Header extends Component {
               {/* <!-- Top Bar Nav --> */}
               <ul className={"right-side-content d-flex align-items-center " + (this.state.toggleMobileNav === true? "active":"")}>
                   <li className="nav-item dropdown">
-                        <UncontrolledButtonDropdown nav inNavbar>
-                                <DropdownToggle caret inNavbar className="nohover">
-                                    <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}  alt=""/>
+                        <UncontrolledButtonDropdown>
+                                <DropdownToggle className="nohover">
+                                    <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
                                     <div className="user-name">
-                                        <table>
-                                            <tr>
-                                                <td className="fs1">
-                                                    <p>{this.props.auth.user.full_name}</p>
-                                                    <span>{this.props.auth.user.referral_code}</span>
+                                        <div className={"d-flex justify-content-between align-items-center"}>
+                                            <div className="fs1">
+                                                <p>{this.props.auth.user.full_name}</p>
+                                                <span>{this.props.auth.user.referral_code}</span>
+                                            </div>
+                                            <div className="fs1"  style={{paddingLeft:'10px'}}>
+                                                <p><i className="fa fa-angle-down lnr"/></p>
 
-                                                </td>
-                                                <td className="fs1"  style={{paddingLeft:'10px'}}>
-                                                    <p>
-                                                    <i class="fa fa-angle-down lnr"></i>
-                                                    </p>
-
-                                                </td>
-                                            </tr>
-                                        </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </DropdownToggle>
                             <DropdownMenu right>
                                 <div className="user-profile-area">
                                     <div className="user-profile-heading">
                                         <div className="profile-img">
-                                            <img className="chat-img mr-2" src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}  alt=""/>
+                                            <img className="chat-img mr-2" src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
                                         </div>
                                         <div className="profile-text">
                                             <h6>{this.props.auth.user.full_name}</h6>
@@ -228,12 +231,22 @@ class Header extends Component {
                             </DropdownMenu>
                         </UncontrolledButtonDropdown>
                   </li>
-                  <li className="nav-item dropdown">
-                     <Link to={"/cart"}>
-                         <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
-                         <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
-                     </Link>
-                  </li>
+                  {
+                      parseInt(localStorage.totCart,10)>0?(
+                          <li className="nav-item dropdown">
+                              <Link to={"/cart"}>
+                                  <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                                  <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                              </Link>
+                          </li>
+                      ):(
+                          <li className="nav-item dropdown" onClick={this.infoCart.bind(this)}>
+                              <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                              <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                          </li>
+                      )
+                  }
+
                 </ul>
           </div>
       </header>

@@ -11,9 +11,7 @@ import tshirt from "../../../../assets/tshirt.png"
 import bags from "../../../../assets/bags.png"
 import jacket from "../../../../assets/jacket.png"
 import jas from "../../../../assets/jas.png"
-// import shoes from "../../../../assets/shoes.png"
 import bycrypt from 'bcryptjs';
-
 import ParticlesBg from "particles-bg";
 import {sendOtp} from "../../../../redux/actions/authActions";
 
@@ -30,7 +28,7 @@ export const RenderImages = () =>
     {
         const [props, set] = useSpring(() => ({ xy: [0, 0], config: { mass: 10, tension: 550, friction: 140 } }))
         return(
-            <div class="container-a" onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}>
+            <div className="container-a" onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}>
                 <animated.div class="card1" style={{ transform: props.xy.interpolate(trans1) }}><img src={jacket} alt="img"/></animated.div>
                 <animated.div class="card2" style={{ transform: props.xy.interpolate(trans2) }}><img src={jas} alt="img"/></animated.div>
                 <animated.div class="card3" style={{ transform: props.xy.interpolate(trans3) }}><img src={tshirt} alt="img"/></animated.div>
@@ -276,9 +274,9 @@ class Login extends Component {
                                                     name="email"
                                                     value={email}
                                                     onChange={this.handleInputChange}/>
-                                                    <span class="focus-input100"></span>
-                                                    <span class="symbol-input100">
-                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    <span className="focus-input100"/>
+                                                    <span className="symbol-input100">
+                                                        <i className="fa fa-envelope" aria-hidden="true"/>
                                                     </span>
                                                 {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                                             </div>
@@ -291,9 +289,9 @@ class Login extends Component {
                                                     name="password"
                                                     value={password}
                                                     onChange={this.handleInputChange}/>
-                                                    <span class="focus-input100"></span>
-                                                    <span class="symbol-input100">
-                                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                                    <span className="focus-input100"/>
+                                                    <span className="symbol-input100">
+                                                        <i className="fa fa-lock" aria-hidden="true"/>
                                                     </span>
                                                 {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                                             </div>
@@ -320,9 +318,9 @@ class Login extends Component {
                                                         name="otp_val"
                                                         value={otp_val}
                                                         onChange={this.handleInputChange}/>
-                                                        <span class="focus-input100"></span>
-                                                        <span class="symbol-input100">
-                                                            <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                                        <span className="focus-input100"/>
+                                                        <span className="symbol-input100">
+                                                            <i className="fa fa-asterisk" aria-hidden="true"/>
                                                         </span>
                                                     {errors.otp_val && (<div className="invalid-feedback">{errors.otp_val}</div>)}
                                                 </div>
@@ -354,9 +352,9 @@ class Login extends Component {
                                                         name="nohp"
                                                         value={nohp}
                                                         onChange={this.handleInputChange}/>
-                                                        <span class="focus-input100"></span>
-                                                        <span class="symbol-input100">
-                                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                                        <span className="focus-input100"/>
+                                                        <span className="symbol-input100">
+                                                            <i className="fa fa-phone" aria-hidden="true"/>
                                                         </span>
                                                     {errors.nohp && (<div className="invalid-feedback">{errors.nohp}</div>)}
                                                 </div>
@@ -370,14 +368,14 @@ class Login extends Component {
                                         </div>
                                         :''
                                     }
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
                                 </form>
                             </div>
                         </div>

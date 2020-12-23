@@ -140,3 +140,83 @@ export const PIN = {
   FAILED: 'FAILED_PIN',
   DETAIL: 'DETAIL_PIN'
 }
+/****************
+ BANK
+ *****************/
+export const BANK = {
+    LOADING: 'SET_BANK_LOADING',
+    LOADING_POST: 'SET_BANK_LOADING_POST',
+    LOADING_DETAIL: 'SET_BANK_LOADING_DETAIL',
+    IS_ERROR: 'SET_BANK_IS_ERROR',
+    SUCCESS: 'SUCCESS_BANK',
+    FAILED: 'FAILED_BANK',
+    DETAIL: 'DETAIL_BANK',
+}
+
+/****************
+ CHECKOUT
+ *****************/
+export const CHECKOUT = {
+    LOADING: 'SET_CHECKOUT_LOADING',
+    LOADING_POST: 'SET_CART_LOADING_POST',
+    IS_ERROR: 'SET_CART_IS_ERROR',
+    SUCCESS: 'SUCCESS_CHECKOUT',
+
+}
+
+
+/****************
+ ALAMAT
+ *****************/
+export const ALAMAT = {
+    LOADING: 'SET_ALAMAT_LOADING',
+    LOADING_POST: 'SET_ALAMAT_LOADING_POST',
+    LOADING_DETAIL: 'SET_ALAMAT_LOADING_DETAIL',
+    IS_ERROR: 'SET_ALAMAT_IS_ERROR',
+    SUCCESS: 'SUCCESS_ALAMAT',
+    FAILED: 'FAILED_ALAMAT',
+    DETAIL: 'DETAIL_ALAMAT',
+}
+
+
+/****************
+ KURIR
+ *****************/
+export const KURIR = {
+    LOADING: 'SET_KURIR_LOADING',
+    SUCCESS: 'SUCCESS_KURIR',
+}
+
+/****************
+ ONGKIR
+ *****************/
+export const ONGKIR = {
+    LOADING: 'SET_ONGKIR_LOADING',
+    LOADING_POST: 'SET_ONGKIR_LOADING_POST',
+    IS_ERROR: 'SET_ONGKIR_IS_ERROR',
+    SUCCESS: 'SUCCESS_ONGKIR',
+}
+
+/****************
+ PROVINSI
+ *****************/
+export const PROVINSI = {
+    LOADING: 'SET_PROVINSI_LOADING',
+    SUCCESS: 'SUCCESS_PROVINSI',
+}
+
+/****************
+ KOTA
+ *****************/
+export const KOTA = {
+    LOADING: 'SET_KOTA_LOADING',
+    SUCCESS: 'SUCCESS_KOTA',
+}
+
+/****************
+ KECAMATAN
+ *****************/
+export const KECAMATAN = {
+    LOADING: 'SET_KECAMATAN_LOADING',
+    SUCCESS: 'SUCCESS_KECAMATAN',
+}

@@ -1,58 +1,59 @@
 import axios from "axios"
 import Swal from "sweetalert2";
-import {PAKET, HEADERS} from "../_constants";
+import {BANK, HEADERS} from "../_constants";
+
 
 export function setLoading(load) {
     return {
-        type: PAKET.LOADING,
+        type: BANK.LOADING,
         load
     }
 }
 
 export function setLoadingDetail(load) {
     return {
-        type: PAKET.LOADING_DETAIL,
+        type: BANK.LOADING_DETAIL,
         load
     }
 }
 export function setLoadingPost(load) {
     return {
-        type: PAKET.LOADING_POST,
+        type: BANK.LOADING_POST,
         load
     }
 }
 export function setIsError(load) {
     return {
-        type: PAKET.IS_ERROR,
+        type: BANK.IS_ERROR,
         load
     }
 }
 
 export function setData(data = []) {
     return {
-        type: PAKET.SUCCESS,
+        type: BANK.SUCCESS,
         data
     }
 }
 
 export function setDataDetail(data = []) {
     return {
-        type: PAKET.DETAIL,
+        type: BANK.DETAIL,
         data
     }
 }
 
 export function setDataFailed(data = []) {
     return {
-        type: PAKET.FAILED,
+        type: BANK.FAILED,
         data
     }
 }
 
-export const getPaket = (where) => {
+export const getBank = (where) => {
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = 'package';
+        let url = 'bank';
         if(where){
             url+=`?${where}`;
         }
@@ -60,7 +61,6 @@ export const getPaket = (where) => {
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
                 const data = response.data;
-                console.log(data);
                 dispatch(setData(data));
                 dispatch(setLoading(false));
             })
@@ -77,5 +77,3 @@ export const getPaket = (where) => {
 
     }
 };
-
-

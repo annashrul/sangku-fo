@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Card, CardBody, CardHeader} from "reactstrap";
+import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
-import Skeleton from 'react-loading-skeleton';
-import {toRp} from "../../../helper";
+import {noImage, toRp} from "../../../helper";
 import {deleteCart, getCart, postCart} from "../../../redux/actions/product/cart.action";
 import Swal from "sweetalert2";
 import { Link } from 'react-router-dom';
@@ -18,10 +17,10 @@ class IndexCart extends Component{
             res_cart:[],
         }
     }
-    componentWillMount(){
+    UNSAFE_componentWillMount(){
         this.props.dispatch(getCart());
     }
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
         let data=[];
         if(nextProps.resCart!==undefined){
             if(nextProps.resCart.length>0){
@@ -68,14 +67,14 @@ class IndexCart extends Component{
     handleDelete(e,id){
         e.preventDefault();
         Swal.fire({
-            title: 'Warning !!!',
-            text: "Are you sure delete this data ??",
+            title: 'Perhatian !!!',
+            text: "Apakah anda yakin akan menghapus data ini ??",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Oke',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Ya, hapus',
+            cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.value) {
                 this.props.dispatch(deleteCart(id));
@@ -114,12 +113,12 @@ class IndexCart extends Component{
                                                     return (
                                                         <tr key={i}>
                                                             <td className="text-left">
-                                                                <img src={v.foto} alt="contact-img" title="contact-img" className="round mr-3 product-thumb" />
+                                                                <img src={noImage()} alt="contact-img" title="contact-img" className="round mr-3 product-thumb" />
                                                                 <p className="m-0 d-inline-block align-middle font-16">
-                                                                    <a href="javascript:void(0);" className="text-body">{v.title}</a>
+                                                                    {v.title}
                                                                     <br/>
                                                                     <small className="mr-2"><b>Kategori:</b> {v.kategori} </small>
-                                                                    <small><b>Berat:</b> {toRp(parseInt(v.berat)*parseInt(v.qty))}
+                                                                    <small><b>Berat:</b> {toRp(parseInt(v.berat,10)*parseInt(v.qty,10))}
                                                                     </small>
                                                                 </p>
                                                             </td>
@@ -132,11 +131,11 @@ class IndexCart extends Component{
                                                             </td>
                                                             <td>
                                                                 {
-                                                                    toRp(parseInt(v.harga)*parseInt(v.qty))
+                                                                    toRp(parseInt(v.harga,10)*parseInt(v.qty,10))
                                                                 }
                                                             </td>
                                                             <td>
-                                                                <a href="javascript:void(0);" className="action-icon" onClick={(event)=>this.handleDelete(event,v.id)}> <i className="zmdi zmdi-delete"/></a>
+                                                                <button className="action-icon" onClick={(event)=>this.handleDelete(event,v.id)}> <i className="zmdi zmdi-delete"/></button>
                                                             </td>
                                                         </tr>
                                                     );

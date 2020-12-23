@@ -9,7 +9,10 @@ import Dashboard from '../App/Member/Dashboard/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';
 import IndexCart from '../App/transaction/indexCart';
 import IndexCheckout from '../App/transaction/indexCheckout';
+import IndexInvoice from '../App/transaction/indexInvoice';
 import AddMember from '../App/Member/AddMember';
+import IndexAlamat from '../App/Member/Alamat/indexAlamat';
+import Test from '../App/Masterdata/user';
 import Binary from '../App/Member/Binary';
 import Sponsor from '../App/Member/Sponsor';
 import Testt from '../App/Masterdata/test';
@@ -26,11 +29,13 @@ const Routes = (
            
             {/* DASHBOARD SECTION START */}
             <PrivateRoute path="/" exact strict component={Dashboard} />
+            <PrivateRoute path="/alamat" exact strict component={IndexAlamat} />
             {/* DASHBOARD SECTION END */}
             {/* TRANSACTION SECTION START */}
             <PrivateRoute path="/product" exact strict component={IndexProduct} />
             <PrivateRoute path="/cart" exact strict component={IndexCart} />
             <PrivateRoute path="/checkout" exact strict component={IndexCheckout} />
+            <PrivateRoute path="/invoice" exact strict component={IndexInvoice} />
             {/* TRANSACTION SECTION END */}
 
             <PrivateRoute path="/member/add" exact strict component={AddMember} />

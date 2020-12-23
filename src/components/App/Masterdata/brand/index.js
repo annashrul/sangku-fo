@@ -17,7 +17,7 @@ class Brand extends Component{
             by : localStorage.getItem('by_brand'),
         };
     }
-    componentWillReceiveProps = (nextProps) => {
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
             // let access = nextProps.auth.user.access;
             // if(access!==undefined&&access!==null){
@@ -31,7 +31,7 @@ class Brand extends Component{
             // }
         }
     }
-    componentWillMount(){
+    UNSAFE_componentWillMount(){
         let anyBrand = localStorage.getItem("any_brand");
         let pageBrand = localStorage.getItem("page_brand");
         this.props.dispatch(FetchBrand(pageBrand?pageBrand:1,anyBrand?anyBrand:''));
