@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import {noImage, toRp} from "../../../../helper";
+import {noImage, toCurrency, toRp} from "../../../../helper";
 import {getPaket} from "../../../../redux/actions/product/paket.action";
 import {getCart, postCart} from "../../../../redux/actions/product/cart.action";
 
@@ -10,6 +10,7 @@ class IndexRegister extends Component{
     constructor(props){
         super(props);
         this.handleCart    = this.handleCart.bind(this);
+        this.handleDetail    = this.handleDetail.bind(this);
     }
 
     componentWillMount(){
@@ -25,6 +26,10 @@ class IndexRegister extends Component{
             "qty":1
         };
         this.props.dispatch(postCart(data,'a'));
+    }
+    handleDetail(e,i){
+        e.preventDefault();
+        alert(i);
     }
 
     render(){
@@ -44,27 +49,36 @@ class IndexRegister extends Component{
                                             <a className="product-thumb" href="#!">
                                                 <img src={v.foto} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/>
                                             </a>
-                                            <h4 className="product-price">{toRp(v.harga)}</h4>
-                                            <div className="badge badge-success badge-pill mb-20">{v.kategori}</div>
+                                            <div className="product-price">
+                                                <h4 className="text-green" style={{color:"green"}}>Rp {toCurrency(v.harga)} .-</h4>
+                                            </div>
                                             <div className="product-sell-info">
                                                 <div className="row">
                                                     <div className="col-6 text-center border-right">
-                                                        <span className="font-17 text-dark mb-0 font-weight-bold">{v.stock}</span>
-                                                        <span className="d-block font-14">Stock</span>
+                                                        <span className="font-17 text-dark mb-0 font-weight-bold"><img style={{width:"30px"}} src={v.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/></span>
+                                                        <span className="d-block font-14">{v.kategori}</span>
                                                     </div>
                                                     <div className="col-6 text-center">
-                                                        <span className="font-17 text-dark mb-0 font-weight-bold">{v.jumlah_pin}</span>
-                                                        <span className="d-block font-14">Jumlah PIN</span>
+                                                        <span className="font-17 text-dark mb-0 font-weight-bold">{v.point_volume}</span>
+                                                        <span className="d-block font-14">PV</span>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            {v.deskripsi}
 
+                                            <div className="product-sell-info">
+                                                <div className="row">
+                                                    <div className="col-7 text-left">
+                                                        <a className="btn btn-primary" href="#" onClick={(event)=>this.handleCart(event,i)}><i className={"fa fa-shopping-cart"}/> Keranjang</a>
+                                                    </div>
+                                                    <div className="col-5 text-right">
+                                                        <a className="btn btn-success" href="#" onClick={(event)=>this.handleDetail(event,i)}><i className={"fa fa-eye"}/> Detail</a>
+                                                    </div>
 
-                                            <div className="product-buttons">
-                                                <a className="btn btn-primary mt-30" href="#" onClick={(event)=>this.handleCart(event,i)}>+ keranjang</a>
+                                                </div>
                                             </div>
+
+
                                         </div>
                                     </div>
                                 </div>
