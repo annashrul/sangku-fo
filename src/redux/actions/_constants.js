@@ -44,6 +44,8 @@ export const MODALS = {
       AUTH
 *****************/
 export const AUTH = {
+  LOADING: 'SET_AUTH_LOADING',
+  REGISTERED: 'SET_AUTH_REGISTERED',
   FETCH_DATAS:'FETCH_DATAS',
   GET_ERRORS:'GET_ERRORS',
   TEST_DISPATCH:'TEST_DISPATCH',
@@ -127,7 +129,17 @@ export const CART = {
     FAILED: 'FAILED_CART',
     DETAIL: 'DETAIL_CART',
 }
-
+/****************
+ PIN
+ *****************/
+export const PIN = {
+  LOADING: 'SET_PIN_LOADING',
+  SUCCESS: 'SUCCESS_PIN',
+  SUCCESS_AVAILABLE: 'SUCCESS_PIN_AVAILABLE',
+  SUCCESS_DETAIL: 'SUCCESS_PIN_DETAIL',
+  FAILED: 'FAILED_PIN',
+  DETAIL: 'DETAIL_PIN'
+}
 /****************
  BANK
  *****************/

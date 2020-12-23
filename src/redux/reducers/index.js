@@ -7,6 +7,7 @@ import {siteReducer} from './site.reducer';
 import {productReducer} from "./product/product.reducer";
 import {paketReducer} from "./product/paket.reducer";
 import {cartReducer} from "./product/cart.reducer";
+import {pinReducer} from "./pin/pin.reducer";
 import {checkoutReducer} from "./product/checkout.reducer";
 import {alamatReducer} from "./member/alamat.reducer";
 import {provinsiReducer} from "./member/provinsi.reducer";
@@ -31,6 +32,7 @@ export default combineReducers({
     bankReducer,
     bankMemberReducer,
     cartReducer,
+    pinReducer,
     checkoutReducer,
     alamatReducer,
     kurirReducer,
