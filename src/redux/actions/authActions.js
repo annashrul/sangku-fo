@@ -55,7 +55,42 @@ export const sendOtp = (userData) =>
     }
 
 
-
+    export const createMember = (data) => {
+        return (dispatch) => {
+            dispatch(setLoading(true))
+            const url = HEADERS.URL + `auth/register`;
+            axios.post(url, data)
+                .then(function (response) {
+                    const data = (response.data)
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Success',
+                            type: 'success',
+                            text: data.msg,
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'failed',
+                            type: 'error',
+                            text: data.msg,
+                        });
+                    }
+                    // window.location.reload();
+                    dispatch(setLoading(false));
+                    dispatch(setRegistered(true));
+                })
+                .catch(function (error) {
+                    dispatch(setLoading(false));
+                    Swal.fire({
+                        title: 'failed',
+                        type: 'error',
+                        text: error.response.data.msg,
+                    });
+                    if (error.response) {
+                    }
+                })
+        }
+    }
 
 // Login user -- get token
 export const loginUser = (userData) =>
@@ -123,6 +158,14 @@ export const loginUser = (userData) =>
             
         });
     }
+
+export function setLoading(load){
+    return {type : AUTH.LOADING,load}
+}
+
+export function setRegistered(load){
+    return {type : AUTH.REGISTERED,load}
+}
 
 export function setIsError(load) {
     return {

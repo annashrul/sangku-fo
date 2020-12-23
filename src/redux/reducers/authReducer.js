@@ -4,10 +4,12 @@ const initialState = {
     isAuthenticated: false,
     user: {},
     isErrorNo:false,
+    isLoading:false,
+    isRegistered:false
 }
 
 export default function(state= initialState, action){
-    switch(action.type){  
+    switch(action.type){
         case AUTH.SET_CURRENT_USER:
             return{
                 ...state,
@@ -26,6 +28,14 @@ export default function(state= initialState, action){
         case AUTH.IS_ERROR_NO:
             return Object.assign({}, state, {
                 isErrorNo: action.load
+            });
+        case AUTH.LOADING:
+            return Object.assign({}, state, {
+                isLoading: action.load
+            });
+        case AUTH.REGISTERED:
+            return Object.assign({}, state, {
+                isRegistered: action.load
             });
         default:
             return state;

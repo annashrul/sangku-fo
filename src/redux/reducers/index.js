@@ -7,6 +7,7 @@ import {siteReducer} from './site.reducer';
 import {productReducer} from "./product/product.reducer";
 import {paketReducer} from "./product/paket.reducer";
 import {cartReducer} from "./product/cart.reducer";
+import {pinReducer} from "./pin/pin.reducer";
 
 
 export default combineReducers({
@@ -17,6 +18,7 @@ export default combineReducers({
     productReducer,
     paketReducer,
     cartReducer,
+    pinReducer,
     auth: authReducer,
     errors : errorsReducer
 });
