@@ -37,6 +37,7 @@ export const getInvoice = () => {
         let url = `transaction/get_payment/${localStorage.kdTrxInvoice}`;
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
+                console.log(response);
                 const data = response.data;
                 console.log(data);
                 dispatch(setData(data));

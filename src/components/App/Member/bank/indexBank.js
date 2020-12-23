@@ -3,16 +3,16 @@ import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import {DateRangePicker} from "react-bootstrap-daterangepicker";
 import moment from "moment";
-import {deleteAlamat, getAlamat} from "../../../../redux/actions/member/alamat.action";
 import {ModalToggle, ModalType} from "../../../../redux/actions/modal.action";
 import Paginationq, {rangeDate} from "../../../../helper";
 import {NOTIF_ALERT} from "../../../../redux/actions/_constants";
-import FormAlamat from "../../modals/member/alamat/form_alamat"
+import FormBankMember from "../../modals/member/bank_member/form_bank_member"
 import Skeleton from 'react-loading-skeleton';
 import * as Swal from "sweetalert2";
+import {deleteBankMember, getBankMember} from "../../../../redux/actions/member/bankMember.action";
 
 
-class IndexAlamat extends Component{
+class IndexBank extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -29,7 +29,7 @@ class IndexAlamat extends Component{
 
     }
     componentWillMount(){
-        this.props.dispatch(getAlamat(`page=1`));
+        this.props.dispatch(getBankMember(`page=1`));
     }
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value});
@@ -37,12 +37,12 @@ class IndexAlamat extends Component{
 
     handleValidate(){
         let where="";
-        let page = localStorage.getItem("pageBarang");
+        let page = localStorage.getItem("pageBankMember");
         let dateFrom = this.state.dateFrom;
         let dateTo = this.state.dateTo;
         let any = this.state.any;
-        localStorage.setItem("dateFromBarang",`${dateFrom}`);
-        localStorage.setItem("dateToBarang",`${dateTo}`);
+        localStorage.setItem("dateFromBankMember",`${dateFrom}`);
+        localStorage.setItem("dateToBankMember",`${dateTo}`);
 
         if(page!==null&&page!==undefined&&page!==""){
             where+=`page=${page}`;
@@ -61,9 +61,9 @@ class IndexAlamat extends Component{
     }
 
     handlePage(pageNumber){
-        localStorage.setItem("pageBarang",pageNumber);
+        localStorage.setItem("pageBankMember",pageNumber);
         let where = this.handleValidate();
-        this.props.dispatch(getAlamat(where));
+        this.props.dispatch(getBankMember(where));
 
     }
     handleEvent = (event, picker) => {
@@ -77,29 +77,25 @@ class IndexAlamat extends Component{
     handleSearch(e){
         e.preventDefault();
         let where = this.handleValidate();
-        this.props.dispatch(getAlamat(where));
+        this.props.dispatch(getBankMember(where));
     }
 
     handleModal(e,i){
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("formAlamat"));
+        this.props.dispatch(ModalType("FormBankMember"));
         if(i!==''){
+            console.log(this.props.data.data[i].id);
             this.setState({detail:{
+
                 "id":this.props.data.data[i].id,
-                "id_member":this.props.data.data[i].id_member,
-                "title":this.props.data.data[i].title,
-                "penerima":this.props.data.data[i].penerima,
-                "main_address": this.props.data.data[i].main_address,
-                "kd_prov":this.props.data.data[i].kd_prov,
-                "kd_kota":this.props.data.data[i].kd_kota,
-                "kd_kec": this.props.data.data[i].kd_kec,
-                "no_hp": this.props.data.data[i].no_hp,
-                "ismain": this.props.data.data[i].ismain,
+                "bank_name":this.props.data.data[i].bank_name,
+                "acc_name":this.props.data.data[i].acc_name,
+                "acc_no": this.props.data.data[i].acc_no,
             }});
         }
         else{
-            this.setState({detail:{id:"",isMain:this.props.data.length>0?0:1}});
+            this.setState({detail:{id:""}});
         }
 
     }
@@ -117,7 +113,7 @@ class IndexAlamat extends Component{
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.value) {
-                this.props.dispatch(deleteAlamat(id));
+                this.props.dispatch(deleteBankMember(id));
             }
         })
     }
@@ -138,11 +134,11 @@ class IndexAlamat extends Component{
         } = this.props.data;
 
         return(
-            <Layout page={"Alamat"}>
+            <Layout page={"Bank"}>
                 <div className="row align-items-center">
                     <div className="col-6">
                         <div className="dashboard-header-title mb-3">
-                            <h5 className="mb-0 font-weight-bold">Alamat</h5>
+                            <h5 className="mb-0 font-weight-bold">Bank</h5>
                         </div>
                     </div>
                 </div>
@@ -180,10 +176,9 @@ class IndexAlamat extends Component{
                                         <tr>
                                             <th className="text-black" style={columnStyle}>No</th>
                                             <th className="text-black" style={columnStyle}>#</th>
-                                            <th className="text-black" style={columnStyle}>Title</th>
-                                            <th className="text-black" style={columnStyle}>Penerima</th>
-                                            <th className="text-black" style={columnStyle}>Alamat Utama</th>
-                                            <th className="text-black" style={columnStyle}>No Telepon</th>
+                                            <th className="text-black" style={columnStyle}>Nama</th>
+                                            <th className="text-black" style={columnStyle}>Nama Akun</th>
+                                            <th className="text-black" style={columnStyle}>No Akun</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -201,10 +196,9 @@ class IndexAlamat extends Component{
                                                             </td>
 
 
-                                                            <td style={columnStyle}>{v.title}</td>
-                                                            <td style={columnStyle}>{v.penerima}</td>
-                                                            <td style={columnStyle}>{v.main_address}</td>
-                                                            <td style={columnStyle}>{v.no_hp}</td>
+                                                            <td style={columnStyle}>{v.bank_name}</td>
+                                                            <td style={columnStyle}>{v.acc_name}</td>
+                                                            <td style={columnStyle}>{v.acc_no}</td>
                                                         </tr>
                                                     );
                                                 })
@@ -218,7 +212,6 @@ class IndexAlamat extends Component{
                                                         container.push(
                                                             <tr key={x}>
                                                                 <td style={columnStyle}>{<Skeleton circle={true} height={40} width={40}/>}</td>
-                                                                <td style={columnStyle}>{<Skeleton/>}</td>
                                                                 <td style={columnStyle}>{<Skeleton/>}</td>
                                                                 <td style={columnStyle}>{<Skeleton/>}</td>
                                                                 <td style={columnStyle}>{<Skeleton/>}</td>
@@ -245,7 +238,7 @@ class IndexAlamat extends Component{
                     </div>
                 </div>
                 {
-                    this.props.isOpen===true?<FormAlamat
+                    this.props.isOpen===true?<FormBankMember
                         detail={this.state.detail}
                     />:null
                 }
@@ -257,11 +250,11 @@ class IndexAlamat extends Component{
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        isLoading: state.alamatReducer.isLoading,
+        isLoading: state.bankMemberReducer.isLoading,
         isOpen:state.modalReducer,
-        data:state.alamatReducer.data,
+        data:state.bankMemberReducer.data,
     }
 }
 
 
-export default connect(mapStateToProps)(IndexAlamat);
+export default connect(mapStateToProps)(IndexBank);

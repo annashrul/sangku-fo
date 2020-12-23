@@ -204,7 +204,7 @@ class IndexCheckout extends Component{
         e.preventDefault();
         let data={
             "ongkir"                : this.state.totOngkir,
-            "layanan_pengiriman"    : this.state.layanan,
+            "layanan_pengiriman"    : `${this.state.kurir}|${this.state.layanan}`,
             "type"                  : 0,
             "alamat"                : this.state.valAlamat.id,
             "metode_pembayaran"     : this.state.metode_pembayaran,
@@ -345,7 +345,7 @@ class IndexCheckout extends Component{
                                                                             <p>{v.acc_name} <br/> {v.acc_no}</p>
                                                                         </div>
                                                                         <div className="icon">
-                                                                            <i className={`fa ${this.state.bank===i?'fa-check':'fa-arrow-right'} font-40 text-primary`}/>
+                                                                            <i className={`fa ${this.state.bank===i?'fa-check':'fa-angle-double-right'} font-40 text-primary`}/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
