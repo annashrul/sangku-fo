@@ -116,8 +116,8 @@ class Login extends Component {
             }.bind(this), 500)
         }
         this.getProps(nextProps)
-        //debug otp
-        this.setState({otp_val:this.props.auth.user.otp})
+        
+        this.setState({otp_val:this.props.auth.user.otp_anying})
      }
      componentWillMount(){
         this.getProps(this.props);
