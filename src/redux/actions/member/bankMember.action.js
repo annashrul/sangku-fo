@@ -1,60 +1,61 @@
 import axios from "axios"
 import Swal from "sweetalert2";
-import {ALAMAT, HEADERS, NOTIF_ALERT} from "../_constants";
+import {BANK_MEMBER, HEADERS, NOTIF_ALERT} from "../_constants";
 import {ModalToggle} from "../modal.action";
+
 
 
 export function setLoading(load) {
     return {
-        type: ALAMAT.LOADING,
+        type: BANK_MEMBER.LOADING,
         load
     }
 }
 
 export function setLoadingDetail(load) {
     return {
-        type: ALAMAT.LOADING_DETAIL,
+        type: BANK_MEMBER.LOADING_DETAIL,
         load
     }
 }
 export function setLoadingPost(load) {
     return {
-        type: ALAMAT.LOADING_POST,
+        type: BANK_MEMBER.LOADING_POST,
         load
     }
 }
 export function setIsError(load) {
     return {
-        type: ALAMAT.IS_ERROR,
+        type: BANK_MEMBER.IS_ERROR,
         load
     }
 }
 
 export function setData(data = []) {
     return {
-        type: ALAMAT.SUCCESS,
+        type: BANK_MEMBER.SUCCESS,
         data
     }
 }
 
 export function setDataDetail(data = []) {
     return {
-        type: ALAMAT.DETAIL,
+        type: BANK_MEMBER.DETAIL,
         data
     }
 }
 
 export function setDataFailed(data = []) {
     return {
-        type: ALAMAT.FAILED,
+        type: BANK_MEMBER.FAILED,
         data
     }
 }
 
-export const getAlamat = (where) => {
+export const getBankMember = (where) => {
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = 'alamat';
+        let url = 'bank_member';
         if(where){
             url+=`?${where}`;
         }
@@ -78,42 +79,13 @@ export const getAlamat = (where) => {
 
     }
 };
-//
-export const detailAlamat = (id,where) => {
-    return (dispatch) => {
-        dispatch(setLoadingDetail(true));
-        let url = `alamat/${id}`;
-        if(where){
-            url+=`?${where}`;
-        }
-        axios.get(HEADERS.URL + `${url}`)
-            .then(function (response) {
-                const data = response.data;
-                dispatch(setDataDetail(data));
-                dispatch(setLoadingDetail(false));
-            })
-            .catch(function (error) {
-                // handle error
-                dispatch(setLoadingDetail(false));
-                if (error.message === 'Network Error') {
-                    Swal.fire(
-                        'Network Failed!.',
-                        'Please check your connection',
-                        'error'
-                    );
 
-                }
-            })
 
-    }
-};
-
-export const postAlamat = (data) => {
+export const postBankMember = (data) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
-        const url = HEADERS.URL + `alamat`;
-        console.log("DATA ALAMAT",data);
+        const url = HEADERS.URL + `bank_member`;
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);
@@ -125,7 +97,7 @@ export const postAlamat = (data) => {
                     });
                     dispatch(setIsError(true));
                     dispatch(ModalToggle(false));
-                    dispatch(getAlamat('page=1'));
+                    dispatch(getBankMember('page=1'));
                 } else {
                     Swal.fire({
                         title: 'failed',
@@ -163,11 +135,11 @@ export const postAlamat = (data) => {
             })
     }
 }
-export const putAlamat = (data,id) => {
+export const putBankMember = (data,id) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
-        const url = HEADERS.URL + `alamat/${id}`;
+        const url = HEADERS.URL + `bank_member/${id}`;
         axios.put(url,data)
             .then(function (response) {
                 const data = (response.data);
@@ -179,7 +151,7 @@ export const putAlamat = (data,id) => {
                     });
                     dispatch(setIsError(true));
                     dispatch(ModalToggle(false));
-                    dispatch(getAlamat('page=1'));
+                    dispatch(getBankMember('page=1'));
                 } else {
                     Swal.fire({
                         title: 'failed',
@@ -219,7 +191,7 @@ export const putAlamat = (data,id) => {
             })
     }
 }
-export const deleteAlamat = (id) => async dispatch =>{
+export const deleteBankMember = (id) => async dispatch =>{
     Swal.fire({
         title: 'Tunggu sebentar.',
         html: NOTIF_ALERT.CHECKING,
@@ -229,7 +201,7 @@ export const deleteAlamat = (id) => async dispatch =>{
         onClose: () => {}
     })
 
-    axios.delete(HEADERS.URL+`alamat/${id}`)
+    axios.delete(HEADERS.URL+`bank_member/${id}`)
         .then(response=>{
             setTimeout(
                 function () {
@@ -249,7 +221,7 @@ export const deleteAlamat = (id) => async dispatch =>{
                         });
                     }
                     dispatch(setLoading(false));
-                    dispatch(getAlamat('page=1'));
+                    dispatch(getBankMember('page=1'));
                 },800)
 
         }).catch(error =>{

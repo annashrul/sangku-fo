@@ -6,20 +6,50 @@ import {getInvoice} from "../../../redux/actions/product/checkout.action";
 import moment from 'moment';
 import FormUploadBuktiTransfer from '../modals/member/form_upload_bukti_transfer';
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
+import {cancelDeposit} from "../../../redux/actions/member/deposit.action";
+import Swal from "sweetalert2";
+
 class IndexInvoice extends Component{
     constructor(props){
         super(props);
         this.handleModal = this.handleModal.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     componentWillMount(){
-        this.props.dispatch(getInvoice());
+        if(localStorage.kdTrxInvoice===undefined){
+            window.location.href="/";
+        }
+        else{
+            this.props.dispatch(getInvoice());
+
+        }
     }
 
     handleModal(e){
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormUploadBuktiTransfer"));
+    }
+    handleCancel(e){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Perhatian !!!',
+            html:`Anda yakin akan membatalkan transaksi ini ???`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: `Oke`,
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch(cancelDeposit(
+                    {status:2}
+                ));
+            }
+
+        })
     }
     render(){
         // acc_name: "PT Sangku"
@@ -109,10 +139,16 @@ class IndexInvoice extends Component{
                                 <p className="text-center">
                                     Pastikan anda transfer sebelum tanggal <b style={{color:"#5d78ff",fontWeight:"bold"}}>{moment(this.props.resCheckout.limit_tf).format('LL')}</b> atau transaksi anda otomatis dibatalkan oleh sistem. jika sudah melakukan transfer segera kirim/upload bukti transfer dengan mengklik tombol upload dibawah atau juga anda bisa melakukannya di halaman detail riwayat transaksi
                                 </p>
-                                <button disabled={this.props.resCheckout.payment_slip!=='-'} onClick={this.handleModal} type="button" className="btn btn-primary btn-block ml-2 mb-2"><i className="fa fa-upload"/><br/> Upload Bukti Transfer</button>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <button disabled={this.props.resCheckout.payment_slip!=='-'} onClick={this.handleModal} type="button" className="btn btn-primary btn-block ml-2 mb-2"><i className="fa fa-upload"/><br/> Upload Bukti Transfer</button>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <button onClick={this.handleCancel} type="button" className="btn btn-danger btn-block ml-2 mb-2"><i className="fa fa-close"/><br/> Batalkan Transaksi</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 {
@@ -128,7 +164,7 @@ const mapStateToProps = (state) => {
     return{
         auth: state.auth,
         isOpen:state.modalReducer,
-        resCheckout:state.checkoutReducer.data
+        resCheckout:state.checkoutReducer.data,
     }
 }
 export default connect(mapStateToProps)(IndexInvoice);

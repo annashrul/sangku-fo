@@ -17,6 +17,10 @@ import {kurirReducer} from "./member/kurir.reducer";
 import {ongkirReducer} from "./product/ongkir.reducer";
 import {bankReducer} from "./member/bank.reducer";
 import {networkReducer} from "./member/network.reducer";
+import {depositReducer} from "./member/deposit.reducer";
+import {penarikanReducer} from "./member/penarikan.reducer";
+import {transferReducer} from "./member/transfer.reducer";
+import {bankMemberReducer} from "./member/bankMember.reducer";
 
 
 export default combineReducers({
@@ -27,6 +31,7 @@ export default combineReducers({
     productReducer,
     paketReducer,
     bankReducer,
+    bankMemberReducer,
     cartReducer,
     pinReducer,
     checkoutReducer,
@@ -37,6 +42,9 @@ export default combineReducers({
     kotaReducer,
     kecamatanReducer,
     networkReducer,
+    depositReducer,
+    penarikanReducer,
+    transferReducer,
     auth: authReducer,
     errors : errorsReducer
 });

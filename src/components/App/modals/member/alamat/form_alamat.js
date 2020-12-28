@@ -12,7 +12,7 @@ import {getProvinsi} from "../../../../../redux/actions/member/provinsi.action";
 import {getKota} from "../../../../../redux/actions/member/kota.action";
 import {getKecamatan} from "../../../../../redux/actions/member/kecamatan.action";
 import Skeleton from 'react-loading-skeleton';
-import {postAlamat} from "../../../../../redux/actions/member/alamat.action";
+import {postAlamat, putAlamat} from "../../../../../redux/actions/member/alamat.action";
 import {ToastQ} from "../../../../../helper";
 
 class FormAlamat extends Component{
@@ -42,6 +42,19 @@ class FormAlamat extends Component{
 
     componentWillMount(){
         this.props.dispatch(getProvinsi());
+        if(this.props.detail.id!==''){
+            this.setState({
+                kd_prov:this.props.detail.kd_prov,
+                kd_kota:this.props.detail.kd_kota,
+                kd_kec:this.props.detail.kd_kec,
+                main_address:this.props.detail.main_address,
+            })
+            this.props.dispatch(getKota(this.props.detail.kd_prov));
+            this.props.dispatch(getKecamatan(this.props.detail.kd_kota));
+
+        }
+
+
     }
 
     componentWillReceiveProps(nextProps){
@@ -64,8 +77,17 @@ class FormAlamat extends Component{
                 label: v.kecamatan
             })
         });
-        console.log(nextProps);
         this.setState({provinsi_data:prov,kota_data:kota,kecamatan_data:kecamatan,ismain:nextProps.detail.isMain});
+        if(nextProps.detail.id!==''){
+            this.setState({
+                title:nextProps.detail.title,
+                penerima:nextProps.detail.penerima,
+                no_hp:nextProps.detail.no_hp,
+            });
+            // this.handleChangeKota({value:nextProps.detail.kd_kota});
+            // this.handleChangeKecamatan({value:nextProps.detail.kd_kec});
+        }
+
     }
 
     clearState(){
@@ -90,18 +112,25 @@ class FormAlamat extends Component{
     handleChangeProvinsi(val){
         this.props.dispatch(getKota(val.value));
         this.setState({
-            kd_prov:val.value
+            kd_prov:val.value,
+            main_address:`Provinsi ${val.label}`
         })
     }
     handleChangeKota(val){
         this.props.dispatch(getKecamatan(val.value));
+        let add='';
+        add+=`Kota ${val.label}, ${this.state.main_address}`;
         this.setState({
-            kd_kota:val.value
+            kd_kota:val.value,
+            main_address:add
         })
     }
     handleChangeKecamatan(val){
+        let add='';
+        add+=`Kecamatan ${val.label}, ${this.state.main_address}`;
         this.setState({
-            kd_kec:val.value
+            kd_kec:val.value,
+            main_address:add
         })
     }
     toggle(e){
@@ -146,7 +175,12 @@ class FormAlamat extends Component{
             ToastQ.fire({icon:'error',title:`detail alamat tidak boleh kosong`});
         }
         else{
-            this.props.dispatch(postAlamat(parsedata));
+            if(this.props.detail.id!==''){
+                this.props.dispatch(putAlamat(parsedata,this.props.detail.id));
+            }
+            else{
+                this.props.dispatch(postAlamat(parsedata));
+            }
             if(this.props.isError===true){
                 this.clearState();
             }
@@ -212,7 +246,7 @@ class FormAlamat extends Component{
                         </div>
                         <div className="col-md-12">
                             <div className="form-group">
-                                <label>Detail Alamat</label>
+                                <label>Detail Alamat <small style={{color:"green",fontWeight:"bold"}}>( contoh : nama jalan, rt, rw, kelurahan, kecamatan, kota, provinsi, no rumah )</small></label>
                                 <textarea name="main_address" className="form-control" cols="30" rows="10" value={this.state.main_address} onChange={this.handleChange} placeholder={"masukan detail alamat selengkap mungkin, karena alamat ini akan digunakan ketika pengiriman anda"}/>
                             </div>
                         </div>
