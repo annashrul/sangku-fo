@@ -293,6 +293,17 @@ class Binary extends Component{
         }
     }
     componentDidMount(){
+        if(this.state.arrs.length===[]){
+            this.setState({arrs:this.props.dataList})
+        } else {
+            console.log("asdasfafadfadf")
+            // this.setState({arrs:this.props.list})console.log("asdasfafadfadf")
+            // this.setState({arrs:this.props.list})
+            var joined = this.state.arrs.concat(this.props.list[0]);
+            this.setState({
+                arrs:joined
+            })
+        }
         // console.log("aaaaaaaaaaaaaaaa",this.state.arrs)
         // let nodes = [{ id: 6, parent_id: 1, name: null }, { id: 1, parent_id: 0, name: "kpittu" }, { id: 2, parent_id: 0, name: "news" }, { id: 3, parent_id: 0, name: "menu" }, { id: 4, parent_id: 3, name: "node" }, { id: 5, parent_id: 4, name: "subnode" }]
         // let toTree  = this.state.arrs
