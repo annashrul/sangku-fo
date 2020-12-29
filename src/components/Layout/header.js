@@ -54,50 +54,50 @@ class Header extends Component {
           toggleMobileNav:!this.state.toggleMobileNav
       })
   }
-    UNSAFE_componentWillMount(){
-    fetch(HEADERS.URL + `site/logo`)
-        .then(res => res.json())
-        .then(
-            (data) => {
-                if (parseInt(data.result.day,10)===0||parseInt(data.result.day,10) < 0){
-                    Swal.fire({
-                        title: 'Warning!',
-                        html: `<h6>Aplikasi telah kedaluarsa.</h6><br/>
-                            <p>Silahkan lakukan pembayaran<br> melalui rekening berikut ini,</p>
-                            <b>Jumlah:</b><br/>
-                            ${data.result.server_price}<br/>
-                            <b>No. rekening:</b><br/>
-                            ${data.result.acc_number}<br/>
-                            <b>Atas nama:</b><br/>
-                            ${data.result.acc_name}`,
-                        icon: 'warning',
-                        confirmButtonColor: '#ff9800',
-                        confirmButtonText: 'Oke',
-                    }).then((result) => {
+//     UNSAFE_componentWillMount(){
+//     fetch(HEADERS.URL + `site/logo`)
+//         .then(res => res.json())
+//         .then(
+//             (data) => {
+//                 if (parseInt(data.result.day,10)===0||parseInt(data.result.day,10) < 0){
+//                     Swal.fire({
+//                         title: 'Warning!',
+//                         html: `<h6>Aplikasi telah kedaluarsa.</h6><br/>
+//                             <p>Silahkan lakukan pembayaran<br> melalui rekening berikut ini,</p>
+//                             <b>Jumlah:</b><br/>
+//                             ${data.result.server_price}<br/>
+//                             <b>No. rekening:</b><br/>
+//                             ${data.result.acc_number}<br/>
+//                             <b>Atas nama:</b><br/>
+//                             ${data.result.acc_name}`,
+//                         icon: 'warning',
+//                         confirmButtonColor: '#ff9800',
+//                         confirmButtonText: 'Oke',
+//                     }).then((result) => {
 
-                    })
-                    this.props.logoutUser();
-                }
-                localStorage.setItem("site_title", data.result.title);
+//                     })
+//                     this.props.logoutUser();
+//                 }
+//                 localStorage.setItem("site_title", data.result.title);
 
-                this.setState({
-                    isShowNotif: parseInt(data.result.day,10) <= 7 ? true : false,
-                    isDay: data.result.day,
-                    tanggal_tempo: moment(data.result.tgl_tempo).format("yyyy-MM-DD"),
-                    server_price: data.result.server_price,
-                    acc_name: data.result.acc_name,
-                    acc_number: data.result.acc_number
-                })
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        )
+//                 this.setState({
+//                     isShowNotif: parseInt(data.result.day,10) <= 7 ? true : false,
+//                     isDay: data.result.day,
+//                     tanggal_tempo: moment(data.result.tgl_tempo).format("yyyy-MM-DD"),
+//                     server_price: data.result.server_price,
+//                     acc_name: data.result.acc_name,
+//                     acc_number: data.result.acc_number
+//                 })
+//             },
+//             (error) => {
+//                 this.setState({
+//                     isLoaded: true,
+//                     error
+//                 });
+//             }
+//         )
 
-  }
+//   }
 
     UNSAFE_componentWillReceiveProps(nextProps){
       if(nextProps.resCart.data.length !== this.state.totCart){
@@ -225,10 +225,10 @@ class Header extends Component {
                                         </div>
                                     </div>
                                     <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
-                                    <i className="fa fa-chain-broken profile-icon bg-info" aria-hidden="true"/> Alamat
+                                    <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                     </DropdownItem>
                                     <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/bank';}}>
-                                    <i className="fa fa-chain-broken profile-icon bg-info" aria-hidden="true"/> Data Bank
+                                    <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
                                     </DropdownItem>
                                     <DropdownItem  onClick={this.handleLogout}>
                                     <i className="fa fa-chain-broken profile-icon bg-warning" aria-hidden="true"/> Sign-out

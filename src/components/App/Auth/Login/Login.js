@@ -75,7 +75,7 @@ class Login extends Component {
         if(this.props.history.location.query===undefined){
             this.props.history.push('/')
         }
-        this.initFetch(false);
+        // this.initFetch(false);
         
         // let timeLeftVar = this.secondsToTime(this.state.seconds);
         // this.setState({ time: timeLeftVar })

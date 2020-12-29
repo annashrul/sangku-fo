@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FetchNetwork } from '../../../../../redux/actions/member/network.action';
 // import { FetchNetwork } from '../../../../redux/actions/member/network.action';
 // import jQuery from 'jquery';
+import moment from 'moment'
 class Binary extends Component{
     constructor(props){
         super(props);
@@ -152,7 +153,7 @@ class Binary extends Component{
                             <div className="tooltip-footer">
                                 <div className="text">
                                     <span className="text-label">Joined Date : </span>
-                                    <span className="text-value">{cNode.join_date}</span>
+                                    <span className="text-value">{moment(cNode.join_date).format('YYYY-MM-DD')}</span>
                                 </div>
                             </div>
                         </div>
