@@ -393,7 +393,7 @@ class MemberForm extends Component{
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Position</label>
-                                                    <input type="text" className="form-control form-control-lg" name="position" value={this.state.position} onChange={this.handleChange} readOnly />
+                                                    <input type="text" className="form-control form-control-lg" name="position" value={String(this.state.position).toUpperCase()} onChange={this.handleChange} readOnly />
                                                     <div className="invalid-feedback" style={this.state.error.position!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.position}
                                                     </div>

@@ -114,7 +114,8 @@ class Binary extends Component{
                     </div>
                 </Link>
             :
-            <div className={`node-item-1-child-${cNode.position} ${cNode.hasChild?'node-item-root':''}`}>
+            <div className={`ribbon_wrapper node-item-1-child-${cNode.position} ${cNode.hasChild?'node-item-root':''}`}>
+                <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',zIndex:'1'}}><img src={cNode.badge} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
                 <div className="binary-node-single-item user-block user-12">
                     <div className="images_wrapper">
                         <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
