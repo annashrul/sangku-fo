@@ -11,11 +11,12 @@ class AddMember extends Component {
         this.props.dispatch(setRegistered(false));
     }
     render() {
+        console.log(this.props.location.data)
         return (
             <Layout page="AddMember">
                 {
                     !this.props.isLoading?
-                    <MemberForm availPin={this.props.getPin}/>
+                    <MemberForm availPin={this.props.getPin} dataAdd={this.props.location.data}/>
                     :<Preloader/>
                 }
             </Layout>
