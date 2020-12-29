@@ -2,7 +2,7 @@ import { AUTH} from '../actions/_constants';
 
 const initialState = {
     isAuthenticated: false,
-    user: {},
+    user: [],
     isErrorNo:false,
     isLoading:false,
     isRegistered:false

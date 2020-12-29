@@ -117,7 +117,9 @@ class Login extends Component {
         }
         this.getProps(nextProps)
         //debug otp
-        this.setState({otp_val:this.props.auth.user.otp})
+        if (this.props.auth.user.otp_anying !==undefined) {
+            this.setState({otp_val:this.props.auth.user.otp_anying })
+        }
      }
      componentWillMount(){
         this.getProps(this.props);
@@ -175,6 +177,7 @@ class Login extends Component {
 
     submitOtp = async (event)=>{
         event.preventDefault();
+        console.log(this.props.auth.user.sender_id);
         const res = await bycrypt.compare(this.state.otp_val,this.props.auth.user.sender_id);
         if(res){
             const {email,password,type,nohp} = this.state;

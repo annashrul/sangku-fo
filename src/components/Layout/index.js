@@ -26,19 +26,18 @@ class Layout extends Component {
     getFaviconEl() {
         return document.getElementById("favicon");
     }
-    getTimeout() {
-        return document.getElementById("coolyeah").value;
-    }
+
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
-            const favicon = this.getFaviconEl(); // Accessing favicon element
-            favicon.href = nextProps.auth.user.fav_icon;
+            // const favicon = this.getFaviconEl(); // Accessing favicon element
+            // favicon.href = nextProps.auth.user.fav_icon;
             
             if(nextProps.auth.user.site_title!==undefined){
-            localStorage.setItem("site_title", nextProps.auth.user.site_title)
-            document.title = `${nextProps.auth.user.site_title} - ${this.props.page}`;
+            document.title = `Sangku - ${this.props.page}`;
+            // document.title = `${nextProps.auth.user.site_title} - ${this.props.page}`;
             }else
-            document.title = `${localStorage.getItem("site_title")} - ${this.props.page}`;
+            document.title = `Sangku - ${this.props.page}`;
+            // document.title = `${localStorage.getItem("site_title")} - ${this.props.page}`;
 
         }
     }

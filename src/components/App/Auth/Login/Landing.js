@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 // import './landing_style.css'
 import {loginUser} from 'redux/actions/authActions';
 import {HEADERS} from 'redux/actions/_constants'
-// import bgVid from "../../../../assets/bg_particle_loop.mp4"
-// import tshirt from "../../../../assets/tshirt.png"
-// import bags from "../../../../assets/bags.png"
-// import jacket from "../../../../assets/jacket.png"
-// import jas from "../../../../assets/jas.png"
+import bgVid from "../../../../assets/bg_particle_loop.mp4"
+import tshirt from "../../../../assets/tshirt.png"
+import bags from "../../../../assets/bags.png"
+import jacket from "../../../../assets/jacket.png"
+import jas from "../../../../assets/jas.png"
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ParticlesBg from "particles-bg";
 import './css/bg_vid.css';
@@ -77,6 +77,7 @@ class Landing extends Component {
         });
     };
     render() {
+        require("./landing_style.css"); // here
         return (
             <div className="limiter">
                 {/* Wrapper */}
@@ -91,7 +92,7 @@ class Landing extends Component {
                                 <div className="header-left">
                                     <div className="logo">
                                     <a href="index.html">
-                                        <img src="img/logo/brook-black.png" alt="Brook Images" />
+                                        <img src="logo.png" alt="Brook Images" />
                                     </a>
                                     </div>
                                 </div>
@@ -132,7 +133,7 @@ class Landing extends Component {
                         <div className="mobileheader">
                         <div className="logo">
                             <a href="index.html">
-                            <img src="img/logo/brook-black.png" alt="Multipurpose" />
+                            <img src="logo.png" alt="Multipurpose" />
                             </a>
                         </div>
                         {/* <a className="mobile-close"/> */}
@@ -160,7 +161,7 @@ class Landing extends Component {
                         <div className="search-header">
                         <div className="logo">
                             <a href="index.html">
-                            <img src="img/logo/brook-black.png" alt="logo images" />
+                            <img src="logo.png" alt="logo images" />
                             </a>
                         </div>
                         {/* <a className="search-close" /> */}
@@ -178,13 +179,26 @@ class Landing extends Component {
                     {/* End Brook Search Popup */}
                     <div className="slider-revoluation">
                         <div className="forcefullwidth_wrapper_tp_banner" id="rev_slider_13_1_forcefullwidth" style={{position: 'relative', width: '100%', height: 'auto', marginTop: 0, marginBottom: 0}}>
-                        {/* <video autoPlay muted loop id="myVideo">
+                        <video autoPlay muted loop id="myVideo">
                             <source src={String(bgVid)} type="video/mp4" />
                             Your browser does not support HTML5 video.
-                        </video> */}
-                        <ParticlesBg bg={true} type="cobweb"/>
+                        </video>
+                        <div className="overlay">
+                        <div className="contaniner">
+                            <div className="row" style={{margin: 0}}>
+                            <div className="col-lg-5 col-md-4 col-sm-4 col-xs-6">
+                            </div>
+                            <div className="col-lg-7 col-md-8 col-sm-6 col-xs-6" style={{marginTop: 300}}>
+                                <div className="text-jargon"><h2>Sangku <br />Sahabat bisnis anda</h2></div>
+                                <div className="text-jargon2"><h1>#MajuBersama</h1></div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
 
-                        <div className="tp-fullwidth-forcer" style={{width: '100%', height: 1000}} />
+                        {/* <ParticlesBg bg={true} type="cobweb"/> */}
+
+                        <div className="tp-fullwidth-forcer" style={{width: '100%', height: 500}} />
                         </div>
                         {/* END REVOLUTION SLIDER */}
                     </div>
@@ -194,84 +208,90 @@ class Landing extends Component {
                     {/* Start Service Area */}
                     <div className="brook-service-area bg_color--13">
                         <div className="row align-items-center">
-                        <div className="col-lg-12 col-xl-7 col-12">
+                            <div className="col-lg-12 col-xl-7 col-12">
                             <div className="row startupservice-wrapper">
-                            {/* Strat Single Speach */}
-                            <div className="col-lg-6">
+                                {/* Strat Single Speach */}
+                                <div className="col-lg-6">
                                 <div className="single-motive-speach text-white">
-                                <div className="icon">
+                                    <div className="icon">
                                     <i className="icon-basic-globe" />
+                                    </div>
+                                    <div className="content">
+                                    <h4>Digital marketing</h4>
+                                    <p>We conduct the marketing of products &amp; services using latest digital
+                                        technologies.</p>
+                                    </div>
                                 </div>
-                                <div className="content">
-                                    <h4>Velit officia aliquip labore anim enim consequat occaecat.</h4>
-                                    <p>Id in anim anim ea Lorem eiusmod velit eiusmod dolore cupidatat duis nulla. Duis culpa ut in sunt Lorem ad amet elit ipsum. Adipisicing consectetur ea officia exercitation velit exercitation. Ullamco cillum minim voluptate nisi culpa occaecat voluptate deserunt sit pariatur. Officia proident sunt voluptate amet sit cupidatat cupidatat adipisicing dolor aliquip incididunt. Quis ea elit laborum laborum irure.</p>
                                 </div>
-                                </div>
-                            </div>
-                            {/* End Single Speach */}
-                            {/* Strat Single Speach */}
-                            <div className="col-lg-6">
+                                {/* End Single Speach */}
+                                {/* Strat Single Speach */}
+                                <div className="col-lg-6">
                                 <div className="single-motive-speach text-white mt_md--40 mt_sm--40">
-                                <div className="icon">
+                                    <div className="icon">
                                     <i className="ion-monitor" />
+                                    </div>
+                                    <div className="content">
+                                    <h4>UI/UX designs</h4>
+                                    <p>We conduct the marketing of products &amp; services using latest digital
+                                        technologies.</p>
+                                    </div>
                                 </div>
-                                <div className="content">
-                                    <h4>Excepteur eiusmod nulla magna cupidatat deserunt nostrud proident.</h4>
-                                    <p>Veniam non laborum ad pariatur velit incididunt. Veniam duis dolor id elit ea culpa quis incididunt. In qui nostrud nostrud elit et adipisicing dolore nulla tempor nostrud commodo qui id laborum. Id aliquip adipisicing cillum quis pariatur velit ad. Occaecat culpa eu laborum fugiat nisi duis sint. Pariatur reprehenderit eiusmod in mollit culpa aliquip pariatur qui Lorem id. Ex amet duis eu culpa dolore mollit adipisicing consequat nisi ullamco ut.</p>
                                 </div>
-                                </div>
-                            </div>
-                            {/* End Single Speach */}
-                            {/* Strat Single Speach */}
-                            <div className="col-lg-6">
+                                {/* End Single Speach */}
+                                {/* Strat Single Speach */}
+                                <div className="col-lg-6">
                                 <div className="single-motive-speach text-white mt--40">
-                                <div className="icon">
+                                    <div className="icon">
                                     <i className="ion-ios-baseball-outline" />
+                                    </div>
+                                    <div className="content">
+                                    <h4>SEO marketing</h4>
+                                    <p>We conduct the marketing of products &amp; services using latest digital
+                                        technologies.</p>
+                                    </div>
                                 </div>
-                                <div className="content">
-                                    <h4>Velit in proident deserunt deserunt ut consequat ullamco pariatur ut.</h4>
-                                    <p>Minim culpa voluptate consequat eiusmod do elit fugiat qui pariatur. Exercitation laboris cupidatat esse ullamco nostrud adipisicing dolore ea veniam cupidatat labore sunt tempor. Nostrud Lorem amet reprehenderit enim velit dolor. Nisi sit consectetur sit cillum ullamco do do. Fugiat nulla aliquip ea consectetur proident eu laborum reprehenderit. Minim excepteur incididunt ex commodo occaecat eiusmod sint ad consectetur occaecat nostrud consectetur.</p>
                                 </div>
-                                </div>
-                            </div>
-                            {/* End Single Speach */}
-                            {/* Strat Single Speach */}
-                            <div className="col-lg-6">
+                                {/* End Single Speach */}
+                                {/* Strat Single Speach */}
+                                <div className="col-lg-6">
                                 <div className="single-motive-speach text-white mt--40">
-                                <div className="icon">
+                                    <div className="icon">
                                     <i className="ion-pinpoint" />
+                                    </div>
+                                    <div className="content">
+                                    <h4>Resource use</h4>
+                                    <p>We conduct the marketing of products &amp; services using latest digital
+                                        technologies.</p>
+                                    </div>
                                 </div>
-                                <div className="content">
-                                    <h4>In cupidatat amet anim reprehenderit nostrud magna reprehenderit labore culpa pariatur nulla.</h4>
-                                    <p>Amet ad culpa mollit sint culpa mollit velit deserunt aliqua adipisicing occaecat. In anim proident dolor sit deserunt excepteur esse magna tempor eu. Aute ea magna proident duis amet incididunt. Exercitation sit veniam dolor Lorem pariatur mollit.</p>
                                 </div>
-                                </div>
+                                {/* End Single Speach */}
                             </div>
-                            {/* End Single Speach */}
                             </div>
-                        </div>
-                        <div className="col-lg-12 col-xl-5 col-12">
+                            <div className="col-lg-12 col-xl-5 col-12">
                             <div className="clint-succeed bg_image--24 ptb--220 ptb-md--80 ptb-lg--80 ptb_lp--130 ptb-sm--60" data-overlay={9}>
-                            <div className="row align-items-center plr_md--40 plr_sm--40">
+                                <div className="row align-items-center plr_md--40 plr_sm--40">
                                 <div className="col-lg-4">
-                                {/* Start Single Popup */}
-                                <div className="video-btn">
+                                    {/* Start Single Popup */}
+                                    <div className="video-btn">
                                     <a className="play__btn" href="https://www.youtube.com/watch?v=9No-FiEInLA">
-                                    <div className="video-icon second-icon yellow-color-2" />
+                                        <div className="video-icon second-icon yellow-color-2" />
                                     </a>
-                                </div>
-                                {/* End Single Popup */}
+                                    </div>
+                                    {/* End Single Popup */}
                                 </div>
                                 <div className="col-lg-8">
-                                <div className="content pr--30 pr_sm--0">
-                                    <h3 className="heading heading-h3 font-32 text-white line-height-1-88">Ipsum eiusmod cupidatat excepteur est excepteur excepteur non occaecat incididunt. Cupidatat exercitation mollit proident ullamco. Culpa do aliqua sint dolore aute dolore sint irure consequat. Officia ipsum nostrud nostrud excepteur laboris laboris in dolore occaecat in anim. Anim reprehenderit tempor adipisicing exercitation voluptate do proident laborum magna eu fugiat ut.</h3>
+                                    <div className="content pr--30 pr_sm--0">
+                                    <h3 className="heading heading-h3 font-32 text-white line-height-1-88">We help our
+                                        clients succeed by delivering products that improve life, work and play.</h3>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
                             </div>
                         </div>
                         </div>
-                    </div>
+
                     {/* End Service Area */}
                     {/* Start Brand Stratagy Area */}
                     <div className="brook-stratagy-area bg_color--7">
@@ -437,7 +457,7 @@ class Landing extends Component {
                             <div className="footer-widget text-var--2">
                             <div className="logo">
                                 <a href="index.html">
-                                <img src="img/logo/brook-white2.png" alt="brook white" />
+                                <img src="img/favicon.png" alt="brook white" />
                                 </a>
                             </div>
                             <div className="footer-inner">

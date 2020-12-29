@@ -149,8 +149,6 @@
 ====================================*/
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,900|Permanent+Marker|Playfair+Display:400,400i,700,700i,900,900i|Montserrat:300,300i,400,400i,500,500i,600,700,700i,800|Open+Sans:400|Roboto:400,400i,500,500i,700,700i,900|Reenie+Beanie");
 @import url("https://fonts.googleapis.com/css?family=Spectral:600i&amp;display=swap");
-@import './css/plugins.css';
-@import './css/revoulation.css';
 .color-dark {
   color: #222222 !important; }
 
@@ -232,6 +230,31 @@ address {
 
 abbr[title] {
   border-bottom: 1px dotted; }
+/* .img-tentang {
+  width: 70%;
+  padding: 20px;
+  margin-top: -70px;
+  margin-left: 50px;
+}
+*/
+.text-jargon h2 {
+  color: white;
+  text-align: left;
+  padding: 23px;
+  font-size: 2em;
+  margin-left: 130px;
+
+
+}
+
+.text-jargon2 h1 {
+  padding: 20px;
+  color: white;
+  text-align: left;
+  font-size: 1.1em;
+  margin-left: 130px;
+
+} 
 
 b,
 strong {
@@ -1151,8 +1174,542 @@ Animation Css
   background-repeat: no-repeat;
   background-size: cover; }
 
+.bg_image--1 {
+  background-image: url(img/bg/bg-image-1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--2 {
+  background-image: url(img/bg/bg-image-2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--3 {
+  background-image: url(img/bg/bg-image-3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--4 {
+  background-image: url(img/bg/bg-image-4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--5 {
+  background-image: url(img/bg/bg-image-5.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--6 {
+  background-image: url(img/bg/bg-image-6.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--7 {
+  background-image: url(img/bg/bg-image-7.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--8 {
+  background-image: url(img/bg/bg-image-8.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--9 {
+  background-image: url(img/bg/bg-image-9.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--10 {
+  background-image: url(img/bg/bg-image-10.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--11 {
+  background-image: url(img/bg/bg-image-11.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--12 {
+  background-image: url(img/bg/bg-image-12.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--13 {
+  background-image: url(img/bg/bg-image-13.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--14 {
+  background-image: url(img/bg/bg-image-14.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--15 {
+  background-image: url(img/bg/bg-image-15.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--16 {
+  background-image: url(img/bg/bg-image-16.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--17 {
+  background-image: url(img/bg/bg-image-17.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--18 {
+  background-image: url(img/bg/bg-image-18.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--19 {
+  background-image: url(img/bg/bg-image-19.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--20 {
+  background-image: url(img/bg/bg-image-20.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--21 {
+  background-image: url(img/bg/bg-image-21.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--22 {
+  background-image: url(img/bg/bg-image-22.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--23 {
+  background-image: url(img/bg/bg-image-23.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--24 {
+  background-image: url(img/bg/bg-image-24.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
 .bg_image--25 {
   background-image: url(img/bg/bg-image-25.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--26 {
+  background-image: url(img/bg/bg-image-26.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--27 {
+  background-image: url(img/bg/bg-image-27.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--28 {
+  background-image: url(img/bg/bg-image-28.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--29 {
+  background-image: url(img/bg/bg-image-29.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--30 {
+  background-image: url(img/bg/bg-image-30.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--31 {
+  background-image: url(img/bg/bg-image-31.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--32 {
+  background-image: url(img/bg/bg-image-32.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--33 {
+  background-image: url(img/bg/bg-image-33.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--34 {
+  background-image: url(img/bg/bg-image-34.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--35 {
+  background-image: url(img/bg/bg-image-35.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--36 {
+  background-image: url(img/bg/bg-image-36.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--37 {
+  background-image: url(img/bg/bg-image-37.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--38 {
+  background-image: url(img/bg/bg-image-38.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--39 {
+  background-image: url(img/bg/bg-image-39.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--40 {
+  background-image: url(img/bg/bg-image-40.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--41 {
+  background-image: url(img/bg/bg-image-41.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--42 {
+  background-image: url(img/bg/bg-image-42.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--43 {
+  background-image: url(img/bg/bg-image-43.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--44 {
+  background-image: url(img/bg/bg-image-44.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--45 {
+  background-image: url(img/bg/bg-image-45.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--46 {
+  background-image: url(img/bg/bg-image-46.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--47 {
+  background-image: url(img/bg/bg-image-47.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--48 {
+  background-image: url(img/bg/bg-image-48.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--49 {
+  background-image: url(img/bg/bg-image-49.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--50 {
+  background-image: url(img/bg/bg-image-50.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--51 {
+  background-image: url(img/bg/bg-image-51.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--52 {
+  background-image: url(img/bg/bg-image-52.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--53 {
+  background-image: url(img/bg/bg-image-53.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--54 {
+  background-image: url(img/bg/bg-image-54.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--55 {
+  background-image: url(img/bg/bg-image-55.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--56 {
+  background-image: url(img/bg/bg-image-56.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--57 {
+  background-image: url(img/bg/bg-image-57.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--58 {
+  background-image: url(img/bg/bg-image-58.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--59 {
+  background-image: url(img/bg/bg-image-59.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--60 {
+  background-image: url(img/bg/bg-image-60.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--61 {
+  background-image: url(img/bg/bg-image-61.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--62 {
+  background-image: url(img/bg/bg-image-62.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--63 {
+  background-image: url(img/bg/bg-image-63.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--64 {
+  background-image: url(img/bg/bg-image-64.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--65 {
+  background-image: url(img/bg/bg-image-65.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--66 {
+  background-image: url(img/bg/bg-image-66.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--67 {
+  background-image: url(img/bg/bg-image-67.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--68 {
+  background-image: url(img/bg/bg-image-68.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--69 {
+  background-image: url(img/bg/bg-image-69.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--70 {
+  background-image: url(img/bg/bg-image-70.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--71 {
+  background-image: url(img/bg/bg-image-71.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--72 {
+  background-image: url(img/bg/bg-image-72.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--73 {
+  background-image: url(img/bg/bg-image-73.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--74 {
+  background-image: url(img/bg/bg-image-74.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--75 {
+  background-image: url(img/bg/bg-image-75.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--76 {
+  background-image: url(img/bg/bg-image-76.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--77 {
+  background-image: url(img/bg/bg-image-77.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--78 {
+  background-image: url(img/bg/bg-image-78.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--79 {
+  background-image: url(img/bg/bg-image-79.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--80 {
+  background-image: url(img/bg/bg-image-80.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--81 {
+  background-image: url(img/bg/bg-image-81.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--82 {
+  background-image: url(img/bg/bg-image-82.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--83 {
+  background-image: url(img/bg/bg-image-83.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--84 {
+  background-image: url(img/bg/bg-image-84.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--85 {
+  background-image: url(img/bg/bg-image-85.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--86 {
+  background-image: url(img/bg/bg-image-86.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--87 {
+  background-image: url(img/bg/bg-image-87.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--88 {
+  background-image: url(img/bg/bg-image-88.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--89 {
+  background-image: url(img/bg/bg-image-89.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center; }
+
+.bg_image--90 {
+  background-image: url(img/bg/bg-image-90.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center; }
@@ -1167,11 +1724,11 @@ Animation Css
   background-position: top right; }
 
 .blog-bg-image {
-  background-image: url(img/bg/bg-image-25.jpg);
+  background-image: url(img/bg/bg-image-63.jpg);
   background-repeat: repeat; }
 
 .bg-image-business {
-  background-image: url(img/bg/bg-image-25.jpg);
+  background-image: url(img/bg/bg-image-64.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center; }
@@ -9335,7 +9892,7 @@ Blog List Area
 Blog Default Style 
 -----------------------------*/
 .bg_image--4 {
-  background-image: url(img/bg/bg-image-25.jpg);
+  background-image: url(img/bg/bg-image-4.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -17679,7 +18236,7 @@ Has Center
 Portfolio Details 
 ===========================*/
 .bg_image--38 {
-  background-image: url(img/bg/bg-image-25.jpg);
+  background-image: url(img/bg/bg-image-38.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -22107,7 +22664,7 @@ Freelancer Area
     background: #fff; }
 
 .open-hamberger-wrapper {
-  background-image: url(img/bg/bg-image-25.jpg);
+  background-image: url(img/bg/bg-image-28.jpg);
   background-color: #222;
   background-repeat: no-repeat;
   background-position: center center;
@@ -23459,7 +24016,7 @@ Shop Slide Area
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: cover;
-  background-image: url(img/bg/bg-image-25.jpg); }
+  background-image: url(img/bg/bg-image-53.jpg); }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .shop-slide-bg-1 {
       background-position: 100%;
@@ -36794,7 +37351,7 @@ preview Area
     padding-right: 0; }
   .authenthic-service h1.heading-h1 {
     font-size: 24px !important; } }
-
+  
 @media only screen and (max-width: 575px) {
   .copyright.copyright--2 .copyright-right {
     width: 244px; }
