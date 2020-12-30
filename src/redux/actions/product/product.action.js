@@ -9,6 +9,13 @@ export function setLoading(load) {
         load
     }
 }
+
+export function setLoadingDetail(load) {
+    return {
+        type: PRODUCT.LOADING_DETAIL,
+        load
+    }
+}
 export function setLoadingPost(load) {
     return {
         type: PRODUCT.LOADING_POST,
@@ -71,5 +78,6 @@ export const getProduct = (where) => {
 
     }
 };
+
 
 
