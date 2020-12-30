@@ -221,6 +221,14 @@ export const KECAMATAN = {
     LOADING: 'SET_KECAMATAN_LOADING',
     SUCCESS: 'SUCCESS_KECAMATAN',
 }
+
+/****************
+ NETWORK
+ *****************/
+export const NETWORK = {
+    LOADING: 'SET_NETWORK_LOADING',
+    SUCCESS: 'SUCCESS_NETWORK',
+}
 /****************
  DEPOSIT
  *****************/

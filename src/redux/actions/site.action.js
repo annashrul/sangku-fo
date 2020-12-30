@@ -258,7 +258,7 @@ export const storeSite = (data) => {
                     confirmButtonText: 'Oke',
                 }).then((result) => {
                     if (result.value) {
-                        dispatch(FetchSite());
+                        // dispatch(FetchSite());
                         dispatch(setLoading(false));
                     }
                 })

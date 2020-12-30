@@ -28,8 +28,13 @@ class MemberForm extends Component{
             device_id:'-',
             signup_source:'website',
             sponsor:'-',
-            upline:'SK5711868832',
+            sponsor_name:'-',
+            sponsor_picture:'-',
+            upline:'-',
+            upline_name:'-',
+            upline_picture:'-',
             pin_regist:'',
+            position:'-',
             prev:'',
             confirm:false,
             error:{
@@ -52,7 +57,18 @@ class MemberForm extends Component{
         this.toggle = this.toggle.bind(this);
     }
     getProps(param){
-        this.setState({sponsor:param.auth.user.referral_code})
+        if(this.props.dataAdd===undefined){
+            window.location.href = '/binary'
+        }
+        this.setState({
+            sponsor:param.auth.user.referral_code,
+            sponsor_name:param.auth.user.full_name,
+            sponsor_picture:param.auth.user.picture,
+            upline:this.props.dataAdd.parent_id,
+            upline_name:this.props.dataUpline[0].name,
+            upline_picture:this.props.dataUpline[0].picture,
+            position:this.props.dataAdd.position,
+        })
     }
     componentWillMount(){
         this.getProps(this.props);
@@ -78,7 +94,69 @@ class MemberForm extends Component{
         if(e.target.id==='cancel'){
             window.location.reload();
         } else {
-            this.setState({confirm:!this.state.confirm})
+            let parseData = {};
+            parseData['full_name'] = this.state.full_name;
+            parseData['mobile_no'] = this.state.mobile_no;
+            parseData['id_card'] = this.state.id_card;
+            parseData['pin'] = this.state.pin;
+            parseData['picture'] = this.state.picture;
+            // parseData['membership'] = this.state.membership;
+            parseData['device_id'] = this.state.device_id;
+            parseData['signup_source'] = this.state.signup_source;
+            parseData['sponsor'] = this.state.sponsor;
+            parseData['upline'] = this.state.upline;
+            parseData['pin_regist'] = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist).kode;
+            let err = this.state.error;
+            
+            console.log("dddddddddddddddd",parseData)
+
+            if(parseData['full_name']===''||parseData['full_name']===undefined){
+                err = Object.assign({}, err, {full_name:"Nama lengkap tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['mobile_no']===''||parseData['mobile_no']===undefined){
+                err = Object.assign({}, err, {mobile_no:"No Telpon tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['id_card']===''||parseData['id_card']===undefined){
+                err = Object.assign({}, err, {id_card:"ID Card tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['pin']===''||parseData['pin']===undefined){
+                err = Object.assign({}, err, {pin:"PIN tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['picture']===''||parseData['picture']===undefined){
+                err = Object.assign({}, err, {picture:"Gambar tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            // else if(parseData['membership']===''||parseData['membership']===undefined){
+            //     err = Object.assign({}, err, {membership:"membership tidak boleh kosong"});
+            //     this.setState({error: err});
+            // }
+            else if(parseData['device_id']===''||parseData['device_id']===undefined){
+                err = Object.assign({}, err, {device_id:"Device ID tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['signup_source']===''||parseData['signup_source']===undefined){
+                err = Object.assign({}, err, {signup_source:"Signup Source tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['sponsor']===''||parseData['sponsor']===undefined){
+                err = Object.assign({}, err, {sponsor:"Sponsor tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['upline']===''||parseData['upline']===undefined){
+                err = Object.assign({}, err, {upline:"Upline tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
+                err = Object.assign({}, err, {pin_regist:"Membership belum dipilih"});
+                this.setState({confirm:false, error: err});
+            }
+            else{
+                this.setState({confirm:!this.state.confirm})
+            }
         }
     };
 
@@ -93,6 +171,7 @@ class MemberForm extends Component{
         parseData['pin'] = this.state.pin;
         parseData['picture'] = this.state.picture;
         // parseData['membership'] = this.state.membership;
+        parseData['position'] = this.state.position;
         parseData['device_id'] = this.state.device_id;
         parseData['signup_source'] = this.state.signup_source;
         parseData['sponsor'] = this.state.sponsor;
@@ -184,6 +263,8 @@ class MemberForm extends Component{
             full_name,kode,paket,point_volume,category,
         } = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist);
         console.log(this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist))
+        // const { data } = this.props.location
+        // console.log(this.props.location)
         return (
             !this.props.isLoadingAuth?
                 !this.props.registered?
@@ -192,7 +273,7 @@ class MemberForm extends Component{
                     <CardBody>
                         <form onSubmit={this.handleSubmit}>
                                 <div className={`row ${!this.state.confirm?'':'d-none'}`}>
-                                    <div className="col-md-6">
+                                    <div className="col-md-6 offset-md-3">
                                         <Card>
                                             <CardBody>
                                                 <div className="form-group">
@@ -264,24 +345,57 @@ class MemberForm extends Component{
                                                         {this.state.error.logo}
                                                     </div>
                                                 </div> */}
-                                            </CardBody>
+                                            {/* </CardBody>
                                         </Card>
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-md-6  offset-md-3">
                                         <Card>
-                                            <CardBody>
-                                                <div className="form-group">
-                                                    <label>Sponsor</label>
-                                                    <input type="text" className="form-control form-control-lg" name="sponsor" value={this.state.sponsor} onChange={this.handleChange} readOnly />
-                                                    <div className="invalid-feedback" style={this.state.error.sponsor!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.sponsor}
+                                            <CardBody> */}
+                                                <div className="col-md-8 offset-md-2 d-flex align-items-center justify-content-between">
+                                                    <div className="form-group">
+                                                        <label>Sponsor</label>
+                                                        {/* 
+                                                        <input type="text" className="form-control form-control-lg" name="sponsor" value={this.state.sponsor} onChange={this.handleChange} readOnly />
+                                                        <div className="invalid-feedback" style={this.state.error.sponsor!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.sponsor}
+                                                        </div> */}
+                                                        <div className="member-content-area">
+                                                            <div className="member-contact-content d-flex align-items-center mb-4">
+                                                                <div className="contact-thumb">
+                                                                    <img src={this.state.sponsor_picture} alt />
+                                                                </div>
+                                                                <div className="member-contact-info">
+                                                                    <h5>{this.state.sponsor_name}</h5>
+                                                                    <span className="badge badge-success badge-pill">{this.state.sponsor}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>Upline</label>
+                                                        {/* <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
+                                                        <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.upline}
+                                                        </div> */}
+                                                        <div className="member-content-area">
+                                                            <div className="member-contact-content d-flex align-items-center mb-4">
+                                                                <div className="contact-thumb">
+                                                                    <img src={this.state.upline_picture} alt />
+                                                                </div>
+                                                                <div className="member-contact-info">
+                                                                    <h5>{this.state.upline_name}</h5>
+                                                                    <span className="badge badge-success badge-pill">{this.state.upline}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Upline</label>
-                                                    <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
-                                                    <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.upline}
+                                                    <label>Position</label>
+                                                    <input type="text" className="form-control form-control-lg" name="position" value={String(this.state.position).toUpperCase()} onChange={this.handleChange} readOnly />
+                                                    <div className="invalid-feedback" style={this.state.error.position!==""?{display:'block'}:{display:'none'}}>
+                                                        {this.state.error.position}
                                                     </div>
                                                 </div>
                                                 {/* <div className="form-group">
@@ -323,7 +437,7 @@ class MemberForm extends Component{
                                                                                             <div className="form-group">
                                                                                                 {
                                                                                                     this.props.pinList.length<=0?
-                                                                                                    <div className="text-center"><a href="!#" target="_blank"><h3 className="text-light" >Click me!</h3></a></div>
+                                                                                                    <div className="text-center"><a href="/product" target="_blank"><h3 className="text-light" >Order PIN</h3></a></div>
                                                                                                     :
                                                                                                     <div>
                                                                                                         <label>Daftar PIN {v.title}</label>

@@ -75,7 +75,7 @@ class Login extends Component {
         if(this.props.history.location.query===undefined){
             this.props.history.push('/')
         }
-        this.initFetch(false);
+        // this.initFetch(false);
         
         // let timeLeftVar = this.secondsToTime(this.state.seconds);
         // this.setState({ time: timeLeftVar })
@@ -116,6 +116,8 @@ class Login extends Component {
             }.bind(this), 500)
         }
         this.getProps(nextProps)
+        
+        this.setState({otp_val:this.props.auth.user.otp_anying})
      }
      componentWillMount(){
         this.getProps(this.props);
