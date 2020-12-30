@@ -78,4 +78,27 @@ export const getPaket = (where) => {
     }
 };
 
+export const getDetailPaket = (id) => {
+    return (dispatch) => {
+        dispatch(setLoadingDetail(true));
+        let url = `package/${id}`;
+        axios.get(HEADERS.URL + `${url}`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setDataDetail(data));
+                dispatch(setLoadingDetail(false));
+            })
+            .catch(function (error) {
+                dispatch(setLoadingDetail(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+            })
+
+    }
+};
 
