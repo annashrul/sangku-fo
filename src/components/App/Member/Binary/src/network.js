@@ -2,10 +2,12 @@ import React,{Component} from 'react';
 // import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import { Link } from 'react-router-dom';
-import { FetchNetwork } from '../../../../../redux/actions/member/network.action';
-// import { FetchNetwork } from '../../../../redux/actions/member/network.action';
+// import { FetchNetwork } from '../../../../../redux/actions/member/network.action';
 // import jQuery from 'jquery';
+import Preloader from 'Preloader'
 import moment from 'moment'
+import { HEADERS } from '../../../../../redux/actions/_constants';
+import noUser from '../../../../../assets/no-user.png';
 class Binary extends Component{
     constructor(props){
         super(props);
@@ -14,6 +16,7 @@ class Binary extends Component{
             activeTab : 0,
             selectedIndex : 0,
             numChildren: 0,
+            loading:false,
             // data: JSON.parse('[{"id": 25,"slug": "mobiles","parent_id": null,"name": "Mobiles","hasChild":true,"pos":"right"},{"id": 30,"slug": "mobiles","parent_id": 25,"name": "Mobiles","hasChild":false,"pos":"right"},{"id": 26,"slug": "mobile-phones-accessories","parent_id": 25,"name": "Mobile Phones accessories","hasChild":true,"pos":"left"},{"id": 27,"slug": "computer-laptop","parent_id": 26,"name": "Computer & Laptop","hasChild":true,"pos":"right"},{"id": 28,"slug": "laptops","parent_id": 27,"name": "Laptops","hasChild":true,"pos":"left"},{"id": 29,"slug": "mobile-phones","parent_id": 26,"name": "Mobiles Phone","hasChild":true,"pos":"left"}]'),
             arr:[
                 {
@@ -93,8 +96,8 @@ class Binary extends Component{
         };
     }
     getCurrent = (node) => this.state.arrs.filter(cNode => cNode.parent_id === node).map(cNode => (
-        <div key={`node_${cNode.id}`} className={`node-${cNode.position}-item binary-level-width-50`}>
-            <span className={`binary-hr-line binar-hr-line-${cNode.position} binary-hr-line-width-25`} style={{display: !cNode.hasChild?'none':''}}/>
+        <div key={`node_${cNode.id===undefined?Math.random():cNode.id}`} className={`node-${cNode.position===null?'right':cNode.position}-item binary-level-width-50`}>
+            <span id={`line-${cNode.position}-${cNode.id}`} className={`binary-hr-line binar-hr-line-${cNode.position} binary-hr-line-width-25`} style={{display: cNode.detail!==null?'none':''}}/>
             {cNode.detail===null?
                 // <div className={`node-item-1-child-${cNode.position}`} onClick={(e)=>this.addNew(e,cNode)}>
                 <Link to={{ pathname: "/member/add", data: cNode }}>
@@ -102,22 +105,22 @@ class Binary extends Component{
                         <div className="binary-node-single-item user-block user-11">
                             <div className="images_wrapper">
                                 {/* <a href="/afl/ref/17/12/LEFT/add/new-ref?u=eyJzcG9uc29yIjoiMTIiLCJwYXJlbnQiOiIxNyIsInBvc2l0aW9uIjoiTEVGVCIsInJldHVybl9wYXRoIjoiYWZsXC9nZW5lYWxvZ3ktdHJlZSJ9"> */}
-                                <img className="profile-rounded-image-small" src="https://binary.epixelmlmsoftware.com/sites/binary/files/styles/genealogy-view/public/genealogy-img/no-user.png?itok=jHw_hHUZ" width={70} height={70} alt="Add new member" title="Add new member" />
+                                <img className="profile-rounded-image-small" src={noUser} width={70} height={70} alt="Add new member" title="Add new member" />
                                 {/* </a> */}
                             </div>
                                 <span className="wrap_content">
                                 {/* <a href="/afl/ref/17/12/LEFT/add/new-ref?u=eyJzcG9uc29yIjoiMTIiLCJwYXJlbnQiOiIxNyIsInBvc2l0aW9uIjoiTEVGVCIsInJldHVybl9wYXRoIjoiYWZsXC9nZW5lYWxvZ3ktdHJlZSJ9"></a> */}
-                                Add new member
+                                <i className="fa fa-plus"></i> Member
                                 </span>
                         </div>
                         <div className="last_level_user"><i className="fa fa-2x">&nbsp;</i></div>
                     </div>
                 </Link>
             :
-            <div className={`ribbon_wrapper node-item-1-child-${cNode.position} ${cNode.hasChild?'node-item-root':''}`}>
-                <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',zIndex:'1'}}><img src={cNode.badge} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
+            <div id={`node-wrapper-${cNode.id}`} className={`node-item-1-child-${cNode.position} node-item-root`}>
                 <div className="binary-node-single-item user-block user-12">
-                    <div className="images_wrapper">
+                    <div className="ribbon_wrapper images_wrapper">
+                <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
                         <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                     <span className="wrap_content ">{cNode.name}</span>
                         <div className="pop-up-content">
@@ -160,7 +163,7 @@ class Binary extends Component{
                         </div>
 
                 </div>
-                <div id="btn-default" className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:!cNode.hasChild?'':'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
+                <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
             </div>
             }
             <div className="parent-wrapper clearfix" id={cNode.parent_id} >
@@ -236,9 +239,70 @@ class Binary extends Component{
     //         }
     //     });
     // }
-   showNode(e,data){
+    
+    showFetch(id){
+        this.setState({loading:true});
+        fetch(HEADERS.URL + `member/network/${btoa(id)}`)
+        .then(res => res.json())
+        .then(
+            (data) => {
+                this.setState({loading:false});
+                // localStorage.setItem("configType",data.result.type)
+                // document.title = `${data.result.title}`;
+                // this.setState({
+                //     type: data.result.type,
+                // })
+                console.log("dddddddd",data.result);
+                if(data.status==='success'){
+                    if(data.result.length<=0){
+                        let joined = this.state.arrs.concat(
+                            {"parent_id":id,"position":'left','hasChild':false,"detail":null},
+                            {"parent_id":id,"position":'right','hasChild':false,"detail":null},
+                            );
+                        this.setState({
+                            arrs:joined
+                        })
+                        // this.getProps(this.props)
+                        document.getElementById('btnAdd_'+id).style.display = 'none';
+                        document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
+                        // document.getElementById('line-left-'+id).style.display = '';
+                        // document.getElementById('line-right-'+id).style.display = '';
+                    } else {
+                        document.getElementById('btnAdd_'+id).style.display = 'none';
+                        document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
+                        if(data.result.length=1){
+                            console.log("lllllllllllllll",data.result)
+                            if(data.result[0].position==='left'){
+                                let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
+                                let joinedB = joinedA.concat(data.result);
+                                this.setState({arrs:joinedB})
+                            } else {
+                                let joinedA = this.state.arrs.concat({"parent_id":id,"position":'left','hasChild':false,"detail":null},);
+                                let joinedB = joinedA.concat(data.result);
+                                this.setState({arrs:joinedB})
+                            }
+                        } else {
+                        let joined = this.state.arrs.concat(data.result);
+                        this.setState({arrs:joined})
+                        // this.getProps(this.props)
+                        }
+                    }
+                }
+            },
+            (error) => {
+                this.setState({loading:false});
+                // this.setState({
+                //     isLoaded: true,
+                //     error
+                // });
+            }
+        )
+    }
+
+    showNode(e,data){
         e.preventDefault();
-        this.props.dispatch(FetchNetwork(btoa(data),false))
+        // this.props.dispatch(FetchNetwork(btoa(data),false))
+        this.showFetch(data);
         // alert(JSON.stringify(data))
     }
     addNew(e,data){
@@ -282,30 +346,45 @@ class Binary extends Component{
         return r;
     }
     componentWillMount(){
-        if(this.state.arrs.length===[]){
-            this.setState({arrs:this.props.dataList})
-        } else {
-            console.log("asdasfafadfadf")
-            // this.setState({arrs:this.props.list})console.log("asdasfafadfadf")
-            // this.setState({arrs:this.props.list})
-            var joined = this.state.arrs.concat(this.props.list[0]);
-            this.setState({
-                arrs:joined
-            })
+        this.setState({arrs:this.props.dataList})
+        
+        this.getProps(this.props);
+        // if(this.state.arrs.length===[]){
+        // }
+        // else {
+        //     console.log("asdasfafadfadf")
+        //     // this.setState({arrs:this.props.list})console.log("asdasfafadfadf")
+        //     // this.setState({arrs:this.props.list})
+        //     var joined = this.state.arrs.concat(this.props.list[0]);
+        //     this.setState({
+        //         arrs:joined
+        //     })
+        // }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        // if(this.setState((prevState) => {return { arrs: prevState.arrs}})!==this.state.arrs){
+        if (this.state.arrs.length !== prevState.arrs.length){
+            console.log(this.setState((prevState) => {return { arrs: prevState.arrs}}));
+            this.getProps(this.props);
         }
     }
     componentDidMount(){
-        if(this.state.arrs.length===[]){
-            this.setState({arrs:this.props.dataList})
-        } else {
-            console.log("asdasfafadfadf")
-            // this.setState({arrs:this.props.list})console.log("asdasfafadfadf")
-            // this.setState({arrs:this.props.list})
-            var joined = this.state.arrs.concat(this.props.list[0]);
-            this.setState({
-                arrs:joined
-            })
-        }
+        this.setState({arrs:this.props.dataList})
+        this.getProps(this.props);
+    }
+    getProps(props){
+        // this.setState({arrs:props.dataList})
+        // if(this.state.arrs.length===[]){
+        // }
+        // else {
+        //     console.log("asdasfafadfadf")
+        //     // this.setState({arrs:props.list})console.log("asdasfafadfadf")
+        //     // this.setState({arrs:props.list})
+        //     var joined = this.state.arrs.concat(props.list[0]);
+        //     this.setState({
+        //         arrs:joined
+        //     })
+        // }
         // console.log("aaaaaaaaaaaaaaaa",this.state.arrs)
         // let nodes = [{ id: 6, parent_id: 1, name: null }, { id: 1, parent_id: 0, name: "kpittu" }, { id: 2, parent_id: 0, name: "news" }, { id: 3, parent_id: 0, name: "menu" }, { id: 4, parent_id: 3, name: "node" }, { id: 5, parent_id: 4, name: "subnode" }]
         // let toTree  = this.state.arrs
@@ -335,7 +414,7 @@ class Binary extends Component{
         //     });
         //     return r;
         // }(myArrs, 0);
-    let myTree = this.flatToTree(this.state.arrs.length===[]?this.props.dataList:this.state.arrs,0)
+    let myTree = this.flatToTree(this.state.arrs.length<=0?props.dataList:this.state.arrs,0)
     console.log("myTree",myTree);
     // const array=[{id:1,name:"bla",children:[{id:23,name:"bla",children:[{id:88,name:"bla"},{id:99,name:"bla"}]},{id:43,name:"bla"},{id:45,name:"bla",children:[{id:43,name:"bla"},{id:46,name:"bla"}]}]},{id:12,name:"bla",children:[{id:232,name:"bla",children:[{id:848,name:"bla"},{id:959,name:"bla"}]},{id:433,name:"bla"},{id:445,name:"bla",children:[{id:443,name:"bla"},{id:456,name:"bla",children:[{id:97,name:"bla"},{id:56,name:"bla"}]}]}]},{id:15,name:"bla",children:[{id:263,name:"bla",children:[{id:868,name:"bla"},{id:979,name:"bla"}]},{id:483,name:"bla"},{id:445,name:"bla",children:[{id:423,name:"bla"},{id:436,name:"bla"}]}]}];
 
@@ -387,8 +466,8 @@ class Binary extends Component{
 
         // let items = localStorage.getItem('valArrays');
         // if(items===null){
-            // this.setState({arrs:this.props.dataList})
-            (this.state.arrs.length===[]?this.props.dataList:this.state.arrs).forEach(elemA => {
+            // this.setState({arrs:props.dataList})
+            this.state.arrs.forEach(elemA => {
                 // this.state.arrs.forEach(elemB => {
                 //     if(elemA.id===elemB.parent_id){
                 //         console.log("kkkkkkkkkkkkkkkkkkkkkkkkk",elemA.id+"  =  "+elemB.parent_id+"  =  "+elemB.name+"  =  "+elemB.position)
@@ -398,7 +477,7 @@ class Binary extends Component{
                 //                 arrs:joined
                 //             })
                 //         // }
-                //         // let joined = this.props.dataList.concat(this.props.list);
+                //         // let joined = props.dataList.concat(props.list);
                 //     }
                 //     // else {
                 //     //     console.log("oooooooooooooooooooooo",elemA.id+"  =  "+elemB.parent_id+"  =  "+elemB.name+"  =  "+elemB.position)
@@ -429,24 +508,59 @@ class Binary extends Component{
                 //     //   console.log(tree);
                 // });
                 
-                const res = findItemNested(this.state.arrs.length===[]?this.props.dataList:this.state.arrs, elemA.id, "children");
+                const res = findItemNested(this.state.arrs.length===[]?props.dataList:this.state.arrs, elemA.id, "children");
                 console.log("resss",res[0]);
-                if(res.children === undefined && elemA.id!==undefined){
-                    let joined = this.state.arrs.length===[]?this.props.dataList:this.state.arrs.concat(
-                        {"parent_id":elemA.id,"position":'left','hasChild':true,"detail":null},
-                        {"parent_id":elemA.id,"position":'right','hasChild':true,"detail":null},
-                        );
-                    this.setState({
-                        arrs:joined
-                    })
+                console.log("res.children",res.children);
+                if(res[0].children === undefined){
+                    console.log("res.hasChild",res.hasChild);
+                    console.log("resss",res[0]);
+                    if(elemA.hasChild){
+                        console.log("mmmmmmmmmmmmmmm",true)
+                        console.log("document.getElementById('line-left-'+elemA.id)",document.getElementById('line-left-'+elemA.id))
+                        // let joined = this.state.arrs.length===[]?props.dataList:this.state.arrs.concat(
+                        //     {"parent_id":elemA.id,"position":'left','hasChild':true,"detail":null},
+                        //     {"parent_id":elemA.id,"position":'right','hasChild':true,"detail":null},
+                        //     );
+                        // this.setState({
+                        //     arrs:joined
+                        // })
+                        document.getElementById('btnAdd_'+elemA.id).style.display = '';
+                        document.getElementById('node-wrapper-'+elemA.id).classList.remove("node-item-root")
+                        if(document.getElementById('line-left-'+elemA.id)!==null){
+                            document.getElementById('line-left-'+elemA.id).style.display = '';
+                        }
+                        if(document.getElementById('line-right-'+elemA.id)!==null){
+                            document.getElementById('line-right-'+elemA.id).style.display = '';
+                        }
+                    }
+                } else {
+                // if(!res.children === undefined){
+                    console.log("nnnnnnnnnnnnnnn",true)
+                    // if(elemA.hasChild){
+                    //     // let joined = this.state.arrs.length===[]?props.dataList:this.state.arrs.concat(
+                    //     //     {"parent_id":elemA.id,"position":'left','hasChild':true,"detail":null},
+                    //     //     {"parent_id":elemA.id,"position":'right','hasChild':true,"detail":null},
+                    //     //     );
+                    //     // this.setState({
+                    //     //     arrs:joined
+                    //     // })
+                        // document.getElementById('line-left-'+elemA.id).style.display = '';
+                        // document.getElementById('line-right-'+elemA.id).style.display = '';
+                        // document.getElementById('btnAdd_'+elemA.id).style.display = 'none';
+                    //     document.getElementById('node-wrapper-'+elemA.id).classList.remove("node-item-root")
+                    // }
                 }
+                // else {
+                //     console.log("mmmmmmmmmmmmmmm",false)
+                //     document.getElementById('btnAdd_'+elemA.id).style.display = 'none';
+                // }
             });
         // } else {
         //     let toObject = JSON.parse(items);
-        // //     console.log("asdasfafadfadf",this.props.list)
-        // //     // this.setState({arrs:this.props.list})console.log("asdasfafadfadf")
-        // //     // this.setState({arrs:this.props.list})
-        //     var joined = toObject.concat(this.props.list);
+        // //     console.log("asdasfafadfadf",props.list)
+        // //     // this.setState({arrs:props.list})console.log("asdasfafadfadf")
+        // //     // this.setState({arrs:props.list})
+        //     var joined = toObject.concat(props.list);
         //     this.setState({
         //         arrs:joined
         //     })
@@ -488,9 +602,10 @@ class Binary extends Component{
     //     localStorage.setItem('valArrays', JSON.stringify(this.state.arrs))
     //   }
     render(){
-        console.log("newwwwwwwww",this.state.arrs)
+        // console.log("newwwwwwwww",this.state.arrs)
         return (
             <div className="card">
+                {this.state.loading?<Preloader/> : ''}
                 <div className="card-body">
                     <div id="block-system-main" className="block block-system clearfix">
                         <div className="binary-genealogy-tree binary_tree_extended">
