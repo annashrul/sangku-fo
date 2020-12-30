@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 import Preloader from 'Preloader'
 import moment from 'moment'
 import { HEADERS } from '../../../../../redux/actions/_constants';
-import noUser from '../../../../../assets/no-user.png';
+import noUser from 'assets/no-user.png';
+import Default from 'assets/default.png'
 class Binary extends Component{
     constructor(props){
         super(props);
@@ -30,7 +31,7 @@ class Binary extends Component{
                         <div className="binary-node-single-item user-block user-11">
                             <div className="images_wrapper">
                                 {/* <a href="/afl/ref/17/12/LEFT/add/new-ref?u=eyJzcG9uc29yIjoiMTIiLCJwYXJlbnQiOiIxNyIsInBvc2l0aW9uIjoiTEVGVCIsInJldHVybl9wYXRoIjoiYWZsXC9nZW5lYWxvZ3ktdHJlZSJ9"> */}
-                                <img className="profile-rounded-image-small" src={noUser} width={70} height={70} alt="Add new member" title="Add new member" />
+                                <img className="profile-rounded-image-small" src={noUser} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt="Add new member" title="Add new member" />
                                 {/* </a> */}
                             </div>
                                 <span className="wrap_content">
@@ -45,12 +46,12 @@ class Binary extends Component{
             <div id={`node-wrapper-${cNode.id}`} className={`node-item-1-child-${cNode.position} node-item-root`}>
                 <div className="binary-node-single-item user-block user-12">
                     <div className="ribbon_wrapper images_wrapper">
-                <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
-                        <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
+                <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
+                        <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                     <span className="wrap_content ">{cNode.name}</span>
                         <div className="pop-up-content">
                             <div className="profile_tooltip_pick">
-                                <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
+                                <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                                 <div className="full-name">{cNode.name}</div>
                                 <div className="username">
                                     <span className="text-label">Membership : </span>

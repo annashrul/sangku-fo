@@ -10,6 +10,7 @@ import Spinner from 'Spinner'
 import Preloader from 'Preloader'
 import { createMember } from '../../../../../redux/actions/authActions';
 import Swal from 'sweetalert2';
+import Default from 'assets/default.png'
 // import { Link } from 'react-router-dom';
 class MemberForm extends Component{
     constructor(props){
@@ -379,7 +380,7 @@ class MemberForm extends Component{
                                                         <div className="member-content-area">
                                                             <div className="member-contact-content d-flex align-items-center mb-4">
                                                                 <div className="contact-thumb">
-                                                                    <img src={this.state.sponsor_picture} alt />
+                                                                    <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt />
                                                                 </div>
                                                                 <div className="member-contact-info">
                                                                     <h5>{this.state.sponsor_name}</h5>
@@ -398,7 +399,7 @@ class MemberForm extends Component{
                                                         <div className="member-content-area">
                                                             <div className="member-contact-content d-flex align-items-center mb-4">
                                                                 <div className="contact-thumb">
-                                                                    <img src={this.state.upline_picture} alt />
+                                                                    <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt />
                                                                 </div>
                                                                 <div className="member-contact-info">
                                                                     <h5>{this.state.upline_name}</h5>
