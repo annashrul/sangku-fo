@@ -18,7 +18,7 @@ class AddMember extends Component {
             <Layout page="AddMember">
                 {
                     !this.props.isLoading?
-                    <MemberForm availPin={this.props.getPin} dataAdd={this.props.location.data} dataUpline={this.props.list}/>
+                    <MemberForm availPin={this.props.getPin} dataAdd={this.props.location.data} dataUpline={this.props.list} dataId={this.props.location.data===undefined?null:this.props.location.data.parent_id}/>
                     :<Preloader/>
                 }
             </Layout>

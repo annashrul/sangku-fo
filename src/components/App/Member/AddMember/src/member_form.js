@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
-import {ModalToggle, ModalType} from "redux/actions/modal.action";
+// import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 import {stringifyFormData} from "helper";
-import File64 from "components/common/File64";
+// import File64 from "components/common/File64";
 import { Card, CardBody, CardFooter, CardHeader, Table } from 'reactstrap';
 import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
 import { FetchDetailPin } from '../../../../../redux/actions/pin/pin.action';
@@ -10,7 +10,7 @@ import Spinner from 'Spinner'
 import Preloader from 'Preloader'
 import { createMember } from '../../../../../redux/actions/authActions';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 class MemberForm extends Component{
     constructor(props){
         super(props);
@@ -24,7 +24,7 @@ class MemberForm extends Component{
             id_card:'-',
             pin:'-',
             picture:'-',
-            membership:'3a385e1d-21f7-4c73-9554-c818f0078c6f',
+            membership:'-',
             device_id:'-',
             signup_source:'website',
             sponsor:'-',
@@ -60,21 +60,38 @@ class MemberForm extends Component{
         if(this.props.dataAdd===undefined){
             window.location.href = '/binary'
         }
-        this.setState({
-            sponsor:param.auth.user.referral_code,
-            sponsor_name:param.auth.user.full_name,
-            sponsor_picture:param.auth.user.picture,
-            upline:this.props.dataAdd.parent_id,
-            upline_name:this.props.dataUpline[0].name,
-            upline_picture:this.props.dataUpline[0].picture,
-            position:this.props.dataAdd.position,
-        })
+        const findItemNested = (arr, itemId, nestingKey) => arr.reduce((a, c) => {
+            return a.length
+            ? a
+            : c.id === itemId
+            ? a.concat(c)
+            : c[nestingKey]
+                ? a.concat(findItemNested(c[nestingKey], itemId, nestingKey))
+                : a
+        }, []);
+        const res = findItemNested(this.props.dataUpline, this.props.dataId, null);
+        if(res[0]!==undefined){
+            this.setState({
+                sponsor:param.auth.user.referral_code,
+                sponsor_name:param.auth.user.full_name,
+                sponsor_picture:param.auth.user.picture,
+                upline:this.props.dataAdd.parent_id,
+                upline_name:res[0].name,
+                upline_picture:res[0].picture,
+                position:this.props.dataAdd.position,
+            })
+        }
     }
     componentWillMount(){
         this.getProps(this.props);
     }
     componentWillReceiveProps(nextProps) {
         this.getProps(nextProps);
+    }
+    componentDidUpdate(prevProps){
+        if(this.props!==prevProps){
+            this.getProps(this.props)
+        }
     }
     handleLevel(val) {
         let err = Object.assign({}, this.state.error, {level: ""});
