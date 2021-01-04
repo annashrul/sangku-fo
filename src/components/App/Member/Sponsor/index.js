@@ -199,6 +199,7 @@ class Sponsor extends Component{
         }
     }
     render(){
+        require("./sponsor-style.css"); // here
         return (
             <Layout page="Sponsor">
                 <div className="col-12">

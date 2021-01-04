@@ -2,11 +2,11 @@ import React,{Component} from 'react';
 // import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import { Link } from 'react-router-dom';
-// import { FetchNetwork } from 'redux/actions/member/network.action';
+// import { FetchNetwork } from '../../../../../redux/actions/member/network.action';
 // import jQuery from 'jquery';
 import Preloader from 'Preloader'
 import moment from 'moment'
-import { HEADERS } from 'redux/actions/_constants';
+import { HEADERS } from '../../../../../redux/actions/_constants';
 import noUser from 'assets/no-user.png';
 import Default from 'assets/default.png'
 class Binary extends Component{
@@ -290,7 +290,6 @@ class Binary extends Component{
     componentDidUpdate(prevProps, prevState) {
         // if(this.setState((prevState) => {return { arrs: prevState.arrs}})!==this.state.arrs){
         if (this.state.arrs.length !== prevState.arrs.length){
-            console.log(this.setState((prevState) => {return { arrs: prevState.arrs}}));
             this.getProps(this.props);
         }
     }
@@ -340,7 +339,7 @@ class Binary extends Component{
         //     });
         //     return r;
         // }(myArrs, 0);
-    let myTree = this.flatToTree(this.state.arrs.length<=0?props.dataList:this.state.arrs,0)
+    let myTree = this.flatToTree(this.state.arrs===[]?props.dataList:this.state.arrs,0)
     console.log("myTree",myTree);
     // const array=[{id:1,name:"bla",children:[{id:23,name:"bla",children:[{id:88,name:"bla"},{id:99,name:"bla"}]},{id:43,name:"bla"},{id:45,name:"bla",children:[{id:43,name:"bla"},{id:46,name:"bla"}]}]},{id:12,name:"bla",children:[{id:232,name:"bla",children:[{id:848,name:"bla"},{id:959,name:"bla"}]},{id:433,name:"bla"},{id:445,name:"bla",children:[{id:443,name:"bla"},{id:456,name:"bla",children:[{id:97,name:"bla"},{id:56,name:"bla"}]}]}]},{id:15,name:"bla",children:[{id:263,name:"bla",children:[{id:868,name:"bla"},{id:979,name:"bla"}]},{id:483,name:"bla"},{id:445,name:"bla",children:[{id:423,name:"bla"},{id:436,name:"bla"}]}]}];
 
@@ -434,7 +433,7 @@ class Binary extends Component{
                 //     //   console.log(tree);
                 // });
                 
-                const res = findItemNested(this.state.arrs.length===[]?props.dataList:this.state.arrs, elemA.id, "children");
+                const res = findItemNested(this.state.arrs===[]?props.dataList:this.state.arrs, elemA.id, "children");
                 console.log("resss",res[0]);
                 console.log("res.children",res.children);
                 if(res[0].children === undefined){
@@ -461,8 +460,8 @@ class Binary extends Component{
                     }
                 } else {
                     console.log("res.children",res[0].children);
-                    if(res[0].children.length===2){
-                        if(res[0].children[0].id===res[0].children[1].id){
+                    if(res[0].children.length===1){
+                        // if(res[0].children[0].id===res[0].children[1].id){
                             // res[0].children.splice(0,1);
                             
                             console.log("before res[0].children.length===1",res[0].children.length===1);
@@ -489,8 +488,8 @@ class Binary extends Component{
                             console.log("after res[0].children.length===1",res[0].children.length===1);
 
                             console.log("state na uuyyyy",this.state.arrs);
-                            console.log("laksjdlakdalkdjsalkd",document.querySelectorAll(res[0].id));
-                        }
+                            console.log("laksjdlakdalkdjsalkd",document.querySelectorAll(elemA.id));
+                        // }
                     }
                 // if(!res.children === undefined){
                     console.log("nnnnnnnnnnnnnnn",true)
@@ -585,7 +584,7 @@ class Binary extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state.networkReducer)
+    // console.log(state.networkReducer)
     return {
         isLoading:state.networkReducer.isLoading,
         list:state.networkReducer.data,
