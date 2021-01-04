@@ -20,7 +20,7 @@ import FormBarang from '../../../modals/masterdata/barang/barang_form'
 import DetailBarang from '../../../modals/masterdata/barang/barang_detail'
 import { FetchKelompokBarang } from 'redux/actions/masterdata/barang/kelompok.action';
 import {FetchBrand} from "redux/actions/masterdata/brand/brand.action";
-import { FetchKategoriBarang } from '../../../../../redux/actions/masterdata/barang/kategori.action';
+import { FetchKategoriBarang } from 'redux/actions/masterdata/barang/kategori.action';
 import FormBertingkat from '../../../modals/masterdata/barang/barang_form_bertingkat';
 
 class ListBarang extends Component{

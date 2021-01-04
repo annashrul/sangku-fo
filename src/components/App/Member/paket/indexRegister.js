@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import Layout from 'components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import {noImage, toCurrency, toRp} from "../../../../helper";
-import {getPaket} from "../../../../redux/actions/product/paket.action";
-import {getCart, postCart} from "../../../../redux/actions/product/cart.action";
+import {noImage, toCurrency, toRp} from "helper";
+import {getPaket} from "redux/actions/product/paket.action";
+import {getCart, postCart} from "redux/actions/product/cart.action";
+import {ModalToggle, ModalType} from "redux/actions/modal.action";
+import DetailProduct from "../../modals/product/detail_product"
+
 
 class IndexRegister extends Component{
     constructor(props){
         super(props);
         this.handleCart    = this.handleCart.bind(this);
         this.handleDetail    = this.handleDetail.bind(this);
+        this.state={
+            detail:{}
+        }
     }
 
     componentWillMount(){
@@ -27,9 +32,14 @@ class IndexRegister extends Component{
         };
         this.props.dispatch(postCart(data,'a'));
     }
-    handleDetail(e,i){
+    handleDetail(e,id){
         e.preventDefault();
-        alert(i);
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("detailProduct"));
+        this.setState({
+            detail:{id:id}
+        })
     }
 
     render(){
@@ -72,7 +82,7 @@ class IndexRegister extends Component{
                                                         <a className="btn btn-primary" href="#" onClick={(event)=>this.handleCart(event,i)}><i className={"fa fa-shopping-cart"}/> Keranjang</a>
                                                     </div>
                                                     <div className="col-5 text-right">
-                                                        <a className="btn btn-success" href="#" onClick={(event)=>this.handleDetail(event,i)}><i className={"fa fa-eye"}/> Detail</a>
+                                                        <a className="btn btn-success" href="#" onClick={(event)=>this.handleDetail(event,v.id)}><i className={"fa fa-eye"}/> Detail</a>
                                                     </div>
 
                                                 </div>
@@ -118,6 +128,11 @@ class IndexRegister extends Component{
                         })()
                     }
                 </div>
+                {
+                    this.props.isOpen===true?<DetailProduct
+                        detail={this.state.detail}
+                    />:null
+                }
             </div>
         );
     }
@@ -126,6 +141,7 @@ class IndexRegister extends Component{
 
 const mapStateToProps = (state) => {
     return{
+        isOpen:state.modalReducer,
         auth: state.auth,
         resPaket:state.paketReducer.data,
         isLoading: state.paketReducer.isLoading,

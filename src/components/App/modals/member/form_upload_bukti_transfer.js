@@ -5,8 +5,8 @@ import connect from "react-redux/es/connect/connect";
 import File64 from "components/common/File64";
 import {ToastQ,stringifyFormData} from "helper";
 import WrapperModal from "../_wrapper.modal";
-import {noImage} from "../../../../helper";
-import {postBuktiTransfer} from "../../../../redux/actions/product/checkout.action";
+import {noImage} from "helper";
+import {postBuktiTransfer} from "redux/actions/product/checkout.action";
 
 class FormUploadBuktiTransfer extends Component{
     constructor(props){

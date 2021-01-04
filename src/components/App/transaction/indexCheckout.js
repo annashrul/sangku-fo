@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
-import {noImage, toRp} from "../../../helper";
-import {getCart} from "../../../redux/actions/product/cart.action";
+import {noImage, toRp} from "helper";
+import {getCart} from "redux/actions/product/cart.action";
 import Swal from "sweetalert2";
-import {postCheckout} from "../../../redux/actions/product/checkout.action";
-import {detailAlamat, getAlamat} from "../../../redux/actions/member/alamat.action";
-import {getKurir} from "../../../redux/actions/product/kurir.action";
+import {postCheckout} from "redux/actions/product/checkout.action";
+import {detailAlamat, getAlamat} from "redux/actions/member/alamat.action";
+import {getKurir} from "redux/actions/product/kurir.action";
 import Select from 'react-select'
-import {postOngkir} from "../../../redux/actions/product/ongkir.action";
+import {postOngkir} from "redux/actions/product/ongkir.action";
 import Skeleton from 'react-loading-skeleton';
-import {getBank} from "../../../redux/actions/member/bank.action";
+import {getBank} from "redux/actions/member/bank.action";
 
 class IndexCheckout extends Component{
     constructor(props){

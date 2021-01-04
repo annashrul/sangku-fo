@@ -2,9 +2,9 @@ import React,{Component} from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import {getBank} from "../../../../redux/actions/member/bank.action";
-import {rmComma, ToastQ, toCurrency} from "../../../../helper";
-import {postDeposit} from "../../../../redux/actions/member/deposit.action";
+import {getBank} from "redux/actions/member/bank.action";
+import {rmComma, ToastQ, toCurrency} from "helper";
+import {postDeposit} from "redux/actions/member/deposit.action";
 
 
 class IndexDeposit extends Component{
@@ -72,7 +72,7 @@ class IndexDeposit extends Component{
 
     render(){
         return(
-            <Layout page={"Deposit"}>
+            <Layout page={"Deposit"} subpage="Wallet">
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
                         <div className="dashboard-header-title mb-3 d-flex justify-content-center">

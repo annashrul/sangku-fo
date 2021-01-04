@@ -1,7 +1,7 @@
 import axios from "axios"
 import Swal from "sweetalert2";
 import {ONGKIR, HEADERS} from "../_constants";
-import {ToastQ} from "../../../helper";
+import {ToastQ} from "helper";
 
 
 

@@ -21,6 +21,7 @@ import {depositReducer} from "./member/deposit.reducer";
 import {penarikanReducer} from "./member/penarikan.reducer";
 import {transferReducer} from "./member/transfer.reducer";
 import {bankMemberReducer} from "./member/bankMember.reducer";
+import {riwayatReducer} from './transaction/riwayat.reducer'
 
 
 export default combineReducers({
@@ -45,6 +46,8 @@ export default combineReducers({
     depositReducer,
     penarikanReducer,
     transferReducer,
+    riwayatReducer,
+    
     auth: authReducer,
     errors : errorsReducer
 });

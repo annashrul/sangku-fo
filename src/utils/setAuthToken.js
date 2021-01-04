@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {HEADERS} from "../redux/actions/_constants";
+import {HEADERS} from "redux/actions/_constants";
 
 const setAuthToken = token =>{
 

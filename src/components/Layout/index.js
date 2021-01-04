@@ -7,7 +7,10 @@ import {connect} from 'react-redux'
 import FreeScrollbar from 'react-free-scrollbar';
 import { logoutUser } from "redux/actions/authActions";
 import PropTypes from "prop-types";
-import {noImage} from "../../helper";
+import {noImage} from "helper";
+import moment from "moment"
+import Clock from 'components/common/clock'
+
 class Layout extends Component {
     constructor(props){
         super(props);
@@ -85,25 +88,38 @@ class Layout extends Component {
                     <div className="main-content">
                         <div className="container-fluid">
                             {/* content */}
-                            {/* {
-                                this.props.page==='Dashboard'?"":(
-                                    <div className="row align-items-center">
+                                <div className="row align-items-center">
                                     <div className="col-6">
-                                        <div className="dashboard-header-title mb-3">
-                                        <h5 className="mb-0 font-weight-bold">{this.props.headers}</h5>
+                                        <div className="dashboard-header-title mb-3 ml-2">
+                                            <h5 className="mb-0 font-weight-bold">{this.props.page}</h5>
+                                            <ol class="breadcrumb">
+                                                {
+                                                    this.props.page === 'Dashboard' ? "":
+                                                    <li><Link  to="/dashboard">Dashboard</Link></li>
+                                                }
+                                                {
+                                                    this.props.page==='Dashboard'?"":this.props.subpage!==undefined?
+                                                        (
+                                                            <li><Link  to="#">{this.props.subpage}</Link></li>
+                                                        ):""
+                                                }
+                                                {
+                                                    this.props.page==='Dashboard'?"":(
+                                                        <li class="active">{this.props.page}</li>
+                                                    )
+                                                }
+                                            </ol>
                                         </div>
                                     </div>
                                     <div className="col-6">
-                                    <div className="dashboard-infor-mation d-flex flex-wrap align-items-center mb-3">
-                                        <div className="dashboard-clock">
-                                            <div id="dashboardDate">{moment().format("dddd, Do MMM YYYY")}</div>
-                                            <Clock/>
+                                        <div className="dashboard-infor-mation d-flex flex-wrap align-items-center mb-3">
+                                            <div className="dashboard-clock">
+                                                <div id="dashboardDate">{moment().format("dddd, Do MMM YYYY")}</div>
+                                                <Clock/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>  
-                                )
-                            } */}
                             {
                                 this.props.children
                             }

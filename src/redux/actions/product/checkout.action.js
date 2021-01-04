@@ -1,7 +1,7 @@
 import axios from "axios"
 import Swal from "sweetalert2";
 import {CHECKOUT, HEADERS, NOTIF_ALERT} from "../_constants";
-import {ToastQ} from "../../../helper";
+import {ToastQ} from "helper";
 import {ModalToggle} from "../modal.action";
 
 export function setLoading(load) {

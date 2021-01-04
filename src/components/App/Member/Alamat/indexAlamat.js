@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import {DateRangePicker} from "react-bootstrap-daterangepicker";
 import moment from "moment";
-import {deleteAlamat, getAlamat} from "../../../../redux/actions/member/alamat.action";
-import {ModalToggle, ModalType} from "../../../../redux/actions/modal.action";
-import Paginationq, {rangeDate} from "../../../../helper";
-import {NOTIF_ALERT} from "../../../../redux/actions/_constants";
+import {deleteAlamat, getAlamat} from "redux/actions/member/alamat.action";
+import {ModalToggle, ModalType} from "redux/actions/modal.action";
+import Paginationq, {rangeDate} from "helper";
+import {NOTIF_ALERT} from "redux/actions/_constants";
 import FormAlamat from "../../modals/member/alamat/form_alamat"
 import Skeleton from 'react-loading-skeleton';
 import * as Swal from "sweetalert2";

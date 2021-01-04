@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import {noImage, toCurrency, toRp} from "../../../../helper";
-import {getPaket} from "../../../../redux/actions/product/paket.action";
-import {getCart, postCart} from "../../../../redux/actions/product/cart.action";
+import {noImage, toCurrency, toRp} from "helper";
+import {getPaket} from "redux/actions/product/paket.action";
+import {getCart, postCart} from "redux/actions/product/cart.action";
 
 class IndexRO extends Component{
     constructor(props){

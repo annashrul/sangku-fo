@@ -1,16 +1,19 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
-import {rmComma, ToastQ, toCurrency} from "../../../../helper";
-import {postTransfer} from "../../../../redux/actions/member/transfer.action";
+import Skeleton from 'react-loading-skeleton';
+import {rmComma, ToastQ, toCurrency} from "helper";
+import {postPenarikan} from "redux/actions/member/penarikan.action";
+import {getBankMember} from "redux/actions/member/bankMember.action";
 
 
-class IndexTransfer extends Component{
+class IndexPenarikan extends Component{
     constructor(props){
         super(props);
         this.state={
             amount:"0",
-            id_penerima:"",
+            bank:0,
+            idBank:"",
             arrAmount:[
                 {id:0,amount:'100,000'},
                 {id:1,amount:'200,000'},
@@ -22,8 +25,13 @@ class IndexTransfer extends Component{
         };
         this.handleChange   = this.handleChange.bind(this);
         this.handleClickPrice   = this.handleClickPrice.bind(this);
+        this.handleClickBank   = this.handleClickBank.bind(this);
         this.handleSubmit   = this.handleSubmit.bind(this);
 
+    }
+
+    componentWillMount(){
+        this.props.dispatch(getBankMember());
     }
 
     handleChange = (event) => {
@@ -36,35 +44,38 @@ class IndexTransfer extends Component{
         })
     }
 
+    handleClickBank(e,i,id){
+        e.preventDefault();
+        this.setState({bank:i,idBank:id});
+    }
+
+
     handleSubmit(e){
         e.preventDefault();
         let data={};
-        data['id_penerima'] = this.state.id_penerima;
+        data['id_bank'] = this.state.idBank;
         data['amount'] = rmComma(this.state.amount);
         if(isNaN(data['amount'])){
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
         }
-        else if(data['id_penerima']===""||data['id_penerima']==="0"||data['id_penerima']===undefined){
-            ToastQ.fire({icon:'error',title:`silahkan masukan penerima`});
-        }
         else{
-            this.props.dispatch(postTransfer(data));
+            this.props.dispatch(postPenarikan(data));
         }
     }
 
     componentWillReceiveProps(nextProps){
         if(nextProps.isError===true){
-            this.setState({amount:"0",id_penerima:""})
+            this.setState({amount:"0"});
         }
     }
 
     render(){
         return(
-            <Layout page={"Transfer"}>
+            <Layout page={"Penarikan"}>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
                         <div className="dashboard-header-title mb-3 d-flex justify-content-center">
-                            <h5 className="mb-0 text-center font-weight-bold">Transfer</h5>
+                            <h5 className="mb-0 text-center font-weight-bold">Penarikan</h5>
                         </div>
                     </div>
                 </div>
@@ -76,6 +87,7 @@ class IndexTransfer extends Component{
                                     <div className="row d-flex justify-content-center">
                                         <div className="col-md-4 d-flex justify-content-center">
                                             <div className="row">
+
                                                 <div className="card" style={{height:'500px',overflowY:'auto',boxShadow:"0px -4px 3px #EEEEEE",borderRadiusTop:"10px",border:"2px solid #EEEEEE",padding:"20px"}}>
                                                     <div className="row">
                                                         <div className="col-md-12">
@@ -93,25 +105,50 @@ class IndexTransfer extends Component{
 
                                                         <div className="col-md-12" style={{borderTop:"1px solid #EEEEEE"}}>
                                                             <div className="form-group" style={{marginTop:"10px"}}>
-                                                                <label>Nominal</label>
+                                                                <label>Masukan Nominal</label>
                                                                 <input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>
                                                             </div>
                                                         </div>
+
                                                         <div className="col-md-12" style={{borderTop:"1px solid #EEEEEE"}}>
                                                             <div className="form-group" style={{marginTop:"10px"}}>
-                                                                <label>Penerima</label>
-                                                                <input type="text" className={"form-control"} name={"id_penerima"} value={this.state.id_penerima} onChange={this.handleChange}/>
+                                                                <label>Pilih Bank</label>
+                                                                {
+                                                                    typeof this.props.resBank.data==='object'?this.props.resBank.data.length>0?this.props.resBank.data.map((v,i)=>{
+                                                                        return (
+
+                                                                            <div key={i} className="card" onClick={(event)=>this.handleClickBank(event,i,v.id)} style={this.state.bank===i?{backgroundColor:'#EEEEEE'}:{backgroundColor:'transparent'}}>
+                                                                                <div className="card-body">
+                                                                                    <div className="single-smart-card d-flex justify-content-between">
+                                                                                        <div className="text">
+                                                                                            <h5 style={{color:"green"}}>{v.bank_name}</h5>
+                                                                                            <p style={{fontSize:"12px"}}>{v.acc_name} <br/> {v.acc_no}</p>
+                                                                                        </div>
+                                                                                        <div className="icon">
+                                                                                            <i className={`fa ${this.state.bank===i?'fa-check':'fa-angle-double-right'} font-30`} style={{color:`${this.state.bank===i?'green':''}`}}/>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        );
+                                                                    }):"":(()=>{
+                                                                        let container =[];
+                                                                        for(let x=0; x<4; x++){
+                                                                            container.push(
+                                                                                <div className={"card"} style={{borderBottom:"1px solid #EEEEEE"}}>
+                                                                                   <div className="card-body">
+                                                                                       <div><Skeleton width={100}/></div>
+                                                                                       <div><Skeleton width={200}/></div>
+                                                                                       <div><Skeleton width={300}/></div>
+                                                                                   </div>
+                                                                                </div>
+                                                                            )
+                                                                        }
+                                                                        return container;
+                                                                    })()
+                                                                }
                                                             </div>
                                                         </div>
-
-                                                        {/*<div className="col-md-12" style={{borderTop:"1px solid #EEEEEE"}}>*/}
-                                                            {/*<div className="form-group" style={{marginTop:"10px"}}>*/}
-                                                                {/*<label>Keterangan</label>*/}
-                                                                {/*<textarea name="" className="form-control" cols="30" rows="10"/>*/}
-                                                                {/*/!*<input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>*!/*/}
-                                                            {/*</div>*/}
-                                                        {/*</div>*/}
-
                                                     </div>
                                                 </div>
                                                 <button onClick={this.handleSubmit} className={"btn btn-primary btn-block"}>{!this.props.isLoadingPost?'Simpan':'Loading ...'}</button>
@@ -133,12 +170,12 @@ class IndexTransfer extends Component{
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        resBank:state.bankReducer.data,
-        isLoadingBank:state.bankReducer.isLoading,
-        isLoadingPost:state.transferReducer.isLoadingPost,
-        isError:state.transferReducer.isError,
+        resBank:state.bankMemberReducer.data,
+        isLoadingBank:state.bankMemberReducer.isLoading,
+        isLoadingPost:state.penarikanReducer.isLoadingPost,
+        isError:state.penarikanReducer.isError,
     }
 }
 
 
-export default connect(mapStateToProps)(IndexTransfer);
+export default connect(mapStateToProps)(IndexPenarikan);

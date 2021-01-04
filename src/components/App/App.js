@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router} from 'react-router-dom';
 
-import store from '../../redux/store';
+import store from 'redux/store';
 import setAuthToken from '../../utils/setAuthToken';
-import {setCurrentUser, setLoggedin,logoutUser} from '../../redux/actions/authActions';
+import {setCurrentUser, setLoggedin,logoutUser} from 'redux/actions/authActions';
 
 import Routes from 'components/Routes/Routes';
 import { DBConfig } from 'DBConfig';
 import { initDB } from 'react-indexed-db';
  import {get} from "components/model/app.model";
-import {HEADERS} from "../../redux/actions/_constants";
+import {HEADERS} from "redux/actions/_constants";
 import axios from 'axios';
 
 initDB(DBConfig);

@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 // import './landing_style.css'
 import {loginUser} from 'redux/actions/authActions';
 import {HEADERS} from 'redux/actions/_constants'
-import bgVid from "../../../../assets/bg_particle_loop.mp4"
-import tshirt from "../../../../assets/tshirt.png"
-import bags from "../../../../assets/bags.png"
-import jacket from "../../../../assets/jacket.png"
-import jas from "../../../../assets/jas.png"
+import bgVid from "assets/bg_particle_loop.mp4"
+import tshirt from "assets/tshirt.png"
+import bags from "assets/bags.png"
+import jacket from "assets/jacket.png"
+import jas from "assets/jas.png"
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ParticlesBg from "particles-bg";
 import './css/bg_vid.css';

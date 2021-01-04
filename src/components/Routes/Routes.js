@@ -5,21 +5,22 @@ import NotFound from '../common/notfound'
 
 import Landing from '../App/Auth/Login/Landing';
 import LoginProcess from '../App/Auth/Login/Login';
-import Dashboard from '../App/Member/Dashboard/Dashboard';
+import Dashboard from '../App/Dashboard/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';
 import IndexCart from '../App/transaction/indexCart';
 import IndexCheckout from '../App/transaction/indexCheckout';
 import IndexInvoice from '../App/transaction/indexInvoice';
 import AddMember from '../App/Member/AddMember';
-import IndexDeposit from '../App/Member/wallet/indexDeposit';
-import IndexPenarikan from '../App/Member/wallet/indexPenarikan';
-import IndexTransfer from '../App/Member/wallet/indexTransfer';
+import IndexDeposit from '../App/wallet/indexDeposit';
+import IndexPenarikan from '../App/wallet/indexPenarikan';
+import IndexTransfer from '../App/wallet/indexTransfer';
 import IndexAlamat from '../App/Member/Alamat/indexAlamat';
 import IndexBank from '../App/Member/bank/indexBank';
 import Test from '../App/Masterdata/user';
 import Binary from '../App/Member/Binary';
 import Sponsor from '../App/Member/Sponsor';
 import Testt from '../App/Masterdata/test';
+import RiwayatTransaksi from '../App/transaction/riwayat'
 
 const Routes = (
     <div>
@@ -47,6 +48,8 @@ const Routes = (
             <PrivateRoute path="/penarikan" exact strict component={IndexPenarikan} />
             <PrivateRoute path="/transfer" exact strict component={IndexTransfer} />
             {/* WALLET SECTION END */}
+            <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
+
 
 
             <PrivateRoute path="/member/add" exact strict component={AddMember} />

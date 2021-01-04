@@ -14903,3 +14903,48 @@ table.tableBodyScroll tbody tr {
 .forceOneEm {
   font-size:.7em !important;
 }
+
+.breadcrumb {
+  background: transparent;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  padding: 7px 0;
+  top: 15px;
+  right: 10px;
+  border-radius: 2px
+}
+
+.breadcrumb>li>a {
+  color: #444;
+  text-decoration: none;
+  display: inline-block
+}
+
+.breadcrumb>li>a>.fa,
+.breadcrumb>li>a>.glyphicon,
+.breadcrumb>li>a>.ion {
+  margin-right: 5px
+}
+
+.breadcrumb>li+li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";
+}
+
+@media (max-width:991px) {
+  .breadcrumb {
+    position: relative;
+    margin-top: 5px;
+    top: 0;
+    right: 0;
+    float: none;
+    background: #d2d6de;
+    padding-left: 10px
+  }
+
+  .breadcrumb li:before {
+    color: #97a0b3
+  }
+}

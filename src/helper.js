@@ -137,7 +137,7 @@ export const toNominal= (val1,val2) => {
     return con.toFixed(2);
 }
 
-export const toRp = (angka) => {
+export const toRp = (angka,usePrefix=false) => {
     // return Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(txt);
     // var number_string = angka.toString().replace(/[^,\d]/g, ''),
     let numbers=0;
@@ -160,7 +160,7 @@ export const toRp = (angka) => {
 
     rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
     rupiah = (parseFloat(angka) < 0) ? "-" + rupiah:rupiah;
-    return rupiah;
+    return usePrefix?"Rp "+rupiah:rupiah;
 };
 export const ToastQ = Swal.mixin({
     toast: true,

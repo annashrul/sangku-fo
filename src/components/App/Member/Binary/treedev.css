@@ -34,7 +34,7 @@
   
   .hr_class.binar-hr-line-right.line_logic::before{-webkit-animation: progress-bar 2s;  -moz-animation: progress-bar 2s;  animation: progress-bar 2s;}
   
-  @-webkit-keyframes line_logic:before {
+  /* @-webkit-keyframes line_logic:before {
      0% { width: 0; }
   }
   @-moz-keyframes line_logic:before {
@@ -43,7 +43,7 @@
   keyframes line_logic:before {
      0% { width: 0; }
   }
-  
+   */
   .bronze .image_tooltip,.gold .image_tooltip,.silver .image_tooltip,.bronze .membership_image,.gold .membership_image,.silver .membership_image {float: left !important;}
   
   

@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import {DateRangePicker} from "react-bootstrap-daterangepicker";
 import moment from "moment";
-import {ModalToggle, ModalType} from "../../../../redux/actions/modal.action";
-import Paginationq, {rangeDate} from "../../../../helper";
-import {NOTIF_ALERT} from "../../../../redux/actions/_constants";
+import {ModalToggle, ModalType} from "redux/actions/modal.action";
+import Paginationq, {rangeDate} from "helper";
+import {NOTIF_ALERT} from "redux/actions/_constants";
 import FormBankMember from "../../modals/member/bank_member/form_bank_member"
 import Skeleton from 'react-loading-skeleton';
 import * as Swal from "sweetalert2";
-import {deleteBankMember, getBankMember} from "../../../../redux/actions/member/bankMember.action";
+import {deleteBankMember, getBankMember} from "redux/actions/member/bankMember.action";
 
 
 class IndexBank extends Component{

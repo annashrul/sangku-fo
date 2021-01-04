@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import BgAuth from "../../../../assets/logo.png"
+import BgAuth from "assets/logo.png"
 import './login.css'
 import {loginUser, setLoggedin} from 'redux/actions/authActions';
 import Swal from 'sweetalert2'
 import {HEADERS} from 'redux/actions/_constants'
 import { useSpring, animated } from 'react-spring'
-import tshirt from "../../../../assets/tshirt.png"
-import bags from "../../../../assets/bags.png"
-import jacket from "../../../../assets/jacket.png"
-import jas from "../../../../assets/jas.png"
+import tshirt from "assets/tshirt.png"
+import bags from "assets/bags.png"
+import jacket from "assets/jacket.png"
+import jas from "assets/jas.png"
 import bycrypt from 'bcryptjs';
 import ParticlesBg from "particles-bg";
-import {sendOtp} from "../../../../redux/actions/authActions";
+import {sendOtp} from "redux/actions/authActions";
 
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
@@ -70,8 +70,8 @@ class Login extends Component {
 
     componentDidMount (){
         if(this.props.auth.isAuthenticated){
-            // this.props.history.push('/')
-            window.location.href='/dashboard'
+            this.props.history.push('/')
+            // window.location.href='/dashboard'
         }
         // if(this.props.history.location.query===undefined){
             // this.props.history.push('/')

@@ -202,8 +202,8 @@ textarea:-ms-input-placeholder {
 	text-indent: 100%;
 	overflow: hidden;
 	white-space: nowrap;
-	background: url(../img/sprite-sheet-2basev5.png) no-repeat
 }
+/* background: url(../img/sprite-sheet-2basev5.png) no-repeat */
 
 table {
 	border-collapse: collapse;
@@ -236,7 +236,7 @@ td {
 }
 
 .rslides li {
-	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
 	position: absolute;
 	display: none;
 	width: 100%;
@@ -483,8 +483,8 @@ td {
 	left: -30px;
 	top: 10px;
 	display: block;
-	background: url(../img/tooltip-arrow.png) no-repeat
 }
+/* background: url(../img/tooltip-arrow.png) no-repeat */
 
 .pop-up-content.right_tooltip {
 	right: 280px;
@@ -493,9 +493,9 @@ td {
 
 .pop-up-content.right_tooltip:after {
 	right: -30px;
-	background: url(../img/tooltip-arrow-right.png) no-repeat;
 	left: auto
 }
+/* background: url(../img/tooltip-arrow-right.png) no-repeat; */
 
 .profile_tooltip_pick {
 	display: inline-block;

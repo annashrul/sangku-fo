@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
-import {toRp} from "../../../helper";
-import {getInvoice} from "../../../redux/actions/product/checkout.action";
+import {toRp} from "helper";
+import {getInvoice} from "redux/actions/product/checkout.action";
 import moment from 'moment';
 import FormUploadBuktiTransfer from '../modals/member/form_upload_bukti_transfer';
-import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
-import {cancelDeposit} from "../../../redux/actions/member/deposit.action";
+import {ModalToggle, ModalType} from "redux/actions/modal.action";
+import {cancelDeposit} from "redux/actions/member/deposit.action";
 import Swal from "sweetalert2";
 
 class IndexInvoice extends Component{

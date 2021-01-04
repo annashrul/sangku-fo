@@ -36,6 +36,7 @@ export const productReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 isLoading: action.load
             });
+
         case PRODUCT.LOADING_POST:
             return Object.assign({}, state, {
                 isLoadingPost: action.load
