@@ -20,8 +20,8 @@ class Binary extends Component{
         // if(this.state.arrs.length<=0){
             if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code){
                 // this.getProps(this.props)
-                this.props.dispatch(FetchNetwork(btoa('MB5711868825'),true))
-                // this.props.dispatch(FetchNetwork(btoa(this.props.auth.user.referral_code),true))
+                // this.props.dispatch(FetchNetwork(btoa('MB5711868825'),true))
+                this.props.dispatch(FetchNetwork(btoa(this.props.auth.user.referral_code),true))
             }
         // }
     }

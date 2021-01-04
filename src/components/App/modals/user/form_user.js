@@ -8,7 +8,7 @@ import {
     ModalFooter,
 } from 'reactstrap';
 import ProfileImage from "../../../assets/profile.png";
-import FileBase64 from "react-file-base64";
+import File64 from "components/common/File64";
 
 class Modals extends Component{
     constructor(props){
@@ -111,7 +111,7 @@ class Modals extends Component{
                                             this.state.foto !==[]?(<img src={this.state.foto.base64} width="100" alt=""/>):<img  src={ProfileImage} width="100" alt=""/>
                                         }
                                     </div>
-                                    <FileBase64
+                                    <File64
                                         multiple={ false }
                                         className="mr-3 form-control-file"
                                         onDone={ this.getFiles.bind(this) } />

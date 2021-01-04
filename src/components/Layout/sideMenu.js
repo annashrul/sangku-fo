@@ -129,7 +129,7 @@ class SideMenu extends Component {
             <nav>
                 <ul className="sidebar-menu" data-widget="tree">
                     {/* DASHBOARD MODUL START */}
-                    <li  className={path==='/'?"active":''}><Link to="/"> <i className="fa fa-dashboard" /><span> Dashboard</span></Link></li>
+                    <li  className={path==='/dashboard'?"active":''}><Link to="/dashboard"> <i className="fa fa-dashboard" /><span> Dashboard</span></Link></li>
                     {/* DASHBOARD MODUL END */}
                     {/* DASHBOARD MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Transaction</span></Link></li>
@@ -137,12 +137,12 @@ class SideMenu extends Component {
                     {/* DASHBOARD MODUL END */}
                     {/* NETWORK MODUL START */}
                     <li className={"treeview" +(this.state.isNetwork===true || path==='/member/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Member</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Network</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
-                            <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Binary Tree</Link></li>
+                            <li className={path==='/binary'?"active":''}><a href="/binary" style={{width:'fit-content'}}> Binary Tree</a></li>
                             <li className={path==='/member/add'?"active":''}><Link to="/member/add" style={{width:'fit-content'}}> Add Member</Link></li>
-                            <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
-                            <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li>
+                            {/* <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
+                            <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
                             <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Sponsor Tree</Link></li>
                         </ul>
                     </li>

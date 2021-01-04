@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
-import Iframe from 'react-iframe';
+// import Iframe from 'react-iframe';
 
 // let items = [];
 class Product extends Component{
@@ -11,7 +11,7 @@ class Product extends Component{
             <Layout page="Product">
                 <div className="col-12 box-margin">
                     <div className="card">
-                      <div className="card-body">
+                      {/* <div className="card-body">
                         <Iframe url="tree.html"
                           width="100%"
                           height="768px"
@@ -19,8 +19,8 @@ class Product extends Component{
                           className="myClassname"
                           // display="initial"
                           // position="relative"
-                          />
-                      </div>
+                          /> */}
+                      {/* </div> */}
                     </div>
                 </div>
 

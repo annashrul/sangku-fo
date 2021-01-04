@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {ModalToggle} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
-import FileBase64 from "react-file-base64";
+import File64 from "components/common/File64";
 import {ToastQ,stringifyFormData} from "helper";
 import WrapperModal from "../_wrapper.modal";
 import {noImage} from "../../../../helper";
@@ -62,7 +62,7 @@ class FormUploadBuktiTransfer extends Component{
                 <ModalBody>
                     <div className="form-group">
                         <label htmlFor="inputState" className="col-form-label">Foto</label><br/>
-                        <FileBase64
+                        <File64
                             multiple={ false }
                             className="mr-3 form-control-file"
                             onDone={ this.getFiles.bind(this) } />

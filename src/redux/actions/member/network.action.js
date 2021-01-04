@@ -1,7 +1,7 @@
 import {NETWORK, HEADERS} from "../_constants";
 import axios from 'axios'
 
-export function setLoading(load){
+export function setLoading(load=true){
     return {type : NETWORK.LOADING,load}
 }
 
@@ -9,23 +9,23 @@ export function setNetwork(data=[]){
     return {type:NETWORK.SUCCESS,data}
 }
 
-export const FetchNetwork = (data,first)=>{
+export const FetchNetwork = (uid,first)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = '';
+        let url = 'member/network/';
         if(first){
-            url=`member/network/${data}?isfirst=true`
+            url+=`${uid}?isfirst=true`
         } else {
-            url=`member/network/${data}`
+            url+=`${uid}`
         }
         axios.get(HEADERS.URL+url)
-            .then(function(response){
-                const data = response.data;
-                
-                dispatch(setNetwork(data));
-                dispatch(setLoading(false));
-            }).catch(function(error){
+        .then(function(response){
+            const data = response.data;
             
+            dispatch(setNetwork(data));
+            dispatch(setLoading(false));
+        }).catch(function(error){
+            dispatch(setLoading(false));
         })
     }
 }

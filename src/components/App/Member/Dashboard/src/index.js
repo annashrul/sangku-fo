@@ -174,13 +174,50 @@ class Index extends Component {
         return (
             <Layout page="Dashboard">
                 <div className="row align-items-center">
-                    <div className="col-6">
-                        <div className="dashboard-header-title mb-3">
-                        <h5 className="mb-0 font-weight-bold">Dashboard</h5>
+                    <div className='col-md-12 col-xl-12 box-margin'>
+                        <div className="card">
+                            {/* <div className="card-header bg-transparent border-bottom-0 h3">Overview</div> */}
+                            <div className="card-body">
+                                <div className="row justify-content-between">
+                                    <div className="col-md-6">
+                                        <h3>Overview</h3>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <h6>Saldo</h6>
+                                                <h5>Rp 200.050</h5>
+                                            </div>
+                                            <div className="col-md-2">
+                                                <h6>PV Kiri</h6>
+                                                <h5>1234</h5>
+                                            </div>
+                                            <div className="col-md-2">
+                                                <h6>PV Kanan</h6>
+                                                <h5>1234</h5>
+                                            </div>
+                                            <div className="col-md-5">
+                                                <div className="row">
+                                                    <div className="col-md-3" style={{paddingRight:0}}>
+                                                        <img src="https://binary.epixelmlmsoftware.com/sites/binary/files/package-images/package-37.png" width="70px"/>
+                                                    </div>
+                                                    <div className="col-md-5" style={{paddingRight:0,marginTop:'10px'}}>
+                                                        <h6>Membership</h6>
+                                                        <h5>Silver</h5>
+                                                    </div>
+                                                    <div className="col-md-4" style={{paddingLeft:0,marginTop:'20px'}}>
+                                                        <a href="#" className="btn btn-primary btn-sm">UPGRADE</a>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {/* Dashboard Info Area */}
-                    <Info handleSubmit={this.handleSubmit}/>
                 </div>  
 
                 {/* Dashboard Filter Area */}

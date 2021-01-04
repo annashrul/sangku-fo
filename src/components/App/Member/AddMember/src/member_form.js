@@ -28,8 +28,9 @@ class MemberForm extends Component{
             device_id:'-',
             signup_source:'website',
             sponsor:'-',
-            upline:'SK5711868832',
+            upline:'-',
             pin_regist:'',
+            position:'-',
             prev:'',
             confirm:false,
             error:{
@@ -52,7 +53,14 @@ class MemberForm extends Component{
         this.toggle = this.toggle.bind(this);
     }
     getProps(param){
-        this.setState({sponsor:param.auth.user.referral_code})
+        if(this.props.dataAdd===undefined){
+            window.location.href = '/binary'
+        }
+        this.setState({
+            sponsor:param.auth.user.referral_code,
+            upline:this.props.dataAdd.parent_id,
+            position:this.props.dataAdd.position,
+        })
     }
     componentWillMount(){
         this.getProps(this.props);
@@ -184,6 +192,8 @@ class MemberForm extends Component{
             full_name,kode,paket,point_volume,category,
         } = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist);
         console.log(this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist))
+        // const { data } = this.props.location
+        // console.log(this.props.location)
         return (
             !this.props.isLoadingAuth?
                 !this.props.registered?
@@ -282,6 +292,13 @@ class MemberForm extends Component{
                                                     <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
                                                     <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.upline}
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Position</label>
+                                                    <input type="text" className="form-control form-control-lg" name="position" value={this.state.position} onChange={this.handleChange} readOnly />
+                                                    <div className="invalid-feedback" style={this.state.error.position!==""?{display:'block'}:{display:'none'}}>
+                                                        {this.state.error.position}
                                                     </div>
                                                 </div>
                                                 {/* <div className="form-group">

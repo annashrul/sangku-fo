@@ -29,31 +29,33 @@ class Landing extends Component {
          this.handleSelect = this.handleSelect.bind(this);
     }
     componentDidMount (){
+        document.title="Sangku"
         if(this.props.auth.isAuthenticated){
-            this.props.history.push('/')
+            // this.props.history.push('/')
+            window.location.href="/dashboard"
         }
-        this.initFetch(false);
+        // this.initFetch(false);
     }
 
-    initFetch(check){
-        fetch(HEADERS.URL + `auth/config`)
-        .then(res => res.json())
-        .then(
-            (data) => {
-                localStorage.setItem("configType",data.result.type)
-                document.title = `${data.result.title}`;
-                this.setState({
-                    type: data.result.type,
-                })
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        )
-    }
+    // initFetch(check){
+    //     fetch(HEADERS.URL + `auth/config`)
+    //     .then(res => res.json())
+    //     .then(
+    //         (data) => {
+    //             localStorage.setItem("configType",data.result.type)
+    //             // document.title = `${data.result.title}`;
+    //             this.setState({
+    //                 type: data.result.type,
+    //             })
+    //         },
+    //         (error) => {
+    //             this.setState({
+    //                 isLoaded: true,
+    //                 error
+    //             });
+    //         }
+    //     )
+    // }
 
 
     componentWillReceiveProps = (nextProps)=>{
@@ -64,7 +66,8 @@ class Landing extends Component {
     }
     getProps(param){
         if(param.auth.isAuthenticated){
-            param.history.push('/');
+            // param.history.push('/');
+            window.location.href = "/dashboard"
         }else{
             if(param.errors){
                 this.setState({errors: param.errors})
@@ -116,7 +119,7 @@ class Landing extends Component {
                                 <div className="header-right">
                                     {/* Start Popup Search Wrap */}
                                     <div className="popup-search-wrap">
-                                        <Link className="btn-search-click" to={{ pathname: '/login/process', query: { config: this.state.type } }} >Sign In &nbsp; <i className="fa fa-user-circle font-24" /></Link>
+                                        <Link className="btn-search-click" to={{ pathname: '/login', query: { config: this.state.type } }} >Sign In &nbsp; <i className="fa fa-user-circle font-24" /></Link>
                                     </div>
                                     {/* End Popup Search Wrap */}
                                     </div>
@@ -354,7 +357,7 @@ class Landing extends Component {
                             <div className="row">
                             <div className="col-lg-12">
                                 <div className="brook-section-title text-center mb--60">
-                                <h3 className="heading heading-h3">Mollit qui occaecat sit dolor.</h3>
+                                <h3 className="heading heading-h3">Testimoni Produk.</h3>
                                 </div>
                             </div>
                             </div>
@@ -371,22 +374,7 @@ class Landing extends Component {
                                     <div className="col-lg-12">
                                         <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
                                             <Masonry>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
+                                                <ReactWOW animation='rotateInUpLeft'><img className="p-2" src={`slider-home-start-ups-slide-01-image-01.png`} alt="img"/></ReactWOW>
                                             </Masonry>
                                         </ResponsiveMasonry>
                                     </div>
@@ -396,25 +384,7 @@ class Landing extends Component {
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-                                            <Masonry>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                                <ReactWOW animation='fadeIn'><img className="p-2" src={`https://via.placeholder.com/${Math.floor(Math.random()*600+400)+`x`+Math.floor(Math.random()*500+300)}?text=Visit+Blogging.com+Now`} alt="img"/></ReactWOW>
-                                            </Masonry>
-                                        </ResponsiveMasonry>
+                                            </ResponsiveMasonry>
                                     </div>
                                 </div>
                             </TabPanel>
@@ -456,8 +426,8 @@ class Landing extends Component {
                         <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div className="footer-widget text-var--2">
                             <div className="logo">
-                                <a href="index.html">
-                                <img src="img/favicon.png" alt="brook white" />
+                                <a href="/">
+                                <img src="logo.png" width="100px" alt="brook white" />
                                 </a>
                             </div>
                             <div className="footer-inner">
@@ -500,14 +470,15 @@ class Landing extends Component {
                         </div>
                         <div className="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
                             <div className="footer-widget text-var--2 menu--instagram">
-                            <h2 className="widgettitle">Instagram</h2>
+                            <h2 className="widgettitle">Gallery</h2>
                             <div className="ft-instagram-list">
                                 <div className="instagram-grid-wrap">
                                 {/* Start Single Instagram */}
                                 <div className="item-grid grid-style--1">
                                     <div className="thumb">
                                     <a href={null}>
-                                        <img src="img/instagram/instagram-1/instagram-7.jpg" alt="instagram images" />
+                                        < img src = "slider-home-start-ups-slide-01-image-01.png"
+                                        alt = "instagram images" / >
                                     </a>
                                     <div className="item-info">
                                         <div className="inner">
@@ -522,7 +493,7 @@ class Landing extends Component {
                                 <div className="item-grid grid-style--1">
                                     <div className="thumb">
                                     <a href={null}>
-                                        <img src="img/instagram/instagram-1/instagram-8.jpg" alt="instagram images" />
+                                        <img src="slider-home-start-ups-slide-01-image-01.png" alt="instagram images" />
                                     </a>
                                     <div className="item-info">
                                         <div className="inner">
@@ -537,7 +508,7 @@ class Landing extends Component {
                                 <div className="item-grid grid-style--1">
                                     <div className="thumb">
                                     <a href={null}>
-                                        <img src="img/instagram/instagram-1/instagram-9.jpg" alt="instagram images" />
+                                        <img src="slider-home-start-ups-slide-01-image-01.png" alt="instagram images" />
                                     </a>
                                     <div className="item-info">
                                         <div className="inner">
@@ -552,7 +523,7 @@ class Landing extends Component {
                                 <div className="item-grid grid-style--1">
                                     <div className="thumb">
                                     <a href={null}>
-                                        <img src="img/instagram/instagram-1/instagram-10.jpg" alt="instagram images" />
+                                        <img src="slider-home-start-ups-slide-01-image-01.png" alt="instagram images" />
                                     </a>
                                     <div className="item-info">
                                         <div className="inner">
@@ -567,7 +538,7 @@ class Landing extends Component {
                                 <div className="item-grid grid-style--1">
                                     <div className="thumb">
                                     <a href={null}>
-                                        <img src="img/instagram/instagram-1/instagram-11.jpg" alt="instagram images" />
+                                        <img src="slider-home-start-ups-slide-01-image-01.png" alt="instagram images" />
                                     </a>
                                     <div className="item-info">
                                         <div className="inner">
@@ -582,7 +553,7 @@ class Landing extends Component {
                                 <div className="item-grid grid-style--1">
                                     <div className="thumb">
                                     <a href={null}>
-                                        <img src="img/instagram/instagram-1/instagram-12.jpg" alt="instagram images" />
+                                        <img src="slider-home-start-ups-slide-01-image-01.png" alt="instagram images" />
                                     </a>
                                     <div className="item-info">
                                         <div className="inner">

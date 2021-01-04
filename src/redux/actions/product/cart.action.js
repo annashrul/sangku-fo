@@ -1,7 +1,7 @@
 import axios from "axios"
 import Swal from "sweetalert2";
 import {CART, HEADERS, NOTIF_ALERT} from "../_constants";
-import {ToastQ} from "../../../helper";
+import {ToastQ} from "helper";
 
 export function setLoading(load) {
     return {
@@ -84,7 +84,7 @@ export const postCart = (data,param="") => {
             .then(function (response) {
                 const data = (response.data);
                 if (data.status === 'success') {
-                    param!==""?ToastQ.fire({icon:'success',title:`berhasil dimasukan kedalam keranjang`}):"";
+                    if(param!=="") ToastQ.fire({icon:'success',title:`berhasil dimasukan kedalam keranjang`});
                     dispatch(setIsError(true));
 
                     dispatch(getCart('page=1'));

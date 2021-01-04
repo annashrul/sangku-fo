@@ -40,13 +40,13 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            type: this.props.history.location.query===undefined?'':this.props.history.location.query.config,
             email: '',
             password: '',
             nohp: '',
             otp: false,
             otp_val: '',
             isError:false,
+            type:'otp',
             // disableButton:false,
             // server_price:0,
             // acc_name:"",
@@ -70,39 +70,35 @@ class Login extends Component {
 
     componentDidMount (){
         if(this.props.auth.isAuthenticated){
-            this.props.history.push('/')
+            // this.props.history.push('/')
+            window.location.href='/dashboard'
         }
-        if(this.props.history.location.query===undefined){
-            this.props.history.push('/')
-        }
-        this.initFetch(false);
+        // if(this.props.history.location.query===undefined){
+            // this.props.history.push('/')
+            // window.location.href='/dashboard'
+        // }
+        this.initFetch();
         
         // let timeLeftVar = this.secondsToTime(this.state.seconds);
         // this.setState({ time: timeLeftVar })
     }
 
-    initFetch(check){
-        fetch(HEADERS.URL + `site/logo`)
-        .then(res => res.json())
-        .then(
-            (data) => {
-                localStorage.setItem("logos",data.result.logo)
-                localStorage.setItem("site_title", data.result.title)
-                document.title = `${data.result.title}`;
-                this.setState({
-                    logo: data.result.logo,
-                    width:data.result.width
-                })
-                const favicon = this.getFaviconEl(); // Accessing favicon element
-                favicon.href = data.result.fav_icon;
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        )
+    initFetch() {
+        fetch(HEADERS.URL + `auth/config`)
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    this.setState({
+                        type: data.result.type,
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
     }
 
 
@@ -122,11 +118,13 @@ class Login extends Component {
         }
      }
      componentWillMount(){
+         document.title="Sangku"
         this.getProps(this.props);
      }
      getProps(param){
          if(param.auth.isAuthenticated){
-             param.history.push('/');
+            //  param.history.push('/');
+             window.location.href = '/dashboard'
          }else{
              if(param.errors){
                  this.setState({errors: param.errors})

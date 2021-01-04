@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../common/PrivateRoute';
 import NotFound from '../common/notfound'
 
-import Login from '../App/Auth/Login/Landing';
+import Landing from '../App/Auth/Login/Landing';
 import LoginProcess from '../App/Auth/Login/Login';
 import Dashboard from '../App/Member/Dashboard/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';
@@ -24,15 +24,15 @@ import Testt from '../App/Masterdata/test';
 const Routes = (
     <div>
         <Switch>
-            <Route path="/login" exact strict component={Login} />
-            <Route path="/login/process" exact strict component={LoginProcess} />
+            <Route path="/" exact strict component={Landing} />
+            <Route path="/login" exact strict component={LoginProcess} />
 
             <PrivateRoute path="/binary" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />
            
             {/* DASHBOARD SECTION START */}
-            <PrivateRoute path="/" exact strict component={Dashboard} />
+            <PrivateRoute path="/dashboard" exact strict component={Dashboard} />
             <PrivateRoute path="/alamat" exact strict component={IndexAlamat} />
             <PrivateRoute path="/bank" exact strict component={IndexBank} />
             {/* DASHBOARD SECTION END */}
