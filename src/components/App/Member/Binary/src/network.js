@@ -460,6 +460,38 @@ class Binary extends Component{
                         }
                     }
                 } else {
+                    console.log("res.children",res[0].children);
+                    if(res[0].children.length===2){
+                        if(res[0].children[0].id===res[0].children[1].id){
+                            // res[0].children.splice(0,1);
+                            
+                            console.log("before res[0].children.length===1",res[0].children.length===1);
+                            console.log("before res[0]",res[0]);
+                            console.log("before res[0].children",res[0].children);
+                            console.log("before res[0].children.length",res[0].children.length);
+                            // if(res[0].children.length<=1){
+                                // if (res[0].children.filter(item=> item.parent_id !== res[0].id).length === 0){
+                                    if(res[0].children[0].position==='left'){
+                                        // res[0].children.concat({"parent_id":res[0].id,"position":'right','hasChild':false,"detail":null})
+                                        let joinedA = this.state.arrs.concat({"parent_id":res[0].id,"position":'right','hasChild':false,"detail":null},);
+                                        this.setState({arrs:joinedA})
+                                    } else {
+                                        let joinedA = this.state.arrs.concat({"parent_id":res[0].id,"position":'left','hasChild':false,"detail":null},);
+                                        this.setState({arrs:joinedA})
+                                        // res[0].children.concat({"parent_id":res[0].id,"position":'left','hasChild':false,"detail":null})
+                                    }
+                                // }
+                            // }
+                            // console.log("res[0].children.concat",res[0].children.concat({"parent_id":res[0].id,"position":'left','hasChild':false,"detail":null}));
+                            console.log("after res[0]",res[0]);
+                            console.log("after res[0].children",res[0].children);
+                            console.log("after res[0].children.length",res[0].children.length);
+                            console.log("after res[0].children.length===1",res[0].children.length===1);
+
+                            console.log("state na uuyyyy",this.state.arrs);
+                            console.log("laksjdlakdalkdjsalkd",document.querySelectorAll(res[0].id));
+                        }
+                    }
                 // if(!res.children === undefined){
                     console.log("nnnnnnnnnnnnnnn",true)
                     // if(elemA.hasChild){
