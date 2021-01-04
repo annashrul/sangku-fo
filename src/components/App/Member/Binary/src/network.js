@@ -34,10 +34,13 @@ class Binary extends Component{
                                 <img className="profile-rounded-image-small" src={noUser} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt="Add new member" title="Add new member" />
                                 {/* </a> */}
                             </div>
-                                <span className="wrap_content">
-                                {/* <a href="/afl/ref/17/12/LEFT/add/new-ref?u=eyJzcG9uc29yIjoiMTIiLCJwYXJlbnQiOiIxNyIsInBvc2l0aW9uIjoiTEVGVCIsInJldHVybl9wYXRoIjoiYWZsXC9nZW5lYWxvZ3ktdHJlZSJ9"></a> */}
+                                {/* <span className="wrap_content">
                                 <i className="fa fa-plus"></i> Member
-                                </span>
+                                </span> */}
+                                <div class="alert alert-primary mt-1" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
+                                <i className="fa fa-plus"></i>&nbsp;
+                                Member
+                                </div>
                         </div>
                         <div className="last_level_user"><i className="fa fa-2x">&nbsp;</i></div>
                     </div>
@@ -48,14 +51,19 @@ class Binary extends Component{
                     <div className="ribbon_wrapper images_wrapper">
                 <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
                         <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
-                    <span className="wrap_content ">{cNode.name}</span>
+                    {/* <span className="wrap_content ">{cNode.name}</span> */}
+                    <div class="alert alert-primary mt-1" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>{cNode.name}</div>
                         <div className="pop-up-content">
                             <div className="profile_tooltip_pick">
                                 <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                                 <div className="full-name">{cNode.name}</div>
                                 <div className="username">
+                                    <span className="text-label">UID : </span>
+                                    <span className="text-value">{cNode.id}</span>
+                                </div>
+                                <div className="username">
                                     <span className="text-label">Membership : </span>
-                                    <span className="text-value">{cNode.membership}</span>
+                                    <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/>
                                 </div>
                             </div>
                             <div className="tooltip_profile_detaile">
