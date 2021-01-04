@@ -28,7 +28,7 @@ class Binary extends Component{
                             <div className="images_wrapper">
                                 <img className="profile-rounded-image-small" src={noUser} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt="Add new member" title="Add new member" />
                             </div>
-                                <div class="alert alert-primary mt-1" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
+                                <div class="alert alert-primary mt-1 font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
                                 <i className="fa fa-plus"></i>&nbsp;
                                 Member
                                 </div>
@@ -42,7 +42,7 @@ class Binary extends Component{
                     <div className="ribbon_wrapper images_wrapper">
                 <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
                         <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
-                    <div class="alert alert-primary mt-1" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>{cNode.name}</div>
+                    <div class="alert alert-primary mt-1 font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>{String(cNode.name).replace(/ .*/,'')}</div>
                         <div className="pop-up-content">
                             <div className="profile_tooltip_pick">
                                 <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
@@ -176,11 +176,7 @@ class Binary extends Component{
         }
         if (this.state.arrs.length !== prevState.arrs.length){
             this.getProps(this.props);
-            console.log("true")
         }
-        console.log("false")
-        console.log("this.state.arrs.length",this.state.arrs.length)
-        console.log("prevState.arrs.length",prevState.arrs.length)
     }
     componentDidMount(){
         this.setState({arrs:this.props.dataList})
