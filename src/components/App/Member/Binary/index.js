@@ -36,7 +36,6 @@ class Binary extends Component{
     render(){
         require("./tree.css"); // here
         require("./treedev.css"); // here
-        require("./sponsor-style.css"); // here
         return (
             <Layout page="Binary">
                 <div className="col-12">
@@ -53,7 +52,7 @@ class Binary extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state.networkReducer)
+    // console.log(state.networkReducer)
     return {
         isLoading:state.networkReducer.isLoading,
         list:state.networkReducer.data,
