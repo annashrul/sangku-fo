@@ -16,11 +16,12 @@ import IndexPenarikan from '../App/wallet/indexPenarikan';
 import IndexTransfer from '../App/wallet/indexTransfer';
 import IndexAlamat from '../App/Member/Alamat/indexAlamat';
 import IndexBank from '../App/Member/bank/indexBank';
-import Test from '../App/Masterdata/user';
 import Binary from '../App/Member/Binary';
 import Sponsor from '../App/Member/Sponsor';
 import Testt from '../App/Masterdata/test';
 import RiwayatTransaksi from '../App/transaction/riwayat'
+import ReportDeposit from '../App/Report/Deposit'
+import ReportPenjualan from '../App/Report/Penjualan'
 
 const Routes = (
     <div>
@@ -48,6 +49,10 @@ const Routes = (
             <PrivateRoute path="/penarikan" exact strict component={IndexPenarikan} />
             <PrivateRoute path="/transfer" exact strict component={IndexTransfer} />
             {/* WALLET SECTION END */}
+            {/* REPORT SECTION START */}
+            <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
+            <PrivateRoute path="/report/penjualan" exact strict component={ReportPenjualan} />
+            {/* REPORT SECTION END */}
             <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
 
 

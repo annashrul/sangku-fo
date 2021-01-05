@@ -46,23 +46,23 @@ class Binary extends Component{
                         <div className="pop-up-content">
                             <div className="profile_tooltip_pick">
                                 <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
-                                <div className="full-name">{cNode.name}</div>
+                                <div className="full-name">{cNode.name}&nbsp;<img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
                                 <div className="username">
                                     <span className="text-label">UID : </span>
                                     <span className="text-value">{cNode.id}</span>
                                 </div>
-                                <div className="username">
+                                {/* <div className="username">
                                     <span className="text-label">Membership : </span>
                                     <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="tooltip_profile_detaile">
-                                <div className="row">
+                                <div className="row mb-2">
                                     <div className="col-md-6  text-center">
-                                        <span className="text-label">LEFT PV</span>
+                                        <span className="text-label">PV KIRI</span>
                                     </div>
                                     <div className="col-md-6  text-center">
-                                        <span className="text-label">RIGHT PV</span>
+                                        <span className="text-label">PV KANAN</span>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -76,7 +76,7 @@ class Binary extends Component{
                             </div>
                             <div className="tooltip-footer">
                                 <div className="text">
-                                    <span className="text-label">Joined Date : </span>
+                                    <span className="text-label">Tanggal Bergabung : </span>
                                     <span className="text-value">{moment(cNode.join_date).format('YYYY-MM-DD')}</span>
                                 </div>
                             </div>
@@ -113,7 +113,8 @@ class Binary extends Component{
                     } else {
                         document.getElementById('btnAdd_'+id).style.display = 'none';
                         document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
-                        if(data.result.length=1){
+                        console.log("data.result.length",data.result.length)
+                        if(data.result.length===1){
                             if(data.result[0].position==='left'){
                                 let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
                                 let joinedB = joinedA.concat(data.result);
@@ -123,9 +124,9 @@ class Binary extends Component{
                                 let joinedB = joinedA.concat(data.result);
                                 this.setState({arrs:joinedB})
                             }
-                        } else {
-                        let joined = this.state.arrs.concat(data.result);
-                        this.setState({arrs:joined})
+                        } else if(data.result.length===2) {
+                            let joined = this.state.arrs.concat(data.result);
+                            this.setState({arrs:joined})
                         }
                     }
                 }

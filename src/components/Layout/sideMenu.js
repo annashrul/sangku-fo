@@ -12,6 +12,7 @@ class SideMenu extends Component {
         this.state ={
             isNetwork: false,
             isWallet: false,
+            isReport: false,
 
             // NETWORK
             // md_network:true,
@@ -20,35 +21,37 @@ class SideMenu extends Component {
         this.changeMenu = this.changeMenu.bind(this);
     }
 
-    changeMenu(e,param){
+    changeMenu(e,param,sub_param){
         e.preventDefault();
-        if(param === 'isNetwork'){
-            this.setState({
-                isNetwork : !this.state.isNetwork,
-                isWallet : false,
-            });
-        }
-        if(param === 'isWallet'){
-            this.setState({
-                isNetwork : false,
-                isWallet : !this.state.isWallet,
-            });
-        }
-
-
-        this.forceUpdate();
-
-        // let module = {
-        //     isNetwork:false,
+        // if(param === 'isNetwork'){
+        //     this.setState({
+        //         isNetwork : !this.state.isNetwork,
+        //         isWallet : false,
+        //     });
         // }
-        // let sub_module = {
-        //     // isReportAdjustment:false,
+        // if(param === 'isWallet'){
+        //     this.setState({
+        //         isNetwork : false,
+        //         isWallet : !this.state.isWallet,
+        //     });
         // }
-        // module[param] = (this.state[param])&&(sub_param!==undefined)?true:!this.state[param];
-        // sub_module[sub_param] = !this.state[sub_param];
-        // let join = Object.assign(module,sub_module);
-        // this.setState(join);
+
+
         // this.forceUpdate();
+
+        let module = {
+            isNetwork : false,
+            isWallet : false,
+            isReport : false,
+        }
+        let sub_module = {
+            // isReportAdjustment:false,
+        }
+        module[param] = (this.state[param])&&(sub_param!==undefined)?true:!this.state[param];
+        sub_module[sub_param] = !this.state[sub_param];
+        let join = Object.assign(module,sub_module);
+        this.setState(join);
+        this.forceUpdate();
     }
     getProps(param){
         if (param.auth.user) {
@@ -80,7 +83,7 @@ class SideMenu extends Component {
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
-        if(path==='/member/add' ||path==='/alamat'||path==='/bank'|| path==='/binary' || path==='/sponsor'){
+        if(path==='/member/add' || path==='/binary' || path==='/sponsor'){
             this.setState({
                 isNetwork:true,
             })
@@ -138,11 +141,11 @@ class SideMenu extends Component {
                     <li className={"treeview" +(this.state.isNetwork===true || path==='/member/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
-                            <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Binary</Link></li>
+                            <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Genealogy Binary</Link></li>
                             <li className={path==='/member/add'?"active":''}><Link to="/member/add" style={{width:'fit-content'}}> Tambah member</Link></li>
                             {/* <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
                             <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
-                            <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Sponsor</Link></li>
+                            <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>
                         </ul>
                     </li>
                     {/* NETWORK MODUL END */}
@@ -156,7 +159,17 @@ class SideMenu extends Component {
                         </ul>
                     </li>
                     {/* WALLET MODUL END */}
+                    
                     <li  className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat"> <i className="fa fa-dashboard" /><span> Riwayat Transaksi</span></Link></li>
+
+                    {/* REPORT MODUL START */}
+                    <li className={"treeview" +(this.state.isReport===true || path==='/report/penjualan' ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
+                            <li className={path==='/report/penjualan'?"active":''}><Link to="/report/penjualan" style={{width:'fit-content'}}> Penjualan</Link></li>
+                        </ul>
+                    </li>
+                    {/* REPORT MODUL END */}
 
                     {/* LOGOUT MODUL START */}
                     <li><a href={null} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>

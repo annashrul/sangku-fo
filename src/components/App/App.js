@@ -16,6 +16,7 @@ initDB(DBConfig);
 axios.defaults.headers.common['username'] = `${HEADERS.USERNAME}`;
 axios.defaults.headers.common['password'] = `${HEADERS.PASSWORD}`;
 axios.defaults.headers.common['myconnection'] = `apps`;
+// axios.defaults.headers.common['myconnection'] = `backoffice`;
 axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencoded`;
 
 // Check token in localStorage
