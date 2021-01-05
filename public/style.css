@@ -14948,3 +14948,65 @@ table.tableBodyScroll tbody tr {
     color: #97a0b3
   }
 }
+.list-payment  {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-box-align: center;
+  background-color: #EDF0F5;
+  color: inherit;
+  padding: 1.5em 2em
+}
+
+.list-payment  img {
+  width: 100px;
+  margin-right: 1.5em
+}
+
+.list-payment :before,
+.list-payment :after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 4;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  pointer-events: none;
+  transition: transform .4s cubic-bezier(.4, 0, .2, 1)
+}
+
+.list-payment :before {
+  border-right: 2px solid #e17306;
+  border-left: 2px solid #e17306;
+  transform: scaleY(0);
+  transform-origin: bottom
+}
+
+.list-payment :after {
+  border-bottom: 2px solid #e17306;
+  border-top: 2px solid #e17306;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.active-payment{
+  border:3px solid #333 !important
+}
+.active-payment::before {
+  transform: scaleY(1);
+  transform-origin: top
+}
+.active-payment::after {
+  transform: scaleX(1);
+  transform-origin: left
+}
+
+.list-payment .text-wrapper {
+  flex-grow: 1;
+  -webkit-flex-grow: 1
+}
