@@ -5,6 +5,7 @@ import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import PembelianDetail from "components/App/modals/report/pembelian/pembelian_detail";
+import PembelianCekResi from "components/App/modals/report/pembelian/pembelian_cek_resi";
 import PembelianReportExcel from "components/App/modals/report/pembelian/pembelian_form_excel";
 // import Select from 'react-select';
 import moment from "moment";
@@ -15,6 +16,8 @@ import {statusQ, toRp} from "helper";
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 // import { Link } from 'react-router-dom';
 import { getReportPembelian, getReportPembelianDetail, getReportPembelianExcel } from '../../../../redux/actions/transaction/pembelian.action';
+import { cekResi, trxDone } from '../../../../redux/actions/product/kurir.action';
+import Swal from 'sweetalert2';
 class PembelianReport extends Component{
     constructor(props){
         super(props);
@@ -81,6 +84,35 @@ class PembelianReport extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("pembelianDetail"));
         this.props.dispatch(getReportPembelianDetail(code))
+    };
+    toggleResi(e,data){
+        e.preventDefault();
+        let param = {}
+        // param['resi'] = 'JP3738533084';
+        // param['kurir'] = 'jnt';
+        param['resi'] = data.resi;
+        param['kurir'] = String(data.layanan_pengiriman).split('|')[0];
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("pembelianCekResi"));
+        this.props.dispatch(cekResi(param))
+    };
+    handleDone(e,kd_trx){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Anda akan menyelesaikan pesanan ini?',
+            text: "Pastikan anda telah menerima pesanan tersebut!",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sudah saya terima',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch(trxDone(btoa(kd_trx)))
+            }
+        })
     };
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
@@ -252,6 +284,8 @@ class PembelianReport extends Component{
             data,
             // total
         } = this.props.pembelianReport;
+        console.log("this.props.pembelianCekResi!==null",this.props.pembelianCekResi!==null)
+        console.log("Object.keys(this.props.pembelianCekResi).length",Object.keys(this.props.pembelianCekResi).length)
         return (
             <Layout page="Pembelian" subpage="Laporan">
                 <div className="col-12 box-margin">
@@ -391,7 +425,8 @@ class PembelianReport extends Component{
                                                                                 </DropdownToggle>
                                                                                 <DropdownMenu>
                                                                                     <DropdownItem onClick={(e)=>this.toggle(e,btoa(v.kd_trx),'','')}>Detail</DropdownItem>
-                                                                                    {v.resi!=='-'?<DropdownItem onClick={(e)=>this.toggle(e,v.no_faktur_mutasi,'','')}>Cek Resi</DropdownItem>:''}
+                                                                                    {v.resi!=='-'?<DropdownItem onClick={(e)=>this.toggleResi(e,v)}>Cek Resi</DropdownItem>:''}
+                                                                                    {v.status===1?<DropdownItem onClick={(e)=>this.handleDone(e,v.kd_trx)}>Pesanan Diterima</DropdownItem>:''}
                                                                                 </DropdownMenu>
                                                                                 </UncontrolledButtonDropdown>
                                                                         </div>
@@ -403,7 +438,7 @@ class PembelianReport extends Component{
                                                                     <td style={columnStyle}>{toRp(v.grand_total)}</td>
                                                                     {/* <td style={columnStyle}>{v.layanan_pengiriman}</td> */}
                                                                     <td style={columnStyle}>{
-                                                                        v.status===0?statusQ('info','Dikirim'):(v.status===1?statusQ('success','Diterima'):"")
+                                                                        v.status===0?statusQ('info','Dikirim'):(v.status===1?statusQ('success','Diterima'):(v.status===3?statusQ('success','Selesai'):""))
                                                                         // v.status===0?statusQ('danger','proses'):(v.status===1?statusQ('warning','packing')?(v.status===2?statusQ('info','dikirim'):statusQ('info','diterima')):""):""
                                                                     }</td>
                                                                     <td style={columnStyle}>{v.metode_pembayaran}</td>
@@ -445,6 +480,7 @@ class PembelianReport extends Component{
                                 />
                             </div>
                             <PembelianDetail pembelianDetail={this.props.pembelianDetail}/>
+                            <PembelianCekResi pembelianCekResi={this.props.pembelianCekResi}/>
                             <PembelianReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />
                         </div>
                     </div>
@@ -455,12 +491,14 @@ class PembelianReport extends Component{
 }
 
 const mapStateToProps = (state) => {
-    
+    console.log("state.kurirReducer.isLoading",state.kurirReducer.isLoading)
     return {
         auth:state.auth,
         pembelianReport:state.pembelianReducer.data_report,
         isLoadingReport:state.pembelianReducer.isLoadingReport,
         pembelianDetail:state.pembelianReducer.data_report_detail,
+        pembelianCekResi:state.kurirReducer.data_resi,
+        isLoadingResi:state.kurirReducer.isLoading,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
     }

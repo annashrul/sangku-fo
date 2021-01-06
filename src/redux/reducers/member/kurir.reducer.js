@@ -7,6 +7,7 @@ const initialState = {
     status: "",
     msg: "",
     data: [],
+    data_resi: {},
 }
 
 export const kurirReducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ export const kurirReducer = (state = initialState, action) => {
                 status: action.data.status,
                 msg: action.data.msg,
                 data: action.data.result,
+            });
+        case KURIR.SUCCESS_RESI:
+            return Object.assign({}, state, {
+                status: action.data.status,
+                msg: action.data.msg,
+                data_resi: action.data.result,
             });
         case KURIR.LOADING:
             return Object.assign({}, state, {

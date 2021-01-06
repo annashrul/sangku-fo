@@ -187,6 +187,7 @@ export const ALAMAT = {
 export const KURIR = {
     LOADING: 'SET_KURIR_LOADING',
     SUCCESS: 'SUCCESS_KURIR',
+    SUCCESS_RESI: 'SUCCESS_RESI',
 }
 
 /****************
