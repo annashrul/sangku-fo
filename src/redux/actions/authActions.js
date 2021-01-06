@@ -176,7 +176,7 @@ export function setIsError(load) {
 
 export const setCurrentOtp = decoded =>{
     return{
-        type: AUTH.SET_CURRENT_USER,
+        type: AUTH.SET_CURRENT_OTP,
         payload: decoded
     }
 }
