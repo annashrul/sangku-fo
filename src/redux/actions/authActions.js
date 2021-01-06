@@ -68,6 +68,7 @@ export const sendOtp = (userData) =>
                             type: 'success',
                             text: data.msg,
                         });
+                        window.location.reload();
                     } else {
                         Swal.fire({
                             title: 'failed',
@@ -75,7 +76,6 @@ export const sendOtp = (userData) =>
                             text: data.msg,
                         });
                     }
-                    // window.location.reload();
                     dispatch(setLoading(false));
                     dispatch(setRegistered(true));
                 })
