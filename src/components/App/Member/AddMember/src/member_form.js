@@ -288,11 +288,11 @@ class MemberForm extends Component{
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Lanjut, Daftar',
                     cancelButtonText: 'Batal'
-                }).then((result) => {
+                }).then(function(result){
                     if (result.value) {
-                        this.props.dispatch(createMember(parseData));
+                        this.props.createMember(parseData);
                     }
-                })
+                }.bind(this))
             // }
         }
     }
@@ -802,7 +802,8 @@ class MemberForm extends Component{
 MemberForm.propTypes = {
     sendOtp: PropTypes.func.isRequired,
     FetchDetailPin: PropTypes.func.isRequired,
-    errors: PropTypes.object
+    errors: PropTypes.object,
+    createMember: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
@@ -818,4 +819,8 @@ const mapStateToProps = (state) => {
         // Level:state.userLevelReducer.data,
     }
 }
-export default connect(mapStateToProps,{sendOtp,FetchDetailPin})(MemberForm);
+export default connect(mapStateToProps, {
+    sendOtp,
+    FetchDetailPin,
+    createMember
+})(MemberForm);
