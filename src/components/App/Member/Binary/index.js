@@ -7,7 +7,7 @@ import BinaryNetwork from './src/network'
 class Binary extends Component{
 
     getProps(props){
-        this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true))
+        this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true,'network'))
     }
     // componentWillReceiveProps(nextProps){
     //     // if(this.state.arrs.length>0){

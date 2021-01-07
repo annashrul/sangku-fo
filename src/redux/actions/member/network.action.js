@@ -9,10 +9,10 @@ export function setNetwork(data=[]){
     return {type:NETWORK.SUCCESS,data}
 }
 
-export const FetchNetwork = (uid,first)=>{
+export const FetchNetwork = (uid,first,param)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = 'member/network/';
+        let url = `member/${param}/`;
         if(first){
             url+=`${uid}?isfirst=true`
         } else {

@@ -10,7 +10,7 @@ class AddMember extends Component {
     componentWillMount(){
         this.props.dispatch(FetchAvailablePin(1));
         this.props.dispatch(setRegistered(false));
-        this.props.dispatch(FetchNetwork(btoa(this.props.location.data===undefined?null:this.props.location.data.parent_id),true))
+        this.props.dispatch(FetchNetwork(btoa(this.props.location.data===undefined?null:this.props.location.data.parent_id),true,'network'))
     }
     render() {
         console.log(this.props.location.data)
