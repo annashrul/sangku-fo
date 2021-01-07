@@ -290,7 +290,7 @@ class MemberForm extends Component{
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.value) {
-                        this.props.dispatch(createMember(parseData));
+                        this.props.createMember(parseData);
                     }
                 })
             // }
@@ -803,6 +803,7 @@ class MemberForm extends Component{
 MemberForm.propTypes = {
     sendOtp: PropTypes.func.isRequired,
     FetchDetailPin: PropTypes.func.isRequired,
+    createMember: PropTypes.func.isRequired,
     errors: PropTypes.object
 }
 
@@ -819,4 +820,4 @@ const mapStateToProps = (state) => {
         // Level:state.userLevelReducer.data,
     }
 }
-export default connect(mapStateToProps,{sendOtp,FetchDetailPin})(MemberForm);
+export default connect(mapStateToProps,{sendOtp,FetchDetailPin,createMember})(MemberForm);
