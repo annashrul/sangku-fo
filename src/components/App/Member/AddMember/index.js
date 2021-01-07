@@ -15,7 +15,7 @@ class AddMember extends Component {
     render() {
         console.log(this.props.location.data)
         return (
-            <Layout page="AddMember">
+            <Layout page="Tambah Downline" subpage="Jaringan">
                 {
                     !this.props.isLoading?
                     <MemberForm availPin={this.props.getPin} dataAdd={this.props.location.data} dataUpline={this.props.list} dataId={this.props.location.data===undefined?null:this.props.location.data.parent_id}/>

@@ -37,7 +37,7 @@ class Binary extends Component{
         require("./tree.css"); // here
         require("./treedev.css"); // here
         return (
-            <Layout page="Binary">
+            <Layout page="Genealogy Binary" subpage="Jaringan">
                 <div className="col-12">
                     {
                         !this.props.isLoading?

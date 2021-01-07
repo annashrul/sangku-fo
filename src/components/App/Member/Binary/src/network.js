@@ -22,7 +22,7 @@ class Binary extends Component{
         <div key={`node_${cNode.id===undefined?Math.random():cNode.id}`} className={`node-${cNode.position===null?'right':cNode.position}-item binary-level-width-50`}>
             <span id={`line-${cNode.position}-${cNode.id}`} className={`binary-hr-line binar-hr-line-${cNode.position} binary-hr-line-width-25`} style={{display: cNode.detail!==null?'none':''}}/>
             {cNode.detail===null?
-                <Link to={{ pathname: "/member/add", data: cNode }}>
+                <Link to={{ pathname: "/downline/add", data: cNode }}>
                     <div className={`node-item-1-child-${cNode.position}`}>
                         <div className="binary-node-single-item user-block user-11">
                             <div className="images_wrapper">

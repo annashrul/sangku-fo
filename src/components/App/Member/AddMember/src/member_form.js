@@ -14,6 +14,7 @@ import Default from 'assets/default.png'
 import {sendOtp} from "redux/actions/authActions";
 import PropTypes from 'prop-types';
 import bycrypt from 'bcryptjs';
+import { Link } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 const resendTime = 120;
 class MemberForm extends Component{
@@ -319,7 +320,8 @@ class MemberForm extends Component{
             const res = await bycrypt.compare(this.state.otp_val,this.props.auth.user_otp.sender_id);
             if(res){
                 // true
-                this.setState({isOtp:true})
+                this.setState({isOtp:true, time:{}, seconds:resendTime})
+                clearInterval(this.timer);
             }
             else{
                 Swal.fire(
@@ -344,7 +346,8 @@ class MemberForm extends Component{
     handleMembership(e,val) {
         e.preventDefault();
         console.log(e.target)
-        this.props.dispatch(FetchDetailPin(String(val).toLowerCase()));
+        console.log(val)
+        this.props.FetchDetailPin(String(val).toLowerCase());
         // this.setState({
         //     membership: val
         // })
@@ -397,7 +400,7 @@ class MemberForm extends Component{
             !this.props.isLoadingAuth?
                 !this.props.registered?
                 <Card>
-                    <CardHeader className="bg-transparent"><h4>Tambah Member Baru</h4></CardHeader>
+                    {/* <CardHeader className="bg-transparent"><h4>Tambah Member Baru</h4></CardHeader> */}
                     <CardBody>
                         <form onSubmit={this.handleSubmit}>
                                 <div className={`row ${!this.state.confirm?'':'d-none'}`}>
@@ -427,24 +430,25 @@ class MemberForm extends Component{
                                                 </div> */}
                                                 <div class="form-group">
                                                     <label>No. Telp.</label>
-                                                    <div class="input-group input-group-lg">
-                                                        {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
-                                                        <input
-                                                            type="tel"
-                                                            pattern="\d*"
-                                                            maxLength="14"
-                                                            className="form-control form-control-lg"
-                                                            name="mobile_no"
-                                                            value={this.state.mobile_no}
-                                                            onChange={this.handleChange}  />
-                                                        <span class="input-group-append">
                                                         {String(this.state.time.m)+String(this.state.time.s)!=='00'&&this.state.time.m!==undefined?
-                                                            <button type="button" class="btn btn-danger" disabled>Kirim ulang otp dalam {this.state.time.m +":"+this.state.time.s}</button>
+                                                            <h5 className="text-center text-danger">Kirim ulang otp dalam {this.state.time.m +":"+this.state.time.s}</h5>
                                                             :
-                                                            <button type="button" class="btn btn-primary" onClick={(e)=>this.handleOtp(e)}>Verifikasi</button>
+                                                            <div class="input-group input-group-lg">
+                                                                {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
+                                                                <input
+                                                                    type="tel"
+                                                                    pattern="\d*"
+                                                                    maxLength="14"
+                                                                    className="form-control form-control-lg"
+                                                                    name="mobile_no"
+                                                                    value={this.state.mobile_no}
+                                                                    onChange={this.handleChange}
+                                                                    readOnly={this.state.isOtp} />
+                                                                <span class="input-group-append">
+                                                                    <button type="button" class="btn btn-primary" onClick={(e)=>this.handleOtp(e)} disabled={this.state.isOtp} >Verifikasi</button>
+                                                                </span>
+                                                            </div>
                                                         }
-                                                        </span>
-                                                    </div>
                                                     <div className="invalid-feedback" style={this.state.error.mobile_no!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.mobile_no}
                                                     </div>
@@ -618,7 +622,10 @@ class MemberForm extends Component{
                                                                                             <div className="form-group">
                                                                                                 {
                                                                                                     this.props.pinList.length<=0?
-                                                                                                    <div className="text-center"><a href="/product" target="_blank"><h3 className="text-light" >Order PIN</h3></a></div>
+                                                                                                    <div className="text-center">
+                                                                                                        <p className="text-light">Saat ini anda belum memiliki daftar PIN ini, silahkan order PIN terlebih dahulu.</p>
+                                                                                                        <Link to="/product" className="btn btn-warning" target="_blank"><h6 className="text-light mt-2" >Order PIN</h6></Link>
+                                                                                                    </div>
                                                                                                     :
                                                                                                     <div>
                                                                                                         <label>Daftar PIN {v.title}</label>
@@ -792,6 +799,7 @@ class MemberForm extends Component{
 
 MemberForm.propTypes = {
     sendOtp: PropTypes.func.isRequired,
+    FetchDetailPin: PropTypes.func.isRequired,
     errors: PropTypes.object
 }
 
@@ -808,4 +816,4 @@ const mapStateToProps = (state) => {
         // Level:state.userLevelReducer.data,
     }
 }
-export default connect(mapStateToProps,{sendOtp})(MemberForm);
+export default connect(mapStateToProps,{sendOtp,FetchDetailPin})(MemberForm);
