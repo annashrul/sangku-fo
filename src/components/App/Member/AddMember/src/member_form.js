@@ -75,12 +75,14 @@ class MemberForm extends Component{
     }
     componentWillReceiveProps = (nextProps)=>{
         if(nextProps.auth.isErrorNo===true){
-            this.timer = 0;
-            let timeLeftVar = this.secondsToTime(resendTime);
-            this.setState({otp:true,seconds:resendTime,time:timeLeftVar});
-            setTimeout(function() { //Start the timer
-                this.startTimer()
-            }.bind(this), 500)
+            if(!this.state.isOtp){
+                this.timer = 0;
+                let timeLeftVar = this.secondsToTime(resendTime);
+                this.setState({otp:true,seconds:resendTime,time:timeLeftVar});
+                setTimeout(function() { //Start the timer
+                    this.startTimer()
+                }.bind(this), 500)
+            }
         }
         this.getProps(nextProps)
         //debug otp
@@ -590,7 +592,7 @@ class MemberForm extends Component{
                                                         {this.state.error.pin_regist}
                                                     </div>
                                                 </div> */}
-                                                <div className="form-group">
+                                                <div className="form-group" style={{display:this.state.isOtp?'':'none'}}>
                                                     <label>Membership</label>
                                                     <Tabs>
                                                         <div className="row">
