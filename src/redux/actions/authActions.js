@@ -110,6 +110,8 @@ export const loginUser = (userData) =>
             setTimeout(
             function () {
                 Swal.close() 
+                dispatch(setIsError(false));
+
                 // save token to localStorage
                 const token = res.data.result.token;
                 store('sess', {

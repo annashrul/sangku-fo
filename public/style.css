@@ -15010,3 +15010,60 @@ table.tableBodyScroll tbody tr {
   flex-grow: 1;
   -webkit-flex-grow: 1
 }
+.intl-tel-input{
+  width:100% !important;
+  margin-bottom:20px
+}
+.intl-tel-input.allow-dropdown.separate-dial-code .selected-dial-code{
+  padding:0 !important;
+}
+.tel-input{
+  padding:20px
+}
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-4 input,
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-4 input[type=text],
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-4 input[type=tel] {
+  padding-left: 92px !important;
+  padding-top:10px !important;
+  padding-bottom:10px !important;
+  width:100%;
+}
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-5 input,
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-5 input[type=text],
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-5 input[type=tel]{
+  padding-left: 100px !important;
+  padding-top:10px !important;
+  padding-bottom:10px !important;
+  width:100%;
+}
+
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input,
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input[type=text],
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input[type=tel] {
+  padding-left: 84px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  width: 100%;
+}
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-2 input,
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-2 input[type=text],
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-2 input[type=tel] {
+  padding-left: 76px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  width: 100%;
+}
+input[data-testid=input] {
+  border-bottom:2px solid rgb(189, 187, 187,.5)
+}
+
+
+.selected-flag .iti-flag {
+  margin-top:10px;
+  margin-left:10px;
+}
+
+.intl-tel-input .flag-container .arrow.down:after{
+      content: '\25BC';
+      font-size: 9px;
+}

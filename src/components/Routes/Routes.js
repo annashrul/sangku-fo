@@ -4,7 +4,7 @@ import PrivateRoute from '../common/PrivateRoute';
 import NotFound from '../common/notfound'
 
 import Landing from '../App/Landing';
-import LoginProcess from '../App/Auth/Login/Login';
+import Login from '../App/Auth';
 import Dashboard from '../App/Dashboard/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';
 import IndexCart from '../App/transaction/indexCart';
@@ -27,7 +27,7 @@ const Routes = (
     <div>
         <Switch>
             <Route path="/" exact strict component={Landing} />
-            <Route path="/login" exact strict component={LoginProcess} />
+            <Route path="/login" exact strict component={Login} />
 
             <PrivateRoute path="/binary" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
