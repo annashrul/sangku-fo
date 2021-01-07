@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../common/PrivateRoute';
 import NotFound from '../common/notfound'
 
-import Landing from '../App/Auth/Login/Landing';
+import Landing from '../App/Landing';
 import LoginProcess from '../App/Auth/Login/Login';
 import Dashboard from '../App/Dashboard/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';

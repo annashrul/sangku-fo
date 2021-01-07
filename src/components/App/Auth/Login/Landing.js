@@ -31,8 +31,8 @@ class Landing extends Component {
     componentDidMount (){
         document.title="Sangku"
         if(this.props.auth.isAuthenticated){
-            // this.props.history.push('/')
-            window.location.href="/dashboard"
+            this.props.history.push('/dashboard')
+            // window.location.href="/dashboard"
         }
         // this.initFetch(false);
     }
@@ -66,8 +66,8 @@ class Landing extends Component {
     }
     getProps(param){
         if(param.auth.isAuthenticated){
-            // param.history.push('/');
-            window.location.href = "/dashboard"
+            param.history.push('/dashboard');
+            // window.location.href = "/dashboard"
         }else{
             if(param.errors){
                 this.setState({errors: param.errors})

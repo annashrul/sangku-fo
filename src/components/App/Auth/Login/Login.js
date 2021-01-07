@@ -70,7 +70,7 @@ class Login extends Component {
 
     componentDidMount (){
         if(this.props.auth.isAuthenticated){
-            this.props.history.push('/')
+            this.props.history.push('/dashboard')
             // window.location.href='/dashboard'
         }
         // if(this.props.history.location.query===undefined){
@@ -123,8 +123,8 @@ class Login extends Component {
      }
      getProps(param){
          if(param.auth.isAuthenticated){
-            //  param.history.push('/');
-             window.location.href = '/dashboard'
+             param.history.push('/dashboard');
+            //  window.location.href = '/dashboard'
          }else{
              if(param.errors){
                  this.setState({errors: param.errors})
@@ -170,8 +170,6 @@ class Login extends Component {
 
         }
     }
-
-
 
     submitOtp = async (event)=>{
         event.preventDefault();
