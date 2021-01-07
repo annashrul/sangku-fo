@@ -83,7 +83,7 @@ class SideMenu extends Component {
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
-        if(path==='/member/add' || path==='/binary' || path==='/sponsor'){
+        if(path==='/downline/add' || path==='/binary' || path==='/sponsor'){
             this.setState({
                 isNetwork:true,
             })
@@ -138,11 +138,11 @@ class SideMenu extends Component {
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
                     {/* DASHBOARD MODUL END */}
                     {/* NETWORK MODUL START */}
-                    <li className={"treeview" +(this.state.isNetwork===true || path==='/member/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
+                    <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
                             <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Genealogy Binary</Link></li>
-                            <li className={path==='/member/add'?"active":''}><Link to="/member/add" style={{width:'fit-content'}}> Tambah member</Link></li>
+                            <li className={path==='/downline/add'?"active":''}><Link to="/downline/add" style={{width:'fit-content'}}> Tambah downline</Link></li>
                             {/* <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
                             <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
                             <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>

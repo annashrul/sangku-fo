@@ -57,7 +57,7 @@ const Routes = (
 
 
 
-            <PrivateRoute path="/member/add" exact strict component={AddMember} />
+            <PrivateRoute path="/downline/add" exact strict component={AddMember} />
 
             <Route component={NotFound}/>
 
