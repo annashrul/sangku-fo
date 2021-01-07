@@ -159,14 +159,13 @@ class SideMenu extends Component {
                         </ul>
                     </li>
                     {/* WALLET MODUL END */}
-                    
-                    <li  className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat"> <i className="fa fa-dashboard" /><span> Riwayat Transaksi</span></Link></li>
 
                     {/* REPORT MODUL START */}
-                    <li className={"treeview" +(this.state.isReport===true || path==='/report/penjualan' ?" active menu-open" : "")}>
+                    <li className={"treeview" +(this.state.isReport===true || path==='/report/pembelian' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
-                            <li className={path==='/report/penjualan'?"active":''}><Link to="/report/penjualan" style={{width:'fit-content'}}> Penjualan</Link></li>
+                            <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}> Pembelian</Link></li>
+                            <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                         </ul>
                     </li>
                     {/* REPORT MODUL END */}

@@ -11,7 +11,11 @@ import Preloader from 'Preloader'
 import { createMember } from 'redux/actions/authActions';
 import Swal from 'sweetalert2';
 import Default from 'assets/default.png'
+import {sendOtp} from "redux/actions/authActions";
+import PropTypes from 'prop-types';
+import bycrypt from 'bcryptjs';
 // import { Link } from 'react-router-dom';
+const resendTime = 120;
 class MemberForm extends Component{
     constructor(props){
         super(props);
@@ -35,9 +39,14 @@ class MemberForm extends Component{
             upline_name:'-',
             upline_picture:'-',
             pin_regist:'',
+            otp_val:'',
             position:'-',
             prev:'',
             confirm:false,
+            isOtp:false,
+            isSend:false,
+            time: {},
+            seconds: resendTime,
             error:{
                 full_name:'',
                 mobile_no:'',
@@ -50,13 +59,34 @@ class MemberForm extends Component{
                 sponsor:'',
                 upline:'',
                 pin_regist:'',
+                otp_val:'',
                 prev:'',}
         };
         this.handleMembership = this.handleMembership.bind(this);
         this.handleChangeImage = this.handleChangeImage.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.toggle = this.toggle.bind(this);
+        
+        this.submitOtp = this.submitOtp.bind(this);
+        this.timer = 0;
+        this.startTimer = this.startTimer.bind(this);
+        this.countDown = this.countDown.bind(this);
     }
+    componentWillReceiveProps = (nextProps)=>{
+        if(nextProps.auth.isErrorNo===true){
+            this.timer = 0;
+            let timeLeftVar = this.secondsToTime(resendTime);
+            this.setState({otp:true,seconds:resendTime,time:timeLeftVar});
+            setTimeout(function() { //Start the timer
+                this.startTimer()
+            }.bind(this), 500)
+        }
+        this.getProps(nextProps)
+        //debug otp
+        if (this.props.auth.user_otp !==undefined) {
+            this.setState({otp_val:this.props.auth.user_otp.otp_anying })
+        }
+     }
     getProps(param){
         if(this.props.dataAdd===undefined){
             window.location.href = '/binary'
@@ -263,6 +293,49 @@ class MemberForm extends Component{
             // }
         }
     }
+    handleOtp(e){
+        e.preventDefault();
+        let nohp = this.state.mobile_no
+        if(nohp!==''){
+            this.setState({isSend:true})
+            const user = {
+                type: 'otp',
+                nomor: nohp,
+                isRegister: true,
+            }
+            this.props.sendOtp(user);
+        }else{
+            Swal.fire(
+                'No Hp Belum Diisi! ',
+                'Lengkapi nomor untuk melanjutkan.',
+                'error'
+            )
+        }
+    }
+    submitOtp = async (e)=>{
+        e.preventDefault();
+        console.log(this.props.auth.user_otp.sender_id);
+        if(this.state.otp_val!==''){
+            const res = await bycrypt.compare(this.state.otp_val,this.props.auth.user_otp.sender_id);
+            if(res){
+                // true
+                this.setState({isOtp:true})
+            }
+            else{
+                Swal.fire(
+                    'Perhatian !! ',
+                    'OTP Tidak Sesuai.',
+                    'error'
+                )
+            }
+        } else {
+            Swal.fire(
+                'Perhatian !! ',
+                'OTP Belum Diisi.',
+                'error'
+            )
+        }
+    }
     handleChangeImage(files) {
         this.setState({
             picture: files.base64
@@ -276,6 +349,43 @@ class MemberForm extends Component{
         //     membership: val
         // })
     };
+    
+    secondsToTime(secs){
+        let hours = Math.floor(secs / (60 * 60));
+
+        let divisor_for_minutes = secs % (60 * 60);
+        let minutes = Math.floor(divisor_for_minutes / 60);
+
+        let divisor_for_seconds = divisor_for_minutes % 60;
+        let seconds = Math.ceil(divisor_for_seconds);
+
+        let obj = {
+            "h": hours,
+            "m": minutes,
+            "s": seconds
+        };
+        return obj;
+    }
+    startTimer() {
+        if (this.timer === 0 && this.state.seconds > 0) {
+            this.timer = setInterval(this.countDown, 1000);
+        }
+    }
+
+    countDown() {
+        // Remove one second, set state so a re-render happens.
+        let seconds = this.state.seconds - 1;
+        this.setState({
+            time: this.secondsToTime(seconds),
+            seconds: seconds,
+        });
+        
+        // Check if we're at zero.
+        if (seconds === 0) { 
+            clearInterval(this.timer);
+        }
+    }
+
     render(){
         const {
             full_name,kode,paket,point_volume,category,
@@ -301,7 +411,7 @@ class MemberForm extends Component{
                                                         {this.state.error.full_name}
                                                     </div>
                                                 </div>
-                                                <div className="form-group">
+                                                {/* <div className="form-group">
                                                     <label>No. Telp.</label>
                                                     <input
                                                             type="tel"
@@ -313,6 +423,59 @@ class MemberForm extends Component{
                                                             onChange={this.handleChange}  />
                                                     <div className="invalid-feedback" style={this.state.error.mobile_no!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.mobile_no}
+                                                    </div>
+                                                </div> */}
+                                                <div class="form-group">
+                                                    <label>No. Telp.</label>
+                                                    <div class="input-group input-group-lg">
+                                                        {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
+                                                        <input
+                                                            type="tel"
+                                                            pattern="\d*"
+                                                            maxLength="14"
+                                                            className="form-control form-control-lg"
+                                                            name="mobile_no"
+                                                            value={this.state.mobile_no}
+                                                            onChange={this.handleChange}  />
+                                                        <span class="input-group-append">
+                                                        {String(this.state.time.m)+String(this.state.time.s)!=='00'&&this.state.time.m!==undefined?
+                                                            <button type="button" class="btn btn-danger" disabled>Kirim ulang otp dalam {this.state.time.m +":"+this.state.time.s}</button>
+                                                            :
+                                                            <button type="button" class="btn btn-primary" onClick={(e)=>this.handleOtp(e)}>Verifikasi</button>
+                                                        }
+                                                        </span>
+                                                    </div>
+                                                    <div className="invalid-feedback" style={this.state.error.mobile_no!==""?{display:'block'}:{display:'none'}}>
+                                                        {this.state.error.mobile_no}
+                                                    </div>
+                                                    <div className="card mt-1" style={{display:this.state.isSend?'':'none'}}>
+                                                        <div className="card-body">
+                                                            <div className="row">
+                                                                <div className="col-md-4">
+                                                                    <label>OTP</label>
+                                                                    <div class="input-group input-group-md">
+                                                                        {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
+                                                                        <input
+                                                                            type="tel"
+                                                                            pattern="\d*"
+                                                                            maxLength="14"
+                                                                            className="form-control form-control-md"
+                                                                            name="otp_val"
+                                                                            value={this.state.otp_val}
+                                                                            onChange={this.handleChange}  />
+                                                                        <span class="input-group-append">
+                                                                            <button type="button" class="btn btn-primary" onClick={async (e)=>(await this.submitOtp(e))}><i className="fa fa-check"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-8">
+                                                                    <label style={{visibility:'collapse'}}>OTP</label>
+                                                                    <div class="alert alert-primary font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
+                                                                        Masukan kode OTP pada nomor yang sedang anda daftarkan dan mintalah kode tersebut dengan bijak.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 {/* <div className="form-group">
@@ -563,7 +726,7 @@ class MemberForm extends Component{
                                 </div>
                                 <div className="form-group mt-2" style={{textAlign:"right"}}>
                                     <button type="button" className="btn btn-warning mb-2 mr-2" id={this.state.confirm?'back':'cancel'} onClick={this.toggle}><i className="ti-close" />{this.state.confirm?'Kembali':'Batal'}</button>
-                                    <button type="button" className={`btn btn-primary mb-2 mr-2 ${!this.state.confirm?'':'d-none'}`} onClick={this.toggle}><i className="ti-close" /> Selanjutnya</button>
+                                    <button type="button" className={`btn btn-primary mb-2 mr-2 ${!this.state.confirm?'':'d-none'}`} onClick={this.toggle} disabled={!this.state.isOtp} ><i className="ti-close"/> Selanjutnya</button>
                                     <button type="submit" className={`btn btn-primary mb-2 mr-2 ${this.state.confirm?'':'d-none'}`} ><i className="ti-save" /> Daftarkan</button>
                                 </div>
                         </form>
@@ -627,6 +790,11 @@ class MemberForm extends Component{
     }
 }
 
+MemberForm.propTypes = {
+    sendOtp: PropTypes.func.isRequired,
+    errors: PropTypes.object
+}
+
 const mapStateToProps = (state) => {
     console.log(state)
     return {
@@ -640,4 +808,4 @@ const mapStateToProps = (state) => {
         // Level:state.userLevelReducer.data,
     }
 }
-export default connect(mapStateToProps)(MemberForm);
+export default connect(mapStateToProps,{sendOtp})(MemberForm);

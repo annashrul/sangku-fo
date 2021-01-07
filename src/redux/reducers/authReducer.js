@@ -18,7 +18,7 @@ export default function(state= initialState, action){
         case AUTH.SET_CURRENT_OTP:
             return{
                 ...state,
-                user: action.payload
+                user_otp: action.payload
             }
         case AUTH.SET_LOGGED_USER:
             return {

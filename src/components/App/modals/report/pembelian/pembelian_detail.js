@@ -5,7 +5,7 @@ import WrapperModal from "../../_wrapper.modal";
 import {ModalToggle} from "redux/actions/modal.action";
 import { statusQ, toRp } from '../../../../../helper';
 import moment from 'moment'
-class PenjualanDetail extends Component{
+class PembelianDetail extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -28,13 +28,13 @@ class PenjualanDetail extends Component{
     }
 
     render(){
-        console.log("this.props.penjualanDetail",this.props.penjualanDetail)
-        const data = this.props.penjualanDetail===undefined?{}:this.props.penjualanDetail;
+        console.log("this.props.pembelianDetail",this.props.pembelianDetail)
+        const data = this.props.pembelianDetail===undefined?{}:this.props.pembelianDetail;
         const columnStyle = {verticalAlign: "middle", textAlign: "center",};
         return (
             <div>
-                <WrapperModal isOpen={this.props.isOpen && this.props.type === "penjualanDetail"} size="lg" style={{maxWidth: '1600px', width: '100%'}}>
-                    <ModalHeader toggle={this.toggle}>Detail Penjualan #{data.kd_trx}</ModalHeader>
+                <WrapperModal isOpen={this.props.isOpen && this.props.type === "pembelianDetail"} size="lg" style={{maxWidth: '1600px', width: '100%'}}>
+                    <ModalHeader toggle={this.toggle}>Detail Pembelian #{data.kd_trx}</ModalHeader>
                     <ModalBody>
                         <div className="img-thumbnail mb-3">
                             <div className="row">
@@ -177,4 +177,4 @@ const mapStateToProps = (state) => {
     }
 }
 // const mapDispatch
-export default connect(mapStateToProps)(PenjualanDetail);
+export default connect(mapStateToProps)(PembelianDetail);

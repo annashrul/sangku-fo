@@ -1,46 +1,46 @@
 import {
-    PENJUALAN,
+    PEMBELIAN,
     HEADERS
 } from "../_constants"
 import axios from "axios"
 
 export function setLoadingReport(load) {
     return {
-        type: PENJUALAN.LOADING_REPORT,
+        type: PEMBELIAN.LOADING_REPORT,
         load
     }
 }
 export function setLoadingReportDetail(load) {
     return {
-        type: PENJUALAN.LOADING_REPORT_DETAIL,
+        type: PEMBELIAN.LOADING_REPORT_DETAIL,
         load
     }
 }
 export function setLoadingReportExcel(load) {
     return {
-        type: PENJUALAN.LOADING_REPORT_EXCEL,
+        type: PEMBELIAN.LOADING_REPORT_EXCEL,
         load
     }
 }
 export function setReport(data = []) {
     return {
-        type: PENJUALAN.SUCCESS_REPORT,
+        type: PEMBELIAN.SUCCESS_REPORT,
         data
     }
 }
 export function setReportDetail(data = []) {
     return {
-        type: PENJUALAN.SUCCESS_REPORT_DETAIL,
+        type: PEMBELIAN.SUCCESS_REPORT_DETAIL,
         data
     }
 }
 export function setReportExcel(data = []) {
     return {
-        type: PENJUALAN.SUCCESS_REPORT_EXCEL,
+        type: PEMBELIAN.SUCCESS_REPORT_EXCEL,
         data
     }
 }
-export const getReportPenjualan = (page=1,where='')=>{
+export const getReportPembelian = (page=1,where='')=>{
     return (dispatch) => {
         dispatch(setLoadingReport(true));
         let url=`transaction/penjualan/report?page=${page==='NaN'||page===null||page===''||page===undefined?1:page}`;
@@ -61,7 +61,7 @@ export const getReportPenjualan = (page=1,where='')=>{
 
     }
 }
-export const getReportPenjualanDetail = (id='')=>{
+export const getReportPembelianDetail = (id='')=>{
     return (dispatch) => {
         dispatch(setLoadingReportDetail(true));
         let url=`transaction/penjualan/report/${id}`;
@@ -79,7 +79,7 @@ export const getReportPenjualanDetail = (id='')=>{
     }
 }
 
-export const getReportPenjualanExcel = (page=1,where='',perpage=99999)=>{
+export const getReportPembelianExcel = (page=1,where='',perpage=99999)=>{
     return (dispatch) => {
         dispatch(setLoadingReportExcel(true));
         let url=`transaction/penjualan/report?page=${page==='NaN'||page===null||page===''||page===undefined?1:page}&perpage=${perpage}`;

@@ -1,4 +1,4 @@
-import {PENJUALAN} from "../../actions/_constants";
+import {PEMBELIAN} from "../../actions/_constants";
 
 
 const initialState = {
@@ -12,35 +12,35 @@ const initialState = {
     data_report_detail:{},
 };
 
-export const penjualanReducer = (state=initialState,action) => {
+export const pembelianReducer = (state=initialState,action) => {
     switch (action.type) {
-        case PENJUALAN.SUCCESS_REPORT:
+        case PEMBELIAN.SUCCESS_REPORT:
             return Object.assign({}, state,{
                 status:action.data.status,
                 msg:action.data.msg,
                 data_report:action.data.result,
             });
-        case PENJUALAN.SUCCESS_REPORT_EXCEL:
+        case PEMBELIAN.SUCCESS_REPORT_EXCEL:
             return Object.assign({}, state,{
                 status:action.data.status,
                 msg:action.data.msg,
                 data_report_excel:action.data.result,
             });
-        case PENJUALAN.SUCCESS_REPORT_DETAIL:
+        case PEMBELIAN.SUCCESS_REPORT_DETAIL:
             return Object.assign({}, state,{
                 status:action.data.status,
                 msg:action.data.msg,
                 data_report_detail:action.data.result,
             });
-        case PENJUALAN.LOADING_REPORT:
+        case PEMBELIAN.LOADING_REPORT:
             return Object.assign({}, state, {
                 isLoadingReport: action.load
             });
-        case PENJUALAN.LOADING_REPORT_DETAIL:
+        case PEMBELIAN.LOADING_REPORT_DETAIL:
             return Object.assign({}, state, {
                 isLoadingReportDetail: action.load
             });
-        case PENJUALAN.LOADING_REPORT_EXCEL:
+        case PEMBELIAN.LOADING_REPORT_EXCEL:
             return Object.assign({}, state, {
                 isLoadingReportExcel: action.load
             });

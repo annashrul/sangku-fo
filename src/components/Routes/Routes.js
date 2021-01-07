@@ -21,7 +21,7 @@ import Sponsor from '../App/Member/Sponsor';
 import Testt from '../App/Masterdata/test';
 import RiwayatTransaksi from '../App/transaction/riwayat'
 import ReportDeposit from '../App/Report/Deposit'
-import ReportPenjualan from '../App/Report/Penjualan'
+import ReportPembelian from '../App/Report/Pembelian'
 
 const Routes = (
     <div>
@@ -51,7 +51,7 @@ const Routes = (
             {/* WALLET SECTION END */}
             {/* REPORT SECTION START */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
-            <PrivateRoute path="/report/penjualan" exact strict component={ReportPenjualan} />
+            <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
             {/* REPORT SECTION END */}
             <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
 

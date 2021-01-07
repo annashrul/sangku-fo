@@ -68,6 +68,7 @@ export const sendOtp = (userData) =>
                             type: 'success',
                             text: data.msg,
                         });
+                        window.location.reload();
                     } else {
                         Swal.fire({
                             title: 'failed',
@@ -75,7 +76,6 @@ export const sendOtp = (userData) =>
                             text: data.msg,
                         });
                     }
-                    // window.location.reload();
                     dispatch(setLoading(false));
                     dispatch(setRegistered(true));
                 })
@@ -176,7 +176,7 @@ export function setIsError(load) {
 
 export const setCurrentOtp = decoded =>{
     return{
-        type: AUTH.SET_CURRENT_USER,
+        type: AUTH.SET_CURRENT_OTP,
         payload: decoded
     }
 }

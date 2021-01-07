@@ -1,11 +1,12 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
 import Paginationq from "helper";
-// import {FetchPenjualan,FetchPenjualanExcel, FetchPenjualanData,rePrintFaktur} from "redux/actions/inventory/penjualan.action";
+// import {FetchPembelian,FetchPembelianExcel, FetchPembelianData,rePrintFaktur} from "redux/actions/inventory/pembelian.action";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
-import PenjualanDetail from "components/App/modals/report/penjualan/penjualan_detail";
-import PenjualanReportExcel from "components/App/modals/report/penjualan/penjualan_form_excel";
+import PembelianDetail from "components/App/modals/report/pembelian/pembelian_detail";
+import PembelianCekResi from "components/App/modals/report/pembelian/pembelian_cek_resi";
+import PembelianReportExcel from "components/App/modals/report/pembelian/pembelian_form_excel";
 // import Select from 'react-select';
 import moment from "moment";
 import DateRangePicker from 'react-bootstrap-daterangepicker';
@@ -14,8 +15,10 @@ import Preloader from "Preloader";
 import {statusQ, toRp} from "helper";
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 // import { Link } from 'react-router-dom';
-import { getReportPenjualan, getReportPenjualanDetail, getReportPenjualanExcel } from '../../../../redux/actions/transaction/penjualan.action';
-class PenjualanReport extends Component{
+import { getReportPembelian, getReportPembelianDetail, getReportPembelianExcel } from '../../../../redux/actions/transaction/pembelian.action';
+import { cekResi, trxDone } from '../../../../redux/actions/product/kurir.action';
+import Swal from 'sweetalert2';
+class PembelianReport extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -42,35 +45,35 @@ class PenjualanReport extends Component{
         }
     }
     componentWillMount(){
-        let page=localStorage.page_penjualan_report;
+        let page=localStorage.page_pembelian_report;
         this.handleParameter(page!==undefined&&page!==null?page:1);
     }
     componentDidMount(){
-        if (localStorage.location_penjualan_report !== undefined && localStorage.location_penjualan_report !== '') {
-            this.setState({location: localStorage.location_penjualan_report})
+        if (localStorage.location_pembelian_report !== undefined && localStorage.location_pembelian_report !== '') {
+            this.setState({location: localStorage.location_pembelian_report})
         }
-        if (localStorage.any_penjualan_report !== undefined && localStorage.any_penjualan_report !== '') {
-            this.setState({any: localStorage.any_penjualan_report})
+        if (localStorage.any_pembelian_report !== undefined && localStorage.any_pembelian_report !== '') {
+            this.setState({any: localStorage.any_pembelian_report})
         }
-        if (localStorage.date_from_penjualan_report !== undefined && localStorage.date_from_penjualan_report !== null) {
-            this.setState({startDate: localStorage.date_from_penjualan_report})
+        if (localStorage.date_from_pembelian_report !== undefined && localStorage.date_from_pembelian_report !== null) {
+            this.setState({startDate: localStorage.date_from_pembelian_report})
         }
-        if (localStorage.date_to_penjualan_report !== undefined && localStorage.date_to_penjualan_report !== null) {
-            this.setState({endDate: localStorage.date_to_penjualan_report})
+        if (localStorage.date_to_pembelian_report !== undefined && localStorage.date_to_pembelian_report !== null) {
+            this.setState({endDate: localStorage.date_to_pembelian_report})
         }
-        if (localStorage.sort_penjualan_report !== undefined && localStorage.sort_penjualan_report !== null) {
-            this.setState({sort: localStorage.sort_penjualan_report})
+        if (localStorage.sort_pembelian_report !== undefined && localStorage.sort_pembelian_report !== null) {
+            this.setState({sort: localStorage.sort_pembelian_report})
         }
-        if (localStorage.filter_penjualan_report !== undefined && localStorage.filter_penjualan_report !== null) {
-            this.setState({filter: localStorage.filter_penjualan_report})
+        if (localStorage.filter_pembelian_report !== undefined && localStorage.filter_pembelian_report !== null) {
+            this.setState({filter: localStorage.filter_pembelian_report})
         }
-        if (localStorage.status_penjualan_report !== undefined && localStorage.status_penjualan_report !== null) {
-            this.setState({status: localStorage.status_penjualan_report})
+        if (localStorage.status_pembelian_report !== undefined && localStorage.status_pembelian_report !== null) {
+            this.setState({status: localStorage.status_pembelian_report})
         }
     }
     handlePageChange(pageNumber){
-        localStorage.setItem("page_penjualan_report",pageNumber);
-        this.props.dispatch(getReportPenjualan(pageNumber))
+        localStorage.setItem("page_pembelian_report",pageNumber);
+        this.props.dispatch(getReportPembelian(pageNumber))
     }
     toggle(e,code,barcode,name){
         e.preventDefault();
@@ -79,14 +82,43 @@ class PenjualanReport extends Component{
         localStorage.setItem("name",name);
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("penjualanDetail"));
-        this.props.dispatch(getReportPenjualanDetail(code))
+        this.props.dispatch(ModalType("pembelianDetail"));
+        this.props.dispatch(getReportPembelianDetail(code))
+    };
+    toggleResi(e,data){
+        e.preventDefault();
+        let param = {}
+        // param['resi'] = 'JP3738533084';
+        // param['kurir'] = 'jnt';
+        param['resi'] = data.resi;
+        param['kurir'] = String(data.layanan_pengiriman).split('|')[0];
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("pembelianCekResi"));
+        this.props.dispatch(cekResi(param))
+    };
+    handleDone(e,kd_trx){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Anda akan menyelesaikan pesanan ini?',
+            text: "Pastikan anda telah menerima pesanan tersebut!",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sudah saya terima',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch(trxDone(btoa(kd_trx)))
+            }
+        })
     };
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
         const akhir = moment(picker.endDate._d).format('YYYY-MM-DD');
-        localStorage.setItem("date_from_penjualan_report",`${awal}`);
-        localStorage.setItem("date_to_penjualan_report",`${akhir}`);
+        localStorage.setItem("date_from_pembelian_report",`${awal}`);
+        localStorage.setItem("date_to_pembelian_report",`${akhir}`);
         this.setState({
             startDate:awal,
             endDate:akhir
@@ -94,17 +126,17 @@ class PenjualanReport extends Component{
     };
     handleSearch(e){
         e.preventDefault();
-        localStorage.setItem("any_penjualan_report",this.state.any);
+        localStorage.setItem("any_pembelian_report",this.state.any);
         this.handleParameter(1);
     }
     handleParameter(pageNumber){
-        let dateFrom=localStorage.date_from_penjualan_report;
-        let dateTo=localStorage.date_to_penjualan_report;
-        // let lokasi = localStorage.location_penjualan_report;
-        let any = localStorage.any_penjualan_report;
-        // let sort=localStorage.sort_penjualan_report;
-        // let filter=localStorage.filter_penjualan_report;
-        // let status=localStorage.status_penjualan_report;
+        let dateFrom=localStorage.date_from_pembelian_report;
+        let dateTo=localStorage.date_to_pembelian_report;
+        // let lokasi = localStorage.location_pembelian_report;
+        let any = localStorage.any_pembelian_report;
+        // let sort=localStorage.sort_pembelian_report;
+        // let filter=localStorage.filter_pembelian_report;
+        // let status=localStorage.status_pembelian_report;
         let where='';
         if(dateFrom!==undefined&&dateFrom!==null){
             where+=`&datefrom=${dateFrom}&dateto=${dateTo}`;
@@ -127,8 +159,8 @@ class PenjualanReport extends Component{
         this.setState({
             where_data:where
         })
-        this.props.dispatch(getReportPenjualan(pageNumber,where))
-        // this.props.dispatch(FetchPenjualanExcel(pageNumber,where))
+        this.props.dispatch(getReportPembelian(pageNumber,where))
+        // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
     componentWillReceiveProps = (nextProps) => {
         let sort = [
@@ -194,15 +226,15 @@ class PenjualanReport extends Component{
             }
         }
         
-        localStorage.setItem('status_penjualan_report',this.state.status===''||this.state.status===undefined?status[0].kode:localStorage.status_penjualan_report)
-        localStorage.setItem('sort_penjualan_report',this.state.sort===''||this.state.sort===undefined?sort[0].kode:localStorage.sort_penjualan_report)
-        localStorage.setItem('filter_penjualan_report',this.state.filter===''||this.state.filter===undefined?filter[0].kode:localStorage.filter_penjualan_report)
+        localStorage.setItem('status_pembelian_report',this.state.status===''||this.state.status===undefined?status[0].kode:localStorage.status_pembelian_report)
+        localStorage.setItem('sort_pembelian_report',this.state.sort===''||this.state.sort===undefined?sort[0].kode:localStorage.sort_pembelian_report)
+        localStorage.setItem('filter_pembelian_report',this.state.filter===''||this.state.filter===undefined?filter[0].kode:localStorage.filter_pembelian_report)
     }
     HandleChangeLokasi(lk) {
         this.setState({
             location: lk.value
         })
-        localStorage.setItem('location_penjualan_report', lk.value);
+        localStorage.setItem('location_pembelian_report', lk.value);
     }
     handleChange(event){
         this.setState({ [event.target.name]: event.target.value });
@@ -212,19 +244,19 @@ class PenjualanReport extends Component{
         this.setState({
             sort: sr.value,
         });
-        localStorage.setItem('sort_penjualan_report', sr.value);
+        localStorage.setItem('sort_pembelian_report', sr.value);
     }
     HandleChangeFilter(fl) {
         this.setState({
             filter: fl.value,
         });
-        localStorage.setItem('filter_penjualan_report', fl.value);
+        localStorage.setItem('filter_pembelian_report', fl.value);
     }
     HandleChangeStatus(st) {
         this.setState({
             status: st.value,
         });
-        localStorage.setItem('status_penjualan_report', st.value);
+        localStorage.setItem('status_pembelian_report', st.value);
     }
 
     toggleModal(e,total,perpage) {
@@ -232,8 +264,8 @@ class PenjualanReport extends Component{
         const bool = !this.props.isOpen;
         // let range = total*perpage;
         this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("formPenjualanExcel"));
-        this.props.dispatch(getReportPenjualanExcel(1,this.state.where_data,total));
+        this.props.dispatch(ModalType("formPembelianExcel"));
+        this.props.dispatch(getReportPembelianExcel(1,this.state.where_data,total));
     }
     handleRePrint(e,id){
         e.preventDefault();
@@ -251,9 +283,11 @@ class PenjualanReport extends Component{
             // to,
             data,
             // total
-        } = this.props.penjualanReport;
+        } = this.props.pembelianReport;
+        console.log("this.props.pembelianCekResi!==null",this.props.pembelianCekResi!==null)
+        console.log("Object.keys(this.props.pembelianCekResi).length",Object.keys(this.props.pembelianCekResi).length)
         return (
-            <Layout page="Penjualan" subpage="Laporan">
+            <Layout page="Pembelian" subpage="Laporan">
                 <div className="col-12 box-margin">
                     <div className="card">
                         <div className="card-body">
@@ -391,7 +425,8 @@ class PenjualanReport extends Component{
                                                                                 </DropdownToggle>
                                                                                 <DropdownMenu>
                                                                                     <DropdownItem onClick={(e)=>this.toggle(e,btoa(v.kd_trx),'','')}>Detail</DropdownItem>
-                                                                                    {v.resi!=='-'?<DropdownItem onClick={(e)=>this.toggle(e,v.no_faktur_mutasi,'','')}>Cek Resi</DropdownItem>:''}
+                                                                                    {v.resi!=='-'?<DropdownItem onClick={(e)=>this.toggleResi(e,v)}>Cek Resi</DropdownItem>:''}
+                                                                                    {v.status===1?<DropdownItem onClick={(e)=>this.handleDone(e,v.kd_trx)}>Pesanan Diterima</DropdownItem>:''}
                                                                                 </DropdownMenu>
                                                                                 </UncontrolledButtonDropdown>
                                                                         </div>
@@ -403,7 +438,7 @@ class PenjualanReport extends Component{
                                                                     <td style={columnStyle}>{toRp(v.grand_total)}</td>
                                                                     {/* <td style={columnStyle}>{v.layanan_pengiriman}</td> */}
                                                                     <td style={columnStyle}>{
-                                                                        v.status===0?statusQ('info','Dikirim'):(v.status===1?statusQ('success','Diterima'):"")
+                                                                        v.status===0?statusQ('info','Dikirim'):(v.status===1?statusQ('success','Diterima'):(v.status===3?statusQ('success','Selesai'):""))
                                                                         // v.status===0?statusQ('danger','proses'):(v.status===1?statusQ('warning','packing')?(v.status===2?statusQ('info','dikirim'):statusQ('info','diterima')):""):""
                                                                     }</td>
                                                                     <td style={columnStyle}>{v.metode_pembayaran}</td>
@@ -444,8 +479,9 @@ class PenjualanReport extends Component{
                                     callback={this.handlePageChange.bind(this)}
                                 />
                             </div>
-                            <PenjualanDetail penjualanDetail={this.props.penjualanDetail}/>
-                            <PenjualanReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />
+                            <PembelianDetail pembelianDetail={this.props.pembelianDetail}/>
+                            <PembelianCekResi pembelianCekResi={this.props.pembelianCekResi}/>
+                            <PembelianReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />
                         </div>
                     </div>
                 </div>
@@ -455,14 +491,16 @@ class PenjualanReport extends Component{
 }
 
 const mapStateToProps = (state) => {
-    
+    console.log("state.kurirReducer.isLoading",state.kurirReducer.isLoading)
     return {
         auth:state.auth,
-        penjualanReport:state.penjualanReducer.data_report,
-        isLoadingReport:state.penjualanReducer.isLoadingReport,
-        penjualanDetail:state.penjualanReducer.data_report_detail,
+        pembelianReport:state.pembelianReducer.data_report,
+        isLoadingReport:state.pembelianReducer.isLoadingReport,
+        pembelianDetail:state.pembelianReducer.data_report_detail,
+        pembelianCekResi:state.kurirReducer.data_resi,
+        isLoadingResi:state.kurirReducer.isLoading,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
     }
 }
-export default connect(mapStateToProps)(PenjualanReport);
+export default connect(mapStateToProps)(PembelianReport);

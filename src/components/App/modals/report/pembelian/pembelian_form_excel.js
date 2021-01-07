@@ -11,7 +11,7 @@ import imgExcel from 'assets/xls.png';
 import imgPdf from 'assets/pdf.png';
 import "jspdf-autotable";
 
-class PenjualanReportExcel extends Component{
+class PembelianReportExcel extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -60,7 +60,7 @@ class PenjualanReportExcel extends Component{
             "Status",
             "Keterangan",
         ]];
-        let data = typeof this.props.penjualanReportExcel.data === 'object'?this.props.penjualanReportExcel.data.map(v=> [
+        let data = typeof this.props.pembelianReportExcel.data === 'object'?this.props.pembelianReportExcel.data.map(v=> [
            v.no_faktur_mutasi,
            moment(v.tgl_mutasi).format("DD-MM-YYYY"),
            v.lokasi_asal,
@@ -71,7 +71,7 @@ class PenjualanReportExcel extends Component{
         ]):'';
         // data +=["TOTAL","","","","","","","","",tprice];
         to_pdf(
-            "penjualan_",
+            "pembelian_",
             stringHtml,
             headers,
             data,
@@ -82,8 +82,8 @@ class PenjualanReportExcel extends Component{
     render(){
         const columnStyle = {verticalAlign: "middle", textAlign: "center",};
         return (
-            <WrapperModal isOpen={this.props.isOpen && this.props.type === "formPenjualanExcel"} size={this.state.view === false?'md':'xl'} aria-labelledby="contained-modal-title-vcenter" centered keyboard>
-                {/* <ModalHeader toggle={this.toggle}>{this.props.detail===undefined?"Manage Export":"Update PenjualanExcel"}</ModalHeader> */}
+            <WrapperModal isOpen={this.props.isOpen && this.props.type === "formPembelianExcel"} size={this.state.view === false?'md':'xl'} aria-labelledby="contained-modal-title-vcenter" centered keyboard>
+                {/* <ModalHeader toggle={this.toggle}>{this.props.detail===undefined?"Manage Export":"Update PembelianExcel"}</ModalHeader> */}
                 <form onSubmit={this.handleSubmit}>
                     <ModalBody>
                         <button type="button" className="close"><span aria-hidden="true" onClick={(e => this.toggle(e))}>×</span><span className="sr-only">Close</span></button>
@@ -113,8 +113,8 @@ class PenjualanReportExcel extends Component{
                                         <div className="gallery-icon" onClick={(e => this.toggle(e))}>
                                             <ReactHTMLTableToExcel
                                                 className="btn btn-circle btn-lg btn-success"
-                                                table={'laporan_penjualan'}
-                                                filename={'laporan_penjualan'}
+                                                table={'laporan_pembelian'}
+                                                filename={'laporan_pembelian'}
                                                 sheet="kas"
                                                 buttonText={<i className="fa fa-print"></i>}>
                                             </ReactHTMLTableToExcel>
@@ -129,7 +129,7 @@ class PenjualanReportExcel extends Component{
                             </div>
                         </div> */}
                         {/* <hr></hr> */}
-                        <table className="table table-hover table-bordered table-responsive"  id="laporan_penjualan" style={{display:this.state.view === false?'none':'inline-table'}}>
+                        <table className="table table-hover table-bordered table-responsive"  id="laporan_pembelian" style={{display:this.state.view === false?'none':'inline-table'}}>
                         <thead className="bg-light">
                                 <tr>
                                     <th className="text-black" colSpan={7}>{this.props.startDate} - {this.props.startDate}</th>
@@ -152,8 +152,8 @@ class PenjualanReportExcel extends Component{
                                 {
                                     <tbody>
                                     {
-                                        this.props.penjualanReportExcel!==undefined? typeof this.props.penjualanReportExcel.data==='object'? this.props.penjualanReportExcel.data.length>0?
-                                            this.props.penjualanReportExcel.data.map((v,i)=>{
+                                        this.props.pembelianReportExcel!==undefined? typeof this.props.pembelianReportExcel.data==='object'? this.props.pembelianReportExcel.data.length>0?
+                                            this.props.pembelianReportExcel.data.map((v,i)=>{
                                                 return (
                                                     <tr key={i}>
                                                         <td style={columnStyle}>{v.no_faktur_mutasi}</td>
@@ -179,9 +179,9 @@ class PenjualanReportExcel extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        penjualanReportExcel:state.penjualanReducer.data_report_excel,
+        pembelianReportExcel:state.pembelianReducer.data_report_excel,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
     }
 }
-export default connect(mapStateToProps)(PenjualanReportExcel);
+export default connect(mapStateToProps)(PembelianReportExcel);
