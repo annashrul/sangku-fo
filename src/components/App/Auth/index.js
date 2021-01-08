@@ -129,6 +129,14 @@ class Auth extends Component{
 
         document.querySelector("link[href='/auth/css/main.css']").remove()
         document.querySelector("link[href='/auth/css/util.css']").remove()
+        this.setState({
+            phone: "",
+            number: "",
+            otp: 0,
+            isOtp: false,
+            debug_otp: '',
+            verifyAccess: false,
+        })
     }
 
     handleLoginBtn(e){

@@ -298,11 +298,11 @@ class MemberForm extends Component{
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Lanjut, Daftar',
                     cancelButtonText: 'Batal'
-                }).then((result) => {
+                }).then(function(result){
                     if (result.value) {
                         this.props.createMember(parseData);
                     }
-                })
+                }.bind(this))
             // }
         }
     }

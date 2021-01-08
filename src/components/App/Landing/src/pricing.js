@@ -56,9 +56,9 @@ class Pricing extends Component{
                             </div>
                             {/* END TABLE */}
                             </div>
-                            <div className="col-md-4 p-md-0">
+                            <div className="col-md-4 p-md-0" style={{zIndex:1}}>
                             {/* BEGIN TABLE */}
-                            <div className="table-default table2 recommended cyan">
+                            <div className="table-default table2 recommended cyan" >
                                 {/* BEGIN TABLE HEADER */}
                                 <div className="table__header">
                                 {/* <h2 className="table__header--title">Gold</h2> */}
