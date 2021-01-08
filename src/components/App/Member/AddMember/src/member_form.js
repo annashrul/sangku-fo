@@ -16,6 +16,8 @@ import PropTypes from 'prop-types';
 import bycrypt from 'bcryptjs';
 import { Link } from 'react-router-dom';
 import {ToastQ} from 'helper'
+import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
+import OTPInput, { ResendOTP } from "otp-input-react";
 const resendTime = 120;
 class MemberForm extends Component{
     constructor(props){
@@ -27,6 +29,7 @@ class MemberForm extends Component{
         this.state = {
             full_name:'',
             mobile_no:'',
+            number:'',
             id_card:'-',
             pin:'-',
             picture:'-',
@@ -67,6 +70,7 @@ class MemberForm extends Component{
         this.handleChangeImage = this.handleChangeImage.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.setPhone = this.setPhone.bind(this);
         
         this.submitOtp = this.submitOtp.bind(this);
         this.timer = 0;
@@ -140,6 +144,12 @@ class MemberForm extends Component{
         let err = Object.assign({}, this.state.error, {[event.target.name]: ""});
         this.setState({error: err});
     };
+    setPhone(num, number) {
+        this.setState({
+            mobile_no:number,
+            number:num
+        })
+    }
     toggle(e){
         e.preventDefault();
         if(e.target.id==='cancel'){
@@ -436,9 +446,10 @@ class MemberForm extends Component{
                                                         {String(this.state.time.m)+String(this.state.time.s)!=='00'&&this.state.time.m!==undefined?
                                                             <h5 className="text-center text-danger">Kirim ulang kode aktivasi dalam {this.state.time.m +":"+this.state.time.s}</h5>
                                                             :
-                                                            <div class="input-group input-group-lg">
+                                                            <div className="row">
+                                                            <div className="col-md-8">
                                                                 {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
-                                                                <input
+                                                                {/* <input
                                                                     type="tel"
                                                                     pattern="\d*"
                                                                     maxLength="14"
@@ -446,16 +457,32 @@ class MemberForm extends Component{
                                                                     name="mobile_no"
                                                                     value={this.state.mobile_no}
                                                                     onChange={this.handleChange}
-                                                                    readOnly={this.state.isOtp} />
-                                                                <span class="input-group-append">
-                                                                    <button type="button" class={`btn btn-${this.state.isOtp?'success':'primary'}`} onClick={(e)=>this.handleOtp(e)} disabled={this.state.isOtp} >{this.state.isOtp?'Terverifikasi':'Verifikasi'}</button>
-                                                                </span>
+                                                                    readOnly={this.state.isOtp} /> */}
+                                                                    <IntlTelInput
+                                                                        preferredCountries={['id']}
+                                                                        css={['intl-tel-input', 'form-control-sm']}
+                                                                        onPhoneNumberChange={(status, value, countryData, number, id) => {
+                                                                            this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
+                                                                        }}
+                                                                        separateDialCode={true}
+                                                                        format={true}
+                                                                        formatOnInit={true}
+                                                                        value={this.state.number}
+                                                                        disabled={this.state.isOtp}
+                                                                        />
+                                                                        
+                                                            </div>
+                                                            <div className="col-md-4">
+                                                                {/* <span class="input-group-append"> */}
+                                                                    <button type="button" class={`btn btn-${this.state.isOtp?'success':'primary'} btn-block`} onClick={(e)=>this.handleOtp(e)} disabled={this.state.isOtp} style={{padding:'11px'}} >{this.state.isOtp?'Terverifikasi':'Verifikasi'}</button>
+                                                                {/* </span> */}
+                                                            </div>
                                                             </div>
                                                         }
                                                     <div className="invalid-feedback" style={this.state.error.mobile_no!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.mobile_no}
                                                     </div>
-                                                    <div className="card mt-1" style={{display:this.state.isSend?'':'none'}}>
+                                                    <div className="card mt-1" style={{display:this.state.isSend&&!this.state.isOtp?'':'none'}}>
                                                         <div className="card-body">
                                                             <div className="row">
                                                                 <div className="col-md-4">
@@ -470,6 +497,15 @@ class MemberForm extends Component{
                                                                             name="otp_val"
                                                                             value={this.state.otp_val}
                                                                             onInput={this.handleChange}  />
+                                                                            {/* <OTPInput
+                                                                                value={this.state.otp_val}
+                                                                                onChange={this.handleChange}
+                                                                                autoFocus={true}
+                                                                                OTPLength={6}
+                                                                                otpType="number"
+                                                                                disabled={false}
+                                                                                style={{AlignItem:"center",justifyContent:"center"}}
+                                                                            /> */}
                                                                         <span class="input-group-append">
                                                                             <button type="button" class="btn btn-primary" onClick={async (e)=>(await this.submitOtp(e))}><i className="fa fa-check"></i></button>
                                                                         </span>
