@@ -42,7 +42,7 @@ const Routes = (
             <PrivateRoute path="/product" exact strict component={IndexProduct} />
             <PrivateRoute path="/cart" exact strict component={IndexCart} />
             <PrivateRoute path="/checkout" exact strict component={IndexCheckout} />
-            <PrivateRoute path="/invoice" exact strict component={IndexInvoice} />
+            <PrivateRoute path="/invoice/:kdtrx" exact strict component={IndexInvoice} />
             {/* TRANSACTION SECTION END */}
             {/* WALLET SECTION START */}
             <PrivateRoute path="/deposit" exact strict component={IndexDeposit} />

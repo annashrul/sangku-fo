@@ -10,6 +10,7 @@ import {sendOtp} from "redux/actions/authActions";
 import bycrypt from 'bcryptjs';
 import Swal from 'sweetalert2'
 import {loginUser, setLoggedin} from 'redux/actions/authActions';
+import { Link } from 'react-router-dom';
 
 
 class Auth extends Component{
@@ -215,10 +216,10 @@ class Auth extends Component{
                                     <div className="container-login100">
                                         <div className="wrap-login100">
                                         <form className="login100-form validate-form">
-                                            <span className="login100-form-title p-b-43">
-                                                <img src="/logo.png" width="150px"/><br/>
-                                            Member Area
-                                            </span>
+                                            <div className="login100-form-title p-b-43">
+                                                <img src="/logo.png" width="150px"/>
+                                                <div style={{marginTop:'12px'}}>Member Area</div>
+                                            </div>
                                             <div style={{display: this.state.isOtp?"none":"block"}}>
                                                 <IntlTelInput
                                                     preferredCountries={['id']}
@@ -236,10 +237,15 @@ class Auth extends Component{
                                                         <span style={{marginRight:"7px",fontSize:'1.3em'}}>Masuk</span> <i className="fa fa-long-arrow-right" aria-hidden="true" />
                                                     </button>
                                                 </div>
+
+                                                 <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
+                                                    <Link to="/"> <i className="fa fa-long-arrow-left" aria-hidden="true" /> Kembali ke halaman utama</Link>
+                                                </div>
                                             </div>
                                             <div style={{display:this.state.isOtp?"block":"none"}}>
                                                 {this.state.debug_otp}<br/>
                                                 <OTPInput
+                                                    maxTime={120}
                                                     value={this.state.otp}
                                                     onChange={this.setOtp}
                                                     autoFocus={true}
@@ -254,11 +260,18 @@ class Auth extends Component{
                                                         <span >Verifikasi</span>
                                                     </button>
 
+                                                    <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
+                                                        <a href="#" onClick={function(event){
+                                                            event.preventDefault();
+                                                            window.location.reload();
+                                                        }.bind(this)}> Ubah no. handphone</a>
+                                                    </div>
+
                                             </div>
+                                           
 
                                         </form>
                                         <div className="login100-more" style={{backgroundImage: 'url("auth/bg-01.jpg")'}}>
-                                            <a href="https://www.freepik.com/photos/background" style={{position: 'fixed', bottom: 0, fontSize: '10px', fontStyle: 'italic', color: '#333333', textDecoration: 'none'}}>Background photo created by mindandi</a>
                                         </div>
                                         </div>
                                     </div>

@@ -8,6 +8,17 @@ import FormUploadBuktiTransfer from '../modals/member/form_upload_bukti_transfer
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import {cancelDeposit} from "redux/actions/member/deposit.action";
 import Swal from "sweetalert2";
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 
 class IndexInvoice extends Component{
     constructor(props){
@@ -17,13 +28,8 @@ class IndexInvoice extends Component{
     }
 
     componentWillMount(){
-        if(localStorage.kdTrxInvoice===undefined){
-            window.location.href="/";
-        }
-        else{
-            this.props.dispatch(getInvoice());
-
-        }
+        var kdtrx = this.props.match.params.kdtrx
+        this.props.dispatch(getInvoice(kdtrx));
     }
 
     handleModal(e){
@@ -61,71 +67,34 @@ class IndexInvoice extends Component{
         // limit_tf: "2020-12-23T08:57:38.000Z"
         return(
             <Layout page="Invoice">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col-sm-6 pb-4">
-                                <div className="media align-items-center">
-                                    <div className="card-body-login mb-30">
-                                        <img src={"http://ptnetindo.com/dev/assets/img/logo2.png"} alt=""/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-1 font-15">Office 154, 330 North Brand Boulevard</div>
-                                <div className="mb-1 font-15">Glendale, CA 91203, USA</div>
-                                <div className="font-15">+0 (123) 456 7891, +9 (876) 543 2198</div>
-
-                            </div>
-
-                            <div className="col-sm-6 text-right pb-4">
-
-                                <h6 className="font-15 mb-3">INVOICE #{this.props.resCheckout.kd_trx}</h6>
-                                <div className="mb-1 font-15">Date: <strong className="font-weight-semibold">{moment().format('LL')}</strong></div>
-                                <div className="font-15">Due date: <strong className="font-weight-semibold">{moment(this.props.resCheckout.limit_tf).format('LL')}</strong></div>
-
-                            </div>
-                        </div>
-
-                        <hr className="mb-4"/>
-
                         <div className="row d-flex justify-content-between">
-                            <div className="col-md-6">
+                            <div className="col-md-6 offset-md-3">
                                 <div className="row">
                                     <div className="col-12 text-center" style={{marginBottom:"10px"}}>
-                                        <span className="font-17 text-dark mb-0 font-weight-bold">Silahkan Transfer Tepat Sebesar :</span>
+                                        <span className="font-17 text-dark mb-0 font-weight-bold">Silahkan Transfer Sebesar :</span>
                                     </div>
 
                                     <div className="col-12 text-center" style={{marginBottom:"10px"}}>
-                                        <button className="btn btn-success btn-lg btn-block">Rp {toRp(parseInt(this.props.resCheckout.grand_total,10)+parseInt(this.props.resCheckout.kd_unique,10))} .-</button>
+                                        <label className="btn btn-success btn-lg btn-block" style={{fontSize:'2em'}} onClick={(e) => {e.preventDefault();navigator.clipboard.writeText(parseInt(this.props.resCheckout.grand_total,10)+parseInt(this.props.resCheckout.kd_unique,10));Toast.fire({icon: 'success',title: `Data has been copied.`})}}>Rp {toRp(parseInt(this.props.resCheckout.grand_total,10)+parseInt(this.props.resCheckout.kd_unique,10))} .- <i className="fa fa-copy" style={{fontSize:'15px'}}/></label>
                                     </div>
                                     <div className="col-12 text-center" style={{marginBottom:"10px"}}>
                                         <span className="font-17 text-dark mb-0 font-weight-bold">Pembayaran Dapat Dilakukan Ke Rekening Berikut : </span>
                                     </div>
                                     <div className="col-12 container" style={{marginBottom:"10px"}}>
                                         <div className="row justify-content-center">
-                                            <div className="col-12 text-center">
-                                                <div className="card" style={{backgroundColor:'#EEEEEE'}}>
-                                                    <div className="card-body">
-                                                        <div className="single-smart-card d-flex justify-content-between">
-                                                            <div className="text-left">
-                                                                <h5>{this.props.resCheckout.bank_name}</h5>
-                                                                <p>{this.props.resCheckout.acc_name} <br/> {this.props.resCheckout.acc_no}</p>
-                                                            </div>
-                                                            <div className="icon">
-                                                                <i className={`fa fa-check font-40 text-primary`}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div className={"radio list-payment"} >
+                                            <img src={this.props.resCheckout.logo} alt={this.props.resCheckout.bank_name}  />
+                                            <div className="text-wrapper">
+                                            <h5 className="text-title">{this.props.resCheckout.acc_name}</h5>
+                                            <div className="text-sm" onClick={(e) => {e.preventDefault();navigator.clipboard.writeText(this.props.resCheckout.acc_no);Toast.fire({icon: 'success',title: `Data has been copied.`})}}>{this.props.resCheckout.acc_no} <i className="fa fa-copy" style={{fontSize:'15px'}}/></div>
                                             </div>
+                                        </div>
 
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-md-6">
                                 <p className="text-center">
-                                    <strong>VERIFIKASI PENERIMAAN TRANSFER ANDA AKAN DIPROSES SELAMA 5-10 MENIT</strong>
+                                    <strong>Mohon Transfer sesuai nominal yang tertera, verifikasi memakan waktu 5-10 menit setelah transfer berhasil.</strong>
                                 </p>
                                 <hr/>
                                 <p className="text-center">
@@ -133,15 +102,11 @@ class IndexInvoice extends Component{
                                 </p>
                                 <hr/>
                                 <p className="text-center">
-                                    Mohon transfer tepat hingga 3 digit terakhir ( <b style={{color:"#5d78ff",fontWeight:"bold"}}> {this.props.resCheckout.kd_unique} </b> ) agar tidak menghambat proses verifikasi
-                                </p>
-                                <hr/>
-                                <p className="text-center">
                                     Pastikan anda transfer sebelum tanggal <b style={{color:"#5d78ff",fontWeight:"bold"}}>{moment(this.props.resCheckout.limit_tf).format('LL')}</b> atau transaksi anda otomatis dibatalkan oleh sistem. jika sudah melakukan transfer segera kirim/upload bukti transfer dengan mengklik tombol upload dibawah atau juga anda bisa melakukannya di halaman detail riwayat transaksi
                                 </p>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <button disabled={this.props.resCheckout.payment_slip!=='-'} onClick={this.handleModal} type="button" className="btn btn-primary btn-block ml-2 mb-2"><i className="fa fa-upload"/><br/> Upload Bukti Transfer</button>
+                                <div className="row" style={{marginBottom:'60px'}}>
+                                    <div className="col-md-6" style={this.props.resCheckout.payment_slip!=='-'?{display:'none'}:{display:'block'}}> 
+                                        <button  onClick={this.handleModal} type="button" className="btn btn-primary btn-block ml-2 mb-2"><i className="fa fa-upload"/><br/> Upload Bukti Transfer</button>
                                     </div>
                                     <div className="col-md-6">
                                         <button onClick={this.handleCancel} type="button" className="btn btn-danger btn-block ml-2 mb-2"><i className="fa fa-close"/><br/> Batalkan Transaksi</button>
@@ -149,10 +114,10 @@ class IndexInvoice extends Component{
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
                 {
-                    this.props.isOpen===true?<FormUploadBuktiTransfer/>:null
+                    this.props.isOpen===true?<FormUploadBuktiTransfer
+                        kd_trx={this.props.match.params.kdtrx}
+                    />:null
                 }
             </Layout>
         );

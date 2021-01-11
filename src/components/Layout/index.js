@@ -22,6 +22,7 @@ class Layout extends Component {
     }
 
     componentWillMount() {
+        document.getElementsByTagName('body')[0].style.zoom = '90%';
     }
     handleLogout = () => {
         this.props.logoutUser();
@@ -91,20 +92,20 @@ class Layout extends Component {
                                 <div className="row align-items-center">
                                     <div className="col-6">
                                         <div className="dashboard-header-title mb-3 ml-2">
-                                            <h5 className="mb-0 font-weight-bold">{this.props.page}</h5>
+                                            <h5 className="mb-0 font-weight-bold">{ this.props.page==='Invoice' ?'':this.props.page}</h5>
                                             <ol class="breadcrumb">
                                                 {
-                                                    this.props.page === 'Dashboard' ? "":
+                                                    this.props.page==='Dashboard' || this.props.page==='Invoice' ? "":
                                                     <li><Link  to="/dashboard">Dashboard</Link></li>
                                                 }
                                                 {
-                                                    this.props.page==='Dashboard'?"":this.props.subpage!==undefined?
+                                                    this.props.page==='Dashboard' || this.props.page==='Invoice'?"":this.props.subpage!==undefined?
                                                         (
                                                             <li><Link  to="#">{this.props.subpage}</Link></li>
                                                         ):""
                                                 }
                                                 {
-                                                    this.props.page==='Dashboard'?"":(
+                                                    this.props.page==='Dashboard' || this.props.page==='Invoice'?"":(
                                                         <li class="active">{this.props.page}</li>
                                                     )
                                                 }
