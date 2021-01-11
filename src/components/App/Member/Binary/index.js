@@ -34,16 +34,21 @@ class Binary extends Component{
     //     this.getProps(this.props)
     // }
     render(){
+        require("../../Member/Sponsor/sponsor-style.css"); // here
         require("./tree.css"); // here
         require("./treedev.css"); // here
         return (
             <Layout page="Genealogy Binary" subpage="Jaringan">
                 <div className="col-12">
-                    {
-                        !this.props.isLoading?
-                        <BinaryNetwork dataList={this.props.list}/>
-                        :<Preloader/>
-                    }
+                    <div className="card">
+                        <div className="card-body">
+                            {
+                                !this.props.isLoading?
+                                <BinaryNetwork dataList={this.props.list}/>
+                                :<Preloader/>
+                            }
+                        </div>
+                    </div>
                 </div>
             </Layout>
         );

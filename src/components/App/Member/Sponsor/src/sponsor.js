@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Preloader from 'Preloader'
 import moment from 'moment'
 import { HEADERS } from '../../../../../redux/actions/_constants';
@@ -16,112 +16,6 @@ class Sponsor extends Component{
             numChildren: 0,
             loading:false,
             arrs:[],
-            arr:[
-                {
-                  "id": "MB5711868825",
-                  "name": "Tatang",
-                  "parent_id": null,
-                  "left_pv": "49",
-                  "right_pv": "48",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694/badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": null,
-                  "join_date": "2020-12-03T05:37:33.000Z"
-                },
-                {
-                  "id": "SK5711868826",
-                  "name": "Maman",
-                  "parent_id": "MB5711868825",
-                  "left_pv": "24",
-                  "right_pv": "21",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "right",
-                  "join_date": "2020-12-18T07:03:20.000Z"
-                },
-                {
-                  "id": "SK5711868827",
-                  "name": "Ibro",
-                  "parent_id": "MB5711868825",
-                  "left_pv": "28",
-                  "right_pv": "21",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "left",
-                  "join_date": "2020-12-15T10:33:18.000Z"
-                },
-                {
-                  "id": "SK98989898989",
-                  "name": "Iman",
-                  "parent_id": "SK5711868827",
-                  "left_pv": "14",
-                  "right_pv": "0",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "right",
-                  "join_date": "2021-01-06T05:09:40.000Z"
-                },
-                {
-                  "id": "SK5711868832",
-                  "name": "Amir",
-                  "parent_id": "SK5711868827",
-                  "left_pv": "14",
-                  "right_pv": "7",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "left",
-                  "join_date": "2020-12-22T06:41:11.000Z"
-                },
-                {
-                  "id": "SK5711868837",
-                  "name": "Downline",
-                  "parent_id": "SK98989898989",
-                  "left_pv": "0",
-                  "right_pv": "0",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "left",
-                  "join_date": "2021-01-07T10:33:46.000Z"
-                },
-                {
-                  "id": "SK67887656787656",
-                  "name": "TEST",
-                  "parent_id": "SK5711868832",
-                  "left_pv": "0",
-                  "right_pv": "0",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "right",
-                  "join_date": "2020-12-23T08:38:08.000Z"
-                },
-                {
-                  "id": "SK5711868833",
-                  "name": "Amar",
-                  "parent_id": "SK5711868832",
-                  "left_pv": "7",
-                  "right_pv": "0",
-                  "membership": "Silver",
-                  "badge": "http://ptnetindo.com:6694//badge/silver.png",
-                  "picture": "http://ptnetindo.com:6694/images/member/default.png",
-                  "hasChild": true,
-                  "position": "left",
-                  "join_date": "2020-12-23T06:32:36.000Z"
-                }
-              ]
         };
     }
     // getCurrent = (node) => this.state.arrs.filter(cNode => cNode.parent_id === node).map(cNode => (
@@ -208,18 +102,69 @@ class Sponsor extends Component{
                     <div className="usr-name"><i className="fa fa-plus"/>&nbsp;Member</div>
                 </div>
                 :
-                <div className="eps-nc" nid={cNode.id}>
-                    <div className="usr-pic">
-                        <img src={cNode.picture}
-                            className="img" /> </div>
-                    <div className="usr-name">{cNode.name+' '+cNode.position}</div>
-                    <div className="usr-popup">
-                        <div className="popup-loader">
-                            <div className="loader loader-bar" />
-                        </div>
+                // <div className="eps-nc" nid={cNode.id}>
+                //     <div className="usr-pic">
+                //         <img src={cNode.picture}
+                //             className="img" /> </div>
+                //     <div className="usr-name">{cNode.name+' '+cNode.position}</div>
+                //     <div className="usr-popup">
+                //         <div className="popup-loader">
+                //             <div className="loader loader-bar" />
+                //         </div>
+                //     </div>
+                //     <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
+                // </div>
+                <div>
+                <div className={`binary-node-single-item eps-nc ${cNode.parent_id!==null?'eps-path':''} user-block user-${cNode.id}`}>
+                    <div className="ribbon_wrapper images_wrapper">
+                        {/* <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div> */}
+                        <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
+                        <div class="alert alert-primary mt-2 font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px',whiteSpace:'nowrap'}}>{String(cNode.name).replace(/ .*/,'')}</div>
+                            <div className="pop-up-content">
+                                <div className="profile_tooltip_pick">
+                                    <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
+                                    <div className="full-name">
+                                        {cNode.name}
+                                        {/* &nbsp; */}
+                                        {/* <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/> */}
+                                        </div>
+                                    <div className="username">
+                                        <span className="text-label">UID : </span>
+                                        <span className="text-value">{cNode.id}</span>
+                                    </div>
+                                    {/* <div className="username">
+                                        <span className="text-label">Membership : </span>
+                                        <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/>
+                                    </div> */}
+                                </div>
+                                {/* <div className="tooltip_profile_detaile">
+                                    <div className="row mb-2">
+                                        <div className="col-md-6  text-center">
+                                            <span className="text-label">PV KIRI</span>
+                                        </div>
+                                        <div className="col-md-6  text-center">
+                                            <span className="text-label">PV KANAN</span>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6  text-center" style={{borderRight: 'solid darkgrey thin'}}>
+                                            <span className="text-value">{cNode.left_pv}</span>
+                                        </div>
+                                        <div className="col-md-6  text-center">
+                                            <span className="text-value">{cNode.right_pv}</span>
+                                        </div>
+                                    </div>
+                                </div> */}
+                                <div className="tooltip-footer">
+                                    <div className="text">
+                                        <span className="text-label">Tanggal Bergabung : </span>
+                                        <span className="text-value">{moment(cNode.join_date).format('YYYY-MM-DD')}</span>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
-                    <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
-                </div>
+                <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
+            </div>
             }
             {cNode.hasChild?
             <ul id={`wrapper_${cNode.id}`}>
@@ -231,7 +176,7 @@ class Sponsor extends Component{
 
     showFetch(id){
         this.setState({loading:true});
-        fetch(HEADERS.URL + `member/network/${btoa(id)}`)
+        fetch(HEADERS.URL + `member/sponsor/${btoa(id)}`)
         .then(res => res.json())
         .then(
             (data) => {
@@ -239,13 +184,13 @@ class Sponsor extends Component{
                 if(data.status==='success'){
                     // document.getElementById('li_'+id).innerHTML = '<ul id=wrapper_'+id+'></ul>';
                     if(data.result.length<=0){
-                        let joined = this.state.arrs.concat(
-                            {"parent_id":id,"position":'left','hasChild':false,"detail":null},
-                            {"parent_id":id,"position":'right','hasChild':false,"detail":null},
-                            );
-                        this.setState({
-                            arrs:joined
-                        })
+                        // let joined = this.state.arrs.concat(
+                        //     {"parent_id":id,"position":'left','hasChild':false,"detail":null},
+                        //     {"parent_id":id,"position":'right','hasChild':false,"detail":null},
+                        //     );
+                        // this.setState({
+                        //     arrs:joined
+                        // })
                         document.getElementById('btnAdd_'+id).style.display = 'none';
                         // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
                     } else {
@@ -253,16 +198,16 @@ class Sponsor extends Component{
                         // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
                         console.log("data.result.length",data.result.length)
                         if(data.result.length===1){
-                            if(data.result[0].position==='left'){
-                                let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
-                                let joinedB = joinedA.concat(data.result);
-                                this.setState({arrs:joinedB})
-                            } else {
-                                let joinedA = this.state.arrs.concat({"parent_id":id,"position":'left','hasChild':false,"detail":null},);
-                                let joinedB = joinedA.concat(data.result);
-                                this.setState({arrs:joinedB})
-                            }
-                        } else if(data.result.length===2) {
+                            // if(data.result[0].position==='left'){
+                            //     let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
+                            //     let joinedB = joinedA.concat(data.result);
+                            //     this.setState({arrs:joinedB})
+                            // } else {
+                            //     let joinedA = this.state.arrs.concat({"parent_id":id,"position":'left','hasChild':false,"detail":null},);
+                            //     let joinedB = joinedA.concat(data.result);
+                            //     this.setState({arrs:joinedB})
+                            // }
+                        } else if(data.result.length>=2) {
                             let joined = this.state.arrs.concat(data.result);
                             this.setState({arrs:joined})
                         }
