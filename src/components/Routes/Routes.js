@@ -22,6 +22,10 @@ import Testt from '../App/Masterdata/test';
 import RiwayatTransaksi from '../App/transaction/riwayat'
 import ReportDeposit from '../App/Report/Deposit'
 import ReportPembelian from '../App/Report/Pembelian'
+import Berita from '../App/Konten/Berita'
+// import BeritaDetail from '../App/Konten/BeritaDetail'
+import Testimoni from '../App/Konten/Testimoni'
+import ReportPin from '../App/Report/Pin'
 
 const Routes = (
     <div>
@@ -52,7 +56,14 @@ const Routes = (
             {/* REPORT SECTION START */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
             <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
+            <PrivateRoute path="/report/pin" exact strict component={ReportPin} />
             {/* REPORT SECTION END */}
+            {/* KONTEN SECTION START */}
+            <PrivateRoute path="/konten/berita" exact strict component={Berita} />
+            {/* <PrivateRoute path="/konten/berita/:id" exact strict component={BeritaDetail} /> */}
+            <PrivateRoute path="/konten/testimoni" exact strict component={Testimoni} />
+            {/* <PrivateRoute path="/konten/berita/:id" exact strict component={BeritaDetail} /> */}
+            {/* KONTEN SECTION END */}
             <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
 
 
