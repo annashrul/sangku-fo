@@ -67,20 +67,35 @@
 .eps-tree .eps-node-content,
 .eps-tree .eps-nc {
     position: relative;
-    display: inline-block;
-    padding: .5em 1em
+    /* display: inline-block;
+    padding: .5em 1em */
 }
+
+/* .epc-path:before {
+    border-left: .0625em solid #cfdadd;
+} */
 
 .eps-tree .eps-node-content:before,
 .eps-tree .eps-nc:before {
     position: absolute;
     display: block;
-    height: 1em;
+    /* height: 1em; */
     left: calc(50% - 0.03125em);
     top: calc(-1em - 0.03125em);
     content: '';
-    border-left: .0625em solid #cfdadd;
+    /* border-left: .0625em solid #cfdadd; */
     width: .0625em
+}
+.eps-tree .eps-node-content:before,
+.eps-tree .eps-path:before {
+    /* position: absolute;
+    display: block; */
+    height: 1em;
+    /* left: calc(50% - 0.03125em);
+    top: calc(-1em - 0.03125em); */
+    /* content: ''; */
+    border-left: .0825em solid #cfdadd;
+    /* width: .0625em */
 }
 
 .eps-tree .eps-node-content:after,

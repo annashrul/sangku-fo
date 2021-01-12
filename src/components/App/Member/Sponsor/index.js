@@ -149,7 +149,7 @@ class Sponsor extends Component{
 
    getProps(props){
       if(props.auth.user.referral_code!==undefined){
-         this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true,'network'))
+         this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true,'sponsor'))
       }
    }
    // componentWillReceiveProps(nextProps){
@@ -178,8 +178,10 @@ class Sponsor extends Component{
    }
 
     render(){
-        require("./sponsor-style.css"); // here
-        return (
+       require("./sponsor-style.css"); // here
+       require("../../Member/Binary/tree.css"); // here
+       require("../../Member/Binary/treedev.css"); // here
+       return (
             <Layout page="Sponsor">
                 <div className="col-12">
                     <div className="card">
