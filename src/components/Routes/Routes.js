@@ -23,8 +23,9 @@ import RiwayatTransaksi from '../App/transaction/riwayat'
 import ReportDeposit from '../App/Report/Deposit'
 import ReportPembelian from '../App/Report/Pembelian'
 import Berita from '../App/Konten/Berita'
-// import BeritaDetail from '../App/Konten/BeritaDetail'
+import BeritaDetail from '../App/Konten/BeritaDetail'
 import Testimoni from '../App/Konten/Testimoni'
+import TestimoniDetail from '../App/Konten/TestimoniDetail'
 import ReportPin from '../App/Report/Pin'
 
 const Routes = (
@@ -60,9 +61,9 @@ const Routes = (
             {/* REPORT SECTION END */}
             {/* KONTEN SECTION START */}
             <PrivateRoute path="/konten/berita" exact strict component={Berita} />
-            {/* <PrivateRoute path="/konten/berita/:id" exact strict component={BeritaDetail} /> */}
+            <PrivateRoute path="/konten/berita/:id" exact strict component={BeritaDetail} />
             <PrivateRoute path="/konten/testimoni" exact strict component={Testimoni} />
-            {/* <PrivateRoute path="/konten/berita/:id" exact strict component={BeritaDetail} /> */}
+            <PrivateRoute path="/konten/testimoni/:id" exact strict component={TestimoniDetail} />
             {/* KONTEN SECTION END */}
             <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
 

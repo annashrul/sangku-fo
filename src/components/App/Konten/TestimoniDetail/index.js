@@ -3,33 +3,33 @@ import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
 import moment from "moment";
 import Preloader from "Preloader";
-import { getBeritaDetail, getBeritaKategori } from '../../../../redux/actions/konten/berita.action';
+import { getTestimoniDetail, getTestimoniKategori } from '../../../../redux/actions/konten/testimoni.action';
 import Swal from 'sweetalert2';
 import Skeleton from 'react-loading-skeleton';
-class BeritaDetail extends Component{
+class TestimoniDetail extends Component{
     constructor(props){
         super(props);
         this.state={
         }
-        this.props.dispatch(getBeritaDetail(this.props.match.params.id))
+        this.props.dispatch(getTestimoniDetail(this.props.match.params.id))
         this.handleLoadMore = this.handleLoadMore.bind(this)
     }
     componentWillMount(){
-        this.props.dispatch(getBeritaKategori(1))
+        this.props.dispatch(getTestimoniKategori(1))
     }
     handleLoadMore(){
         // this.setState({
         //     isScroll:true
         // });
 
-        let perpage = parseInt(this.props.beritaKategori.per_page,10);
-        let lengthBrg = parseInt(this.props.beritaKategori.total,10);
+        let perpage = parseInt(this.props.testimoniKategori.per_page,10);
+        let lengthBrg = parseInt(this.props.testimoniKategori.total,10);
         if(perpage===lengthBrg || perpage<lengthBrg){
             let where = '';
             if(perpage!==undefined&&perpage!==null&&perpage!==''){
                 where+=`&perpage=${perpage+10}`
             }
-            this.props.dispatch(getBeritaKategori(1, where));
+            this.props.dispatch(getTestimoniKategori(1, where));
             // this.setState({scrollPage:this.state.scrollPage+5});
         }
         else{
@@ -46,16 +46,17 @@ class BeritaDetail extends Component{
             title,
             category,
             caption,
-            type,
+            // type,
             video,
             picture,
             created_at,
-        } = this.props.beritaDetail;
+        } = this.props.testimoniDetail;
         return (
-            <Layout page="Berita">
+            <Layout page="Testimoni">
                 <div className="row">
                     <div className="col-md-8">
-                        {!this.props.isLoadingBeritaDetail?
+                    {
+                                !this.props.isLoadingTestimoniDetail?
                         <div className="card">
                             <img className="img-fluid" src={picture} alt="img"/>
                             <div className="card-body">
@@ -71,10 +72,8 @@ class BeritaDetail extends Component{
                                         <iframe className="embed-responsive-item" src={video} allowFullScreen />
                                     </div>
                                     :''}
-
                                     <div dangerouslySetInnerHTML={{__html: caption}}></div>
                                 </div>
-
                             </div>
                         </div>
                         :
@@ -106,8 +105,8 @@ class BeritaDetail extends Component{
                             {
                                 !this.props.isLoadingKategori?(
                                     (
-                                        typeof this.props.beritaKategori.data === 'object' ? this.props.beritaKategori.data.length>0?
-                                            this.props.beritaKategori.data.map((v,i)=>{
+                                        typeof this.props.testimoniKategori.data === 'object' ? this.props.testimoniKategori.data.length>0?
+                                            this.props.testimoniKategori.data.map((v,i)=>{
                                                 return(
                                                     <div className="card rounded mb-2" style={{borderLeft: '8px solid rgb(251, 67, 74)'}}>
                                                         <div className="card-body p-1">
@@ -145,15 +144,15 @@ class BeritaDetail extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.beritaReducer",state.beritaReducer)
+    console.log("state.testimoniReducer",state.testimoniReducer)
     return {
         auth:state.auth,
-        beritaKategori:state.beritaReducer.data_berita_kategori,
-        isLoadingBeritaDetail:state.beritaReducer.isLoadingBeritaDetail,
-        isLoadingKategori:state.beritaReducer.isLoadingBeritaKategori,
-        beritaDetail:state.beritaReducer.data_berita_detail,
+        testimoniKategori:state.testimoniReducer.data_testimoni_kategori,
+        isLoadingTestimoniDetail:state.testimoniReducer.isLoadingTestimoniDetail,
+        isLoadingKategori:state.testimoniReducer.isLoadingTestimoniKategori,
+        testimoniDetail:state.testimoniReducer.data_testimoni_detail,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
     }
 }
-export default connect(mapStateToProps)(BeritaDetail);
+export default connect(mapStateToProps)(TestimoniDetail);

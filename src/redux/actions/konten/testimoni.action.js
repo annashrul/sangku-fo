@@ -85,7 +85,7 @@ export const getTestimoniKategori = (page=1,where='')=>{
 export const getTestimoniDetail = (id='')=>{
     return (dispatch) => {
         dispatch(setLoadingTestimoniDetail(true));
-        let url=`content/${id}`;
+        let url=`content/get/${id}`;
         axios.get(HEADERS.URL+url)
             .then(function (response) {
                 const data = response.data;

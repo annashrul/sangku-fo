@@ -134,9 +134,13 @@ class SideMenu extends Component {
                     {/* DASHBOARD MODUL START */}
                     <li  className={path==='/dashboard'?"active":''}><Link to="/dashboard"> <i className="fa fa-dashboard" /><span> Dashboard</span></Link></li>
                     {/* DASHBOARD MODUL END */}
-                    {/* DASHBOARD MODUL START */}
+                    {/* KONTEN MODUL START */}
+                    <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>
+                    <li  className={path==='/konten/testimoni'?"active":''}><Link to="/konten/testimoni"> <i className="fa fa-dashboard" /><span> Testimoni</span></Link></li>
+                    {/* KONTEN MODUL END */}
+                    {/* ORDER MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
-                    {/* DASHBOARD MODUL END */}
+                    {/* ORDER MODUL END */}
                     {/* NETWORK MODUL START */}
                     <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
@@ -165,6 +169,7 @@ class SideMenu extends Component {
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
                             <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}> Pembelian</Link></li>
+                            <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li>
                             <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                         </ul>
                     </li>

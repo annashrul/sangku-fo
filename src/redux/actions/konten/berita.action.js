@@ -85,7 +85,7 @@ export const getBeritaKategori = (page=1,where='')=>{
 export const getBeritaDetail = (id='')=>{
     return (dispatch) => {
         dispatch(setLoadingBeritaDetail(true));
-        let url=`content/${id}`;
+        let url=`content/get/${id}`;
         axios.get(HEADERS.URL+url)
             .then(function (response) {
                 const data = response.data;

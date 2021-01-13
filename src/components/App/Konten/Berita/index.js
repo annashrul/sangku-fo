@@ -298,7 +298,7 @@ class Berita extends Component{
                                                                 <div className="card m-2">
                                                                     <img className="img-fluid" src={v.picture} alt />
                                                                     <div className="card-body">
-                                                                        <Link to={`/konten/berita/45678`}><h5 className="font-20 mb-0">{v.title}</h5></Link>
+                                                                        <Link to={`/konten/berita/${v.id}`}><h5 className="font-20 mb-0">{v.title}</h5></Link>
                                                                         <div className="d-flex align-items-center justify-content-between">
                                                                             <p className="font-11"><i className="fa fa-user"/>&nbsp;{v.writer}</p>
                                                                             <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD HH:mm')}</p>
@@ -309,7 +309,7 @@ class Berita extends Component{
                                                                             {/* <a href="#" className="btn btn-primary text-uppercase btn-block">friend</a> */}
                                                                         </div>
                                                                         <div className="col-6">
-                                                                            <Link to={`/konten/berita/45678`} className="btn text-uppercase border btn-block btn-outline-secondary">Baca</Link>
+                                                                            <Link to={`/konten/berita/${v.id}`} className="btn text-uppercase border btn-block btn-outline-secondary">Baca</Link>
                                                                         </div>
                                                                         </div>
                                                                     </div>
