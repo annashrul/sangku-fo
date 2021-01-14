@@ -27,6 +27,7 @@ import BeritaDetail from '../App/Konten/BeritaDetail'
 import Testimoni from '../App/Konten/Testimoni'
 import TestimoniDetail from '../App/Konten/TestimoniDetail'
 import ReportPin from '../App/Report/Pin'
+import PulsaAll from '../App/PPOB/PulsaAll'
 
 const Routes = (
     <div>
@@ -49,6 +50,9 @@ const Routes = (
             <PrivateRoute path="/checkout" exact strict component={IndexCheckout} />
             <PrivateRoute path="/invoice" exact strict component={IndexInvoice} />
             {/* TRANSACTION SECTION END */}
+            {/* PPOB SECTION START */}
+            <PrivateRoute path="/ppob/pulsa-all-operator" exact strict component={PulsaAll} />
+            {/* PPOB SECTION END */}
             {/* WALLET SECTION START */}
             <PrivateRoute path="/deposit" exact strict component={IndexDeposit} />
             <PrivateRoute path="/penarikan" exact strict component={IndexPenarikan} />

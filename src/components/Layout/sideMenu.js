@@ -13,6 +13,7 @@ class SideMenu extends Component {
             isNetwork: false,
             isWallet: false,
             isReport: false,
+            isPpob: false,
 
             // NETWORK
             // md_network:true,
@@ -43,6 +44,7 @@ class SideMenu extends Component {
             isNetwork : false,
             isWallet : false,
             isReport : false,
+            isPpob : false,
         }
         let sub_module = {
             // isReportAdjustment:false,
@@ -90,7 +92,11 @@ class SideMenu extends Component {
         }else if(path==='/deposit'||path==='/penarikan'||path==='/transfer'){
             this.setState({
                 isWallet:true,
-                isNetwork:false,
+                // isNetwork:false,
+            })
+        }else if(path==='/ppob/pulsa-all-operator'){
+            this.setState({
+                isPpob:true,
             })
         }
 
@@ -141,6 +147,14 @@ class SideMenu extends Component {
                     {/* ORDER MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
                     {/* ORDER MODUL END */}
+                    {/* PPOB MODUL START */}
+                    <li className={"treeview" +(this.state.isPpob===true || path==='/ppob/pulsa-all-operator' ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isPpob')}><i className="zmdi zmdi-receipt" /> <span>PPOB</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isPpob===true?"block":"none"}}>
+                            <li className={path==='/ppob/pulsa-all-operator'?"active":''}><Link to="/ppob/pulsa-all-operator" style={{width:'fit-content'}}> Pulsa All Operator</Link></li>
+                        </ul>
+                    </li>
+                    {/* PPOB MODUL END */}
                     {/* NETWORK MODUL START */}
                     <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
