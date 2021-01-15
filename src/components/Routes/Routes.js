@@ -46,6 +46,7 @@ import TrxAsuransi from '../App/PPOB/TrxAsuransi';
 import TrxMultifinance from '../App/PPOB/TrxMultifinance';
 import TrxKai from '../App/PPOB/TrxKai';
 import TrxZakat from '../App/PPOB/TrxZakat';
+import indexProfile from '../App/Member/Profile/indexProfile';
 
 const Routes = (
     <div>
@@ -53,6 +54,7 @@ const Routes = (
             <Route path="/" exact strict component={Landing} />
             <Route path="/login" exact strict component={Login} />
             <Route path="/signup" exact strict component={Signup} />
+            <Route path="/profile" exact strict component={indexProfile} />
             <Route path="/confirm" exact strict component={ConfirmPage} />
 
             <PrivateRoute path="/binary" exact strict component={Binary} />

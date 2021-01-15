@@ -124,6 +124,8 @@ export const loginUser = (userData) =>
                     status: res.data.result.status,
                     picture: res.data.result.picture,
                     otp: res.data.result.otp,
+                    have_pin: res.data.result.have_pin,
+                    have_ktp: res.data.result.have_ktp,
                 });
             
                 // Set token to Auth Header 

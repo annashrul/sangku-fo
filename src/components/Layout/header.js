@@ -184,6 +184,15 @@ class Header extends Component {
                                             <span>{this.props.auth.user.referral_code}</span>
                                         </div>
                                     </div>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/profile';}}>
+                                    <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
+                                    </DropdownItem>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
+                                    <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
+                                    </DropdownItem>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/bank';}}>
+                                    <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
+                                    </DropdownItem>
                                     <DropdownItem  onClick={this.handleLogout}>
                                     <i className="fa fa-chain-broken profile-icon bg-warning" aria-hidden="true"/> Sign-out
                                     </DropdownItem>
@@ -224,6 +233,9 @@ class Header extends Component {
                                             <span>{this.props.auth.user.referral_code}</span>
                                         </div>
                                     </div>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/profile';}}>
+                                    <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
+                                    </DropdownItem>
                                     <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
                                     <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                     </DropdownItem>
