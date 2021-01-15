@@ -5,6 +5,8 @@ import NotFound from '../common/notfound'
 
 import Landing from '../App/Landing';
 import Login from '../App/Auth';
+import Signup from '../App/Regist';
+import ConfirmPage from '../App/Regist/ConfirmPage';
 import Dashboard from '../App/Dashboard/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';
 import IndexCart from '../App/transaction/indexCart';
@@ -28,12 +30,30 @@ import Testimoni from '../App/Konten/Testimoni'
 import TestimoniDetail from '../App/Konten/TestimoniDetail'
 import ReportPin from '../App/Report/Pin'
 import PulsaAll from '../App/PPOB/PulsaAll'
+import PaketData from '../App/PPOB/PaketData';
+import PulsaSmsTelp from '../App/PPOB/PulsaSmsTelp';
+import PulsaTf from '../App/PPOB/PulsaTf';
+import EToll from '../App/PPOB/EToll';
+import VoucherWifiid from '../App/PPOB/VoucherWifiid';
+import EMoney from '../App/PPOB/EMoney';
+import TrxPln from '../App/PPOB/TrxPln';
+import TrxTv from '../App/PPOB/TrxTv';
+import TrxPdam from '../App/PPOB/TrxPdam';
+import TrxTelpKabel from '../App/PPOB/TrxTelpKabel';
+import TrxTelpPasca from '../App/PPOB/TrxTelpPasca';
+import TrxBpjs from '../App/PPOB/TrxBpjs';
+import TrxAsuransi from '../App/PPOB/TrxAsuransi';
+import TrxMultifinance from '../App/PPOB/TrxMultifinance';
+import TrxKai from '../App/PPOB/TrxKai';
+import TrxZakat from '../App/PPOB/TrxZakat';
 
 const Routes = (
     <div>
         <Switch>
             <Route path="/" exact strict component={Landing} />
             <Route path="/login" exact strict component={Login} />
+            <Route path="/signup" exact strict component={Signup} />
+            <Route path="/confirm" exact strict component={ConfirmPage} />
 
             <PrivateRoute path="/binary" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
@@ -52,6 +72,22 @@ const Routes = (
             {/* TRANSACTION SECTION END */}
             {/* PPOB SECTION START */}
             <PrivateRoute path="/ppob/pulsa-all-operator" exact strict component={PulsaAll} />
+            <PrivateRoute path="/ppob/paket-data" exact strict component={PaketData} />
+            <PrivateRoute path="/ppob/pulsa-sms-telpon" exact strict component={PulsaSmsTelp} />
+            <PrivateRoute path="/ppob/pulsa-transfer" exact strict component={PulsaTf} />
+            <PrivateRoute path="/ppob/e-toll" exact strict component={EToll} />
+            <PrivateRoute path="/ppob/voucher-wifiid" exact strict component={VoucherWifiid} />
+            <PrivateRoute path="/ppob/e-money" exact strict component={EMoney} />
+            <PrivateRoute path="/ppob/pembayaran-pln" exact strict component={TrxPln} />
+            <PrivateRoute path="/ppob/pembayaran-tv" exact strict component={TrxTv} />
+            <PrivateRoute path="/ppob/pembayaran-pdam" exact strict component={TrxPdam} />
+            <PrivateRoute path="/ppob/pembayaran-telpon-kabel" exact strict component={TrxTelpKabel} />
+            <PrivateRoute path="/ppob/pembayaran-telpon-pascabayar" exact strict component={TrxTelpPasca} />
+            <PrivateRoute path="/ppob/pembayaran-bpjs" exact strict component={TrxBpjs} />
+            <PrivateRoute path="/ppob/pembayaran-asuransi" exact strict component={TrxAsuransi} />
+            <PrivateRoute path="/ppob/pembayaran-multifinance" exact strict component={TrxMultifinance} />
+            <PrivateRoute path="/ppob/pembayaran-kereta-api" exact strict component={TrxKai} />
+            <PrivateRoute path="/ppob/pembayaran-zakat" exact strict component={TrxZakat} />
             {/* PPOB SECTION END */}
             {/* WALLET SECTION START */}
             <PrivateRoute path="/deposit" exact strict component={IndexDeposit} />
