@@ -3,24 +3,42 @@ import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import imgCover from 'assets/cover.png';
 import imgDefault from 'assets/default.png';
-import { Toast } from 'bootstrap';
-
+import File64 from "components/common/File64";
+import { putMember } from '../../../../redux/actions/member/member.action';
+import {ToastQ} from 'helper'
+import Swal from 'sweetalert2';
 class IndexProfile extends Component{
     constructor(props){
         super(props);
         this.handleCart    = this.handleCart.bind(this);
         this.handleDetail    = this.handleDetail.bind(this);
-        this.hanhandleChange    = this.handleChange.bind(this);
+        this.handleChange    = this.handleChange.bind(this);
+        this.handleChangeImage    = this.handleChangeImage.bind(this);
+        this.handleSubmit    = this.handleSubmit.bind(this);
         this.state = {
             isEdit:false,
-            full_name:''
+            full_name:'',
+            picture:'',
+            pin:'',
+            password:'',
+            re_password:'',
         }
     }
     componentWillReceiveProps(nextProps){
         this.setState({
-            full_name:nextProps.auth.user.full_name
+            full_name:nextProps.auth.user.full_name,
+            picture:nextProps.auth.user.picture,
         })
     }
+
+    handleChangeImage(files) {
+        if (files.status==='success'){
+            this.props.dispatch(putMember({picture:files.base64},this.props.auth.user.id))
+            this.setState({
+                picture: files.base64
+            })
+        }
+    };
 
     handleCart(e,i){
         e.preventDefault();
@@ -40,6 +58,43 @@ class IndexProfile extends Component{
     toggleEdit(e){
         e.preventDefault()
         this.setState({isEdit:!this.state.isEdit});
+    }
+    handleSubmit(e){
+        e.preventDefault()
+        let param = {}
+        param['full_name'] = this.state.full_name
+        param['pin'] = this.state.pin
+        param['password'] = this.state.password
+
+        if(param.full_name===''){
+            delete param.full_name
+        }
+        if(param.pin===''){
+            delete param.pin
+        }
+        if(param.password===''){
+            delete param.password
+        } else {
+            if(this.state.re_password===''){
+                ToastQ.fire({icon:'danger',title:`Ulangi katasandi belum diisi`});
+            } else if(this.state.re_password!==param.password){
+                ToastQ.fire({icon:'danger',title:`Ulangi katasandi dan katasandi tidak sesuai`});
+            }
+        }
+        Swal.fire({
+            title: 'Informasi!',
+            text: "Pastikan data yang akan diubah telah benar.",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Lanjut, Ubah',
+            cancelButtonText: 'Batal'
+        }).then(function(result){
+            if (result.value) {
+                this.props.dispatch(putMember(param,this.props.auth.user.id))
+            }
+        }.bind(this))
     }
     render(){
         console.log("full_name",this.state.full_name)
@@ -89,14 +144,35 @@ class IndexProfile extends Component{
 
                     <div className="col-md-4">
                         <div className="card">
-                            <img className="img-fluid" src={this.props.auth.user.picture} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
+                            <img className="img-fluid" src={this.state.picture} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
                             <div className="card-body">
                                 <div className="row mb-30">
-                                <div className="col-12">
-                                    <a href="#" className="btn text-uppercase border btn-block btn-outline-secondary">Unggah Gambar</a>
+                                    <div className="col-12">
+                                        {/* <input type="file" hidden ref={this.inputReference} onChange={this.fileUploadInputChange} /> */}
+                                        <div className="form-group">
+                                            {/* <label htmlFor="inputState" className="col-form-label">Logo {this.props.data_detail!==undefined?<small>(kosongkan apabila tidak ada perubahan.)</small>:""}</label><br/> */}
+                                            <File64
+                                                multiple={ false }
+                                                maxSize={2048} //in kb
+                                                fileType='png, jpg' //pisahkan dengan koma
+                                                className="form-control-file"
+                                                onDone={ this.handleChangeImage }
+                                                showPreview={false}
+                                                lang='id'
+                                                // previewLink={this.state.prev}
+                                                // previewConfig={{
+                                                //     width:'200px',
+                                                //     height: '200px'
+                                                // }}
+                                            />
+                                            {/* <div className="invalid-feedback" style={this.state.error.logo!==""?{display:'block'}:{display:'none'}}>
+                                                {this.state.error.logo}
+                                            </div> */}
+                                        </div>
+                                        {/* <a href="#" className="btn text-uppercase border btn-block btn-outline-secondary" onClick={this.fileUploadAction}>Unggah Gambar</a> */}
+                                    </div>
                                 </div>
-                                </div>
-                                <p className="font-11">Besar file: maksimum 4.000.000 bytes (4 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
+                                <p className="font-11">Besar file: maksimum 2.000.000 bytes (2 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
                             </div>
                         </div>
                     </div>
@@ -194,7 +270,7 @@ class IndexProfile extends Component{
                                                 <tr>
                                                     <td colSpan="2" className="text-right">
                                                         {/* <button type="reset" className="btn btn-danger">BATAL</button>&nbsp; */}
-                                                        <button type="submit" className="btn btn-primary" disabled={!this.state.isEdit}>SIMPAN</button>
+                                                        <button type="button" className="btn btn-primary" onClick={(e)=>this.handleSubmit(e)} disabled={!this.state.isEdit}>SIMPAN</button>
                                                     </td>
                                                 </tr>
                                             </tfoot>

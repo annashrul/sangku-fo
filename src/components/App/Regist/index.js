@@ -104,7 +104,7 @@ class Signup extends Component{
 
     componentDidMount(){
         if(this.props.auth.isAuthenticated){
-            this.props.history.push({pathname: '/dashobard',state: {from: this.props.location.pathname}});
+            this.props.history.push({pathname: '/dashboard',state: {from: this.props.location.pathname}});
         }
         this.initFetch(false);
     }
