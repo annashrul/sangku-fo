@@ -125,11 +125,11 @@ class IndexBank extends Component{
         const {
             total,
             per_page,
-            offset,
-            to,
-            last_page,
+            // offset,
+            // to,
+            // last_page,
             current_page,
-            from,
+            // from,
             data
         } = this.props.data;
 
@@ -203,7 +203,7 @@ class IndexBank extends Component{
                                                     );
                                                 })
                                                 : <tr>
-                                                    <td colSpan={7} style={columnStyle}><img src={NOTIF_ALERT.NO_DATA}/></td>
+                                                    <td colSpan={7} style={columnStyle}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></td>
                                                 </tr>
 
                                                 :(()=>{

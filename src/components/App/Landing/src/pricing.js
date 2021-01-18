@@ -50,7 +50,7 @@ class Pricing extends Component{
                                 </div>
                                 {/* BEGIN TABLE FOOTER */}
                                 <div className="table__footer">
-                                <a href="#" className="button">Get Started</a>
+                                <a href={() => false} className="button">Get Started</a>
                                 </div>
                                 {/* END TABLE FOOTER */}
                             </div>
@@ -81,7 +81,7 @@ class Pricing extends Component{
                                 </div>
                                 {/* BEGIN TABLE FOOTER */}
                                 <div className="table__footer">
-                                <a href="#" className="button">Get Started</a>
+                                <a href={() => false} className="button">Get Started</a>
                                 </div>
                                 {/* END TABLE FOOTER */}
                             </div>
@@ -112,7 +112,7 @@ class Pricing extends Component{
                                 </div>
                                 {/* BEGIN TABLE FOOTER */}
                                 <div className="table__footer">
-                                <a href="#" className="button">Get Started</a>
+                                <a href={() => false} className="button">Get Started</a>
                                 </div>
                                 {/* END TABLE FOOTER */}
                             </div>

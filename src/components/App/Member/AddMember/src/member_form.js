@@ -17,7 +17,7 @@ import bycrypt from 'bcryptjs';
 import { Link } from 'react-router-dom';
 import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
-import OTPInput, { ResendOTP } from "otp-input-react";
+// import OTPInput, { ResendOTP } from "otp-input-react";
 const resendTime = 120;
 class MemberForm extends Component{
     constructor(props){
@@ -513,7 +513,7 @@ class MemberForm extends Component{
                                                                 </div>
                                                                 <div className="col-md-8">
                                                                     <label style={{visibility:'collapse'}}>Kode Aktivasi</label>
-                                                                    <div class="alert alert-primary font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
+                                                                    <div class="alert alert-primary font-12" style={{backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
                                                                         Masukan kode Aktivasi pada nomor yang sedang anda daftarkan dan mintalah kode tersebut dengan bijak.
                                                                     </div>
                                                                 </div>
@@ -586,7 +586,7 @@ class MemberForm extends Component{
                                                         <div className="member-content-area">
                                                             <div className="member-contact-content d-flex align-items-center mb-4">
                                                                 <div className="contact-thumb">
-                                                                    <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt />
+                                                                    <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
                                                                 </div>
                                                                 <div className="member-contact-info">
                                                                     <h5>{this.state.sponsor_name}</h5>
@@ -605,7 +605,7 @@ class MemberForm extends Component{
                                                         <div className="member-content-area">
                                                             <div className="member-contact-content d-flex align-items-center mb-4">
                                                                 <div className="contact-thumb">
-                                                                    <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt />
+                                                                    <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
                                                                 </div>
                                                                 <div className="member-contact-info">
                                                                     <h5>{this.state.upline_name}</h5>

@@ -59,7 +59,7 @@ class SideMenu extends Component {
         if (param.auth.user) {
             
             if(param.auth.user.akses!==undefined&&param.auth.user.akses!==null){
-                let akses = String(param.auth.user.akses).split('');
+                // let akses = String(param.auth.user.akses).split('');
 
                 // network
                 // let new_member               = akses[0]!==null&&akses[0]!==undefined?akses[0]:"0";   //cek varaibale akses apabila tidak bernilai null
@@ -146,12 +146,12 @@ class SideMenu extends Component {
     };
     render() {
         const path = this.props.location.pathname;
-        const {
+        // const {
             //modul only
             // md_network,
             //single only
             // new_member
-        } = this.state;
+        // } = this.state;
         return (
             <nav>
                 <ul className="sidebar-menu" data-widget="tree">
@@ -242,7 +242,7 @@ class SideMenu extends Component {
                     {/* REPORT MODUL END */}
 
                     {/* LOGOUT MODUL START */}
-                    <li><a href={null} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
+                    <li><a href={() => false} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
                     {/* LOGOUT MODUL END */}
                 </ul>
             </nav>

@@ -4,8 +4,6 @@ import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import {rangeDate} from "helper";
-import Preloader from "Preloader";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import { getBerita, getBeritaDetail, getBeritaKategori } from '../../../../redux/actions/konten/berita.action';
 import Swal from 'sweetalert2';
@@ -296,7 +294,7 @@ class Berita extends Component{
                                                                 //     </div>
                                                                 // </div>
                                                                 <div className="card m-2">
-                                                                    <img className="img-fluid" src={v.picture} alt />
+                                                                    <img className="img-fluid" src={v.picture} alt="sangqu" />
                                                                     <div className="card-body">
                                                                         <Link to={`/konten/berita/${v.id}`}><h5 className="font-20 mb-0">{v.title}</h5></Link>
                                                                         <div className="d-flex align-items-center justify-content-between">
@@ -306,7 +304,7 @@ class Berita extends Component{
                                                                         <div dangerouslySetInnerHTML={{__html: String(v.caption).substr(0,50)}} />
                                                                         <div className="row">
                                                                         <div className="col-6">
-                                                                            {/* <a href="#" className="btn btn-primary text-uppercase btn-block">friend</a> */}
+                                                                            {/* <a href={() => false} className="btn btn-primary text-uppercase btn-block">friend</a> */}
                                                                         </div>
                                                                         <div className="col-6">
                                                                             <Link to={`/konten/berita/${v.id}`} className="btn text-uppercase border btn-block btn-outline-secondary">Baca</Link>
@@ -333,7 +331,7 @@ class Berita extends Component{
                                                                 <Skeleton style={{width:'100%'}}/>
                                                                 <div className="row">
                                                                 <div className="col-6">
-                                                                    {/* <a href="#" className="btn btn-primary text-uppercase btn-block">friend</a> */}
+                                                                    {/* <a href={() => false} className="btn btn-primary text-uppercase btn-block">friend</a> */}
                                                                 </div>
                                                                 <div className="col-6">
                                                                     <Skeleton width={100} height={20} />

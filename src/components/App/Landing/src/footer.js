@@ -18,19 +18,19 @@ class Footer extends Component{
                         <div className="footer-logo" />
                         <ul className="footer-social-list">
                             <li>
-                                <a href="#"><i className="fa fa-facebook-square" /></a>
+                                <a href={() => false}><i className="fa fa-facebook-square" /></a>
                             </li>
                             <li>
-                                <a href="#"><i className="fa fa-twitter" /></a>
+                                <a href={() => false}><i className="fa fa-twitter" /></a>
                             </li>
                             <li>
-                                <a href="#"><i className="fa fa-behance" /></a>
+                                <a href={() => false}><i className="fa fa-behance" /></a>
                             </li>
                             <li>
-                                <a href="#"><i className="fa fa-dribbble" /></a>
+                                <a href={() => false}><i className="fa fa-dribbble" /></a>
                             </li>
                             <li>
-                                <a href="#"><i className="fa fa-instagram" /></a>
+                                <a href={() => false}><i className="fa fa-instagram" /></a>
                             </li>
                         </ul>
 
@@ -50,12 +50,12 @@ class Footer extends Component{
                     <div className="col-two md-1-3 tab-1-2 mob-full footer-site-links">
                         <h4>Site Links</h4>
                         <ul className="list-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href={() => false}>Home</a></li>
+                        <li><a href={() => false}>About Us</a></li>
+                        <li><a href={() => false}>Blog</a></li>
+                        <li><a href={() => false}>FAQ</a></li>
+                        <li><a href={() => false}>Terms</a></li>
+                        <li><a href={() => false}>Privacy Policy</a></li>
                         </ul>	      		
                     </div> {/* end footer-site-links */} 
                     <div className="col-four md-1-2 tab-full footer-subscribe">

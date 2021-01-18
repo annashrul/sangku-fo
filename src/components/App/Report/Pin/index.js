@@ -4,11 +4,8 @@ import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import Preloader from "Preloader";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchPin} from '../../../../redux/actions/pin/pin.action'
-import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
 import {toRp, statusQ} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 class Pin extends Component{

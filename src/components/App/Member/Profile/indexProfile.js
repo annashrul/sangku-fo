@@ -40,14 +40,6 @@ class IndexProfile extends Component{
         }
     };
 
-    handleCart(e,i){
-        e.preventDefault();
-        console.log(this.props.resPaket.data[i].id);
-        let data={
-            "id_paket":this.props.resPaket.data[i].id,
-            "qty":1
-        };
-    }
     handleDetail(e,i){
         e.preventDefault();
         alert(i);
@@ -169,7 +161,7 @@ class IndexProfile extends Component{
                                                 {this.state.error.logo}
                                             </div> */}
                                         </div>
-                                        {/* <a href="#" className="btn text-uppercase border btn-block btn-outline-secondary" onClick={this.fileUploadAction}>Unggah Gambar</a> */}
+                                        {/* <a href={() => false} className="btn text-uppercase border btn-block btn-outline-secondary" onClick={this.fileUploadAction}>Unggah Gambar</a> */}
                                     </div>
                                 </div>
                                 <p className="font-11">Besar file: maksimum 2.000.000 bytes (2 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>

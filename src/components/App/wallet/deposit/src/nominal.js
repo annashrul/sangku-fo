@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import Skeleton from 'react-loading-skeleton';
+// import moment from 'moment';
+// import Skeleton from 'react-loading-skeleton';
 
 class Card extends Component{
     constructor(props){

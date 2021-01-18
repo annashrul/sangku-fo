@@ -6,10 +6,10 @@ import {setEcaps} from 'redux/actions/site.action'
 import {setMobileEcaps} from 'redux/actions/site.action'
 import { Link } from 'react-router-dom';
 import isMobile from 'react-device-detect';
-import moment from "moment";
+// import moment from "moment";
 import Swal from "sweetalert2";
 import {toRp} from "helper";
-import {HEADERS} from "redux/actions/_constants"
+// import {HEADERS} from "redux/actions/_constants"
 import {
     UncontrolledButtonDropdown,
     DropdownMenu,

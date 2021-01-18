@@ -1,25 +1,25 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
-import {HEADERS} from 'redux/actions/_constants'
+// import {HEADERS} from 'redux/actions/_constants'
 import IntlTelInput from 'react-intl-tel-input';
 // import 'react-intl-tel-input/dist/libphonenumber.css';
 import 'react-intl-tel-input/dist/main.css';
 import Preloader from 'Preloader'
-import OTPInput, { ResendOTP } from "otp-input-react";
+// import OTPInput, { ResendOTP } from "otp-input-react";
 import {sendOtp} from "redux/actions/authActions";
 import bycrypt from 'bcryptjs';
 import Swal from 'sweetalert2'
-import {loginUser, setLoggedin} from 'redux/actions/authActions';
+import {loginUser} from 'redux/actions/authActions';
 
-import { Card, CardBody, CardFooter, CardHeader, Table } from 'reactstrap';
+import { Card, CardBody, CardHeader, Table } from 'reactstrap';
 import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
-import { FetchDetailPin } from 'redux/actions/pin/pin.action';
+// import { FetchDetailPin } from 'redux/actions/pin/pin.action';
 import Spinner from 'Spinner'
-import { createMember } from 'redux/actions/authActions';
+// import { createMember } from 'redux/actions/authActions';
 // import Swal from 'sweetalert2';
 import Default from 'assets/default.png'
 // import {sendOtp} from "redux/actions/authActions";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // import bycrypt from 'bcryptjs';
 
 
@@ -173,7 +173,7 @@ class Signup extends Component{
     verifyOtp=async (num) => {
         const res = await  bycrypt.compare(`${num}`, this.props.auth.user_otp.sender_id);
         if(res){
-            const {email,password,type,number} = this.state;
+            const {type,number} = this.state;
             const user = {
                 type: type,
                 nohp: number
@@ -192,31 +192,6 @@ class Signup extends Component{
     }
 
     render(){
-        // const renderButton = buttonProps => {
-        //     return <button className="btn btn-warning" {...buttonProps}>Resend</button>;
-        // };
-        const renderButton = buttonProps => {
-                    return(
-                        <div>
-                            {
-                                    buttonProps.remainingTime !== 0
-                                    ? (
-                                        <div style={{fontSize:'.9em',marginTop:'10px'}}>
-                                            Kirim ulang dalam: {buttonProps.remainingTime} detik
-                                        </div>
-                                    )
-                                    : (
-                                        <button className="btn btn-warning btn-sm" style={{marginTop:"10px"}} {...buttonProps}>
-                                            Kirim Ulang
-                                        </button>
-                                    )
-                            }
-                        </div>
-                    )
-                    };
-        const renderTime = remainingTime => {
-            return <span></span>;
-        };
         return(
             <div>
                 {
@@ -227,7 +202,7 @@ class Signup extends Component{
                                         <div className="wrap-login100">
                                         <form className="login100-form validate-form">
                                         <span className="login100-form-title p-b-43">
-                                                <img src="/logo.png" width="150px"/><br/>
+                                                <img src="/logo.png" width="150px" alt="sangqu"/><br/>
                                             Signup Area
                                             </span>
                                         {/* <form onSubmit={this.handleSubmit}> */}
@@ -282,7 +257,7 @@ class Signup extends Component{
                                                                 </div>
                                                                 <div className="col-md-8">
                                                                     <label style={{visibility:'collapse'}}>Kode Aktivasi</label>
-                                                                    <div class="alert alert-primary font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
+                                                                    <div class="alert alert-primary font-12" style={{backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
                                                                         Masukan kode Aktivasi pada nomor yang sedang anda daftarkan dan mintalah kode tersebut dengan bijak.
                                                                     </div>
                                                                 </div>
@@ -296,7 +271,7 @@ class Signup extends Component{
                                                         <div className="member-content-area">
                                                             <div className="member-contact-content d-flex align-items-center mb-4">
                                                                 <div className="contact-thumb">
-                                                                    <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt />
+                                                                    <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
                                                                 </div>
                                                                 <div className="member-contact-info">
                                                                     <h5>{this.state.sponsor_name}</h5>
@@ -311,7 +286,7 @@ class Signup extends Component{
                                                         <div className="member-content-area">
                                                             <div className="member-contact-content d-flex align-items-center mb-4">
                                                                 <div className="contact-thumb">
-                                                                    <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt />
+                                                                    <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
                                                                 </div>
                                                                 <div className="member-contact-info">
                                                                     <h5>{this.state.upline_name}</h5>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {
     ModalHeader,
     ModalBody,
-    ModalFooter,
 } from 'reactstrap';
 import {ModalToggle} from "redux/actions/modal.action";
 import WrapperModal from "../_wrapper.modal";
@@ -33,6 +32,7 @@ class DetailProduct extends Component{
                 console.log("abus");
                 nextProps.data.detail.map((v,i)=>{
                     data.push(v);
+                    return null
                 });
                 this.setState({dataBarang:data});
             }
@@ -115,7 +115,7 @@ class DetailProduct extends Component{
                                                 );
                                             })
                                         : <tr>
-                                            <td colSpan={7} style={columnStyle}><img src={NOTIF_ALERT.NO_DATA}/></td>
+                                            <td colSpan={7} style={columnStyle}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></td>
                                         </tr>
 
                                     }

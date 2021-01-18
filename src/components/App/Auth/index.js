@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
-import {HEADERS} from 'redux/actions/_constants'
+// import {HEADERS} from 'redux/actions/_constants'
 import IntlTelInput from 'react-intl-tel-input';
 // import 'react-intl-tel-input/dist/libphonenumber.css';
 import 'react-intl-tel-input/dist/main.css';
@@ -9,7 +9,7 @@ import OTPInput, { ResendOTP } from "otp-input-react";
 import {sendOtp} from "redux/actions/authActions";
 import bycrypt from 'bcryptjs';
 import Swal from 'sweetalert2'
-import {loginUser, setLoggedin} from 'redux/actions/authActions';
+import {loginUser} from 'redux/actions/authActions';
 
 
 class Auth extends Component{
@@ -162,7 +162,7 @@ class Auth extends Component{
     verifyOtp=async (num) => {
         const res = await  bycrypt.compare(`${num}`, this.props.auth.user_otp.sender_id);
         if(res){
-            const {email,password,type,number} = this.state;
+            const {type,number} = this.state;
             const user = {
                 type: type,
                 nohp: number
@@ -216,7 +216,7 @@ class Auth extends Component{
                                         <div className="wrap-login100">
                                         <form className="login100-form validate-form">
                                             <span className="login100-form-title p-b-43">
-                                                <img src="/logo.png" width="150px"/><br/>
+                                                <img src="/logo.png" width="150px" alt="sangqu" /><br/>
                                             Member Area
                                             </span>
                                             <div style={{display: this.state.isOtp?"none":"block"}}>

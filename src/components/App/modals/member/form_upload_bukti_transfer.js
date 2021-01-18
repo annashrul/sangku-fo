@@ -3,7 +3,7 @@ import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {ModalToggle} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 import File64 from "components/common/File64";
-import {ToastQ,stringifyFormData} from "helper";
+import {ToastQ} from "helper";
 import WrapperModal from "../_wrapper.modal";
 import {noImage} from "helper";
 import {postBuktiTransfer} from "redux/actions/product/checkout.action";
@@ -68,7 +68,7 @@ class FormUploadBuktiTransfer extends Component{
                             onDone={ this.getFiles.bind(this) } />
                     </div>
                     <div className="text-center">
-                        <img src={this.state.foto.base64!==undefined?this.state.foto.base64:noImage()} />
+                        <img src={this.state.foto.base64!==undefined?this.state.foto.base64:noImage()} alt="sangqu"/>
                     </div>
                 </ModalBody>
                 <ModalFooter>

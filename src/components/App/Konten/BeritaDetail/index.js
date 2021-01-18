@@ -2,7 +2,6 @@ import React,{Component} from 'react'
 import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
 import moment from "moment";
-import Preloader from "Preloader";
 import { getBeritaDetail, getBeritaKategori } from '../../../../redux/actions/konten/berita.action';
 import Swal from 'sweetalert2';
 import Skeleton from 'react-loading-skeleton';
@@ -46,7 +45,6 @@ class BeritaDetail extends Component{
             title,
             category,
             caption,
-            type,
             video,
             picture,
             created_at,
@@ -68,7 +66,7 @@ class BeritaDetail extends Component{
                                     <h6 className="font-12">Kategori : {category}</h6>
                                     {video!=='-'&&video!==null&&video!==undefined?
                                     <div className="embed-responsive embed-responsive-16by9">
-                                        <iframe className="embed-responsive-item" src={video} allowFullScreen />
+                                        <iframe title="video" className="embed-responsive-item" src={video} allowFullScreen />
                                     </div>
                                     :''}
 
@@ -90,7 +88,7 @@ class BeritaDetail extends Component{
                                     <h6 className="font-12">Kategori : <Skeleton width={80}/></h6>
                                     {video!=='-'&&video!==null&&video!==undefined?
                                     <div className="embed-responsive embed-responsive-16by9">
-                                        <iframe className="embed-responsive-item" src={video} allowFullScreen />
+                                        <iframe title="video" className="embed-responsive-item" src={video} allowFullScreen />
                                     </div>
                                     :''}
                                     <div><Skeleton style={{width:'100%', height:'30px'}} count={15}/></div>

@@ -40,23 +40,23 @@ class Home extends Component{
                     </div>
                     <div className="home-image-right">
                         <Flip left>
-                            <img src={Iphone}  />
+                            <img src={Iphone} alt="sangqu" />
                         </Flip>
                     </div>
                     </div>
                 </div> {/* end home-content */}
                 <ul className="home-social-list">
                     <li>
-                    <a href="#"><i className="fa fa-facebook-square" /></a>
+                    <a href={() => false}><i className="fa fa-facebook-square" /></a>
                     </li>
                     <li>
-                    <a href="#"><i className="fa fa-twitter" /></a>
+                    <a href={() => false}><i className="fa fa-twitter" /></a>
                     </li>
                     <li>
-                    <a href="#"><i className="fa fa-instagram" /></a>
+                    <a href={() => false}><i className="fa fa-instagram" /></a>
                     </li>
                     <li>
-                    <a href="#"><i className="fa fa-youtube-play" /></a>
+                    <a href={() => false}><i className="fa fa-youtube-play" /></a>
                     </li>
                 </ul>
                 {/* end home-social-list */}

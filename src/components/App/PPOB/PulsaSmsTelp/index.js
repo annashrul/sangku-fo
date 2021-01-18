@@ -1,12 +1,12 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
-import Paginationq from "helper";
+// import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
-import {ModalToggle, ModalType} from "redux/actions/modal.action";
-import moment from "moment";
+// import {ModalToggle, ModalType} from "redux/actions/modal.action";
+// import moment from "moment";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchPulsaAll} from '../../../../redux/actions/ppob/pulsa_all/pulsa_all.action'
-import {toRp, statusQ} from 'helper'
+import {toRp} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 import Select, { components } from "react-select";
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
@@ -58,9 +58,9 @@ class PulsaSmsTelp extends Component{
     }
     render(){
         const {
-            per_page,
-            last_page,
-            current_page,
+            // per_page,
+            // last_page,
+            // current_page,
             data
         } = this.props.pulsa_allPulsaAll;
         return (
