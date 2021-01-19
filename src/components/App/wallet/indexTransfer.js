@@ -7,7 +7,7 @@ import Stepper from 'react-stepper-horizontal';
 import noUser from '../../../assets/no-user.png'
 import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
-
+import ReactDOM from 'react-dom';
 
 class IndexTransfer extends Component{
     constructor(props){
@@ -33,19 +33,27 @@ class IndexTransfer extends Component{
         this.onClickNext = this.onClickNext.bind(this);
         this.onClickPrev = this.onClickPrev.bind(this);
         this.pinValidate = this.pinValidate.bind(this);
-
+        this.konfirmRefs = React.createRef();
+        this.pengisianRefs = React.createRef();
+        this.berhasilRefs = React.createRef();
     }
 
     onClickNext() {
         const { 
             // steps,
             currentStep } = this.state;
+            const konfirmasiNode = ReactDOM.findDOMNode(this.refs.konfirmasi)
+            // if (some_logic){
+            //     window.scrollTo(0, konfirmasiNode.offsetTop);
+            // }
         if(currentStep===0){
             if(this.submit()){
                 this.setState({
                     currentStep: currentStep + 1,
                 });
             }
+            // window.scrollTo(0, konfirmasiNode.offsetTop);
+            this.konfirmRefs.current.scrollIntoView({ block: 'start',  behavior: 'smooth' })
         } 
         else if(currentStep===1){
             if(this.state.pin!==''){
@@ -53,6 +61,7 @@ class IndexTransfer extends Component{
                     this.setState({
                         currentStep: currentStep + 1,
                     });
+                    this.berhasilRefs.current.scrollIntoView()
                     this.submit()
                 } else {
                     
@@ -69,6 +78,11 @@ class IndexTransfer extends Component{
         this.setState({
             currentStep: currentStep - 1,
         });
+        if(currentStep===1){
+            this.pengisianRefs.current.scrollIntoView({ block: 'end',  behavior: 'smooth' })
+        } else if(currentStep===2){
+            this.konfirmRefs.current.scrollIntoView({ block: 'end',  behavior: 'smooth' })
+        }
     }
 
 
@@ -158,7 +172,7 @@ class IndexTransfer extends Component{
                                 <div className="col-md-12 mb-4">
                                     <div className="row">
                                         <div className="col-md-4 d-flex">
-                                            <div className="card w-100" style={currentStep===0?null:blur}>
+                                            <div ref={this.pengisianRefs} className="card w-100" style={currentStep===0?null:blur}>
                                                 <div className="card-body">
                                                 <div className="row no-gutters">
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===0?'none':''}}/>
@@ -196,7 +210,7 @@ class IndexTransfer extends Component{
                                             </div>
                                         </div>
                                         <div className="col-md-4 d-flex">
-                                            <div className="card w-100" style={currentStep===1?null:blur}>
+                                            <div ref={this.konfirmRefs} className="card w-100" style={currentStep===1?null:blur}>
                                                 <div className="card-body pb-0">
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===1?'none':''}}/>
                                                     <div className="text-center mb-4">
@@ -263,7 +277,7 @@ class IndexTransfer extends Component{
                                             </div>
                                         </div>
                                         <div className="col-md-4 d-flex">
-                                            <div className="card w-100" style={currentStep===2?null:blur}>
+                                            <div ref={this.berhasilRefs} className="card w-100" style={currentStep===2?null:blur}>
                                                 <div className="card-body d-flex align-items-center">
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===2?'none':''}}/>
                                                     <div className="profile-thumb-contact text-center mb-4">
@@ -279,16 +293,18 @@ class IndexTransfer extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row mt-2">
-                                        <div className="col-md-2">
-                                            <div class="form-group">
-                                                {currentStep===0||currentStep===2?'':<button type="button" className="btn btn-info btn-block" onClick={(e) => this.onClickPrev(e)}>KEMBALI</button>}
+                                    <div class="mt-4 w-100 position-sticky fixed-bottom">
+                                        <div className="row">
+                                            <div className="col-md-2">
+                                                <div class="form-group">
+                                                    {currentStep===0||currentStep===2?'':<button type="button" className="btn btn-info btn-block" onClick={(e) => this.onClickPrev(e)}>KEMBALI</button>}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-2 offset-md-8">
-                                            <div class="form-group">
-                                                {currentStep===2?'':<button type="button" className="btn btn-info btn-block" onClick={(e) => this.onClickNext(e)}>{currentStep===1?!this.props.isLoadingPost?'PROSES':'Mengirim data ...':'SELANJUTNYA'}</button>}
-                                                {currentStep===2?<button type="button" onClick={(e)=>{e.preventDefault();window.location.reload();}} className={"btn btn-primary btn-block"}>SELESAI</button>:''}
+                                            <div className="col-md-2 offset-md-8">
+                                                <div class="form-group">
+                                                    {currentStep===2?'':<button type="button" className="btn btn-info btn-block" onClick={(e) => this.onClickNext(e)}>{currentStep===1?!this.props.isLoadingPost?'PROSES':'Mengirim data ...':'SELANJUTNYA'}</button>}
+                                                    {currentStep===2?<button type="button" onClick={(e)=>{e.preventDefault();window.location.reload();}} className={"btn btn-primary btn-block"}>SELESAI</button>:''}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
