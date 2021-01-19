@@ -7,6 +7,7 @@ import Stepper from 'react-stepper-horizontal';
 import noUser from '../../../assets/no-user.png'
 import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
+import imgWait from '../../../assets/wait.gif'
 import ReactDOM from 'react-dom';
 
 class IndexTransfer extends Component{
@@ -282,10 +283,16 @@ class IndexTransfer extends Component{
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===2?'none':''}}/>
                                                     <div className="profile-thumb-contact text-center mb-4">
                                                         <div className="profile--tumb">
-                                                            <img src={!this.props.isError?imgCancel:imgCheck} alt="sangqu" style={{display:currentStep===2?'':'none'}}/>
+                                                            {this.props.isLoadingPost?
+                                                                <div className="spinner-grow" role="status">
+                                                                <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                :
+                                                                <img src={!this.props.isError?imgCancel:imgCheck} alt="sangqu"/>
+                                                            }
                                                         </div>
-                                                        <h5 className="mt-15">Transfer {!this.props.isError?'Gagal':'Berhasil'}</h5>
-                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount)} yang ditujukan kepada Yth. Sdr/i {this.state.id_penerima} telah {!this.props.isError?'gagal diproses':'selesai'}.</p>
+                                                        <h5 className="mt-15">Transfer {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'Gagal':'Berhasil'}</h5>
+                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount)} yang ditujukan kepada Yth. Sdr/i {this.state.id_penerima} telah {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'selesai'}.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                     </div>
@@ -294,13 +301,13 @@ class IndexTransfer extends Component{
                                         </div>
                                     </div>
                                     <div class="mt-4 w-100 position-sticky fixed-bottom">
-                                        <div className="row">
-                                            <div className="col-md-2">
+                                        <div className="row justify-content-between">
+                                            <div className="col-xs-3">
                                                 <div class="form-group">
                                                     {currentStep===0||currentStep===2?'':<button type="button" className="btn btn-info btn-block" onClick={(e) => this.onClickPrev(e)}>KEMBALI</button>}
                                                 </div>
                                             </div>
-                                            <div className="col-md-2 offset-md-8">
+                                            <div className="col-xs-3">
                                                 <div class="form-group">
                                                     {currentStep===2?'':<button type="button" className="btn btn-info btn-block" onClick={(e) => this.onClickNext(e)}>{currentStep===1?!this.props.isLoadingPost?'PROSES':'Mengirim data ...':'SELANJUTNYA'}</button>}
                                                     {currentStep===2?<button type="button" onClick={(e)=>{e.preventDefault();window.location.reload();}} className={"btn btn-primary btn-block"}>SELESAI</button>:''}
