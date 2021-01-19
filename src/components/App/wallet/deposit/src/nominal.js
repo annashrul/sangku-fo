@@ -34,7 +34,7 @@ class Card extends Component{
                                         (event) => this.props.handleClickPrice(event, i)
                                     }
                                     className = {
-                                        `btn ${this.props.amount===v.amount?'btn-success':'btn-default'}`
+                                        `btn ${this.props.amount===v.amount?'btn-success':'btn-default'} btn-block btn-sm`
                                     }
                                     style = {{
                                             border: "2px solid green",

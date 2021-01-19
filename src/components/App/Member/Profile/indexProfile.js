@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
 class IndexProfile extends Component{
     constructor(props){
         super(props);
-        this.handleCart    = this.handleCart.bind(this);
         this.handleDetail    = this.handleDetail.bind(this);
         this.handleChange    = this.handleChange.bind(this);
         this.handleChangeImage    = this.handleChangeImage.bind(this);

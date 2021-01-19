@@ -206,7 +206,7 @@ class Index extends Component {
                                                         <h5>Silver</h5>
                                                     </div>
                                                     <div className="col-md-4" style={{paddingLeft:0,marginTop:'20px'}}>
-                                                        <a href={() => false} className="btn btn-primary btn-sm">UPGRADE</a>
+                                                        <a href={() => false} className="btn btn-primary btn-sm text-light">UPGRADE</a>
                                                     </div>
                                                     
                                                 </div>
