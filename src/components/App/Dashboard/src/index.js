@@ -199,7 +199,7 @@ class Index extends Component {
                                             <div className="col-md-5">
                                                 <div className="row">
                                                     <div className="col-md-3" style={{paddingRight:0}}>
-                                                        <img src="https://binary.epixelmlmsoftware.com/sites/binary/files/package-images/package-37.png" width="70px"/>
+                                                        <img src="" width="70px"/>
                                                     </div>
                                                     <div className="col-md-5" style={{paddingRight:0,marginTop:'10px'}}>
                                                         <h6>Membership</h6>
