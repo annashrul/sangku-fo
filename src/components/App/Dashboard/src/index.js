@@ -4,9 +4,11 @@ import Layout from 'components/Layout';
 import moment from 'moment';
 import {FetchStock} from 'redux/actions/dashboard/dashboard.action'
 import 'bootstrap-daterangepicker/daterangepicker.css';
-
+import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import Cards from './Cards'
 import Charts from './charts'
+import FormReaktivasi from '../../modals/member/form_reaktivasi';
+import { FetchAvailablePin } from 'redux/actions/pin/pin.action';
 // import Filter from './Filter'
 // import Info from './Info'
 // const socket = socketIOClient(HEADERS.URL);
@@ -95,6 +97,10 @@ class Index extends Component {
         this.HandleChangeLokasi = this.HandleChangeLokasi.bind(this);
     }
 
+    componentDidMount(){
+        this.props.dispatch(FetchAvailablePin(1));
+    }
+
     UNSAFE_componentDidMount(){
         this.props.dispatch(FetchStock());
     }
@@ -158,6 +164,12 @@ class Index extends Component {
         this.refreshData();
     }
 
+    handleModal(e){
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("FormReaktivasi"));
+    }
+
     HandleChangeLokasi(lk) {
         let err = Object.assign({}, this.state.error, {
             location: ""
@@ -183,7 +195,7 @@ class Index extends Component {
                                         <h3>Overview</h3>
                                     </div>
                                     <div className="col-md-6">
-                                        <div className="row">
+                                        <div className="row" style={{zoom:'80%'}}>
                                             <div className="col-md-3">
                                                 <h6>Saldo</h6>
                                                 <h5>Rp 200.050</h5>
@@ -197,16 +209,16 @@ class Index extends Component {
                                                 <h5>1234</h5>
                                             </div>
                                             <div className="col-md-5">
-                                                <div className="row">
-                                                    <div className="col-md-3" style={{paddingRight:0}}>
+                                                <div className="row mr-2">
+                                                    {/* <div className="col-md-3" style={{paddingRight:0}}>
                                                         <img src="https://binary.epixelmlmsoftware.com/sites/binary/files/package-images/package-37.png" alt="sangqu" width="70px"/>
-                                                    </div>
-                                                    <div className="col-md-5" style={{paddingRight:0,marginTop:'10px'}}>
+                                                    </div> */}
+                                                    <div className="col-md-8 pr-0">
                                                         <h6>Membership</h6>
                                                         <h5>Silver</h5>
                                                     </div>
-                                                    <div className="col-md-4" style={{paddingLeft:0,marginTop:'20px'}}>
-                                                        <a href={() => false} className="btn btn-primary btn-sm text-light">UPGRADE</a>
+                                                    <div className="col-md-4 pl-0 mt-2">
+                                                        <a href={() => false} className="btn btn-primary btn-sm text-light p-2" style={{cursor:'pointer'}} onClick={(e)=>this.handleModal(e)}>REAKTIVASI</a>
                                                     </div>
                                                     
                                                 </div>
@@ -234,18 +246,18 @@ class Index extends Component {
                 <div className="row">
                     <div className="col-md-5">
                         <div className="row">
-                            <Cards className="col-md-6 col-xl-6 box-margin" title="Referral Downlines" data={this.state.grossSales} icon="fa fa-area-chart text-primary"/>
-                            <Cards className="col-md-6 col-xl-6 box-margin" title="Commission Withdrawn" data={this.state.netSales} icon="fa fa-area-chart text-primary"/>
+                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Referral Downlines" data={this.state.grossSales} icon="fa fa-area-chart text-primary"/>
+                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Commission Withdrawn" data={this.state.netSales} icon="fa fa-area-chart text-primary"/>
                         </div>
                         <div className="row">
-                            <Cards className="col-md-6 col-xl-6 box-margin" title="Payout Pending" data={this.state.trxNum} icon="fa fa-area-chart text-primary"/>
-                            <Cards className="col-md-6 col-xl-6 box-margin" title="Commission Earned" data={this.state.avgTrx} icon="fa fa-area-chart text-primary"/>
+                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Payout Pending" data={this.state.trxNum} icon="fa fa-area-chart text-primary"/>
+                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Commission Earned" data={this.state.avgTrx} icon="fa fa-area-chart text-primary"/>
                         </div>
                         <div className="row">
                             <Cards className="col-md-6 col-xl-12 box-margin" title="E-Wallet balance" data={this.state.trxNum} icon="fa fa-area-chart text-primary"/>
                         </div>
                     </div>
-                    <div className="col-md-7">
+                    <div className="col-md-7 pr-0">
                         <Charts title="Downline Members" data={this.state.lokasi_sales}/>
                     </div>
                 </div>
@@ -256,6 +268,7 @@ class Index extends Component {
                     <Charts title="MONTHLY TRANSACTIONS" data={this.state.lokasi_tr}/>
 
                 </div>
+                <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
         </Layout>
        
         );
@@ -268,7 +281,8 @@ class Index extends Component {
 const mapStateToProps = (state) =>{
      return{
        auth: state.auth,
-       stock: state.dashboardReducer.data
+       stock: state.dashboardReducer.data,
+       getPin:state.pinReducer.data_available,
      }
 }
 export default connect(mapStateToProps)(Index);

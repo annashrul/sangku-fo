@@ -4,7 +4,7 @@ import { logoutUser } from "redux/actions/authActions";
 import PropTypes from "prop-types";
 import {setEcaps} from 'redux/actions/site.action'
 import {setMobileEcaps} from 'redux/actions/site.action'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import isMobile from 'react-device-detect';
 // import moment from "moment";
 import Swal from "sweetalert2";
@@ -167,7 +167,71 @@ class Header extends Component {
 
           <div className="right-side-navbar d-flex align-items-center justify-content-end">
               {/* <!-- Mobile AREAAAAAA --> */}
-              <div className="right-side-trigger" style={{width:'unset',height:'unset',marginRight:'unset'}} >
+              <div className="right-side-trigger d-xl-none d-lg-none d-md-none" style={{width:'100%',height:'unset',marginRight:'unset',display:'contents'}} >
+                <li className="nav-item dropdown" style={{listStyleType:'none'}}>
+                    {/* <i className="fa fa-bell" aria-hidden="true" style={{fontSize:"30px"}}/>
+                    <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label> */}
+                    <UncontrolledButtonDropdown>
+                                <DropdownToggle className="nohover">
+                                    {/* <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
+                                    <div className="user-name">
+                                        <div className={"d-flex justify-content-between align-items-center"}>
+                                            <div className="fs1">
+                                                <p>{this.props.auth.user.full_name}</p>
+                                                <span>{this.props.auth.user.referral_code}</span>
+                                            </div>
+                                            <div className="fs1"  style={{paddingLeft:'10px'}}>
+                                                <p><i className="fa fa-angle-down lnr"/></p>
+
+                                            </div>
+                                        </div>
+                                    </div> */}
+                                    <i className="fa fa-bell text-warning" aria-hidden="true" style={{fontSize:"20px"}}/>
+                                    {/* <label className="badge badge-dark" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label> */}
+                                    <span className="active-status"></span>
+                                </DropdownToggle>
+                            <DropdownMenu right>
+                            <div className="top-notifications-area">
+                                {/* Heading */}
+                                <div className="notifications-heading">
+                                    <div className="heading-title">
+                                    <h6>Notifications</h6>
+                                    </div>
+                                    <span>1 New</span>
+                                </div>
+                                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
+                                    <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
+                                    </div><div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} /></div>
+                                </div>
+                            </DropdownMenu>
+                        </UncontrolledButtonDropdown>
+
+                </li>
+                {
+                    parseInt(localStorage.totCart,10)>0?(
+                        <li className="nav-item dropdown" style={{listStyleType:'none', whiteSpace:'nowrap'}}>
+                            <Link to={"/cart"}>
+                                <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                                <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                            </Link>
+                        </li>
+                    ):(
+                        <li className="nav-item dropdown" style={{listStyleType:'none', whiteSpace:'nowrap'}} onClick={this.infoCart.bind(this)}>
+                            <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                            <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                        </li>
+                    )
+                }
                 <li className="nav-item dropdown" style={{listStyleType:'none'}}>
                     <UncontrolledButtonDropdown >
                                 <DropdownToggle className="nohover">
@@ -184,13 +248,13 @@ class Header extends Component {
                                             <span>{this.props.auth.user.referral_code}</span>
                                         </div>
                                     </div>
-                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/profile';}}>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
                                     <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
                                     </DropdownItem>
-                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                     <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                     </DropdownItem>
-                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/bank';}}>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/bank'});}}>
                                     <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
                                     </DropdownItem>
                                     <DropdownItem  onClick={this.handleLogout}>
@@ -205,6 +269,71 @@ class Header extends Component {
 
               {/* <!-- Top Bar Nav --> */}
               <ul className={"right-side-content d-flex align-items-center " + (this.state.toggleMobileNav === true? "active":"")}>
+                <li className="nav-item dropdown">
+                    {/* <i className="fa fa-bell" aria-hidden="true" style={{fontSize:"30px"}}/>
+                    <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label> */}
+                    <UncontrolledButtonDropdown>
+                                <DropdownToggle className="nohover">
+                                    {/* <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
+                                    <div className="user-name">
+                                        <div className={"d-flex justify-content-between align-items-center"}>
+                                            <div className="fs1">
+                                                <p>{this.props.auth.user.full_name}</p>
+                                                <span>{this.props.auth.user.referral_code}</span>
+                                            </div>
+                                            <div className="fs1"  style={{paddingLeft:'10px'}}>
+                                                <p><i className="fa fa-angle-down lnr"/></p>
+
+                                            </div>
+                                        </div>
+                                    </div> */}
+                                    <i className="fa fa-bell text-warning" aria-hidden="true" style={{fontSize:"20px"}}/>
+                                    {/* <label className="badge badge-dark" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label> */}
+                                    <span className="active-status"></span>
+                                </DropdownToggle>
+                            <DropdownMenu right>
+                            <div className="top-notifications-area">
+                                {/* Heading */}
+                                <div className="notifications-heading">
+                                    <div className="heading-title">
+                                    <h6>Notifications</h6>
+                                    </div>
+                                    <span>1 New</span>
+                                </div>
+                                <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
+                                    <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
+                                    <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
+                                    </div><div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} /></div>
+                                </div>
+                            </DropdownMenu>
+                        </UncontrolledButtonDropdown>
+
+                </li>
+                {
+                    parseInt(localStorage.totCart,10)>0?(
+                        <li className="nav-item dropdown">
+                            <Link to={"/cart"}>
+                                <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                                <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                            </Link>
+                        </li>
+                    ):(
+                        <li className="nav-item dropdown" onClick={this.infoCart.bind(this)}>
+                            <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                            <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
+                        </li>
+                    )
+                }
+
                   <li className="nav-item dropdown">
                         <UncontrolledButtonDropdown>
                                 <DropdownToggle className="nohover">
@@ -233,13 +362,13 @@ class Header extends Component {
                                             <span>{this.props.auth.user.referral_code}</span>
                                         </div>
                                     </div>
-                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/profile';}}>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
                                     <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
                                     </DropdownItem>
-                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                     <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                     </DropdownItem>
-                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/bank';}}>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/bank'});}}>
                                     <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
                                     </DropdownItem>
                                     <DropdownItem  onClick={this.handleLogout}>
@@ -249,22 +378,6 @@ class Header extends Component {
                             </DropdownMenu>
                         </UncontrolledButtonDropdown>
                   </li>
-                  {
-                      parseInt(localStorage.totCart,10)>0?(
-                          <li className="nav-item dropdown">
-                              <Link to={"/cart"}>
-                                  <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
-                                  <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
-                              </Link>
-                          </li>
-                      ):(
-                          <li className="nav-item dropdown" onClick={this.infoCart.bind(this)}>
-                              <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
-                              <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
-                          </li>
-                      )
-                  }
-
                 </ul>
           </div>
       </header>
@@ -290,4 +403,4 @@ const mapStateToProps = ({auth,siteReducer,cartReducer}) =>{
         triggerMobileEcaps: siteReducer.triggerMobileEcaps
      }
 }
-export default connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps})(Header);
+export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps})(Header));

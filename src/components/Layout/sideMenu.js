@@ -158,13 +158,24 @@ class SideMenu extends Component {
                     {/* DASHBOARD MODUL START */}
                     <li  className={path==='/dashboard'?"active":''}><Link to="/dashboard"> <i className="fa fa-dashboard" /><span> Dashboard</span></Link></li>
                     {/* DASHBOARD MODUL END */}
-                    {/* KONTEN MODUL START */}
-                    <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>
-                    <li  className={path==='/konten/testimoni'?"active":''}><Link to="/konten/testimoni"> <i className="fa fa-dashboard" /><span> Testimoni</span></Link></li>
-                    {/* KONTEN MODUL END */}
+                    {/* NETWORK MODUL START */}
+                    <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
+                            <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Genealogy Binary</Link></li>
+                            <li className={path==='/downline/add'?"active":''}><Link to="/downline/add" style={{width:'fit-content'}}> Tambah downline</Link></li>
+                            {/* <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
+                            <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
+                            <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>
+                        </ul>
+                    </li>
+                    {/* NETWORK MODUL END */}
                     {/* ORDER MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
                     {/* ORDER MODUL END */}
+                    {/* STKIST MODUL START */}
+                    <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li>
+                    {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
                     <li className={"treeview" +(this.state.isPpob===true
                         || path==='/ppob/pulsa-all-operator'
@@ -207,18 +218,6 @@ class SideMenu extends Component {
                         </ul>
                     </li>
                     {/* PPOB MODUL END */}
-                    {/* NETWORK MODUL START */}
-                    <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
-                        <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
-                            <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Genealogy Binary</Link></li>
-                            <li className={path==='/downline/add'?"active":''}><Link to="/downline/add" style={{width:'fit-content'}}> Tambah downline</Link></li>
-                            {/* <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
-                            <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
-                            <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>
-                        </ul>
-                    </li>
-                    {/* NETWORK MODUL END */}
                     {/* WALLET MODUL START */}
                     <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isWallet')}><i className="zmdi zmdi-receipt" /> <span>Wallet</span> <i className="fa fa-angle-right" /></a>
@@ -235,12 +234,16 @@ class SideMenu extends Component {
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
                             <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}> Pembelian</Link></li>
-                            <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li>
+                            {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
                             <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                         </ul>
                     </li>
                     {/* REPORT MODUL END */}
 
+                    {/* KONTEN MODUL START */}
+                    <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>
+                    <li  className={path==='/konten/testimoni'?"active":''}><Link to="/konten/testimoni"> <i className="fa fa-dashboard" /><span> Testimoni</span></Link></li>
+                    {/* KONTEN MODUL END */}
                     {/* LOGOUT MODUL START */}
                     <li><a href={() => false} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
                     {/* LOGOUT MODUL END */}

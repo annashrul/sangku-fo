@@ -1,5 +1,7 @@
 import {PIN, HEADERS} from "../_constants";
 import axios from 'axios'
+import Swal from "sweetalert2";
+import {ModalToggle} from "redux/actions/modal.action";
 
 export function setLoading(load){
     return {type : PIN.LOADING,load}
@@ -71,5 +73,48 @@ export const FetchAvailablePin = ()=>{
             }).catch(function(error){
             
         })
+    }
+}
+
+
+export const pinReaktivasi = (data) => {
+    return (dispatch) => {
+        Swal.fire({
+            allowOutsideClick:false,
+            title: 'Silahkan tunggu.',
+            html: 'Sedang memproses aktivasi..',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+            onClose: () => {}
+        })
+        const url = HEADERS.URL + `pin/reaktivasi`;
+        axios.post(url, data)
+            .then(function (response) {
+                Swal.close()
+                dispatch(ModalToggle(false));
+                Swal.fire({
+                    allowOutsideClick:false,
+                    title: 'Informasi.',
+                    type: 'info',
+                    text: 'Reaktivasi sukses!',
+                    showCancelButton: false,
+                    showConfirmButton: true
+                }).then((result) => {
+                    if(result){
+                        window.location.reload();
+                    }
+                })
+            })
+            .catch(function (error) {
+                // dispatch(setLoading(false));
+                Swal.fire({
+                    title: 'failed',
+                    type: 'error',
+                    text: error.response === undefined?'error!':error.response.data.msg,
+                });
+                if (error.response) {
+                }
+            })
     }
 }

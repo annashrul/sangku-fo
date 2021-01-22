@@ -118,14 +118,18 @@ class Sponsor extends Component{
                 // </div>
                 <div>
                 <div className={`binary-node-single-item eps-nc ${cNode.parent_id!==null?'eps-path':''} user-block user-12`}>
-                    <div className="ribbon_wrapper images_wrapper">
+                    <div className="ribbon_wrapper images_wrapper" style={{height:'-webkit-fill-available'}}>
                         <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
-                        <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
+                        <img className="profile-rounded-image-small h-100" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                         <div class="alert alert-primary mt-2 font-12" style={{backgroundColor:'#7266ba',zIndex:1, padding:'3px',whiteSpace:'nowrap'}}>{String(cNode.name).replace(/ .*/,'')}</div>
                             <div className="pop-up-content">
                                 <div className="profile_tooltip_pick">
-                                    <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
+                                    <div className="image_tooltip"><img className="profile-rounded-image-tooltip h-100" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                                     <div className="full-name">{cNode.name}&nbsp;<img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
+                                    <div className="username">
+                                        <span className="text-label">Jenjang Karir : </span>
+                                        <span className="text-value">{cNode.jenjang_karir}</span>
+                                    </div>
                                     <div className="username">
                                         <span className="text-label">UID : </span>
                                         <span className="text-value">{cNode.id}</span>
@@ -150,6 +154,23 @@ class Sponsor extends Component{
                                         </div>
                                         <div className="col-md-6  text-center">
                                             <span className="text-value">{cNode.right_pv}</span>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div className="row mb-2">
+                                        <div className="col-md-6  text-center">
+                                            <span className="text-label font-11">REWARD KIRI</span>
+                                        </div>
+                                        <div className="col-md-6  text-center">
+                                            <span className="text-label font-11">REWARD KANAN</span>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6  text-center" style={{borderRight: 'solid darkgrey thin'}}>
+                                            <span className="text-value">{cNode.left_reward}</span>
+                                        </div>
+                                        <div className="col-md-6  text-center">
+                                            <span className="text-value">{cNode.right_reward}</span>
                                         </div>
                                     </div>
                                 </div>

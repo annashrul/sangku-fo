@@ -7,8 +7,8 @@ import Stepper from 'react-stepper-horizontal';
 import noUser from '../../../assets/no-user.png'
 import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
-import imgWait from '../../../assets/wait.gif'
-import ReactDOM from 'react-dom';
+// import imgWait from '../../../assets/wait.gif'
+// import ReactDOM from 'react-dom';
 
 class IndexTransfer extends Component{
     constructor(props){
@@ -43,7 +43,7 @@ class IndexTransfer extends Component{
         const { 
             // steps,
             currentStep } = this.state;
-            const konfirmasiNode = ReactDOM.findDOMNode(this.refs.konfirmasi)
+            // const konfirmasiNode = ReactDOM.findDOMNode(this.refs.konfirmasi)
             // if (some_logic){
             //     window.scrollTo(0, konfirmasiNode.offsetTop);
             // }

@@ -28,7 +28,7 @@ import Berita from '../App/Konten/Berita'
 import BeritaDetail from '../App/Konten/BeritaDetail'
 import Testimoni from '../App/Konten/Testimoni'
 import TestimoniDetail from '../App/Konten/TestimoniDetail'
-import ReportPin from '../App/Report/Pin'
+import Stokist from '../App/Report/Pin'
 import PulsaAll from '../App/PPOB/PulsaAll'
 import PaketData from '../App/PPOB/PaketData';
 import PulsaSmsTelp from '../App/PPOB/PulsaSmsTelp';
@@ -60,6 +60,8 @@ const Routes = (
             <PrivateRoute path="/binary" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />
+            
+            <PrivateRoute path="/stokist" exact strict component={Stokist} />
            
             {/* DASHBOARD SECTION START */}
             <PrivateRoute path="/dashboard" exact strict component={Dashboard} />
@@ -99,7 +101,6 @@ const Routes = (
             {/* REPORT SECTION START */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
             <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
-            <PrivateRoute path="/report/pin" exact strict component={ReportPin} />
             {/* REPORT SECTION END */}
             {/* KONTEN SECTION START */}
             <PrivateRoute path="/konten/berita" exact strict component={Berita} />
