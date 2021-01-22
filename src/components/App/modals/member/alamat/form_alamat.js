@@ -64,18 +64,21 @@ class FormAlamat extends Component{
                value: v.id,
                label: v.name
            })
+           return null
         });
         nextProps.dataKota.map((v,i)=>{
             kota.push({
                 value: v.id,
                 label: v.name
             })
+            return null
         });
         nextProps.dataKecamatan.map((v,i)=>{
             kecamatan.push({
                 value: v.id,
                 label: v.kecamatan
             })
+            return null
         });
         this.setState({provinsi_data:prov,kota_data:kota,kecamatan_data:kecamatan,ismain:nextProps.detail.isMain});
         if(nextProps.detail.id!==''){

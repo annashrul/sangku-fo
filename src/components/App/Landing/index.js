@@ -7,7 +7,7 @@ import Pricing from './src/pricing'
 import Testi from './src/testi'
 import Download from './src/download'
 import Footer from './src/footer'
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import {HEADERS} from 'redux/actions/_constants'
 import Preloader from 'Preloader'
 class Landing extends Component{

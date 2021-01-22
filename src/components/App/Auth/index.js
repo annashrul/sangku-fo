@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
-import {HEADERS} from 'redux/actions/_constants'
+// import {HEADERS} from 'redux/actions/_constants'
 import IntlTelInput from 'react-intl-tel-input';
 // import 'react-intl-tel-input/dist/libphonenumber.css';
 import 'react-intl-tel-input/dist/main.css';
@@ -94,7 +94,7 @@ class Auth extends Component{
 
     componentDidMount(){
         if(this.props.auth.isAuthenticated){
-            this.props.history.push({pathname: '/dashobard',state: {from: this.props.location.pathname}});
+            this.props.history.push({pathname: '/dashboard',state: {from: this.props.location.pathname}});
         }
         this.initFetch(false);
     }
@@ -163,7 +163,7 @@ class Auth extends Component{
     verifyOtp=async (num) => {
         const res = await  bycrypt.compare(`${num}`, this.props.auth.user_otp.sender_id);
         if(res){
-            const {email,password,type,number} = this.state;
+            const {type,number} = this.state;
             const user = {
                 type: type,
                 nohp: number

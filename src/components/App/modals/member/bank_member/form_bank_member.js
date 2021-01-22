@@ -7,12 +7,12 @@ import {
 } from 'reactstrap';
 import {ModalToggle} from "redux/actions/modal.action";
 import WrapperModal from "../../_wrapper.modal";
-import Select from 'react-select'
-import {getProvinsi} from "redux/actions/member/provinsi.action";
-import {getKota} from "redux/actions/member/kota.action";
-import {getKecamatan} from "redux/actions/member/kecamatan.action";
-import Skeleton from 'react-loading-skeleton';
-import {postAlamat, putAlamat} from "redux/actions/member/alamat.action";
+// import Select from 'react-select'
+// import {getProvinsi} from "redux/actions/member/provinsi.action";
+// import {getKota} from "redux/actions/member/kota.action";
+// import {getKecamatan} from "redux/actions/member/kecamatan.action";
+// import Skeleton from 'react-loading-skeleton';
+// import {postAlamat, putAlamat} from "redux/actions/member/alamat.action";
 import {ToastQ} from "helper";
 import {postBankMember, putBankMember} from "redux/actions/member/bankMember.action";
 

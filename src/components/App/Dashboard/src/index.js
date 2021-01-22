@@ -8,7 +8,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import Cards from './Cards'
 import Charts from './charts'
 // import Filter from './Filter'
-import Info from './Info'
+// import Info from './Info'
 // const socket = socketIOClient(HEADERS.URL);
 
 class Index extends Component {
@@ -199,14 +199,14 @@ class Index extends Component {
                                             <div className="col-md-5">
                                                 <div className="row">
                                                     <div className="col-md-3" style={{paddingRight:0}}>
-                                                        <img src="" width="70px"/>
+                                                        <img src="http://ptnetindo.com:6694/badge/silver.png" width="70px"/>
                                                     </div>
                                                     <div className="col-md-5" style={{paddingRight:0,marginTop:'10px'}}>
                                                         <h6>Membership</h6>
                                                         <h5>Silver</h5>
                                                     </div>
                                                     <div className="col-md-4" style={{paddingLeft:0,marginTop:'20px'}}>
-                                                        <a href="#" className="btn btn-primary btn-sm">UPGRADE</a>
+                                                        <a href={() => false} className="btn btn-primary btn-sm text-light">UPGRADE</a>
                                                     </div>
                                                     
                                                 </div>

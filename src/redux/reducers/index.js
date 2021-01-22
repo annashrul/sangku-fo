@@ -16,6 +16,7 @@ import {kecamatanReducer} from "./member/kecamatan.reducer";
 import {kurirReducer} from "./member/kurir.reducer";
 import {ongkirReducer} from "./product/ongkir.reducer";
 import {bankReducer} from "./member/bank.reducer";
+import {memberReducer} from "./member/member.reducer";
 import {networkReducer} from "./member/network.reducer";
 import {depositReducer} from "./member/deposit.reducer";
 import {penarikanReducer} from "./member/penarikan.reducer";
@@ -23,6 +24,9 @@ import {transferReducer} from "./member/transfer.reducer";
 import {bankMemberReducer} from "./member/bankMember.reducer";
 import {riwayatReducer} from './transaction/riwayat.reducer';
 import {pembelianReducer} from './transaction/pembelian.reducer';
+import {beritaReducer} from './konten/berita.reducer';
+import {testimoniReducer} from './konten/testimoni.reducer';
+import {pulsa_allReducer} from './ppob/pulsa_all/pulsa_all.reducer';
 
 
 export default combineReducers({
@@ -49,6 +53,10 @@ export default combineReducers({
     transferReducer,
     riwayatReducer,
     pembelianReducer,
+    beritaReducer,
+    testimoniReducer,
+    pulsa_allReducer,
+    memberReducer,
     
     auth: authReducer,
     errors : errorsReducer

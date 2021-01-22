@@ -3,8 +3,6 @@ import {
     HEADERS
 } from "../_constants"
 import axios from "axios"
-import {destroy} from "components/model/app.model";
-import * as Swal from "sweetalert2";
 
 export function setLoading(load) {
     return {

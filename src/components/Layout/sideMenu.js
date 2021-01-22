@@ -13,6 +13,7 @@ class SideMenu extends Component {
             isNetwork: false,
             isWallet: false,
             isReport: false,
+            isPpob: false,
 
             // NETWORK
             // md_network:true,
@@ -43,6 +44,7 @@ class SideMenu extends Component {
             isNetwork : false,
             isWallet : false,
             isReport : false,
+            isPpob : false,
         }
         let sub_module = {
             // isReportAdjustment:false,
@@ -57,7 +59,7 @@ class SideMenu extends Component {
         if (param.auth.user) {
             
             if(param.auth.user.akses!==undefined&&param.auth.user.akses!==null){
-                let akses = String(param.auth.user.akses).split('');
+                // let akses = String(param.auth.user.akses).split('');
 
                 // network
                 // let new_member               = akses[0]!==null&&akses[0]!==undefined?akses[0]:"0";   //cek varaibale akses apabila tidak bernilai null
@@ -90,7 +92,29 @@ class SideMenu extends Component {
         }else if(path==='/deposit'||path==='/penarikan'||path==='/transfer'){
             this.setState({
                 isWallet:true,
-                isNetwork:false,
+                // isNetwork:false,
+            })
+        }else if(
+            path==='/ppob/pulsa-all-operator'
+            || path==='/ppob/paket-data'
+            || path==='/ppob/pulsa-sms-telpon'
+            || path==='/ppob/pulsa-transfer'
+            || path==='/ppob/e-toll'
+            || path==='/ppob/voucher-wifiid'
+            || path==='/ppob/e-money'
+            || path==='/ppob/pembayaran-pln'
+            || path==='/ppob/pembayaran-tv'
+            || path==='/ppob/pembayaran-pdam'
+            || path==='/ppob/pembayaran-telpon-kabel'
+            || path==='/ppob/pembayaran-telpon-pascabayar'
+            || path==='/ppob/pembayaran-bpjs'
+            || path==='/ppob/pembayaran-asuransi'
+            || path==='/ppob/pembayaran-multifinance'
+            || path==='/ppob/pembayaran-kereta-api'
+            || path==='/ppob/pembayaran-zakat'
+            ){
+            this.setState({
+                isPpob:true,
             })
         }
 
@@ -122,21 +146,67 @@ class SideMenu extends Component {
     };
     render() {
         const path = this.props.location.pathname;
-        const {
+        // const {
             //modul only
             // md_network,
             //single only
             // new_member
-        } = this.state;
+        // } = this.state;
         return (
             <nav>
                 <ul className="sidebar-menu" data-widget="tree">
                     {/* DASHBOARD MODUL START */}
                     <li  className={path==='/dashboard'?"active":''}><Link to="/dashboard"> <i className="fa fa-dashboard" /><span> Dashboard</span></Link></li>
                     {/* DASHBOARD MODUL END */}
-                    {/* DASHBOARD MODUL START */}
+                    {/* KONTEN MODUL START */}
+                    <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>
+                    <li  className={path==='/konten/testimoni'?"active":''}><Link to="/konten/testimoni"> <i className="fa fa-dashboard" /><span> Testimoni</span></Link></li>
+                    {/* KONTEN MODUL END */}
+                    {/* ORDER MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
-                    {/* DASHBOARD MODUL END */}
+                    {/* ORDER MODUL END */}
+                    {/* PPOB MODUL START */}
+                    <li className={"treeview" +(this.state.isPpob===true
+                        || path==='/ppob/pulsa-all-operator'
+                        || path==='/ppob/paket-data'
+                        || path==='/ppob/pulsa-sms-telpon'
+                        || path==='/ppob/pulsa-transfer'
+                        || path==='/ppob/e-toll'
+                        || path==='/ppob/voucher-wifiid'
+                        || path==='/ppob/e-money'
+                        || path==='/ppob/pembayaran-pln'
+                        || path==='/ppob/pembayaran-tv'
+                        || path==='/ppob/pembayaran-pdam'
+                        || path==='/ppob/pembayaran-telpon-kabel'
+                        || path==='/ppob/pembayaran-telpon-pascabayar'
+                        || path==='/ppob/pembayaran-bpjs'
+                        || path==='/ppob/pembayaran-asuransi'
+                        || path==='/ppob/pembayaran-multifinance'
+                        || path==='/ppob/pembayaran-kereta-api'
+                        || path==='/ppob/pembayaran-zakat'
+                        ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isPpob')}><i className="zmdi zmdi-receipt" /> <span>PPOB</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isPpob===true?"block":"none"}}>
+                            <li className={path==='/ppob/pulsa-all-operator'?"active":''}><Link to="/ppob/pulsa-all-operator" style={{width:'fit-content'}}> Pulsa All Operator</Link></li>
+                            <li className={path==='/ppob/paket-data'?"active":''}><Link to="/ppob/paket-data" style={{width:'fit-content'}}> Paket Data</Link></li>
+                            <li className={path==='/ppob/pulsa-sms-telpon'?"active":''}><Link to="/ppob/pulsa-sms-telpon" style={{width:'fit-content'}}> Pulsa Sms Telpon</Link></li>
+                            <li className={path==='/ppob/pulsa-transfer'?"active":''}><Link to="/ppob/pulsa-transfer" style={{width:'fit-content'}}> Pulsa Transfer</Link></li>
+                            <li className={path==='/ppob/e-toll'?"active":''}><Link to="/ppob/e-toll" style={{width:'fit-content'}}> E-Toll</Link></li>
+                            <li className={path==='/ppob/voucher-wifiid'?"active":''}><Link to="/ppob/voucher-wifiid" style={{width:'fit-content'}}> Voucher WIFI.ID</Link></li>
+                            <li className={path==='/ppob/e-money'?"active":''}><Link to="/ppob/e-money" style={{width:'fit-content'}}> E-Money</Link></li>
+                            <li className={path==='/ppob/pembayaran-pln'?"active":''}><Link to="/ppob/pembayaran-pln" style={{width:'fit-content'}}> Pembayaran PLN</Link></li>
+                            <li className={path==='/ppob/pembayaran-tv'?"active":''}><Link to="/ppob/pembayaran-tv" style={{width:'fit-content'}}> Pembayaran TV</Link></li>
+                            <li className={path==='/ppob/pembayaran-pdam'?"active":''}><Link to="/ppob/pembayaran-pdam" style={{width:'fit-content'}}> Pembayaran PDAM</Link></li>
+                            <li className={path==='/ppob/pembayaran-telpon-kabel'?"active":''}><Link to="/ppob/pembayaran-telpon-kabel" style={{width:'fit-content'}}> Pembayaran Telpon Kabel</Link></li>
+                            <li className={path==='/ppob/pembayaran-telpon-pascabayar'?"active":''}><Link to="/ppob/pembayaran-telpon-pascabayar" style={{width:'fit-content'}}> Pembayaran Telpon Pascabayar</Link></li>
+                            <li className={path==='/ppob/pembayaran-bpjs'?"active":''}><Link to="/ppob/pembayaran-bpjs" style={{width:'fit-content'}}> Pembayaran BPJS</Link></li>
+                            <li className={path==='/ppob/pembayaran-asuransi'?"active":''}><Link to="/ppob/pembayaran-asuransi" style={{width:'fit-content'}}> Pembayaran Asuransi</Link></li>
+                            <li className={path==='/ppob/pembayaran-multifinance'?"active":''}><Link to="/ppob/pembayaran-multifinance" style={{width:'fit-content'}}> Pembayaran Multifinance</Link></li>
+                            <li className={path==='/ppob/pembayaran-kereta-api'?"active":''}><Link to="/ppob/pembayaran-kereta-api" style={{width:'fit-content'}}> Pembayaran Kereta API</Link></li>
+                            <li className={path==='/ppob/pembayaran-zakat'?"active":''}><Link to="/ppob/pembayaran-zakat" style={{width:'fit-content'}}> Zakat</Link></li>
+                        </ul>
+                    </li>
+                    {/* PPOB MODUL END */}
                     {/* NETWORK MODUL START */}
                     <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
@@ -165,13 +235,14 @@ class SideMenu extends Component {
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
                             <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}> Pembelian</Link></li>
+                            <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li>
                             <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                         </ul>
                     </li>
                     {/* REPORT MODUL END */}
 
                     {/* LOGOUT MODUL START */}
-                    <li><a href={null} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
+                    <li><a href={() => false} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
                     {/* LOGOUT MODUL END */}
                 </ul>
             </nav>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import Layout from 'components/Layout';
+// import Layout from 'components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import {noImage, toCurrency, toRp} from "helper";
+import {noImage, toCurrency} from "helper";
 import {getPaket} from "redux/actions/product/paket.action";
 import {getCart, postCart} from "redux/actions/product/cart.action";
 
@@ -69,10 +69,10 @@ class IndexRO extends Component{
                                             <div className="product-sell-info">
                                                 <div className="row">
                                                     <div className="col-7 text-left">
-                                                        <a className="btn btn-primary" href="#" onClick={(event)=>this.handleCart(event,i)}><i className={"fa fa-shopping-cart"}/> Keranjang</a>
+                                                        <a className="btn btn-primary" href={() => false} onClick={(event)=>this.handleCart(event,i)}><i className={"fa fa-shopping-cart"}/> Keranjang</a>
                                                     </div>
                                                     <div className="col-5 text-right">
-                                                        <a className="btn btn-success" href="#" onClick={(event)=>this.handleDetail(event,i)}><i className={"fa fa-eye"}/> Detail</a>
+                                                        <a className="btn btn-success" href={() => false} onClick={(event)=>this.handleDetail(event,i)}><i className={"fa fa-eye"}/> Detail</a>
                                                     </div>
 
                                                 </div>
@@ -91,7 +91,7 @@ class IndexRO extends Component{
                                         <div className="single-product-item mb-30">
                                             <div className="product-card">
                                                 <h3 className="product font-16 mb-15"><Skeleton/></h3>
-                                                <a className="product-thumb" href=""><img src={noImage()} alt="Product"/></a>
+                                                <a className="product-thumb" href={() => false}><img src={noImage()} alt="Product"/></a>
                                                 <h4 className="product-price"><Skeleton/></h4>
                                                 <div className="product-sell-info">
                                                     <div className="row">
@@ -107,7 +107,7 @@ class IndexRO extends Component{
                                                 </div>
 
                                                 <div className="product-buttons">
-                                                    <a className="mt-30" href=""><Skeleton/></a>
+                                                    <a className="mt-30" href={() => false}><Skeleton/></a>
                                                 </div>
                                             </div>
                                         </div>

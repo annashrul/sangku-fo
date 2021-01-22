@@ -23,8 +23,8 @@ class Download extends Component{
                         </Fade>
                         <HeadShake>
                             <ul className="download-badges">
-                                {/* <li><a href="#" title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li> */}
-                                <li><a href="#" title className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
+                                {/* <li><a href={() => false} title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li> */}
+                                <li><a href={() => false} title className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
                             </ul>
                         </HeadShake>
                     </div>

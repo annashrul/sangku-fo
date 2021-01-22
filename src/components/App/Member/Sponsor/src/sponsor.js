@@ -97,7 +97,7 @@ class Sponsor extends Component{
             {cNode.detail===null?
                 <div className="eps-nc" nid={cNode.parent_id}>
                     <div className="usr-pic">
-                        <img src={noUser}
+                        <img src={noUser} alt="sangqu"
                             className="img" /> </div>
                     <div className="usr-name"><i className="fa fa-plus"/>&nbsp;Member</div>
                 </div>
@@ -119,7 +119,7 @@ class Sponsor extends Component{
                     <div className="ribbon_wrapper images_wrapper">
                         {/* <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div> */}
                         <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
-                        <div class="alert alert-primary mt-2 font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px',whiteSpace:'nowrap'}}>{String(cNode.name).replace(/ .*/,'')}</div>
+                        <div class="alert alert-primary mt-2 font-12" style={{backgroundColor:'#7266ba',zIndex:1, padding:'3px',whiteSpace:'nowrap'}}>{String(cNode.name).replace(/ .*/,'')}</div>
                             <div className="pop-up-content">
                                 <div className="profile_tooltip_pick">
                                     <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
@@ -325,7 +325,7 @@ class Sponsor extends Component{
             };
             let i = parseInt(style) + 1;
             let new_style = zoom_levels[i]
-            if (new_style != undefined) {
+            if (new_style !== undefined) {
                 document.querySelector('.eps-sponsor-tree.eps-tree').style.transform =  new_style;
                 document.querySelector('.eps-sponsor-tree.eps-tree').setAttribute('zoom', i);
             }
@@ -342,7 +342,7 @@ class Sponsor extends Component{
             };
             let i = parseInt(style) - 1;
             let new_style = zoom_levels[i]
-            if (new_style != undefined) {
+            if (new_style !== undefined) {
                 document.querySelector('.eps-sponsor-tree.eps-tree').style.transform =  new_style;
                 document.querySelector('.eps-sponsor-tree.eps-tree').setAttribute('zoom', i);
             }
@@ -359,7 +359,7 @@ class Sponsor extends Component{
             };
             let i = 6;
             let new_style = zoom_levels[i]
-            if (new_style != undefined) {
+            if (new_style !== undefined) {
                 document.querySelector('.eps-sponsor-tree.eps-tree').style.transform =  new_style;
                 document.querySelector('.eps-sponsor-tree.eps-tree').setAttribute('zoom', i);
             }

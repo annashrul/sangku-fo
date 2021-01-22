@@ -135,7 +135,7 @@ class ListPromo extends Component{
                                                 <img src={v.gambar} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="..." className="card-img-top" />
                                                 <div className="card-body text-center">
                                                     <h5 className="mt-20">
-                                                    <a className="text-dark" href={null}>{v.title}</a>
+                                                    <a className="text-dark" href={() => false}>{v.title}</a>
                                                     </h5>
                                                     <p className="card-text text-muted">{moment(v.periode_start).format('YYYY-MM-DD')+' s/d '+moment(v.periode_end).format('YYYY-MM-DD')}</p>
                                                     <p className="card-text">

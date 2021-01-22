@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import Skeleton from 'react-loading-skeleton';
+// import moment from 'moment';
+// import Skeleton from 'react-loading-skeleton';
 
 class Card extends Component{
     constructor(props){
@@ -25,7 +25,7 @@ class Card extends Component{
                                         (event) => this.props.handleClickPrice(event, i)
                                     }
                                     className = {
-                                        `btn ${this.props.amount===v.amount?'btn-success':'btn-default'}`
+                                        `btn ${this.props.amount===v.amount?'btn-success':'btn-default'} btn-block btn-sm`
                                     }
                                     style = {{
                                             border: "2px solid green",

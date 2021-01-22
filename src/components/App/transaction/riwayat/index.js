@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Card, CardBody, CardHeader} from "reactstrap";
+// import {Card, CardBody, CardHeader} from "reactstrap";
 import Layout from 'components/Layout';
 import Cards from './src/card'
 import Paginationq,{toRp,rangeDate} from "helper";
 import {getRiwayat} from "redux/actions/transaction/riwayat.action";
-import Swal from "sweetalert2";
-import { Link } from 'react-router-dom';
+// import Swal from "sweetalert2";
+// import { Link } from 'react-router-dom';
 import {NOTIF_ALERT} from "redux/actions/_constants";
 import {DateRangePicker} from "react-bootstrap-daterangepicker";
 import moment from 'moment';
@@ -145,6 +145,11 @@ class IndexCart extends Component{
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
+                            <th>Saldo Awal</th>
+                            <td>:</td>
+                            <td>{toRp(this.props.summary.saldo_awal,true)}</td>
+                            </tr>
+                            <tr>
                             <th>Saldo Masuk</th>
                             <td>:</td>
                             <td>{toRp(this.props.summary.trx_in,true)}</td>
@@ -157,7 +162,9 @@ class IndexCart extends Component{
                             <tr>
                             <th>Saldo saat ini</th>
                             <td>:</td>
-                            <td>{toRp(this.props.summary.total,true)}</td>
+                            <td> {
+                                toRp((parseInt(this.props.summary.saldo_awal, 10) + parseInt(this.props.summary.trx_in, 10)) - parseInt(this.props.summary.trx_out,10), true)
+                            } </td>
                             </tr>
                         </table>
                     </div>

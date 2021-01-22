@@ -3,10 +3,6 @@ import moment from 'moment';
 import Skeleton from 'react-loading-skeleton';
 
 class Card extends Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
 
         return(

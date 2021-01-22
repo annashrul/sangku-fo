@@ -33,7 +33,7 @@ class Header extends Component{
 
                     }
                 </nav>
-                <a className="header-menu-toggle" href="#"><span>Menu</span></a>    	
+                <a className="header-menu-toggle" href={() => false}><span>Menu</span></a>    	
             </header> 
         );
     }

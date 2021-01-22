@@ -6,10 +6,10 @@ import {setEcaps} from 'redux/actions/site.action'
 import {setMobileEcaps} from 'redux/actions/site.action'
 import { Link } from 'react-router-dom';
 import isMobile from 'react-device-detect';
-import moment from "moment";
+// import moment from "moment";
 import Swal from "sweetalert2";
 import {toRp} from "helper";
-import {HEADERS} from "redux/actions/_constants"
+// import {HEADERS} from "redux/actions/_constants"
 import {
     UncontrolledButtonDropdown,
     DropdownMenu,
@@ -184,6 +184,15 @@ class Header extends Component {
                                             <span>{this.props.auth.user.referral_code}</span>
                                         </div>
                                     </div>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/profile';}}>
+                                    <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
+                                    </DropdownItem>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
+                                    <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
+                                    </DropdownItem>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/bank';}}>
+                                    <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
+                                    </DropdownItem>
                                     <DropdownItem  onClick={this.handleLogout}>
                                     <i className="fa fa-chain-broken profile-icon bg-warning" aria-hidden="true"/> Sign-out
                                     </DropdownItem>
@@ -224,6 +233,9 @@ class Header extends Component {
                                             <span>{this.props.auth.user.referral_code}</span>
                                         </div>
                                     </div>
+                                    <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/profile';}}>
+                                    <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
+                                    </DropdownItem>
                                     <DropdownItem  onClick={(e)=>{e.preventDefault();window.location.href = '/alamat';}}>
                                     <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                     </DropdownItem>

@@ -65,6 +65,7 @@ class IndexCheckout extends Component{
                     value: v.kurir,
                     label: v.title
                 });
+                return null
             });
             this.setState({dataKurir:kurir});
         }
@@ -88,6 +89,7 @@ class IndexCheckout extends Component{
                     "updated_at": v.updated_at,
                     "id_paket"  : v.id_paket
                 });
+                return null
             });
             this.setState({dataCart:cart,berat:totBerat});
         }
@@ -98,6 +100,7 @@ class IndexCheckout extends Component{
                     value: `${v.id}|${v.title}|${v.penerima}|${v.main_address}|${v.kd_prov}|${v.kd_kota}|${v.kd_kec}|${v.no_hp}|${v.ismain}`,
                     label: v.title
                 });
+                return null
             });
             this.setState({dataAlamat:alamat});
         }
@@ -123,6 +126,7 @@ class IndexCheckout extends Component{
                         value: `${v.cost}|${v.service}`,
                         label: `${toRp(v.cost)} | ${v.description} | ${v.estimasi}`
                     })
+                    return null
                 });
                 this.setState({dataLayanan:layanan});
             }
@@ -137,6 +141,7 @@ class IndexCheckout extends Component{
                     "tf_code": v.tf_code,
                     "isSelected":false,
                 });
+                return null
             });
 
             this.setState({dataBank:bank,idBank:nextProps.resBank.data[0].id});
