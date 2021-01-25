@@ -637,8 +637,8 @@ class MemberForm extends Component{
                                                                 <TabList>
                                                                     {
                                                                         (
-                                                                            typeof this.props.availPin === 'object' ?
-                                                                                this.props.availPin.map((v,i)=>{
+                                                                            typeof this.props.availPin.data === 'object' ?
+                                                                                this.props.availPin.data.map((v,i)=>{
                                                                                     return(
                                                                                         <Tab key={i} className="w-100 p-2 text-center cursor-pointer img-thumbnail mb-1" label="Core Courses" onClick={(e) =>this.handleMembership(e,v.title)}>{`${v.title} - ${v.jumlah}`}</Tab>
                                                                                     )
@@ -651,16 +651,16 @@ class MemberForm extends Component{
                                                             <div className="col-md-8">
                                                                 {
                                                                     (
-                                                                        typeof this.props.availPin === 'object' ?
-                                                                        this.props.availPin.map((v,i)=>{
+                                                                        typeof this.props.availPin.data === 'object' ?
+                                                                        this.props.availPin.data.map((v,i)=>{
                                                                             return(
                                                                                 <TabPanel key={i}>
                                                                                     {
-                                                                                    !this.props.isLoading&&this.props.pinList!==undefined?
+                                                                                    !this.props.isLoading&&this.props.pinList.data!==undefined?
                                                                                         <Card className="bg-primary text-white"><CardBody>
                                                                                             <div className="form-group">
                                                                                                 {
-                                                                                                    this.props.pinList.length<=0?
+                                                                                                    this.props.pinList.data.length<=0?
                                                                                                     <div className="text-center">
                                                                                                         <p className="text-light">Saat ini anda belum memiliki daftar PIN ini, silahkan order PIN terlebih dahulu.</p>
                                                                                                         <Link to="/product" className="btn btn-warning" target="_blank"><h6 className="text-light mt-2" >Order PIN</h6></Link>

@@ -142,10 +142,10 @@ class Sponsor extends Component{
                                 <div className="tooltip_profile_detaile">
                                     <div className="row mb-2">
                                         <div className="col-md-6  text-center">
-                                            <span className="text-label">PV KIRI</span>
+                                            <span className="text-label font-11">PV KIRI</span>
                                         </div>
                                         <div className="col-md-6  text-center">
-                                            <span className="text-label">PV KANAN</span>
+                                            <span className="text-label font-11">PV KANAN</span>
                                         </div>
                                     </div>
                                     <div className="row">
