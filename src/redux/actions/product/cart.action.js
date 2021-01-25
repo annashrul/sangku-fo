@@ -86,8 +86,8 @@ export const postCart = (data,param="") => {
                 if (data.status === 'success') {
                     if(param!=="") ToastQ.fire({icon:'success',title:`berhasil dimasukan kedalam keranjang`});
                     dispatch(setIsError(true));
-
                     dispatch(getCart('page=1'));
+                    localStorage.setItem("productType",param)
                 } else {
                     ToastQ.fire({icon:'danger',title:`gagal dimasukan kedalam keranjang`});
                     dispatch(setIsError(false));

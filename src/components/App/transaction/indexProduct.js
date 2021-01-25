@@ -28,7 +28,7 @@ class IndexProduct extends Component{
                     <Tabs>
                         <div className="card-body d-flex align-items-center justify-content-between">
                             <TabList>
-                                <Tab label="Core Courses" onClick={() =>this.handleSelect(0)}>Barang Register</Tab>
+                                <Tab label="Core Courses" onClick={() =>this.handleSelect(0)}>Barang Aktivasi</Tab>
                                 <Tab label="Core Courses" onClick={() =>this.handleSelect(1)}>Barang RO</Tab>
                             </TabList>
                         </div>
