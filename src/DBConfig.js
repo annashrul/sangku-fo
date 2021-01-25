@@ -21,6 +21,26 @@ export const DBConfig = {
                 
             ]
         },
+        {
+            store: 'rekapitulasi',
+            storeConfig: { keyPath: 'id', autoIncrement: true },
+            storeSchema: [
+                { name: 'id',keypath:'id',options:{unique:false}},
+                { name: 'badge',keypath:'badge',options:{unique:false}},
+                { name: 'balance_kanan',keypath:'balance_kanan',options:{unique:false}},
+                { name: 'balance_kiri',keypath:'balance_kiri',options:{unique:false}},
+                { name: 'hak_bonus',keypath:'hak_bonus',options:{unique:false}},
+                { name: 'membership',keypath:'membership',options:{unique:false}},
+                { name: 'nominal_bonus',keypath:'nominal_bonus',options:{unique:false}},
+                { name: 'pairing_bonus',keypath:'pairing_bonus',options:{unique:false}},
+                { name: 'pertumbuhan_kanan',keypath:'pertumbuhan_kanan',options:{unique:false}},
+                { name: 'pertumbuhan_kiri',keypath:'pertumbuhan_kiri',options:{unique:false}},
+                { name: 'sisa_plafon',keypath:'sisa_plafon',options:{unique:false}},
+                { name: 'tabungan_kanan',keypath:'tabungan_kanan',options:{unique:false}},
+                { name: 'tabungan_kiri',keypath:'tabungan_kiri',options:{unique:false}}
+                
+            ]
+        },
         // {
         //     store: 'cart',
         //     storeConfig: { keyPath: 'id', autoIncrement: true },

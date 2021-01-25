@@ -239,6 +239,9 @@ class SideMenu extends Component {
                         </ul>
                     </li>
                     {/* REPORT MODUL END */}
+                    {/* REKAPITULASI MODUL START */}
+                    <li  className={path==='/rekapitulasi'?"active":''}><Link to="/rekapitulasi"> <i className="fa fa-dashboard" /><span> Rekapitulasi</span></Link></li>
+                    {/* REKAPITULASI MODUL END */}
 
                     {/* KONTEN MODUL START */}
                     <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>
