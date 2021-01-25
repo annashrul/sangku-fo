@@ -56,10 +56,16 @@ class FormReaktivasi extends Component{
     handleSubmit(e){
         e.preventDefault();
         if(this.state.pin_regist===""||this.state.pin_regist===undefined){
-            ToastQ.fire({icon:'error',title:`Anda belum memilih membership!`});
+            let txtErr = 'Anda belum memilih membership!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'pin_regist': txtErr});
+            this.setState({error: err});
         }
         else if(this.state.pin===""||this.state.pin===undefined){
-            ToastQ.fire({icon:'error',title:`Silahkan isi PIN anda!`});
+            let txtErr = 'Silahkan isi PIN anda!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'pin': txtErr});
+            this.setState({error: err});
         }
         else{
             let parse = {}
@@ -186,7 +192,7 @@ class FormReaktivasi extends Component{
                     <div className="d-flex align-items-end justify-content-between w-100">
                         <div className="form-group mb-0 mt-0">
                             <label>PIN</label>
-                            <input type="password" maxLength="6" className="form-control" name="pin" value={this.state.pin} onChange={(e)=>this.handleChange(e)}/>
+                            <input type="password" maxLength="6" className={`form-control ${this.state.error.pin!==""?'is-invalid':''}`} name="pin" value={this.state.pin} onChange={(e)=>this.handleChange(e)}/>
                         </div>
                         <div className="form-group mb-0 mt-0">
                             <button type="button" className="btn btn-warning mr-2" onClick={this.toggle}><i className="ti-close" /> Batal</button>

@@ -25,6 +25,7 @@ export const cekData=(column,val,table)=> {
 
 
 export const store = (table,data) => {
+    console.log(table,data)
     const { add } = useIndexedDB(table);
     
     return add(data)

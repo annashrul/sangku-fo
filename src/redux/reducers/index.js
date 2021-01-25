@@ -27,6 +27,7 @@ import {pembelianReducer} from './transaction/pembelian.reducer';
 import {beritaReducer} from './konten/berita.reducer';
 import {testimoniReducer} from './konten/testimoni.reducer';
 import {pulsa_allReducer} from './ppob/pulsa_all/pulsa_all.reducer';
+import {rekapitulasiReducer} from './member/rekapitulasi.reducer';
 
 
 export default combineReducers({
@@ -57,6 +58,7 @@ export default combineReducers({
     testimoniReducer,
     pulsa_allReducer,
     memberReducer,
+    rekapitulasiReducer,
     
     auth: authReducer,
     errors : errorsReducer
