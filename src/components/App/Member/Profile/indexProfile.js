@@ -7,6 +7,7 @@ import File64 from "components/common/File64";
 import { putMember } from '../../../../redux/actions/member/member.action';
 import {ToastQ} from 'helper'
 import Swal from 'sweetalert2';
+// import Cropper from 'react-easy-crop'
 class IndexProfile extends Component{
     constructor(props){
         super(props);
@@ -21,6 +22,9 @@ class IndexProfile extends Component{
             pin:'',
             password:'',
             re_password:'',
+            crop: { x: 0, y: 0 },
+            zoom: 1,
+            aspect: 1 / 1,
         }
     }
     componentWillReceiveProps(nextProps){
@@ -30,9 +34,21 @@ class IndexProfile extends Component{
         })
     }
 
+    onCropChange = crop => {
+        this.setState({ crop })
+    }
+
+    onCropComplete = (croppedArea, croppedAreaPixels) => {
+    console.log(croppedArea, croppedAreaPixels)
+    }
+
+    onZoomChange = zoom => {
+    this.setState({ zoom })
+    }
+
     handleChangeImage(files) {
         if (files.status==='success'){
-            this.props.dispatch(putMember({picture:files.base64},this.props.auth.user.id))
+            // this.props.dispatch(putMember({picture:files.base64},this.props.auth.user.id))
             this.setState({
                 picture: files.base64
             })
@@ -139,6 +155,15 @@ class IndexProfile extends Component{
                             <div className="card-body">
                                 <div className="row mb-30">
                                     <div className="col-12">
+                                    {/* <Cropper
+                                        image={this.state.picture}
+                                        crop={this.state.crop}
+                                        zoom={this.state.zoom}
+                                        aspect={this.state.aspect}
+                                        onCropChange={this.onCropChange}
+                                        onCropComplete={this.onCropComplete}
+                                        onZoomChange={this.onZoomChange}
+                                    /> */}
                                         {/* <input type="file" hidden ref={this.inputReference} onChange={this.fileUploadInputChange} /> */}
                                         <div className="form-group">
                                             {/* <label htmlFor="inputState" className="col-form-label">Logo {this.props.data_detail!==undefined?<small>(kosongkan apabila tidak ada perubahan.)</small>:""}</label><br/> */}

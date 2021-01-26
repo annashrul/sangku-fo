@@ -4,7 +4,7 @@ class Cards extends Component {
     render(){
         return(
             <div className={this.props.className===undefined?'col-md-6 col-xl-6 box-margin':this.props.className}>
-                <div className={this.props.bg===undefined?"card":"card "+this.props.bg}>
+                <div className={this.props.bg===undefined?"card w-100":"card w-100 "+this.props.bg}>
                     <div className="card-header bg-transparent border-bottom-0">{this.props.title}</div>
                     <div className="card-body">
                         <div className="row justify-content-between" style={{paddingLeft:12,paddingRight:12}}>

@@ -8,6 +8,7 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchPin} from '../../../../redux/actions/pin/pin.action'
 import {toRp, statusQ} from 'helper'
 import Skeleton from 'react-loading-skeleton';
+import FormReaktivasi from '../../modals/member/form_reaktivasi';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -18,8 +19,10 @@ class Pin extends Component{
         this.HandleChangeSort = this.HandleChangeSort.bind(this);
         this.HandleChangeFilter = this.HandleChangeFilter.bind(this);
         this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
+        this.handleReaktivasi = this.handleReaktivasi.bind(this);
         this.state={
             where_data:"",
+            pin_reaktivasi:'',
             any:"",
             location:"",
             location_data:[],
@@ -74,6 +77,13 @@ class Pin extends Component{
         this.props.dispatch(ModalType("pinDetail"));
         // this.props.dispatch(getPinDetail(code))
     };
+    handleReaktivasi(e,data){
+        e.preventDefault()
+        this.setState({pin_reaktivasi:data})
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("FormReaktivasi"));
+    }
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
         const akhir = moment(picker.endDate._d).format('YYYY-MM-DD');
@@ -230,7 +240,7 @@ class Pin extends Component{
             data
         } = this.props.pinPin;
         return (
-            <Layout page="Pin">
+            <Layout page="Stokist">
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
@@ -265,8 +275,8 @@ class Pin extends Component{
                                                                 <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
                                                                     <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
                                                                         <div className="widget---content-text">
-                                                                        <h6>{v.paket_title}</h6>
-                                                                        <p className="mb-0">{v.kode}</p>
+                                                                        <h6 className="text-uppercase">{v.kode}</h6>
+                                                                        <p className="mb-0">{v.paket_title}</p>
                                                                         </div>
                                                                         <h6 className="mb-0 text-success">{toRp(v.harga)}</h6>
                                                                     </div>
@@ -274,8 +284,12 @@ class Pin extends Component{
                                                                         <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
                                                                     </div>
                                                                     <div className="d-flex align-items-center justify-content-between">
-                                                                        {v.status===0?statusQ('info','Dikirim'):(v.status===1?statusQ('success','Diterima'):(v.status===3?statusQ('success','Selesai'):""))}
-                                                                        <p className="mt-2 font-11">Pemilik : <span>{v.pemilik}</span></p>
+                                                                        <div>
+                                                                            {v.status===0?statusQ('info','Tidak Terdsedia'):(v.status===1?statusQ('success','Tersedia'):(v.status===3?statusQ('success','Selesai'):""))}
+                                                                            &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleReaktivasi(e,v)}>Reaktivasi</button>
+                                                                            &nbsp;<button className="btn btn-primary btn-sm btn-status" style={{fontSize: 8}}>Transfer</button>
+                                                                        </div>
+                                                                        <p className="mt-3 font-11">PIN AKTIVASI</p>
                                                                     </div>
                                                                 </div>
                                                             )
@@ -284,7 +298,7 @@ class Pin extends Component{
                                                 )
                                             ):(() => {
                                                     const rows = [];
-                                                    for (let i = 0; i < 10; i++) {
+                                                    for (let i = 0; i < 9; i++) {
                                                         rows.push(
                                                             <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
                                                                 <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
@@ -297,8 +311,12 @@ class Pin extends Component{
                                                                 <div className="progress h-5">
                                                                     <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
                                                                 </div>
-                                                                <div className="d-flex align-items-center justify-content-between">
-                                                                    <Skeleton width="70px" height="20px"/>
+                                                                <div className="d-flex align-items-center justify-content-between pt-2">
+                                                                    <div>
+                                                                        <Skeleton width="50px" height="25px"/>
+                                                                        &nbsp;<Skeleton width="50px" height="25px"/>
+                                                                        &nbsp;<Skeleton width="50px" height="25px"/>
+                                                                    </div>
                                                                     <Skeleton width="80px"/>
                                                                 </div>
                                                             </div>
@@ -321,6 +339,7 @@ class Pin extends Component{
                         </div>
                     </div>
                 </div>
+                <FormReaktivasi directPin={this.state.pin_reaktivasi} />
             </Layout>
             );
     }
