@@ -6,6 +6,7 @@ import {getPaket} from "redux/actions/product/paket.action";
 import {getCart, postCart} from "redux/actions/product/cart.action";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import DetailProduct from "../../modals/product/detail_product"
+import * as Swal from "sweetalert2";
 
 
 class IndexRegister extends Component{
@@ -14,23 +15,50 @@ class IndexRegister extends Component{
         this.handleCart    = this.handleCart.bind(this);
         this.handleDetail    = this.handleDetail.bind(this);
         this.state={
-            detail:{}
+            detail:{},
+            idx:0,
         }
     }
 
     componentWillMount(){
-        this.props.dispatch(getPaket(`page=1`));
+        this.props.dispatch(getPaket(`page=1&tipe=aktivasi`));
         this.props.dispatch(getCart());
     }
 
     handleCart(e,i){
         e.preventDefault();
-        console.log(this.props.resPaket.data[i].id);
+        this.setState({
+            idx:i,
+        });
         let data={
             "id_paket":this.props.resPaket.data[i].id,
             "qty":1
         };
-        this.props.dispatch(postCart(data,'a'));
+        if(localStorage.productType===undefined){
+            this.props.dispatch(postCart(data,'a'));
+        }else{
+            if(localStorage.productType!=='a'){
+                Swal.fire({
+                    title: 'Perhatian !!!',
+                    html: `Terdapat barang RO didalam keranjang.. <br/>anda yakin akan menghapus barang RO dan melanjutkan transaksi ???`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: `Ya, hapus & lanjutkan`,
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.value) {
+                        this.props.dispatch(postCart(data,'a'));
+
+                    }
+                })
+            }else{
+                this.props.dispatch(postCart(data,'a'));
+            }
+        }
+
+
     }
     handleDetail(e,id){
         e.preventDefault();
@@ -52,73 +80,60 @@ class IndexRegister extends Component{
                     {
                         !this.props.isLoading?typeof data==='object'?data.length>0?data.map((v,i)=>{
                             return (
-                                <div className="col-sm-6 col-lg-6 col-xl-3" key={i}>
-                                    <div className="single-product-item mb-30">
-                                        <div className="product-card">
-                                            <h3 className="product font-16 mb-15">{v.title}</h3>
-                                            <a className="product-thumb" href="#!">
-                                                <img src={v.foto} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/>
-                                            </a>
-                                            <div className="product-price">
-                                                <h4 className="text-green" style={{color:"green"}}>Rp {toCurrency(v.harga)} .-</h4>
-                                            </div>
-                                            <div className="product-sell-info">
-                                                <div className="row">
-                                                    <div className="col-6 text-center border-right">
-                                                        <span className="font-17 text-dark mb-0 font-weight-bold"><img style={{width:"30px"}} src={v.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/></span>
-                                                        <span className="d-block font-14">{v.kategori}</span>
-                                                    </div>
-                                                    <div className="col-6 text-center">
-                                                        <span className="font-17 text-dark mb-0 font-weight-bold">{v.point_volume}</span>
-                                                        <span className="d-block font-14">PV</span>
-                                                    </div>
-
+                                    <div className="col-md-12">
+                                        <div className="row p-2 bg-white border rounded">
+                                            <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={v.foto} style={{width:"100%",height:"150px",objectFit:'contain'}}/></div>
+                                            <div className="col-md-6 mt-1">
+                                                <h5 className={"text-primary"}>{v.title}</h5>
+                                                <div className="d-flex flex-row align-items-center">
+                                                    <h4 className="mr-1" style={{color:"green"}}>Rp {toCurrency(v.harga)} .-</h4>
                                                 </div>
+                                                <p className="text-justify">{v.deskripsi.length>180?v.deskripsi.substr(0,180)+' ...':v.deskripsi}</p>
                                             </div>
-
-                                            <div className="product-sell-info">
-                                                <div className="row">
-                                                    <div className="col-7 text-left">
-                                                        <a className="btn btn-primary" href={() => false} onClick={(event)=>this.handleCart(event,i)}><i className={"fa fa-shopping-cart"}/> Keranjang</a>
-                                                    </div>
-                                                    <div className="col-5 text-right">
-                                                        <a className="btn btn-success" href={() => false} onClick={(event)=>this.handleDetail(event,v.id)}><i className={"fa fa-eye"}/> Detail</a>
-                                                    </div>
-
+                                            <div className=" col-md-3 border-left mt-1">
+                                                <div className="d-flex flex-row align-items-center">
+                                                    <h4 className="mr-1"><img style={{width:"30px"}} src={v.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/></h4><span style={{marginTop:"-5px"}} className="strike-text text-left">{v.kategori}</span>
                                                 </div>
+                                                <div className="d-flex flex-row align-items-center">
+                                                    <p className="mr-1">Point Volume ( {v.point_volume} ) </p>
+                                                </div>
+                                                <div className="d-flex flex-column">
+                                                    <button className="btn btn-outline-primary btn-sm" type="button" onClick={(event)=>this.handleDetail(event,v.id)}>Details</button>
+                                                    <button className="btn btn-primary btn-sm mt-2" type="button"  onClick={(event)=>this.handleCart(event,i)}>
+                                                        {
+                                                            this.state.idx===i?this.props.isLoadingPost?(
+                                                                <div className="spinner-border text-white" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                            ):'Keranjang':'Keranjang'
+                                                        }
+                                                    </button></div>
                                             </div>
-
 
                                         </div>
                                     </div>
-                                </div>
                             );
                         }) : "" : "":  (()=>{
                             let container =[];
                             for(let x=0; x<8; x++){
                                 container.push(
-                                    <div className="col-sm-6 col-lg-6 col-xl-3" key={x}>
-                                        <div className="single-product-item mb-30">
-                                            <div className="product-card">
-                                                <h3 className="product font-16 mb-15"><Skeleton/></h3>
-                                                <a className="product-thumb" href={() => false}><img src={noImage()} alt="Product"/></a>
-                                                <h4 className="product-price"><Skeleton/></h4>
-                                                <div className="product-sell-info">
-                                                    <div className="row">
-                                                        <div className="col-6 text-center border-right">
-                                                            <span className="font-17 text-dark mb-0 font-weight-bold"><Skeleton/></span>
-                                                            <span className="d-block font-14"><Skeleton/></span>
-                                                        </div>
-                                                        <div className="col-6 text-center">
-                                                            <span className="font-17 text-dark mb-0 font-weight-bold"><Skeleton/></span>
-                                                            <span className="d-block font-14"><Skeleton/></span>
-                                                        </div>
-                                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="row p-2 bg-white border rounded">
+                                            <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={noImage()} style={{width:"100%"}}/></div>
+                                            <div className="col-md-6 mt-1">
+                                                <h5 className={"text-primary"}><Skeleton height={15}/></h5>
+                                                <div className="d-flex flex-row align-items-center">
+                                                    <h4 className="mr-1" style={{color:"green"}}><Skeleton width={200} height={15}/></h4>
                                                 </div>
-
-                                                <div className="product-buttons">
-                                                    <a className="mt-30" href={() => false}><Skeleton/></a>
-                                                </div>
+                                                <p className="text-justify">
+                                                    <Skeleton width={400} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={300} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={200} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={300} height={15}/>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

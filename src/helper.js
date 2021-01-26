@@ -209,7 +209,7 @@ export const toRp = (angka,usePrefix=false) => {
 };
 export const ToastQ = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'bottom-end',
     showConfirmButton: false,
     timer: 1000,
     timerProgressBar: true,

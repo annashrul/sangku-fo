@@ -7,6 +7,7 @@ import {deleteCart, getCart, postCart} from "redux/actions/product/cart.action";
 import Swal from "sweetalert2";
 import { Link } from 'react-router-dom';
 import {NOTIF_ALERT} from "redux/actions/_constants";
+import {toCurrency} from "../../../helper";
 
 class IndexCart extends Component{
     constructor(props){
@@ -83,7 +84,10 @@ class IndexCart extends Component{
     }
 
     render(){
-
+        if(this.state.res_cart.length===0){
+            localStorage.removeItem("productType");
+        }
+        let totalCart=0;
         return(
             <Layout page="Keranjang">
                 <Card>
@@ -110,6 +114,7 @@ class IndexCart extends Component{
                                                     //     v.qty=1;
                                                     //     isError='qty tidak boleh kurang dari 1';
                                                     // }
+                                                    totalCart = totalCart+(parseInt(v.harga,10)*parseInt(v.qty,10));
                                                     return (
                                                         <tr key={i}>
                                                             <td className="text-left">
@@ -118,21 +123,19 @@ class IndexCart extends Component{
                                                                     {v.title}
                                                                     <br/>
                                                                     <small className="mr-2"><b>Kategori:</b> {v.kategori} </small>
-                                                                    <small><b>Berat:</b> {toRp(parseInt(v.berat,10)*parseInt(v.qty,10))}
+                                                                    <small><b>Berat:</b> {toCurrency(parseInt(v.berat,10)*parseInt(v.qty,10))}
                                                                     </small>
                                                                 </p>
                                                             </td>
-                                                            <td>
-                                                                {toRp(v.harga)}
+                                                            <td className={"text-success"} style={{textAlign:"right"}}>
+                                                                Rp {toCurrency(v.harga)} .-
                                                             </td>
                                                             <td>
                                                                 <input type="number" name={"qty"} min="1" value={v.qty} className="form-control" placeholder="Qty" style={{width:" 90px"}} onChange={(e) => this.HandleChangeInputValue(e, i)}/>
                                                                 <small style={{color:'res'}}>{isError}</small>
                                                             </td>
-                                                            <td>
-                                                                {
-                                                                    toRp(parseInt(v.harga,10)*parseInt(v.qty,10))
-                                                                }
+                                                            <td className={"text-success"} style={{textAlign:"right"}}>
+                                                                Rp {toCurrency(parseInt(v.harga,10)*parseInt(v.qty,10))} .-
                                                             </td>
                                                             <td>
                                                                 <button className="action-icon" onClick={(event)=>this.handleDelete(event,v.id)}> <i className="zmdi zmdi-delete"/></button>
@@ -142,6 +145,13 @@ class IndexCart extends Component{
                                                 })
                                             }
                                             </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colSpan={3}>TOTAL BELANJA</td>
+                                                <td className={"text-success"} style={{textAlign:"right"}}>Rp {toCurrency(totalCart)} .-</td>
+                                                <td/>
+                                            </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                     <div className="row mt-4">
