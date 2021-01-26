@@ -116,18 +116,24 @@ class IndexRO extends Component{
                                         <div className="row p-2 bg-white border rounded">
                                             <div className="col-md-3 mt-1"><Skeleton width={'100%'} height={200}/></div>
                                             <div className="col-md-6 mt-1">
-                                                <h5 className={"text-primary"}><Skeleton height={15}/></h5>
-                                                <div className="d-flex flex-row align-items-center">
-                                                    <h4 className="mr-1" style={{color:"green"}}><Skeleton width={200} height={15}/></h4>
-                                                </div>
                                                 <p className="text-justify">
-                                                    <Skeleton width={400} height={15}/>
+                                                    <Skeleton width={700} height={15}/>
                                                     <br/>
                                                     <Skeleton width={300} height={15}/>
                                                     <br/>
                                                     <Skeleton width={200} height={15}/>
                                                     <br/>
                                                     <Skeleton width={300} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={700} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={200} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={700} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={300} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={200} height={15}/>
                                                 </p>
                                             </div>
                                         </div>
