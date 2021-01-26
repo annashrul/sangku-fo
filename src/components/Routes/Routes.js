@@ -47,6 +47,7 @@ import TrxMultifinance from '../App/PPOB/TrxMultifinance';
 import TrxKai from '../App/PPOB/TrxKai';
 import TrxZakat from '../App/PPOB/TrxZakat';
 import indexProfile from '../App/Member/Profile/indexProfile';
+import Rekapitulasi from '../App/Member/Rekapitulasi';
 
 const Routes = (
     <div>
@@ -62,6 +63,7 @@ const Routes = (
             <PrivateRoute path="/testt" exact strict component={Testt} />
             
             <PrivateRoute path="/stokist" exact strict component={Stokist} />
+            <PrivateRoute path="/rekapitulasi" exact strict component={Rekapitulasi} />
            
             {/* DASHBOARD SECTION START */}
             <PrivateRoute path="/dashboard" exact strict component={Dashboard} />

@@ -1,14 +1,11 @@
 import React,{Component} from 'react';
-import {Card, CardBody, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {ModalToggle} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 // import File64 from "components/common/File64";
 import {ToastQ, toRp} from "helper";
 import WrapperModal from "../_wrapper.modal";
-import { FetchDetailPin } from 'redux/actions/pin/pin.action';
-import Spinner from 'Spinner'
-import { Tab, TabPanel, Tabs, TabList } from 'react-tabs';
-import { Link } from 'react-router-dom';
+import { Tab, Tabs, TabList } from 'react-tabs';
 import { pinReaktivasi } from '../../../../redux/actions/pin/pin.action';
 
 class FormReaktivasi extends Component{
@@ -56,36 +53,50 @@ class FormReaktivasi extends Component{
     handleSubmit(e){
         e.preventDefault();
         if(this.state.pin_regist===""||this.state.pin_regist===undefined){
-            ToastQ.fire({icon:'error',title:`Anda belum memilih membership!`});
+            let txtErr = 'Anda belum memilih membership!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'pin_regist': txtErr});
+            this.setState({error: err});
         }
         else if(this.state.pin===""||this.state.pin===undefined){
-            ToastQ.fire({icon:'error',title:`Silahkan isi PIN anda!`});
+            let txtErr = 'Silahkan isi PIN anda!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'pin': txtErr});
+            this.setState({error: err});
         }
         else{
             let parse = {}
             parse['pin_member'] = this.state.pin
-            parse['pin_reaktivasi'] = this.props.directPin!==''&&this.props.directPin!==undefined?this.state.pin_regist:JSON.parse(this.state.pin_regist).kode
+            parse['pin_reaktivasi'] = this.props.directPin!==''&&this.props.directPin!==undefined?this.state.pin_regist:this.state.pin_regist.id
             this.props.dispatch(pinReaktivasi(parse));
         }
     }
     handleMembership(e,val) {
         e.preventDefault();
-        console.log(e.target)
-        console.log(val)
-        this.setState({pin_regist:''})
-        this.props.dispatch(FetchDetailPin(String(val).toLowerCase()));
-        // this.setState({
-        //     membership: val
-        // })
+        if(this.props.availPin.total_pin>=val.jumlah){
+            let err = this.state.error;
+            err = Object.assign({}, err, {pin_regist:""});
+            this.setState({
+                pin_regist: val,
+                error: err
+            })
+        } else {
+            this.setState({
+                pin_regist: {}
+            })
+            ToastQ.fire({icon:'info',title:`Jumlah PIN yang anda miliki masih kurang!`});
+        }
     };
     render(){
-        console.log(this.props.pinList==='');
         return (
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasi"} size="md">
                 <ModalHeader toggle={this.toggle}>Reaktivasi Membership</ModalHeader>
                 <ModalBody>
                     <div className="form-group mb-0">
-                        <label>Membership</label>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <label>Membership</label>
+                            {this.props.availPin !== undefined?<label>PIN YANG ANDA MILIKI : {this.props.availPin.total_pin} PIN</label>:''}
+                        </div>
                         <Tabs>
                             {
                             this.props.directPin!==''&&this.props.directPin!==undefined?
@@ -104,71 +115,26 @@ class FormReaktivasi extends Component{
                             </div>
                             :
                             <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-md-12">
                                     <TabList>
+                                    <Tab className="w-100 p-4 text-center cursor-pointer mb-2 font-24 text-uppercase shadow-sm rounded d-none"></Tab>
                                         {
                                             (
-                                                typeof this.props.availPin === 'object' ?
-                                                    this.props.availPin.map((v,i)=>{
+                                                this.props.availPin!==undefined ? typeof this.props.availPin.data === 'object' ?
+                                                    this.props.availPin.data.map((v,i)=>{
                                                         return(
-                                                            <Tab key={i} className="w-100 p-2 text-center cursor-pointer img-thumbnail mb-1" label="Core Courses" onClick={(e) =>this.handleMembership(e,v.title)}>{`${v.title} - ${v.jumlah}`}</Tab>
+                                                            <Tab key={i} className="w-100 p-4 text-center cursor-pointer mb-2 text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                                <br/>
+                                                                <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
+                                                            </Tab>
                                                         )
                                                     })
+                                                    : "No data."
                                                     : "No data."
                                             )
                                         }
                                     </TabList>
-                                </div>
-                                <div className="col-md-8">
-                                    {
-                                        (
-                                            typeof this.props.availPin === 'object' ?
-                                            this.props.availPin.map((v,i)=>{
-                                                return(
-                                                    <TabPanel key={i}>
-                                                        {
-                                                        !this.props.isLoading&&this.props.pinList!==undefined?
-                                                            <Card className="bg-primary text-white" style={{display:this.props.pinList===''?'none':''}}>
-                                                                <CardBody>
-                                                                <div className="form-group">
-                                                                    {
-                                                                        this.props.pinList.length<=0?
-                                                                        <div className="text-center">
-                                                                            <p className="text-light">Saat ini anda belum memiliki daftar PIN ini, silahkan order PIN terlebih dahulu.</p>
-                                                                            <Link to="/product" className="btn btn-warning" target="_blank"><h6 className="text-light mt-2" >Order PIN</h6></Link>
-                                                                        </div>
-                                                                        :
-                                                                        <div>
-                                                                            <label>Daftar PIN {v.title}</label>
-                                                                            <select className="form-control" name="pin_regist" defaultValue={this.state.pin_regist} value={this.state.pin_regist} onChange={this.handleChange}>
-                                                                                <option value="">==== Pilih PIN  ====</option>
-                                                                                {
-                                                                                    (
-                                                                                        typeof this.props.pinList.data === 'object' ?
-                                                                                            this.props.pinList.data.map((w,j)=>{
-                                                                                                return(
-                                                                                                    <option key={j} value={JSON.stringify(w)}>{w.kode} | {w.paket}</option>
-                                                                                                )
-                                                                                            })
-                                                                                            : "No data."
-                                                                                    )
-                                                                                }
-                                                                            </select>
-                                                                            <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
-                                                                                {this.state.error.pin_regist}
-                                                                            </div>
-                                                                        </div>
-                                                                    }
-                                                                </div>
-                                                            </CardBody></Card>
-                                                            :<Spinner/>
-                                                        }
-                                                    </TabPanel>
-                                                )
-                                            })
-                                            : "No data."
-                                        )
-                                    }
                                 </div>
                             </div>
                             }
@@ -186,7 +152,7 @@ class FormReaktivasi extends Component{
                     <div className="d-flex align-items-end justify-content-between w-100">
                         <div className="form-group mb-0 mt-0">
                             <label>PIN</label>
-                            <input type="password" maxLength="6" className="form-control" name="pin" value={this.state.pin} onChange={(e)=>this.handleChange(e)}/>
+                            <input type="password" maxLength="6" className={`form-control ${this.state.error.pin!==""?'is-invalid':''}`} name="pin" value={this.state.pin} onChange={(e)=>this.handleChange(e)}/>
                         </div>
                         <div className="form-group mb-0 mt-0">
                             <button type="button" className="btn btn-warning mr-2" onClick={this.toggle}><i className="ti-close" /> Batal</button>
@@ -205,7 +171,6 @@ const mapStateToProps = (state) => {
         type: state.modalTypeReducer,
         isError:state.checkoutReducer.isError,
         isLoadingPost:state.checkoutReducer.isLoadingPost,
-        pinList:state.pinReducer.data_detail,
         isLoading:state.pinReducer.isLoading,
     }
 }
