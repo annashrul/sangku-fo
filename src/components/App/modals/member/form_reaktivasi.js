@@ -117,23 +117,27 @@ class FormReaktivasi extends Component{
                             <div className="row">
                                 <div className="col-md-12">
                                     <TabList>
-                                    <Tab className="w-100 p-4 text-center cursor-pointer mb-2 font-24 text-uppercase shadow-sm rounded d-none"></Tab>
-                                        {
-                                            (
-                                                this.props.availPin!==undefined ? typeof this.props.availPin.data === 'object' ?
-                                                    this.props.availPin.data.map((v,i)=>{
-                                                        return(
-                                                            <Tab key={i} className="w-100 p-4 text-center cursor-pointer mb-2 text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
-                                                                <a href={() => false} className="font-24">{`${v.title}`}</a>
-                                                                <br/>
-                                                                <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
-                                                            </Tab>
-                                                        )
-                                                    })
-                                                    : "No data."
-                                                    : "No data."
-                                            )
-                                        }
+                                        <div className="row m-1 justify-content-center">
+                                            <Tab className="col-auto btn btn-light w-40 p-4 text-center cursor-pointer mb-2 font-24 text-uppercase shadow-sm rounded d-none"></Tab>
+                                            {
+                                                (
+                                                    this.props.availPin!==undefined ? typeof this.props.availPin.data === 'object' ?
+                                                        this.props.availPin.data.map((v,i)=>{
+                                                            return(
+                                                                <Tab key={i} className="col-auto btn btn-light w-40 bg-white m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                    <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                                    <br/>
+                                                                    <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                                    <br/>
+                                                                    <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
+                                                                </Tab>
+                                                            )
+                                                        })
+                                                        : "No data."
+                                                        : "No data."
+                                                )
+                                            }
+                                        </div>
                                     </TabList>
                                 </div>
                             </div>
