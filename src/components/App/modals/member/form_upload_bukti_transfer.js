@@ -45,7 +45,7 @@ class FormUploadBuktiTransfer extends Component{
             ToastQ.fire({icon:'error',title:`silahkan upload bukti transfer anda`});
         }
         else{
-            this.props.dispatch(postBuktiTransfer({bukti:this.state.foto.base64}));
+            this.props.dispatch(postBuktiTransfer({bukti:this.state.foto.base64},this.props.kd_trx));
             if(this.props.isError===true){
                 this.setState({
                     foto: ''
@@ -64,7 +64,10 @@ class FormUploadBuktiTransfer extends Component{
                         <label htmlFor="inputState" className="col-form-label">Foto</label><br/>
                         <File64
                             multiple={ false }
+                            maxSize={2048} //in kb
+                            fileType='png, jpg' //pisahkan dengan koma
                             className="mr-3 form-control-file"
+                            showPreview={false}
                             onDone={ this.getFiles.bind(this) } />
                     </div>
                     <div className="text-center">

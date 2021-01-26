@@ -7,7 +7,7 @@ import Landing from '../App/Landing';
 import Login from '../App/Auth';
 import Signup from '../App/Regist';
 import ConfirmPage from '../App/Regist/ConfirmPage';
-import Dashboard from '../App/Dashboard/Dashboard';
+import Dashboard from '../App/Dashboard';
 import IndexProduct from '../App/transaction/indexProduct';
 import IndexRedeem from '../App/transaction/redeem/indexRedeem';
 import IndexCart from '../App/transaction/indexCart';
@@ -75,8 +75,8 @@ const Routes = (
             <PrivateRoute path="/product" exact strict component={IndexProduct} />
             <PrivateRoute path="/cart" exact strict component={IndexCart} />
             <PrivateRoute path="/checkout" exact strict component={IndexCheckout} />
-            <PrivateRoute path="/invoice" exact strict component={IndexInvoice} />
             <PrivateRoute path="/redeem" exact strict component={IndexRedeem} />
+            <PrivateRoute path="/invoice/:kdtrx" exact strict component={IndexInvoice} />
             {/* TRANSACTION SECTION END */}
             {/* PPOB SECTION START */}
             <PrivateRoute path="/ppob/pulsa-all-operator" exact strict component={PulsaAll} />

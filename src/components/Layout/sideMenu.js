@@ -85,7 +85,7 @@ class SideMenu extends Component {
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
-        if(path==='/downline/add' || path==='/binary' || path==='/sponsor'){
+        if(path==='/downline/add' || path==='/binary' || path==='/sponsor' || path==='/rekapitulasi'){
             this.setState({
                 isNetwork:true,
             })
@@ -159,7 +159,12 @@ class SideMenu extends Component {
                     <li  className={path==='/dashboard'?"active":''}><Link to="/dashboard"> <i className="fa fa-dashboard" /><span> Dashboard</span></Link></li>
                     {/* DASHBOARD MODUL END */}
                     {/* NETWORK MODUL START */}
-                    <li className={"treeview" +(this.state.isNetwork===true || path==='/downline/add'||path==='/alamat'||path==='/bank' ?" active menu-open" : "")}>
+                    <li className={"treeview" +(this.state.isNetwork===true
+                        || path==='/downline/add'
+                        ||path==='/alamat'
+                        ||path==='/bank'
+                        ||path==='/rekapitulasi'
+                        ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
                             <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Genealogy Binary</Link></li>
@@ -167,6 +172,7 @@ class SideMenu extends Component {
                             {/* <li className={path==='/alamat'?"active":''}><Link to="/alamat" style={{width:'fit-content'}}>Alamat</Link></li>
                             <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
                             <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>
+                            <li className={path==='/rekapitulasi'?"active":''}><Link to="/rekapitulasi" style={{width:'fit-content'}}> Rekapitulasi</Link></li>
                         </ul>
                     </li>
                     {/* NETWORK MODUL END */}
@@ -242,9 +248,6 @@ class SideMenu extends Component {
                         </ul>
                     </li>
                     {/* REPORT MODUL END */}
-                    {/* REKAPITULASI MODUL START */}
-                    <li  className={path==='/rekapitulasi'?"active":''}><Link to="/rekapitulasi"> <i className="fa fa-dashboard" /><span> Rekapitulasi</span></Link></li>
-                    {/* REKAPITULASI MODUL END */}
 
                     {/* KONTEN MODUL START */}
                     <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>

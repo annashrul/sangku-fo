@@ -5,8 +5,8 @@ import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import {FetchPin} from '../../../../redux/actions/pin/pin.action'
-import {toRp, statusQ} from 'helper'
+import {FetchAvailablePin, FetchPin} from '../../../../redux/actions/pin/pin.action'
+import {toRp} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 import FormReaktivasi from '../../modals/member/form_reaktivasi';
 class Pin extends Component{
@@ -41,6 +41,7 @@ class Pin extends Component{
         this.handleParameter(page!==undefined&&page!==null?page:1);
     }
     componentDidMount(){
+        this.props.dispatch(FetchAvailablePin(1));
         if (localStorage.location_pin !== undefined && localStorage.location_pin !== '') {
             this.setState({location: localStorage.location_pin})
         }
@@ -232,6 +233,11 @@ class Pin extends Component{
         });
         localStorage.setItem('status_pin', st.value);
     }
+    handleModal(e){
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("FormReaktivasi"));
+    }
     render(){
         const {
             per_page,
@@ -245,22 +251,25 @@ class Pin extends Component{
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-body">
-                                <div className="row">
-                                    <div className="col-md-12" style={{zoom:"100%"}}>
-                                        <div className="row">
-                                            <div className="col-6 col-xs-6 col-md-4">
-                                                <div className="form-group">
-                                                    <label>Cari</label>
-                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-xs-6 col-md-2">
-                                                <div className="form-group">
-                                                    <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
+                                <div className="d-flex align-items-content justify-content-between">
+                                    <div>
+                                        <div className="form-group">
+                                            <label>Cari</label>
+                                            <div class="input-group">
+                                                <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                                <div class="input-group-append">
+                                                    <button className="btn btn-primary" onClick={this.handleSearch}>
                                                         <i className="fa fa-search"/>
                                                     </button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="form-group">
+                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
+                                                <i className="fa fa-check"/>&nbsp;Reaktivasi
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +285,9 @@ class Pin extends Component{
                                                                     <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
                                                                         <div className="widget---content-text">
                                                                         <h6 className="text-uppercase">{v.kode}</h6>
-                                                                        <p className="mb-0">{v.paket_title}</p>
+                                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                                <i className={`fa fa-circle ${v.status===0?'text-danger':'text-success'} font-11 mr-2`}/>&nbsp;<p className="mb-0">{v.status===0?'Tidak Tersedia':'Tersedia'}</p>
+                                                                            </div>
                                                                         </div>
                                                                         <h6 className="mb-0 text-success">{toRp(v.harga)}</h6>
                                                                     </div>
@@ -285,8 +296,8 @@ class Pin extends Component{
                                                                     </div>
                                                                     <div className="d-flex align-items-center justify-content-between">
                                                                         <div>
-                                                                            {v.status===0?statusQ('info','Tidak Terdsedia'):(v.status===1?statusQ('success','Tersedia'):(v.status===3?statusQ('success','Selesai'):""))}
-                                                                            &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleReaktivasi(e,v)}>Reaktivasi</button>
+                                                                            {/* {v.status===0?statusQ('info','Tidak Terdsedia'):(v.status===1?statusQ('success','Tersedia'):(v.status===3?statusQ('success','Selesai'):""))} */}
+                                                                            {/* &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleReaktivasi(e,v)}>Reaktivasi</button> */}
                                                                             &nbsp;<button className="btn btn-primary btn-sm btn-status" style={{fontSize: 8}}>Transfer</button>
                                                                         </div>
                                                                         <p className="mt-3 font-11">PIN AKTIVASI</p>
@@ -313,8 +324,8 @@ class Pin extends Component{
                                                                 </div>
                                                                 <div className="d-flex align-items-center justify-content-between pt-2">
                                                                     <div>
-                                                                        <Skeleton width="50px" height="25px"/>
-                                                                        &nbsp;<Skeleton width="50px" height="25px"/>
+                                                                        {/* <Skeleton width="50px" height="25px"/>
+                                                                        &nbsp;<Skeleton width="50px" height="25px"/> */}
                                                                         &nbsp;<Skeleton width="50px" height="25px"/>
                                                                     </div>
                                                                     <Skeleton width="80px"/>
@@ -339,7 +350,7 @@ class Pin extends Component{
                         </div>
                     </div>
                 </div>
-                <FormReaktivasi directPin={this.state.pin_reaktivasi} />
+                <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
             </Layout>
             );
     }
@@ -350,6 +361,7 @@ const mapStateToProps = (state) => {
     return {
         auth:state.auth,
         pinPin:state.pinReducer.data,
+        getPin:state.pinReducer.data_available,
         isLoading:state.pinReducer.isLoading,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,

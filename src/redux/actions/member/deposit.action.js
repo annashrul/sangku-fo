@@ -59,29 +59,24 @@ export const postDeposit = (data) => {
             .then(function (response) {
                 const data = (response.data);
                 if (data.status === 'success') {
-                    localStorage.setItem("kdTrxInvoice",btoa(data.result.kd_trx));
-                    Swal.fire({
-                        title: 'Berhasil !!!',
-                        html:`Terimakasih telah melakukan transaksi`,
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Invoice`,
-                        cancelButtonText: 'Oke',
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.href="/invoice";
-                        }
+                    window.location.href = "/invoice/" + btoa(data.result.kd_trx);
 
-                    })
                     dispatch(setIsError(true));
                 } else {
                     Swal.fire({
-                        title: 'failed',
+                        title: 'Perhatian.',
+                        html: `Anda masih memiliki transaksi yang belum selesai.`,
                         icon: 'error',
-                        text: NOTIF_ALERT.FAILED,
-                    });
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: `Lihat Transaksi`,
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = "/invoice/" + btoa(data.result.kd_trx);
+                        }
+
+                    })
                     dispatch(setIsError(false));
                 }
                 dispatch(setLoadingPost(false));

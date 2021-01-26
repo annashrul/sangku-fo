@@ -3,6 +3,7 @@ import {PIN} from "../../actions/_constants";
 
 const initialState = {
     isLoading:true,
+    isLoadingAvail:true,
     status:"",msg:"",data:[],data_detail:'',data_available:[]
 };
 
@@ -33,6 +34,10 @@ export const pinReducer = (state=initialState,action) => {
         case PIN.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case PIN.LOADING_AVAILABLE:
+            return Object.assign({}, state, {
+                isLoadingAvail: action.load
             });
         default:
             return state

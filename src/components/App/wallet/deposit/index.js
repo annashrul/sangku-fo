@@ -7,6 +7,7 @@ import {postDeposit} from "redux/actions/member/deposit.action";
 import Nominal from './src/nominal'
 import Wallet from 'assets/wallet.png'
 import Bank from './src/bank'
+import Swal from "sweetalert2";
 
 class IndexDeposit extends Component{
     constructor(props){
@@ -62,9 +63,22 @@ class IndexDeposit extends Component{
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
         }
         else{
-            this.props.dispatch(postDeposit(data));
+            Swal.fire({
+                title: 'Perhatian !!!',
+                html: `Pastikan data yang anda input sudah benar.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: `Oke`,
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.value) {
+                    this.props.dispatch(postDeposit(data));
+                }
+
+            })
         }
-        console.log(isNaN(data['amount']));
     }
 
     componentWillReceiveProps(nextProps){
@@ -76,7 +90,7 @@ class IndexDeposit extends Component{
     render(){
         return(
             <Layout page={"Deposit"} subpage="Wallet">
-                <div className="row" style={{padding:"20px"}}>
+                <div className="row" style={{padding:"20px", lineHeight:'1.6'}}>
                     {/* <div className="card" style={{boxShadow:"0px -4px 3px #EEEEEE",borderRadiusTop:"10px",border:"2px solid #EEEEEE",padding:"20px"}}> */}
                             
                             
@@ -96,6 +110,9 @@ class IndexDeposit extends Component{
                     <Nominal
                         handleClickPrice={this.handleClickPrice}
                         amount={this.state.amount}
+                        arrAmount = {
+                            this.state.arrAmount
+                        }
                     />
                     <Bank
                         data={this.props.resBank.data}
