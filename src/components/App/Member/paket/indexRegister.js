@@ -66,7 +66,7 @@ class IndexRegister extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("detailProduct"));
         this.setState({
-            detail:{id:id}
+            detail:{id:id,tipe:'register'}
         })
     }
 
@@ -119,7 +119,7 @@ class IndexRegister extends Component{
                                 container.push(
                                     <div className="col-md-12">
                                         <div className="row p-2 bg-white border rounded">
-                                            <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={noImage()} style={{width:"100%"}}/></div>
+                                            <div className="col-md-3 mt-1"><Skeleton width={'100%'} height={200}/></div>
                                             <div className="col-md-6 mt-1">
                                                 <h5 className={"text-primary"}><Skeleton height={15}/></h5>
                                                 <div className="d-flex flex-row align-items-center">

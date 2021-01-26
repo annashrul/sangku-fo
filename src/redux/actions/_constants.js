@@ -103,6 +103,18 @@ export const PRODUCT = {
     FAILED: 'FAILED_PRODUCT',
     DETAIL: 'DETAIL_PRODUCT',
 }
+/****************
+ REDEEM
+ *****************/
+export const REDEEM = {
+    LOADING: 'SET_REDEEM_LOADING',
+    LOADING_DETAIL: 'SET_DETAIL_REDEEM_LOADING',
+    LOADING_POST: 'SET_REDEEM_LOADING_POST',
+    IS_ERROR: 'SET_REDEEM_IS_ERROR',
+    SUCCESS: 'SUCCESS_REDEEM',
+    FAILED: 'FAILED_REDEEM',
+    DETAIL: 'DETAIL_REDEEM',
+}
 
 
 /****************

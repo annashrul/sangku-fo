@@ -173,6 +173,9 @@ class SideMenu extends Component {
                     {/* ORDER MODUL START */}
                     <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
                     {/* ORDER MODUL END */}
+                    {/* ORDER MODUL START */}
+                    <li  className={path==='/redeem'?"active":''}><Link to="/redeem"> <i className="fa fa-dashboard" /><span> Redeem</span></Link></li>
+                    {/* ORDER MODUL END */}
                     {/* STKIST MODUL START */}
                     <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li>
                     {/* STKIST MODUL END */}

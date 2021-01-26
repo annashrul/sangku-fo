@@ -28,6 +28,7 @@ import {beritaReducer} from './konten/berita.reducer';
 import {testimoniReducer} from './konten/testimoni.reducer';
 import {pulsa_allReducer} from './ppob/pulsa_all/pulsa_all.reducer';
 import {rekapitulasiReducer} from './member/rekapitulasi.reducer';
+import {redeemReducer} from "./product/redeem.reducer";
 
 
 export default combineReducers({
@@ -45,6 +46,7 @@ export default combineReducers({
     alamatReducer,
     kurirReducer,
     ongkirReducer,
+    redeemReducer,
     provinsiReducer,
     kotaReducer,
     kecamatanReducer,
