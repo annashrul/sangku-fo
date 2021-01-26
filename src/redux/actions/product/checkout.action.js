@@ -31,10 +31,10 @@ export function setData(data = []) {
 }
 
 
-export const getInvoice = () => {
+export const getInvoice = (trx) => {
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = `transaction/get_payment/${localStorage.kdTrxInvoice}`;
+        let url = `transaction/get_payment/${trx}`;
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
                 console.log(response);
@@ -154,11 +154,11 @@ export const postCheckout = (res) => {
 }
 
 
-export const postBuktiTransfer = (res) => {
+export const postBuktiTransfer = (res,kdtrx) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
-        const url = HEADERS.URL + `transaction/deposit/${localStorage.kdTrxInvoice}`;
+        const url = HEADERS.URL + `transaction/deposit/${kdtrx}`;
         Swal.fire({
             title: 'Tunggu sebentar',
             html: 'sistem sedang memproses transaksi anda',

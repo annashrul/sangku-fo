@@ -5,12 +5,11 @@ import moment from 'moment';
 import {FetchStock} from 'redux/actions/dashboard/dashboard.action'
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
-import Cards from './Cards'
-import Charts from './charts'
-import FormReaktivasi from '../../modals/member/form_reaktivasi';
+import Cards from './src/Cards'
+import Charts from './src/charts'
+import FormReaktivasi from '../modals/member/form_reaktivasi';
 import { FetchAvailablePin } from 'redux/actions/pin/pin.action';
-// import Filter from './Filter'
-// import Info from './Info'
+import Overview from './src/overview'
 // const socket = socketIOClient(HEADERS.URL);
 
 class Index extends Component {
@@ -185,64 +184,7 @@ class Index extends Component {
     render() {
         return (
             <Layout page="Dashboard">
-                <div className="row align-items-center">
-                    <div className='col-md-12 col-xl-12 box-margin'>
-                        <div className="card">
-                            {/* <div className="card-header bg-transparent border-bottom-0 h3">Overview</div> */}
-                            <div className="card-body">
-                                <div className="row justify-content-between">
-                                    <div className="col-md-6">
-                                        <h3>Overview</h3>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="row" style={{zoom:'80%'}}>
-                                            <div className="col-md-3">
-                                                <h6>Saldo</h6>
-                                                <h5>Rp 200.050</h5>
-                                            </div>
-                                            <div className="col-md-2">
-                                                <h6>PV Kiri</h6>
-                                                <h5>1234</h5>
-                                            </div>
-                                            <div className="col-md-2">
-                                                <h6>PV Kanan</h6>
-                                                <h5>1234</h5>
-                                            </div>
-                                            <div className="col-md-5">
-                                                <div className="row mr-2">
-                                                    {/* <div className="col-md-3" style={{paddingRight:0}}>
-                                                        <img src="https://binary.epixelmlmsoftware.com/sites/binary/files/package-images/package-37.png" alt="sangqu" width="70px"/>
-                                                    </div> */}
-                                                    <div className="col-md-8 pr-0">
-                                                        <h6>Membership</h6>
-                                                        <h5>Silver</h5>
-                                                    </div>
-                                                    <div className="col-md-4 pl-0 mt-2">
-                                                        <a href={() => false} className="btn btn-primary btn-sm text-light p-2" style={{cursor:'pointer'}} onClick={(e)=>this.handleModal(e)}>REAKTIVASI</a>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-
-                {/* Dashboard Filter Area */}
-                {/* <Filter
-                    className="mb-3"
-                    handleEvent={this.handleEvent}                        
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                    location_data={this.state.location_data}
-                    HandleChangeLokasi={this.HandleChangeLokasi}
-                    location={this.state.location}
-                /> */}
-
+             
                 <div className="row">
                     <div className="col-md-5">
                         <div className="row">
@@ -257,11 +199,17 @@ class Index extends Component {
                             <Cards className="col-md-6 col-xl-12 box-margin" title="E-Wallet balance" data={this.state.trxNum} icon="fa fa-area-chart text-primary"/>
                         </div>
                     </div>
+                    <div className="col-md-4">
+                        <Overview
+                            user={this.props.auth.user}
+                        />
+                    </div>
+
+                </div>
+                <div className="row">
                     <div className="col-md-7 pr-0">
                         <Charts title="Downline Members" data={this.state.lokasi_sales}/>
                     </div>
-                </div>
-                <div className="row">
                    <Charts title="Monthly Sales Amount" data={this.state.lokasi_sales}/>
                 </div>
                 <div className="row">

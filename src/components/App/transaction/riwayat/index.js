@@ -145,6 +145,11 @@ class IndexCart extends Component{
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
+                            <th>Saldo Awal</th>
+                            <td>:</td>
+                            <td>{toRp(this.props.summary.saldo_awal,true)}</td>
+                            </tr>
+                            <tr>
                             <th>Saldo Masuk</th>
                             <td>:</td>
                             <td>{toRp(this.props.summary.trx_in,true)}</td>
@@ -157,7 +162,9 @@ class IndexCart extends Component{
                             <tr>
                             <th>Saldo saat ini</th>
                             <td>:</td>
-                            <td>{toRp(this.props.summary.total,true)}</td>
+                            <td> {
+                                toRp((parseInt(this.props.summary.saldo_awal, 10) + parseInt(this.props.summary.trx_in, 10)) - parseInt(this.props.summary.trx_out,10), true)
+                            } </td>
                             </tr>
                         </table>
                     </div>
