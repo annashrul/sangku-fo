@@ -4,9 +4,9 @@ import connect from "react-redux/es/connect/connect";
 import {stringifyFormData} from "helper";
 // import File64 from "components/common/File64";
 import { Card, CardBody, CardFooter, CardHeader, Table } from 'reactstrap';
-import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
+import { TabList, Tabs, Tab } from 'react-tabs';
 import { FetchDetailPin } from 'redux/actions/pin/pin.action';
-import Spinner from 'Spinner'
+// import Spinner from 'Spinner'
 import Preloader from 'Preloader'
 import { createMember } from 'redux/actions/authActions';
 import Swal from 'sweetalert2';
@@ -14,9 +14,10 @@ import Default from 'assets/default.png'
 import {sendOtp} from "redux/actions/authActions";
 import PropTypes from 'prop-types';
 import bycrypt from 'bcryptjs';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
+// import { object } from 'prop-types';
 // import OTPInput, { ResendOTP } from "otp-input-react";
 const resendTime = 120;
 class MemberForm extends Component{
@@ -25,6 +26,7 @@ class MemberForm extends Component{
         this.toggle = this.toggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLevel = this.handleLevel.bind(this);
+        this.handleMembership = this.handleMembership.bind(this);
         this.handleChangeImage = this.handleChangeImage.bind(this);
         this.state = {
             full_name:'',
@@ -96,7 +98,8 @@ class MemberForm extends Component{
      }
     getProps(param){
         if(this.props.dataAdd===undefined){
-            window.location.href = '/binary'
+            // window.location.href = '/binary'
+            this.props.history.push({pathname:'/binary'});
         }
         const findItemNested = (arr, itemId, nestingKey) => arr.reduce((a, c) => {
             return a.length
@@ -166,7 +169,7 @@ class MemberForm extends Component{
             parseData['signup_source'] = this.state.signup_source;
             parseData['sponsor'] = this.state.sponsor;
             parseData['upline'] = this.state.upline;
-            parseData['pin_regist'] = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist).kode;
+            parseData['pin_regist'] = this.state.pin_regist.id;
             let err = this.state.error;
             
             console.log("dddddddddddddddd",parseData)
@@ -212,7 +215,7 @@ class MemberForm extends Component{
                 this.setState({confirm:false, error: err});
             }
             else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
-                err = Object.assign({}, err, {pin_regist:"Membership belum dipilih"});
+                err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
                 this.setState({confirm:false, error: err});
             }
             else{
@@ -237,7 +240,7 @@ class MemberForm extends Component{
         parseData['signup_source'] = this.state.signup_source;
         parseData['sponsor'] = this.state.sponsor;
         parseData['upline'] = this.state.upline;
-        parseData['pin_regist'] = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist).kode;
+        parseData['pin_regist'] = this.state.pin_regist.id;
         let err = this.state.error;
         
         console.log("dddddddddddddddd",parseData)
@@ -358,12 +361,19 @@ class MemberForm extends Component{
     };
     handleMembership(e,val) {
         e.preventDefault();
-        console.log(e.target)
-        console.log(val)
-        this.props.FetchDetailPin(String(val).toLowerCase());
-        // this.setState({
-        //     membership: val
-        // })
+        if(this.props.availPin.total_pin>=val.jumlah){
+            let err = this.state.error;
+            err = Object.assign({}, err, {pin_regist:""});
+            this.setState({
+                pin_regist: val,
+                error: err
+            })
+        } else {
+            this.setState({
+                pin_regist: {}
+            })
+            ToastQ.fire({icon:'info',title:`Jumlah PIN yang anda miliki masih kurang!`});
+        }
     };
     
     secondsToTime(secs){
@@ -403,10 +413,10 @@ class MemberForm extends Component{
     }
 
     render(){
-        const {
-            full_name,kode,paket,point_volume,category,
-        } = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist);
-        console.log(this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist))
+        // const {
+        //     full_name,kode,paket,point_volume,category,
+        // } = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist);
+        // console.log(this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist))
         // const { data } = this.props.location
         // console.log(this.props.location)
         return (
@@ -575,7 +585,7 @@ class MemberForm extends Component{
                                     <div className="col-md-6  offset-md-3">
                                         <Card>
                                             <CardBody> */}
-                                                <div className="col-md-8 offset-md-2 d-flex align-items-center justify-content-between">
+                                                <div className="col-md-10 offset-md-1 d-flex align-items-center justify-content-between">
                                                     <div className="form-group">
                                                         <label>Sponsor</label>
                                                         {/* 
@@ -630,73 +640,31 @@ class MemberForm extends Component{
                                                     </div>
                                                 </div> */}
                                                 <div className="form-group" style={{display:this.state.isOtp?'':'none'}}>
-                                                    <label>Membership</label>
+                                                    <div className="d-flex justify-content-between align-items-center">
+                                                        <label>Membership</label>
+                                                        <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label>
+                                                    </div>
                                                     <Tabs>
                                                         <div className="row">
-                                                            <div className="col-md-4">
+                                                            <div className="col-md-12">
                                                                 <TabList>
+                                                                <Tab className="w-100 p-4 text-center cursor-pointer mb-2 font-24 text-uppercase shadow-sm rounded d-none"></Tab>
                                                                     {
                                                                         (
                                                                             typeof this.props.availPin.data === 'object' ?
                                                                                 this.props.availPin.data.map((v,i)=>{
                                                                                     return(
-                                                                                        <Tab key={i} className="w-100 p-2 text-center cursor-pointer img-thumbnail mb-1" label="Core Courses" onClick={(e) =>this.handleMembership(e,v.title)}>{`${v.title} - ${v.jumlah}`}</Tab>
+                                                                                        <Tab key={i} className="w-100 p-4 text-center cursor-pointer mb-2 text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                                                            <br/>
+                                                                                            <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
+                                                                                        </Tab>
                                                                                     )
                                                                                 })
                                                                                 : "No data."
                                                                         )
                                                                     }
                                                                 </TabList>
-                                                            </div>
-                                                            <div className="col-md-8">
-                                                                {
-                                                                    (
-                                                                        typeof this.props.availPin.data === 'object' ?
-                                                                        this.props.availPin.data.map((v,i)=>{
-                                                                            return(
-                                                                                <TabPanel key={i}>
-                                                                                    {
-                                                                                    !this.props.isLoading&&this.props.pinList.data!==undefined?
-                                                                                        <Card className="bg-primary text-white"><CardBody>
-                                                                                            <div className="form-group">
-                                                                                                {
-                                                                                                    this.props.pinList.data.length<=0?
-                                                                                                    <div className="text-center">
-                                                                                                        <p className="text-light">Saat ini anda belum memiliki daftar PIN ini, silahkan order PIN terlebih dahulu.</p>
-                                                                                                        <Link to="/product" className="btn btn-warning" target="_blank"><h6 className="text-light mt-2" >Order PIN</h6></Link>
-                                                                                                    </div>
-                                                                                                    :
-                                                                                                    <div>
-                                                                                                        <label>Daftar PIN {v.title}</label>
-                                                                                                        <select className="form-control" name="pin_regist" defaultValue={this.state.pin_regist} value={this.state.pin_regist} onChange={this.handleChange}>
-                                                                                                            <option value="">==== Pilih PIN  ====</option>
-                                                                                                            {
-                                                                                                                (
-                                                                                                                    typeof this.props.pinList.data === 'object' ?
-                                                                                                                        this.props.pinList.data.map((w,j)=>{
-                                                                                                                            return(
-                                                                                                                                <option key={j} value={JSON.stringify(w)}>{w.kode} | {w.paket}</option>
-                                                                                                                            )
-                                                                                                                        })
-                                                                                                                        : "No data."
-                                                                                                                )
-                                                                                                            }
-                                                                                                        </select>
-                                                                                                        <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
-                                                                                                            {this.state.error.pin_regist}
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                }
-                                                                                            </div>
-                                                                                        </CardBody></Card>
-                                                                                        :<Spinner/>
-                                                                                    }
-                                                                                </TabPanel>
-                                                                            )
-                                                                        })
-                                                                        : "No data."
-                                                                    )
-                                                                }
                                                             </div>
                                                         </div>
                                                     </Tabs>
@@ -711,25 +679,25 @@ class MemberForm extends Component{
                                 <div className={`row ${this.state.confirm?'':'d-none'}`}>
                                     <div className="col-md-6 offset-md-3 mb-5">
                                         <Card>
-                                            <CardHeader className="bg-primary text-light text-center">PIN Detail</CardHeader>
+                                            <CardHeader className="bg-primary text-light text-center">Membership Detail</CardHeader>
                                             <CardBody>
                                                 <Table striped>
                                                     <thead className="bg-primary">
                                                         <tr>
-                                                            <th className="text-center text-light">Nama</th>
-                                                            <th className="text-center text-light">Kode</th>
-                                                            <th className="text-center text-light">Paket</th>
+                                                            <th className="text-center text-light">Mmbership</th>
+                                                            <th className="text-center text-light">Syarat</th>
+                                                            {/* <th className="text-center text-light">Paket</th>
                                                             <th className="text-center text-light">Volume</th>
-                                                            <th className="text-center text-light">Kategori</th>
+                                                            <th className="text-center text-light">Kategori</th> */}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <th className="text-center" scope="row">{full_name}</th>
-                                                            <th className="text-center" scope="row">{kode}</th>
-                                                            <th className="text-center" scope="row">{paket}</th>
+                                                            <th className="text-center" scope="row">{this.state.pin_regist!==''&&this.state.pin_regist!==undefined?this.state.pin_regist.title:''}</th>
+                                                            <th className="text-center" scope="row">{this.state.pin_regist!==''&&this.state.pin_regist!==undefined?this.state.pin_regist.jumlah:''} PIN</th>
+                                                            {/* <th className="text-center" scope="row">{paket}</th>
                                                             <th className="text-center" scope="row">{point_volume}</th>
-                                                            <th className="text-center" scope="row">{category}</th>
+                                                            <th className="text-center" scope="row">{category}</th> */}
                                                         </tr>
                                                     </tbody>
                                                 </Table>
@@ -856,4 +824,4 @@ const mapStateToProps = (state) => {
         // Level:state.userLevelReducer.data,
     }
 }
-export default connect(mapStateToProps,{sendOtp,FetchDetailPin,createMember})(MemberForm);
+export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPin,createMember})(MemberForm));
