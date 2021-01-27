@@ -64,7 +64,7 @@ class PulsaTf extends Component{
             data
         } = this.props.pulsa_allPulsaAll;
         return (
-            <Layout page="Pulsa Transfer" subpage="PPOB">
+            <Layout page="Pulsa Transfer" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card mb-3">

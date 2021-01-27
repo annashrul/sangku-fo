@@ -30,6 +30,8 @@ import BeritaDetail from '../App/Konten/BeritaDetail'
 import Testimoni from '../App/Konten/Testimoni'
 import TestimoniDetail from '../App/Konten/TestimoniDetail'
 import Stokist from '../App/Report/Pin'
+import IndexPPOB from '../App/PPOB/indexPPOB'
+import DetailPPOB from '../App/PPOB/detailPPOB'
 import PulsaAll from '../App/PPOB/PulsaAll'
 import PaketData from '../App/PPOB/PaketData';
 import PulsaSmsTelp from '../App/PPOB/PulsaSmsTelp';
@@ -79,6 +81,8 @@ const Routes = (
             <PrivateRoute path="/invoice/:kdtrx" exact strict component={IndexInvoice} />
             {/* TRANSACTION SECTION END */}
             {/* PPOB SECTION START */}
+            <PrivateRoute path="/ppob" exact strict component={IndexPPOB} />
+            <PrivateRoute path="/ppob/checkout/:page" exact strict component={DetailPPOB} />
             <PrivateRoute path="/ppob/pulsa-all-operator" exact strict component={PulsaAll} />
             <PrivateRoute path="/ppob/paket-data" exact strict component={PaketData} />
             <PrivateRoute path="/ppob/pulsa-sms-telpon" exact strict component={PulsaSmsTelp} />

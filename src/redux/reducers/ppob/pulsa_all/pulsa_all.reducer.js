@@ -2,7 +2,9 @@ import {PULSA_ALL} from "../../../actions/_constants";
 
 
 const initialState = {
-    isLoading:true,
+    isLoading:false,
+    isLoadingPost:false,
+    isError:true,
     status:"",msg:"",data:[],data_detail:'',data_available:[]
 };
 
@@ -33,6 +35,14 @@ export const pulsa_allReducer = (state=initialState,action) => {
         case PULSA_ALL.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case PULSA_ALL.LOADING_POST:
+            return Object.assign({}, state, {
+                isLoadingPost: action.load
+            });
+        case PULSA_ALL.IS_ERROR:
+            return Object.assign({}, state, {
+                isError: action.load
             });
         default:
             return state

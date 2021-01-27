@@ -55,7 +55,7 @@ class TrxPln extends Component{
     }
     render(){
         return (
-            <Layout page="Pembayaran PLN" subpage="PPOB">
+            <Layout page="Pembayaran PLN" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card mb-3">

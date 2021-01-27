@@ -56,7 +56,7 @@ class TrxKai extends Component{
     }
     render(){
         return (
-            <Layout page="Pembayaran Kereta API" subpage="PPOB">
+            <Layout page="Pembayaran Kereta API" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card mb-3">

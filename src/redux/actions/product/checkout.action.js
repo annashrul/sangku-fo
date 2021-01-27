@@ -87,12 +87,10 @@ export const postCheckout = (res) => {
                                     title: 'Berhasil !!!',
                                     html:`Terimakasih telah melakukan transaksi`,
                                     icon: 'success',
-                                    showCancelButton: true,
                                     confirmButtonColor: '#3085d6',
-                                    confirmButtonText: `Lihat Invoice`,
+                                    confirmButtonText: `Oke`,
                                 }).then((result) => {
-                                    window.location.href="/invoice";
-
+                                    window.location.href="/invoice/"+btoa(data.result.kd_trx);
                                 })
                             }
                             else{
@@ -100,18 +98,10 @@ export const postCheckout = (res) => {
                                     title: 'Berhasil !!!',
                                     html:`Terimakasih telah melakukan transaksi`,
                                     icon: 'success',
-                                    showCancelButton: true,
                                     confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: `Riwayat Transaksi`,
-                                    cancelButtonText: 'Kembali',
+                                    confirmButtonText: `Oke`,
                                 }).then((result) => {
-                                    if (result.value) {
-                                        window.location.href="/product";
-                                    }
-                                    else{
-                                        window.location.href="/product";
-                                    }
+                                    window.location.href="/report/pembelian";
                                 })
                             }
 

@@ -64,7 +64,7 @@ class EToll extends Component{
             data
         } = this.props.pulsa_allPulsaAll;
         return (
-            <Layout page="E-Toll" subpage="PPOB">
+            <Layout page="E-Toll" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card mb-3">

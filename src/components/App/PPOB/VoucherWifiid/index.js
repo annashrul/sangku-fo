@@ -64,7 +64,7 @@ class VoucherWifiid extends Component{
             data
         } = this.props.pulsa_allPulsaAll;
         return (
-            <Layout page="Voucher WIFI.ID" subpage="PPOB">
+            <Layout page="Voucher WIFI.ID" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card mb-3">
