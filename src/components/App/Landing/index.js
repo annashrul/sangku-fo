@@ -11,6 +11,9 @@ import Footer from './src/footer'
 import {HEADERS} from 'redux/actions/_constants'
 import {FetchSite} from 'redux/actions/site.action'
 import Preloader from 'Preloader'
+import {isMobile} from 'react-device-detect';
+// import Swal from "sweetalert2";
+
 class Landing extends Component{
 
     constructor(props) {
@@ -78,23 +81,14 @@ class Landing extends Component{
     }
 
     render(){
-        console.log("=====================================");
-        console.log(this.props.sites);
-
         return(
             <div>
-                {/* <Helmet link={[
-                    {
-                        "rel": "stylesheet", 
-                        "href": "/landing/css/main.css"
-                    }, {
-                        "rel": "stylesheet",
-                        "href": "/landing/css/base.css"
-                    }
-                ]}
-                /> */}
+                
+               
            {
                this.props.isloading? (
+                <Preloader/>
+            ): this.state.load?(
                 <Preloader/>
             ):(
                 <div>
@@ -111,6 +105,7 @@ class Landing extends Component{
                         }
 
                     />
+                    
                     <About
                         data={this.props.sites.about}
                         howto={this.props.sites.howto}
