@@ -648,13 +648,14 @@ class MemberForm extends Component{
                                                         <div className="row">
                                                             <div className="col-md-12">
                                                                 <TabList>
-                                                                <Tab className="w-100 p-4 text-center cursor-pointer mb-2 font-24 text-uppercase shadow-sm rounded d-none"></Tab>
+                                                                <div className="row m-1 justify-content-center">
+                                                                    <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                                     {
                                                                         (
                                                                             typeof this.props.availPin.data === 'object' ?
                                                                                 this.props.availPin.data.map((v,i)=>{
                                                                                     return(
-                                                                                        <Tab key={i} className="w-100 p-4 text-center cursor-pointer mb-2 text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                                        <Tab key={i} className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
                                                                                             <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                                                             <br/>
                                                                                             <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -666,6 +667,7 @@ class MemberForm extends Component{
                                                                                 : "No data."
                                                                         )
                                                                     }
+                                                                </div>
                                                                 </TabList>
                                                             </div>
                                                         </div>

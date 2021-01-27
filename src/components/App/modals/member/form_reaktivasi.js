@@ -1,12 +1,13 @@
 import React,{Component} from 'react';
 import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {ModalToggle} from "redux/actions/modal.action";
+import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 // import File64 from "components/common/File64";
 import {ToastQ, toRp} from "helper";
 import WrapperModal from "../_wrapper.modal";
 import { Tab, Tabs, TabList } from 'react-tabs';
 import { pinReaktivasi } from '../../../../redux/actions/pin/pin.action';
+import ModalPin from '../../modals/modal_pin'
 
 class FormReaktivasi extends Component{
     constructor(props){
@@ -14,10 +15,14 @@ class FormReaktivasi extends Component{
         this.toggle = this.toggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handlePin = this.handlePin.bind(this);
+        this.handleSave = this.handleSave.bind(this);
         this.state = {
             foto:"",
             pin:'',
             pin_regist:'',
+            isModal:'',
+            code:0,
             error:{
                 pin:'',
                 pin_regist:'',
@@ -50,6 +55,47 @@ class FormReaktivasi extends Component{
             pin_regist:'',
         });
     };
+    handlePin(){
+         if(this.state.pin_regist===""||this.state.pin_regist===undefined){
+            let txtErr = 'Anda belum memilih membership!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'pin_regist': txtErr});
+            this.setState({error: err});
+        } else {
+            this.setState({
+                isModal:true
+            });
+            this.props.dispatch(ModalType("modalPin"));
+        }
+    }
+    handleSave(num){
+        // if(this.state.pin_regist===""||this.state.pin_regist===undefined){
+        //     let txtErr = 'Anda belum memilih membership!'
+        //     ToastQ.fire({icon:'error',title:txtErr});
+        //     let err = Object.assign({}, this.state.error, {'pin_regist': txtErr});
+        //     this.setState({error: err});
+        // }
+        // else if(this.state.pin===""||this.state.pin===undefined){
+        //     let txtErr = 'Silahkan isi PIN anda!'
+        //     ToastQ.fire({icon:'error',title:txtErr});
+        //     let err = Object.assign({}, this.state.error, {'pin': txtErr});
+        //     this.setState({error: err});
+        // }
+        // else{
+            this.setState({
+                code:num
+            });
+            let parse = {}
+            parse['pin_member'] = num
+            parse['pin_reaktivasi'] = this.state.pin_regist.id
+            if(num.length===6){
+                this.props.dispatch(pinReaktivasi(parse));
+                this.setState({
+                    code:0
+                });
+            }
+        // }
+    }
     handleSubmit(e){
         e.preventDefault();
         if(this.state.pin_regist===""||this.state.pin_regist===undefined){
@@ -89,6 +135,7 @@ class FormReaktivasi extends Component{
     };
     render(){
         return (
+            <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasi"} size="md">
                 <ModalHeader toggle={this.toggle}>Reaktivasi Membership</ModalHeader>
                 <ModalBody>
@@ -118,13 +165,13 @@ class FormReaktivasi extends Component{
                                 <div className="col-md-12">
                                     <TabList>
                                         <div className="row m-1 justify-content-center">
-                                            <Tab className="col-auto btn btn-light w-40 p-4 text-center cursor-pointer mb-2 font-24 text-uppercase shadow-sm rounded d-none"></Tab>
+                                            <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                             {
                                                 (
                                                     this.props.availPin!==undefined ? typeof this.props.availPin.data === 'object' ?
                                                         this.props.availPin.data.map((v,i)=>{
                                                             return(
-                                                                <Tab key={i} className="col-auto btn btn-light w-40 bg-white m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                <Tab key={i} className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
                                                                     <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                                     <br/>
                                                                     <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -155,16 +202,20 @@ class FormReaktivasi extends Component{
                 <ModalFooter>
                     <div className="d-flex align-items-end justify-content-between w-100">
                         <div className="form-group mb-0 mt-0">
-                            <label>PIN</label>
-                            <input type="password" maxLength="6" className={`form-control ${this.state.error.pin!==""?'is-invalid':''}`} name="pin" value={this.state.pin} onChange={(e)=>this.handleChange(e)}/>
+                            {/* <label>PIN</label>
+                            <input type="password" maxLength="6" className={`form-control ${this.state.error.pin!==""?'is-invalid':''}`} name="pin" value={this.state.pin} onChange={(e)=>this.handleChange(e)}/> */}
                         </div>
                         <div className="form-group mb-0 mt-0">
                             <button type="button" className="btn btn-warning mr-2" onClick={this.toggle}><i className="ti-close" /> Batal</button>
-                            <button type="submit" className="btn btn-primary mr-2" onClick={this.handleSubmit} ><i className="ti-save" /> {!this.props.isLoadingPost?'Aktivasi':'Loading ......'}</button>
+                            <button type="submit" className="btn btn-primary mr-2" onClick={this.handlePin} ><i className="ti-save" /> {!this.props.isLoadingPost?'Aktivasi':'Loading ......'}</button>
                         </div>
                     </div>
                 </ModalFooter>
             </WrapperModal>
+            {
+                this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null
+            }
+            </div>
         );
     }
 }

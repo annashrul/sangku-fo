@@ -14,6 +14,7 @@ class SideMenu extends Component {
             isWallet: false,
             isReport: false,
             isPpob: false,
+            isStokist: false,
 
             // NETWORK
             // md_network:true,
@@ -45,6 +46,7 @@ class SideMenu extends Component {
             isWallet : false,
             isReport : false,
             isPpob : false,
+            isStokist : false,
         }
         let sub_module = {
             // isReportAdjustment:false,
@@ -93,6 +95,10 @@ class SideMenu extends Component {
             this.setState({
                 isWallet:true,
                 // isNetwork:false,
+            })
+        }else if(path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'){
+            this.setState({
+                isStokist:true,
             })
         }else if(
             path==='/ppob/pulsa-all-operator'
@@ -183,7 +189,14 @@ class SideMenu extends Component {
                     <li  className={path==='/redeem'?"active":''}><Link to="/redeem"> <i className="fa fa-dashboard" /><span> Redeem</span></Link></li>
                     {/* ORDER MODUL END */}
                     {/* STKIST MODUL START */}
-                    <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li>
+                    {/* <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li> */}
+                    <li className={"treeview" +(this.state.isStokist===true || path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'||path==='/transfer' ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isStokist')}><i className="zmdi zmdi-receipt" /> <span>Stokist</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isStokist===true?"block":"none"}}>
+                            <li className={path==='/stokist/pin-aktivasi'?"active":''}><Link to="/stokist/pin-aktivasi" style={{width:'fit-content'}}> PIN Aktivasi</Link></li>
+                            <li className={path==='/stokist/pin-ro'?"active":''}><Link to="/stokist/pin-ro" style={{width:'fit-content'}}>PIN RO</Link></li>
+                        </ul>
+                    </li>
                     {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
                     <li className={"treeview" +(this.state.isPpob===true

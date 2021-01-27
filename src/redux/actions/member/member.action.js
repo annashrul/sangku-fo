@@ -9,6 +9,18 @@ export function setLoadingPost(load) {
         load
     }
 }
+export function setLoadingAvail(load) {
+    return {
+        type: MEMBER.LOADING_AVAIL,
+        load
+    }
+}
+export function setMemberAvail(data=[]) {
+    return {
+        type: MEMBER.SUCCESS_AVAIL,
+        data
+    }
+}
 
 export const putMember = (data,id) => {
     return (dispatch) => {
@@ -54,5 +66,19 @@ export const putMember = (data,id) => {
                 }
 
             })
+    }
+}
+export const FetchAvailableMember = (id)=>{
+    return (dispatch) => {
+        dispatch(setLoadingAvail(true));
+        let url = `member/data/${id}`;
+        axios.get(HEADERS.URL+url)
+            .then(function(response){
+                const data = response.data;
+                dispatch(setMemberAvail(data));
+                dispatch(setLoadingAvail(false));
+            }).catch(function(error){
+            
+        })
     }
 }
