@@ -11,15 +11,14 @@ class Header extends Component{
     }
 
     render(){
-        console.log(this.props.isLoggedin);
         return(
             <header id="header" className="row">   
-                <div className="header-logo">
-                    <a href="#home">Sangqu</a>
+                <div className="header-logo" style={{background: `url("${this.props.logo}") no-repeat center`,backgroundSize: '100%'}}>
+                    <a href="/">{this.props.title}</a>
                 </div>
                 <nav id="header-nav-wrap">
                     <ul className="header-main-nav">
-                    <li className="current"><a className="smoothscroll" href="#home" title="home">Home</a></li>
+                    <li className="current"><a className="smoothscroll" href="/" title="home">Home</a></li>
                     <li><a className="smoothscroll" href="#about" title="about">Tentang</a></li>
                     <li><a className="smoothscroll" href="#pricing" title="pricing">Paket</a></li>
                     <li><a className="smoothscroll" href="#testimonials" title="testimonials">Testimoni</a></li>

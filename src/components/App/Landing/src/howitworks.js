@@ -13,37 +13,39 @@ class About extends Component{
     render(){
         return(
             <div className="row about-how">
-                <h1 className="intro-header" style={{margin:'0 auto'}}>Bagaimana Sangqu Bekerja ?</h1>           
-                <div className="about-how-content">
-                <div className="about-how-steps block-1-2 block-tab-full group">
+                <h1 className="intro-header" style={{margin:'0 auto'}}>{this.props.data===undefined?'':this.props.data.title}</h1>   
+                 <Fade top>
+                    <p className="mt-3" style={{paddingLeft:'150px',paddingRight:'150px', textAlign:'center'}} dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.deskripsi }} >
+                    </p>
+                </Fade>        
                     <Fade top>
-                        <div className="bgrid step">
-                            <h3><i className="fa fa-newspaper-o"/> Daftar Melalui Upline anda!</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore veritatis quas ipsum est ipsa inventore quaerat architecto neque. Odit, amet harum. Nihil unde error veritatis omnis velit, ab perspiciatis nobis!
-                            </p> 
-                            </div>
-                            <div className="bgrid step">
-                            <h3><i className="fa fa-newspaper-o"/> Login melalui website atau aplikasi Sangqu</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore veritatis quas ipsum est ipsa inventore quaerat architecto neque. Odit, amet harum. Nihil unde error veritatis omnis velit, ab perspiciatis nobis!
-                            </p> 
-                            </div>               
-                            <div className="bgrid step">
-                            <h3><i className="fa fa-newspaper-o"/> Mulai bangun jaringan anda!</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore veritatis quas ipsum est ipsa inventore quaerat architecto neque. Odit, amet harum. Nihil unde error veritatis omnis velit, ab perspiciatis nobis!
-                            </p> 
-                            </div>
-                            <div className="bgrid step">
-                            <h3><i className="fa fa-newspaper-o"/> Pasif income mengunggu anda.</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore veritatis quas ipsum est ipsa inventore quaerat architecto neque. Odit, amet harum. Nihil unde error veritatis omnis velit, ab perspiciatis nobis!
-                            </p> 
-                        </div>  
+                        <div className="row">
+                            {
+                                this.props.data!==undefined?
+                                    this.props.data.data.map((item,index)=>{
+                                        return(
+                                            <div key={index} className="col-12 col-xs-12 col-sm-6 col-md-4 mt-4 pt-2">
+                                                <div className="card work-process border-0 text-center rounded shadow pricing-rates">
+                                                <div className="card-body">
+                                                    <img src={item.image} className="avatar avatar-small mb-3" alt={item.title} />
+                                                    <h4 className="title">{item.title}</h4>
+                                                    <p className="text-muted para">
+                                                    {item.deskripsi} </p>
+                                                    <ul className="list-unstyled d-flex justify-content-between mb-0 mt-2">
+                                                    <li className="step h1 mb-0 font-weight-bold">Step 0{index+1}.</li>
+                                                    <li className="step-icon"><i className="mdi mdi-chevron-double-right mdi-36px" /></li>
+                                                    </ul>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })                            
+                                :''
+                            }
+                           
+                        </div>
+
                     </Fade>
-                </div>           
-                </div> {/* end about-how-content */}
             </div>
         );
     }

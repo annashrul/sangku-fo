@@ -15,16 +15,15 @@ class Download extends Component{
             <section id="download">
                 <div className="row">
                     <div className="col-full">
-                        <h1 className="intro-header" data-aos="fade-up">Dapatkan Aplikasi Sangqu !</h1>
+                        <h1 className="intro-header" data-aos="fade-up">{this.props.data===undefined?'':this.props.data.title}</h1>
                         <Fade top>
-                            <p className="lead" data-aos="fade-up">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                            <p className="lead" data-aos="fade-up" dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.deskripsi }}>
                             </p>
                         </Fade>
                         <HeadShake>
                             <ul className="download-badges">
                                 {/* <li><a href={() => false} title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li> */}
-                                <li><a href={() => false} title className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
+                                <li><a href={this.props.data===undefined?'':this.props.data.link} target="_blank" title className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
                             </ul>
                         </HeadShake>
                     </div>
