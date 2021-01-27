@@ -9,7 +9,11 @@ import Download from './src/download'
 import Footer from './src/footer'
 // import { Helmet } from "react-helmet";
 import {HEADERS} from 'redux/actions/_constants'
+import {FetchSite} from 'redux/actions/site.action'
 import Preloader from 'Preloader'
+import {isMobile} from 'react-device-detect';
+// import Swal from "sweetalert2";
+
 class Landing extends Component{
 
     constructor(props) {
@@ -21,7 +25,7 @@ class Landing extends Component{
         
     }
     componentWillMount(){
-        
+        this.props.dispatch(FetchSite())
     }
 
     componentDidMount(){
@@ -67,6 +71,7 @@ class Landing extends Component{
             }
         )
     }
+
     componentWillUnmount(){
         document.getElementsByTagName('body')[0].style.zoom='90%';
         document.getElementsByTagName('body')[0].style.background = '#f9fafb';
@@ -78,29 +83,52 @@ class Landing extends Component{
     render(){
         return(
             <div>
-                {/* <Helmet link={[
-                    {
-                        "rel": "stylesheet", 
-                        "href": "/landing/css/main.css"
-                    }, {
-                        "rel": "stylesheet",
-                        "href": "/landing/css/base.css"
-                    }
-                ]}
-                /> */}
-           { this.state.load?(
+                
+               
+           {
+               this.props.isloading? (
+                <Preloader/>
+            ): this.state.load?(
                 <Preloader/>
             ):(
                 <div>
                     <Header 
                         isLoggedin={this.props.auth.isAuthenticated}
+                        logo={this.props.sites.logo}
+                        title={this.props.sites.title}
                     />
-                    <Home/>
-                    <About/>
-                    <Pricing/>
-                    <Testi/>
-                    <Download/>
-                    <Footer/>
+                    <Home
+                        title={this.props.sites.title}
+                        data={this.props.sites.header}
+                        social_media = {
+                            this.props.sites.social_media
+                        }
+
+                    />
+                    
+                    <About
+                        data={this.props.sites.about}
+                        howto={this.props.sites.howto}
+                    />
+                    <Pricing
+                        data={this.props.sites.paket}
+                    />
+                    <Testi
+                        data={this.props.sites.testimoni}
+                    />
+                    <Download
+                        data={this.props.sites.download}
+                    />
+                    <Footer
+                        logo={this.props.sites.logo}
+                        title={this.props.sites.title}
+                        address={this.props.sites.address}
+                        email={this.props.sites.email}
+                        no_telp={this.props.sites.no_telp}
+                        fax={this.props.sites.fax}
+                        legalitas={this.props.sites.legalitas}
+                        social_media={this.props.sites.social_media}
+                    />
                 </div>
             )
 }
@@ -112,6 +140,8 @@ class Landing extends Component{
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        sites: state.siteReducer.data,
+        isloading: state.siteReducer.isLoading
     }
 }
 

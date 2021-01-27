@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg31"
+   viewBox="0 0 476.55094 455.88581"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   version="1.1"
+   height="0.45587787in"
+   width="0.47687751in"
+   xml:space="preserve"><metadata
+   id="metadata35"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata>
+ <defs
+   id="defs4">
+  <style
+   id="style2"
+   type="text/css">
+   <![CDATA[
+    .str0 {stroke:#00A859;stroke-width:13.8858}
+    .fil2 {fill:#00A859}
+    .fil1 {fill:#2E996C}
+    .fil0 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g
+   transform="translate(-5.2267992,-3.0570998)"
+   id="Layer_x0020_1">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <g
+   id="_2388737091136">
+   <path
+   style="fill:#ffffff;stroke:#00a859;stroke-width:13.88580036"
+   id="path7"
+   d="M 343,95 H 318 V 36 H 168 V 95 H 143 V 32 c 0,-12 9,-22 21,-22 h 157 c 13,0 22,10 22,22 z"
+   class="fil0 str0" />
+   <path
+   style="fill:#ffffff;stroke:#00a859;stroke-width:13.88580036"
+   id="path9"
+   d="M 454,95 H 34 c -12,0 -22,9 -22,21 v 315 c 0,11 10,21 22,21 h 420 c 11,0 21,-10 21,-21 V 116 c 0,-12 -10,-21 -21,-21 z"
+   class="fil0 str0" />
+   <g
+   id="g15">
+    <rect
+   style="fill:#ffffff;stroke:#00a859;stroke-width:13.88580036"
+   id="rect11"
+   height="356.983"
+   width="26.1451"
+   y="95"
+   x="382"
+   class="fil0 str0" />
+    <rect
+   style="fill:#ffffff;stroke:#00a859;stroke-width:13.88580036"
+   id="rect13"
+   height="356.983"
+   width="26.1451"
+   y="95"
+   x="79"
+   class="fil0 str0" />
+   </g>
+   <g
+   id="g21">
+    <path
+   style="fill:#2e996c;stroke:#00a859;stroke-width:13.88580036"
+   id="path17"
+   d="M 104,82 H 57 c -3,0 -5,2 -5,5 v 8 h 58 v -8 c 0,-3 -3,-5 -6,-5 z"
+   class="fil1 str0" />
+    <path
+   style="fill:#2e996c;stroke:#00a859;stroke-width:13.88580036"
+   id="path19"
+   d="m 430,82 h -47 c -3,0 -5,2 -5,5 v 8 h 57 v -8 c 0,-3 -2,-5 -5,-5 z"
+   class="fil1 str0" />
+   </g>
+   <circle
+   style="fill:#ffffff;stroke:#00a859;stroke-width:13.88580036"
+   id="circle23"
+   r="100"
+   cy="273"
+   cx="244"
+   class="fil0 str0" />
+   <polygon
+   style="fill:#00a859"
+   id="polygon25"
+   points="263,214 225,214 225,254 184,254 184,292 225,292 225,333 263,333 263,292 303,292 303,254 263,254 "
+   class="fil2" />
+  </g>
+ </g>
+ <g
+   transform="translate(-5.2267992,-3.0570998)"
+   id="Layer_x0020_1_0">
+  <metadata
+   id="CorelCorpID_1Corel-Layer" />
+ </g>
+</svg>

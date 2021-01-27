@@ -152,6 +152,7 @@ class SideMenu extends Component {
     };
     render() {
         const path = this.props.location.pathname;
+        console.log(path.split("/"));
         // const {
             //modul only
             // md_network,
@@ -199,46 +200,48 @@ class SideMenu extends Component {
                     </li>
                     {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
-                    <li className={"treeview" +(this.state.isPpob===true
-                        || path==='/ppob/pulsa-all-operator'
-                        || path==='/ppob/paket-data'
-                        || path==='/ppob/pulsa-sms-telpon'
-                        || path==='/ppob/pulsa-transfer'
-                        || path==='/ppob/e-toll'
-                        || path==='/ppob/voucher-wifiid'
-                        || path==='/ppob/e-money'
-                        || path==='/ppob/pembayaran-pln'
-                        || path==='/ppob/pembayaran-tv'
-                        || path==='/ppob/pembayaran-pdam'
-                        || path==='/ppob/pembayaran-telpon-kabel'
-                        || path==='/ppob/pembayaran-telpon-pascabayar'
-                        || path==='/ppob/pembayaran-bpjs'
-                        || path==='/ppob/pembayaran-asuransi'
-                        || path==='/ppob/pembayaran-multifinance'
-                        || path==='/ppob/pembayaran-kereta-api'
-                        || path==='/ppob/pembayaran-zakat'
-                        ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isPpob')}><i className="zmdi zmdi-receipt" /> <span>PPOB</span> <i className="fa fa-angle-right" /></a>
-                        <ul className={"treeview-menu"} style={{display:this.state.isPpob===true?"block":"none"}}>
-                            <li className={path==='/ppob/pulsa-all-operator'?"active":''}><Link to="/ppob/pulsa-all-operator" style={{width:'fit-content'}}> Pulsa All Operator</Link></li>
-                            <li className={path==='/ppob/paket-data'?"active":''}><Link to="/ppob/paket-data" style={{width:'fit-content'}}> Paket Data</Link></li>
-                            <li className={path==='/ppob/pulsa-sms-telpon'?"active":''}><Link to="/ppob/pulsa-sms-telpon" style={{width:'fit-content'}}> Pulsa Sms Telpon</Link></li>
-                            <li className={path==='/ppob/pulsa-transfer'?"active":''}><Link to="/ppob/pulsa-transfer" style={{width:'fit-content'}}> Pulsa Transfer</Link></li>
-                            <li className={path==='/ppob/e-toll'?"active":''}><Link to="/ppob/e-toll" style={{width:'fit-content'}}> E-Toll</Link></li>
-                            <li className={path==='/ppob/voucher-wifiid'?"active":''}><Link to="/ppob/voucher-wifiid" style={{width:'fit-content'}}> Voucher WIFI.ID</Link></li>
-                            <li className={path==='/ppob/e-money'?"active":''}><Link to="/ppob/e-money" style={{width:'fit-content'}}> E-Money</Link></li>
-                            <li className={path==='/ppob/pembayaran-pln'?"active":''}><Link to="/ppob/pembayaran-pln" style={{width:'fit-content'}}> Pembayaran PLN</Link></li>
-                            <li className={path==='/ppob/pembayaran-tv'?"active":''}><Link to="/ppob/pembayaran-tv" style={{width:'fit-content'}}> Pembayaran TV</Link></li>
-                            <li className={path==='/ppob/pembayaran-pdam'?"active":''}><Link to="/ppob/pembayaran-pdam" style={{width:'fit-content'}}> Pembayaran PDAM</Link></li>
-                            <li className={path==='/ppob/pembayaran-telpon-kabel'?"active":''}><Link to="/ppob/pembayaran-telpon-kabel" style={{width:'fit-content'}}> Pembayaran Telpon Kabel</Link></li>
-                            <li className={path==='/ppob/pembayaran-telpon-pascabayar'?"active":''}><Link to="/ppob/pembayaran-telpon-pascabayar" style={{width:'fit-content'}}> Pembayaran Telpon Pascabayar</Link></li>
-                            <li className={path==='/ppob/pembayaran-bpjs'?"active":''}><Link to="/ppob/pembayaran-bpjs" style={{width:'fit-content'}}> Pembayaran BPJS</Link></li>
-                            <li className={path==='/ppob/pembayaran-asuransi'?"active":''}><Link to="/ppob/pembayaran-asuransi" style={{width:'fit-content'}}> Pembayaran Asuransi</Link></li>
-                            <li className={path==='/ppob/pembayaran-multifinance'?"active":''}><Link to="/ppob/pembayaran-multifinance" style={{width:'fit-content'}}> Pembayaran Multifinance</Link></li>
-                            <li className={path==='/ppob/pembayaran-kereta-api'?"active":''}><Link to="/ppob/pembayaran-kereta-api" style={{width:'fit-content'}}> Pembayaran Kereta API</Link></li>
-                            <li className={path==='/ppob/pembayaran-zakat'?"active":''}><Link to="/ppob/pembayaran-zakat" style={{width:'fit-content'}}> Zakat</Link></li>
-                        </ul>
-                    </li>
+                    <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-receipt" /><span> PPOB</span></Link></li>
+
+                    {/*<li className={"treeview" +(this.state.isPpob===true*/}
+                        {/*|| path==='/ppob/pulsa-all-operator'*/}
+                        {/*|| path==='/ppob/paket-data'*/}
+                        {/*|| path==='/ppob/pulsa-sms-telpon'*/}
+                        {/*|| path==='/ppob/pulsa-transfer'*/}
+                        {/*|| path==='/ppob/e-toll'*/}
+                        {/*|| path==='/ppob/voucher-wifiid'*/}
+                        {/*|| path==='/ppob/e-money'*/}
+                        {/*|| path==='/ppob/pembayaran-pln'*/}
+                        {/*|| path==='/ppob/pembayaran-tv'*/}
+                        {/*|| path==='/ppob/pembayaran-pdam'*/}
+                        {/*|| path==='/ppob/pembayaran-telpon-kabel'*/}
+                        {/*|| path==='/ppob/pembayaran-telpon-pascabayar'*/}
+                        {/*|| path==='/ppob/pembayaran-bpjs'*/}
+                        {/*|| path==='/ppob/pembayaran-asuransi'*/}
+                        {/*|| path==='/ppob/pembayaran-multifinance'*/}
+                        {/*|| path==='/ppob/pembayaran-kereta-api'*/}
+                        {/*|| path==='/ppob/pembayaran-zakat'*/}
+                        {/*?" active menu-open" : "")}>*/}
+                        {/*<a href="!#" onClick={(e) => this.changeMenu(e,'isPpob')}><i className="zmdi zmdi-receipt" /> <span>PPOB</span> <i className="fa fa-angle-right" /></a>*/}
+                        {/*<ul className={"treeview-menu"} style={{display:this.state.isPpob===true?"block":"none"}}>*/}
+                            {/*<li className={path==='/ppob/pulsa-all-operator'?"active":''}><Link to="/ppob/pulsa-all-operator" style={{width:'fit-content'}}> Pulsa All Operator</Link></li>*/}
+                            {/*<li className={path==='/ppob/paket-data'?"active":''}><Link to="/ppob/paket-data" style={{width:'fit-content'}}> Paket Data</Link></li>*/}
+                            {/*<li className={path==='/ppob/pulsa-sms-telpon'?"active":''}><Link to="/ppob/pulsa-sms-telpon" style={{width:'fit-content'}}> Pulsa Sms Telpon</Link></li>*/}
+                            {/*<li className={path==='/ppob/pulsa-transfer'?"active":''}><Link to="/ppob/pulsa-transfer" style={{width:'fit-content'}}> Pulsa Transfer</Link></li>*/}
+                            {/*<li className={path==='/ppob/e-toll'?"active":''}><Link to="/ppob/e-toll" style={{width:'fit-content'}}> E-Toll</Link></li>*/}
+                            {/*<li className={path==='/ppob/voucher-wifiid'?"active":''}><Link to="/ppob/voucher-wifiid" style={{width:'fit-content'}}> Voucher WIFI.ID</Link></li>*/}
+                            {/*<li className={path==='/ppob/e-money'?"active":''}><Link to="/ppob/e-money" style={{width:'fit-content'}}> E-Money</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-pln'?"active":''}><Link to="/ppob/pembayaran-pln" style={{width:'fit-content'}}> Pembayaran PLN</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-tv'?"active":''}><Link to="/ppob/pembayaran-tv" style={{width:'fit-content'}}> Pembayaran TV</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-pdam'?"active":''}><Link to="/ppob/pembayaran-pdam" style={{width:'fit-content'}}> Pembayaran PDAM</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-telpon-kabel'?"active":''}><Link to="/ppob/pembayaran-telpon-kabel" style={{width:'fit-content'}}> Pembayaran Telpon Kabel</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-telpon-pascabayar'?"active":''}><Link to="/ppob/pembayaran-telpon-pascabayar" style={{width:'fit-content'}}> Pembayaran Telpon Pascabayar</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-bpjs'?"active":''}><Link to="/ppob/pembayaran-bpjs" style={{width:'fit-content'}}> Pembayaran BPJS</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-asuransi'?"active":''}><Link to="/ppob/pembayaran-asuransi" style={{width:'fit-content'}}> Pembayaran Asuransi</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-multifinance'?"active":''}><Link to="/ppob/pembayaran-multifinance" style={{width:'fit-content'}}> Pembayaran Multifinance</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-kereta-api'?"active":''}><Link to="/ppob/pembayaran-kereta-api" style={{width:'fit-content'}}> Pembayaran Kereta API</Link></li>*/}
+                            {/*<li className={path==='/ppob/pembayaran-zakat'?"active":''}><Link to="/ppob/pembayaran-zakat" style={{width:'fit-content'}}> Zakat</Link></li>*/}
+                        {/*</ul>*/}
+                    {/*</li>*/}
                     {/* PPOB MODUL END */}
                     {/* WALLET MODUL START */}
                     <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>

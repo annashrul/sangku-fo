@@ -13,17 +13,19 @@ class Home extends Component{
     }
 
     render(){
+        console.log('social_mediat',this.props.social_media);
         return(
             <section id="home">
                 <div className="overlay" />
-                <div className="home-content">        
+                <div className="home-content" style={{
+                    background:`url('${this.props.data===undefined?'':this.props.data.background}')`,backgroundPosition:'center',backgroundRepeat: 'no-repeat', backgroundSize:'cover'
+                }}>        
                     <div className="row contents">                     
                     <div className="home-content-left">
-                        <h3>Selamat datang di Sangqu</h3>
+                        <h3>Selamat datang di {this.props.title}</h3>
                         <h1>
-                        Sangqu <br />
-                        Tag line space <br />
-                        Here.
+                        {this.props.title} <br />
+                        <div dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.title }} />
                         </h1>
                         <HeadShake>
                             <div className="buttons">
@@ -40,23 +42,23 @@ class Home extends Component{
                     </div>
                     <div className="home-image-right">
                         <Flip left>
-                            <img src={Iphone} alt="sangqu" />
+                            <img src={this.props.data===undefined?'':this.props.data.image} alt="sangqu" />
                         </Flip>
                     </div>
                     </div>
                 </div> {/* end home-content */}
                 <ul className="home-social-list">
                     <li>
-                    <a href={() => false}><i className="fa fa-facebook-square" /></a>
+                    <a href={this.props.social_media===undefined?'':this.props.social_media.fb}><i className="fa fa-facebook-square" /></a>
                     </li>
                     <li>
-                    <a href={() => false}><i className="fa fa-twitter" /></a>
+                    <a href={this.props.social_media===undefined?'':this.props.social_media.tw}><i className="fa fa-twitter" /></a>
                     </li>
                     <li>
-                    <a href={() => false}><i className="fa fa-instagram" /></a>
+                    <a href={this.props.social_media===undefined?'':this.props.social_media.ig}><i className="fa fa-instagram" /></a>
                     </li>
                     <li>
-                    <a href={() => false}><i className="fa fa-youtube-play" /></a>
+                    <a href={this.props.social_media===undefined?'':this.props.social_media.yt}><i className="fa fa-youtube-play" /></a>
                     </li>
                 </ul>
                 {/* end home-social-list */}

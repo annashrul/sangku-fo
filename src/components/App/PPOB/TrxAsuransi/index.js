@@ -55,7 +55,7 @@ class TrxAsuransi extends Component{
     }
     render(){
         return (
-            <Layout page="Pembayaran Asuransi" subpage="PPOB">
+            <Layout page="Pembayaran Asuransi" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card mb-3">

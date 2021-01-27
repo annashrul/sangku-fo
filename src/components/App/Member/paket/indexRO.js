@@ -55,7 +55,7 @@ class IndexRO extends Component{
 
                 })
             }else{
-                this.props.dispatch(postCart(data,'a'));
+                this.props.dispatch(postCart(data,'b'));
             }
         }
 
@@ -72,6 +72,8 @@ class IndexRO extends Component{
     }
 
     render(){
+        console.log(localStorage.productType);
+
         const {
             data
         } = this.props.resPaket;

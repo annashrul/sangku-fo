@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Fade from 'react-reveal/Fade';
 import HeadShake from 'react-reveal/HeadShake';
+import Slider from "react-slick";
 
 
 class Testimoni extends Component{
@@ -12,6 +13,17 @@ class Testimoni extends Component{
     }
 
     render(){
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            autoplaySpeed: 2000,
+            arrows: false,
+
+        };
         return(
             <section id="testimonials">
                 <div className="row">
@@ -19,28 +31,38 @@ class Testimoni extends Component{
                     <h1 className="intro-header">Apa Kata Mereka.</h1>
                     </div>   		
                 </div>   	
-                <div className="row owl-wrap">
-                    <div id="testimonial-slider">
-                    <div className="slides owl-carousel">
-                        <Fade top>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus expedita quo illo eos reiciendis, fuga neque animi corporis eligendi vero tempore soluta quod quisquam et quibusdam temporibus iure? Quos, tenetur.
-                            </p> 
-                            <a href={() => false} className="button stroke"><i class="fa fa-play" aria-hidden="true"></i>&nbsp;</a>
-                        </Fade>
-                        <HeadShake>
-                            <div className="testimonial-author">
-                                <img src="http://192.168.100.10:3010/images/member/default.png" alt="sangqu" />
-                                <div className="author-info">
-                                Tatang
-                                <span className="position">Wiraswasta.</span>
-                                </div>
-                            </div>                 
-                        </HeadShake>
-                    </div> {/* end slides */}
-                    </div> {/* end testimonial-slider */}         
-                </div> {/* end flex-container */}
-            </section>
+                <Slider {...settings}>
+                    {
+                        this.props.data!==undefined?
+                            this.props.data.map((item,index)=>{
+                                return (
+                                    <div id="testimonial-slider" >
+                                        <div className = "row owl-wrap" >
+                                            <div className="owl-carousel" style={{minWidth: '901px'}}>
+                                                <Fade top>
+                                                    <p style={{paddingTop:'30px',paddingBottom:'20px'}}>
+                                                        {item.caption.replace(/<[^>]*>?/gm, '')}
+                                                    </p> 
+                                                    {item.video==='-'?'': <a href={item.video} className="button stroke"><i class="fa fa-play" aria-hidden="true"></i>&nbsp;</a>}
+                                                </Fade>
+                                                <HeadShake>
+                                                    <div className="testimonial-author">
+                                                        <img src={item.picture} alt={item.writer} />
+                                                        <div className="author-info">
+                                                        {item.writer}
+                                                        <span className="position">{item.jobs}</span>
+                                                        </div>
+                                                    </div>                 
+                                                </HeadShake>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        :''
+                    }
+                </Slider>
+        </section>
 
         );
     }

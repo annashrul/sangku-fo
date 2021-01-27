@@ -55,7 +55,7 @@ class TrxPdam extends Component{
     }
     render(){
         return (
-            <Layout page="Pembayaran PDAM" subpage="PPOB">
+            <Layout page="Pembayaran PDAM" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card mb-3">
