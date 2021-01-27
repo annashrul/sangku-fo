@@ -3,7 +3,7 @@
 import {ONGKIR} from "../../actions/_constants";
 
 const initialState = {
-    isLoading: true,
+    isLoading: false,
     isLoadingPost: false,
     isError: false,
     status: "",

@@ -67,7 +67,7 @@ class IndexRO extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("detailProduct"));
         this.setState({
-            detail:{id:id}
+            detail:{id:id,tipe:'ro'}
         })
     }
 
@@ -92,12 +92,6 @@ class IndexRO extends Component{
                                             <p className="text-justify">{v.deskripsi.length>180?v.deskripsi.substr(0,180)+' ...':v.deskripsi}</p>
                                         </div>
                                         <div className=" col-md-3 border-left mt-1">
-                                            <div className="d-flex flex-row align-items-center">
-                                                <h4 className="mr-1"><img style={{width:"30px"}} src={v.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product"/></h4><span style={{marginTop:"-5px"}} className="strike-text text-left">{v.kategori}</span>
-                                            </div>
-                                            <div className="d-flex flex-row align-items-center">
-                                                <p className="mr-1">Point Volume ( {v.point_volume} ) </p>
-                                            </div>
                                             <div className="d-flex flex-column">
                                                 <button className="btn btn-primary btn-sm" type="button" onClick={(event)=>this.handleDetail(event,v.id)}>Details</button>
                                                 <button className="btn btn-primary btn-sm mt-2" type="button"  onClick={(event)=>this.handleCart(event,i)}>
@@ -120,20 +114,26 @@ class IndexRO extends Component{
                                 container.push(
                                     <div className="col-md-12">
                                         <div className="row p-2 bg-white border rounded">
-                                            <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={noImage()} style={{width:"100%"}}/></div>
+                                            <div className="col-md-3 mt-1"><Skeleton width={'100%'} height={200}/></div>
                                             <div className="col-md-6 mt-1">
-                                                <h5 className={"text-primary"}><Skeleton height={15}/></h5>
-                                                <div className="d-flex flex-row align-items-center">
-                                                    <h4 className="mr-1" style={{color:"green"}}><Skeleton width={200} height={15}/></h4>
-                                                </div>
                                                 <p className="text-justify">
-                                                    <Skeleton width={400} height={15}/>
+                                                    <Skeleton width={700} height={15}/>
                                                     <br/>
                                                     <Skeleton width={300} height={15}/>
                                                     <br/>
                                                     <Skeleton width={200} height={15}/>
                                                     <br/>
                                                     <Skeleton width={300} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={700} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={200} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={700} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={300} height={15}/>
+                                                    <br/>
+                                                    <Skeleton width={200} height={15}/>
                                                 </p>
                                             </div>
                                         </div>

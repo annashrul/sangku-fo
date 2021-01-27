@@ -655,6 +655,8 @@ class MemberForm extends Component{
                                                                                 this.props.availPin.data.map((v,i)=>{
                                                                                     return(
                                                                                         <Tab key={i} className="w-100 p-4 text-center cursor-pointer mb-2 text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                                                            <br/>
                                                                                             <a href={() => false} className="font-24">{`${v.title}`}</a>
                                                                                             <br/>
                                                                                             <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>

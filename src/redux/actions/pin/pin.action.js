@@ -6,6 +6,9 @@ import {ModalToggle} from "redux/actions/modal.action";
 export function setLoading(load){
     return {type : PIN.LOADING,load}
 }
+export function setLoadingAvail(load){
+    return {type : PIN.LOADING_AVAILABLE,load}
+}
 
 export function setPin(data=[]){
     return {type:PIN.SUCCESS,data}
@@ -62,14 +65,14 @@ export const FetchDetailPin = (id)=>{
 }
 export const FetchAvailablePin = ()=>{
     return (dispatch) => {
-        dispatch(setLoading(true));
+        dispatch(setLoadingAvail(true));
         let url = 'transaction/pin_available';
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;
                 
                 dispatch(setAvailablePin(data));
-                dispatch(setLoading(false));
+                dispatch(setLoadingAvail(false));
             }).catch(function(error){
             
         })
