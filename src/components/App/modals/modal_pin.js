@@ -17,8 +17,8 @@ class ModalPin extends Component{
 
     componentWillMount(){
         setTimeout(function () {
-            const fcs=document.querySelector("input[data-testid='input']");
-            fcs.focus();
+            // const fcs=document.querySelector("input[data-testid='input']");
+            // fcs.focus();
         }.bind(this), 500)
     }
 
@@ -26,9 +26,8 @@ class ModalPin extends Component{
     toggle = (e) => {
         e.preventDefault();
         const bool = !this.props.isOpen;
-        this.props.dispatch(ModalToggle(true));
+        this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType(this.props.typePage));
-
     };
 
     render(){

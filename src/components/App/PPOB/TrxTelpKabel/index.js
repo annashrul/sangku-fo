@@ -55,7 +55,7 @@ class TrxTelpKabel extends Component{
     }
     render(){
         return (
-            <Layout page="Pembayaran Telpon Kabel" subpage="PPOB">
+            <Layout page="Pembayaran Telpon Kabel" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card mb-3">

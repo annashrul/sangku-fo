@@ -55,7 +55,7 @@ class TrxMultifinance extends Component{
     }
     render(){
         return (
-            <Layout page="Pembayaran Multifinance" subpage="PPOB">
+            <Layout page="Pembayaran Multifinance" subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card mb-3">

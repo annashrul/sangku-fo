@@ -101,7 +101,12 @@ class Layout extends Component {
                                                 {
                                                     this.props.page==='Dashboard' || this.props.page==='Invoice'?"":this.props.subpage!==undefined?
                                                         (
-                                                            <li><Link  to="#">{this.props.subpage}</Link></li>
+                                                            this.props.link!==undefined?(
+                                                                <li><Link  to={this.props.link}>{this.props.subpage}</Link></li>
+                                                            ):(
+                                                                <li>{this.props.subpage}</li>
+                                                            )
+
                                                         ):""
                                                 }
                                                 {

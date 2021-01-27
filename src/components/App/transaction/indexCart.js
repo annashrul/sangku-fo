@@ -22,9 +22,11 @@ class IndexCart extends Component{
         this.props.dispatch(getCart());
     }
     UNSAFE_componentWillReceiveProps(nextProps){
+
         let data=[];
         if(nextProps.resCart!==undefined){
             if(nextProps.resCart.length>0){
+                console.log("LENGTH CART",nextProps.resCart.length);
                 for(let i=0;i<nextProps.resCart.length;i++){
                     data.push({
                         berat: nextProps.resCart[i].berat,
@@ -84,9 +86,10 @@ class IndexCart extends Component{
     }
 
     render(){
-        if(this.state.res_cart.length===0){
-            localStorage.removeItem("productType");
-        }
+        // console.log(this.state.res_cart.length);
+        // if(this.state.res_cart.length===0){
+        //     localStorage.removeItem("productType");
+        // }
         let totalCart=0;
         return(
             <Layout page="Keranjang">

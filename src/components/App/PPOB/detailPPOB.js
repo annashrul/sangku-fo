@@ -1,0 +1,160 @@
+import React,{Component} from 'react'
+import Layout from 'components/Layout'
+import connect from "react-redux/es/connect/connect";
+import ModalPin from "../modals/modal_pin";
+import ModalSuccessScreenPPOB from "../modals/modal_success_screen_ppob";
+import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
+import {toCurrency} from "../../../helper";
+import {postCheckoutPPOB} from "../../../redux/actions/ppob/pulsa_all/pulsa_all.action";
+
+
+class DetailPPOB extends Component{
+    constructor(props){
+        super(props);
+        this.handleNext = this.handleNext.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.state= {
+            provider: '',
+            no_telp: '',
+            number: '',
+            isModal: false,
+            isReload:false,
+            code: 0,
+            retrievedObject: {}
+        }
+
+    }
+    componentWillMount(){
+        const rtr = localStorage.getItem('dataPPOB');
+        let retrievedObject = JSON.parse(rtr);
+        this.setState({
+            retrievedObject:retrievedObject
+        });
+
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log(localStorage.dataPPOB);
+        if(localStorage.dataPPOB===undefined){
+            this.props.dispatch(ModalType("modalSuccessScreenPPOB"));
+        }
+    }
+
+    handleNext(){
+        this.setState({
+            isModal:true,
+            isReload:false
+        });
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("modalPin"));
+        // this.props.dispatch(ModalType("modalPin"));
+    }
+    handleSave(num){
+        this.setState({
+            code:num
+        });
+        const {retrievedObject}=this.state;
+        let data={
+            "code":retrievedObject.kode,
+            "nohp":retrievedObject.nomor,
+            "mtr_pln":"-",
+            "pin":num
+        }
+        if(num.length===6){
+            this.props.dispatch(postCheckoutPPOB(data));
+            console.log(this.props.isError);
+        }
+    }
+
+    render(){
+        const path = this.props.location.pathname;
+        const {retrievedObject}=this.state;
+        return (
+            <Layout page={`Checkout ${path.split("/")[3].replaceAll('-',' ')}`} subpage="PPOB" link={"/ppob"}>
+                <div className="row" style={{backgroundColor:"white",padding:"20px"}}>
+                    <div className="col-md-8">
+                        <table className={"table"}>
+                            <thead>
+                            <tr>
+                                <th style={{border:"none",paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Jenis Layanan</h5></th>
+                                <th style={{border:"none"}}><h5 style={{color:"grey"}}>:</h5></th>
+                                <th style={{border:"none"}}><h5>{retrievedObject.layanan}</h5></th>
+                            </tr>
+                            <tr>
+                                <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Nomor</h5></th>
+                                <th><h5 style={{color:"grey"}}>:</h5></th>
+                                <th><h5>{retrievedObject.nomor}</h5></th>
+                            </tr>
+                            <tr>
+                                <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Harga</h5></th>
+                                <th><h5 style={{color:"grey"}}>:</h5></th>
+                                <th><h5>Rp {toCurrency(retrievedObject.harga)} .-</h5></th>
+                            </tr>
+                            <tr>
+                                <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Kode</h5></th>
+                                <th><h5 style={{color:"grey"}}>:</h5></th>
+                                <th><h5>{retrievedObject.kode}</h5></th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                    <div className="col-md-4">
+                        <div className="card ">
+                            <div className="card-body ">
+                                <h5>Ringkasan Pembayaran</h5>
+                                <table className={"table"}>
+                                    <thead>
+                                    <tr>
+                                        <th style={{border:"none",paddingLeft:"0"}}><h6>Metode Pembayaran</h6></th>
+                                        <th style={{border:"none"}}><h6 style={{float:"right"}}>Saldo</h6></th>
+                                    </tr>
+                                    <tr>
+                                        <th style={{border:"none",paddingLeft:"0"}}><h6>Subtotal Tagihan</h6></th>
+                                        <th style={{border:"none"}}><h6 style={{float:"right"}}>Rp {toCurrency(retrievedObject.harga)} .-</h6></th>
+                                    </tr>
+
+                                    </thead>
+
+                                </table>
+                                <hr/>
+                                <table className={"table"}>
+                                    <thead>
+                                    <tr>
+                                        <th style={{border:"none",paddingLeft:"0"}}><h6>Total Tagihan</h6></th>
+                                        <th style={{border:"none"}}><h4 style={{float:"right",color:"green"}}>Rp {toCurrency(retrievedObject.harga)} .-</h4></th>
+                                    </tr>
+
+                                    </thead>
+
+                                </table>
+                                <button className={"btn btn-primary btn-block"} onClick={event => this.handleNext()}>Bayar</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                {
+                    this.props.isOpen?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={''}/>:null
+                }
+                {
+                    <ModalSuccessScreenPPOB page={'/ppob'}/>
+                }
+
+            </Layout>
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        isOpen: state.modalReducer,
+        type: state.modalTypeReducer,
+        auth:state.auth,
+        isError:state.pulsa_allReducer.isError,
+        isLoadingPost:state.pulsa_allReducer.isLoadingPost,
+    }
+}
+export default connect(mapStateToProps)(DetailPPOB);

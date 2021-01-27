@@ -287,7 +287,7 @@ class PembelianReport extends Component{
         console.log("this.props.pembelianCekResi!==null",this.props.pembelianCekResi!==null)
         console.log("Object.keys(this.props.pembelianCekResi).length",Object.keys(this.props.pembelianCekResi).length)
         return (
-            <Layout page="Pembelian" subpage="Laporan">
+            <Layout page="Pembelian" subpage="Laporan" >
                 <div className="col-12 box-margin">
                     <div className="card">
                         <div className="card-body">

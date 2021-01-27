@@ -234,9 +234,9 @@ class Header extends Component {
                 }
                 <li className="nav-item dropdown" style={{listStyleType:'none'}}>
                     <UncontrolledButtonDropdown >
-                                <DropdownToggle className="nohover">
-                                    <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
-                                </DropdownToggle>
+                            <DropdownToggle className="nohover">
+                                <img src={this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}}  alt=""/>
+                            </DropdownToggle>
                             <DropdownMenu right>
                                 <div className="user-profile-area">
                                     <div className="user-profile-heading">

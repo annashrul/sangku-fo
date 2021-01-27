@@ -18,8 +18,11 @@ class IndexRedeem extends Component{
         super(props);
         this.state={
             detail:{},
+            descLength:200,
+            id:""
         }
         this.handleDetail = this.handleDetail.bind(this);
+        this.handleChangeLength = this.handleChangeLength.bind(this);
     }
 
     componentWillMount(){
@@ -34,6 +37,13 @@ class IndexRedeem extends Component{
             detail:{id:this.props.data.data[i].id}
         })
     }
+    handleChangeLength(i){
+        // this.props.data.data[i].deskripsi.length
+        this.setState({
+            id:this.props.data.data[i].id
+        });
+
+    }
     render(){
         const {
             per_page,
@@ -42,6 +52,7 @@ class IndexRedeem extends Component{
             data,
             saldo
         } = this.props.data;
+        const {descLength,id} = this.state;
         return(
             <Layout page="Redeem">
                 <Card>
@@ -81,6 +92,19 @@ class IndexRedeem extends Component{
                                                         btnTxt='REDEEM';
                                                         isDisable=false;
                                                     }
+                                                    let desc='';
+                                                    let det;
+                                                    if(v.deskripsi.length>descLength){
+                                                        desc=`${v.deskripsi.substr(0,descLength)} ..`;
+                                                        det= <small style={{cursor:"pointer",color:'green'}} onClick={event => this.handleChangeLength(i)}>selengkapnya</small>;
+                                                    }
+                                                    else{
+                                                        desc=v.deskripsi;
+
+                                                    }
+                                                    if(id===v.id){
+                                                        desc=v.deskripsi;det='';
+                                                    }
                                                     return(
                                                         <article key={i}>
                                                             <div className="box-margin">
@@ -95,7 +119,7 @@ class IndexRedeem extends Component{
                                                                         <br/>
                                                                         <h5 className={"text-center"} style={{border:'2px dashed green',padding:"10px",color:"green"}}><b>{toCurrency(v.harga)} POIN</b></h5>
                                                                         <p>stock barang {v.stock}</p>
-                                                                        <p>{v.deskripsi}</p>
+                                                                        <p>{desc} {det}</p>
                                                                         <button onClick={event => this.handleDetail(i)} disabled={isDisable} className={`btn btn-${btn} btn-block`}>{btnTxt}</button>
                                                                     </div>
                                                                 </div>

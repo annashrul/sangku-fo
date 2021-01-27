@@ -17,7 +17,8 @@ import Preloader from "../../../Preloader";
 import {isLoading} from "../../../redux/actions/isLoading.actions";
 import {NOTIF_ALERT} from "../../../redux/actions/_constants";
 import StickyBox from "react-sticky-box/dist/esnext/index";
-
+import ModalPin from "../modals/modal_pin";
+import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 class IndexCheckout extends Component{
     constructor(props){
         super(props);
@@ -39,6 +40,7 @@ class IndexCheckout extends Component{
             dataBank:[],
             isAlamat:false,
             isLoadingLayanan:false,
+            code:0
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChecked = this.handleChecked.bind(this);
@@ -47,6 +49,7 @@ class IndexCheckout extends Component{
         this.handleChangeKurir = this.handleChangeKurir.bind(this);
         this.handleChangeLayanan = this.handleChangeLayanan.bind(this);
         this.handleChangeBank = this.handleChangeBank.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
     componentWillMount(){
         if(parseInt(localStorage.totCart,10)<1){
@@ -242,15 +245,6 @@ class IndexCheckout extends Component{
     }
     handleSubmit(e){
         e.preventDefault();
-        let data={
-            "ongkir"                : this.state.totOngkir,
-            "layanan_pengiriman"    : `${this.state.kurir}|${this.state.layanan}`,
-            "type"                  : localStorage.productType==='a'?0:1,
-            "alamat"                : this.state.valAlamat.id,
-            "metode_pembayaran"     : this.state.metode_pembayaran,
-            "id_bank_destination"   : this.state.idBank
-        };
-        console.log(data);
         Swal.fire({
             title   : 'Perhatian !!!',
             html    :`Apakah anda yakin akan melanjutkan proses transaksi ??`,
@@ -262,11 +256,30 @@ class IndexCheckout extends Component{
             cancelButtonText    : 'Batal',
         }).then((result) => {
             if (result.value) {
-                this.props.dispatch(postCheckout(data));
+                const bool = !this.props.isOpen;
+                this.props.dispatch(ModalToggle(bool));
+                this.props.dispatch(ModalType("modalPin"));
+                // this.props.dispatch(postCheckout(data));
             }
         })
+    }
+    handleSave(num){
+        this.setState({
+            code:num
+        });
+        let data={
+            "ongkir"                : this.state.totOngkir,
+            "layanan_pengiriman"    : `${this.state.kurir}|${this.state.layanan}`,
+            // "type"                  : localStorage.productType==='a'?0:1,
+            "alamat"                : this.state.valAlamat.id,
+            "metode_pembayaran"     : this.state.metode_pembayaran,
+            "id_bank_destination"   : this.state.idBank,
+            pin_member:num
+        };
+        if(num.length===6){
+            this.props.dispatch(postCheckout(data));
 
-
+        }
     }
 
     render(){
@@ -464,6 +477,7 @@ class IndexCheckout extends Component{
 
                     </CardBody>
                 </Card>
+                <ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={''}/>
             </Layout>
         );
     }
@@ -484,6 +498,8 @@ const mapStateToProps = (state) => {
         resKurir:state.kurirReducer.data,
         resOngkir:state.ongkirReducer.data,
         resBank:state.bankReducer.data,
+        isOpen: state.modalReducer,
+        type: state.modalTypeReducer,
     }
 }
 export default connect(mapStateToProps)(IndexCheckout);

@@ -10,10 +10,11 @@ import {toRp} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 import Select, { components } from "react-select";
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
+import {Link} from "react-router-dom";
 
 const options = [
-  { value: "AXIS", label: "AXIS", icon: "https://tripay.co.id/assets/images/provider/axis.png" },
-  { value: "INDOSAT", label: "INDOSAT", icon: "https://tripay.co.id/assets/images/provider/indosat.png" }
+  { code:"6283",value: "AXIS", label: "AXIS", icon: "https://tripay.co.id/assets/images/provider/axis.png" },
+  { code:"62857",value: "INDOSAT", label: "INDOSAT", icon: "https://tripay.co.id/assets/images/provider/indosat.png" }
 ];
 
 const { Option } = components;
@@ -38,23 +39,74 @@ class PulsaAll extends Component{
             number:'',
         }
     }
+
+    setNo(no){
+        if(no!==undefined){
+            console.log("1",no.replace(/^0+/, ''));
+            console.log("2",no.replace(/[^A-Z0-9]/ig, ""));
+        }
+            // this.setPhone(no.replace(/^0+/, ''), no.replace(/[^A-Z0-9]/ig, ""))
+            // this.setPhone()
+    }
+
+    componentWillMount(){
+        console.log("componentWillMount",this.props.auth.user.mobile_no);
+        this.setNo(this.props.auth.user.mobile_no)
+    }
+    componentDidMount(){
+        console.log("componentDidMount",this.props.auth.user.mobile_no);
+        this.setNo(this.props.auth.user.mobile_no)
+
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log("componentWillReceiveProps",nextProps.auth.user.mobile_no);
+        this.setNo(nextProps.auth.user.mobile_no)
+
+    }
+
     handleChange(event){
         this.setState({ [event.target.name]: event.target.value });
     }
 
+
     HandleChangeProvider(pr) {
         console.log("provider",pr)
-        this.setState({provider:pr})
-        this.props.dispatch(FetchPulsaAll('provider',pr.value))
+        if(pr===null){
+            this.setState({provider:""})
+        }else{
+            this.setState({provider:pr})
+        }
+        // this.props.dispatch(FetchPulsaAll('provider',pr.value))
     }
     setPhone(num, number) {
         this.setState({
             no_telp:number,
             number:num
-        })
+        });
+        let prov=null;
         if(number.length>=4){
-            this.props.dispatch(FetchPulsaAll('nohp',number))
+            options.forEach((v,i)=>{
+                if(v.code===number.substr(0,5)||v.code===number.substr(0,4)){
+                    prov=v;
+                    return;
+                }
+            });
+            this.HandleChangeProvider(prov);
+            if(prov!==null)
+                this.props.dispatch(FetchPulsaAll('nohp',number))
         }
+    }
+    handleNext(i){
+        let data={
+            layanan:`${this.props.pulsa_allPulsaAll.data[i].provider} - ${this.props.pulsa_allPulsaAll.data[i].note}`,
+            nomor:this.state.no_telp,
+            harga:this.props.pulsa_allPulsaAll.data[i].price,
+            kode:this.props.pulsa_allPulsaAll.data[i].code
+        }
+        localStorage.setItem('dataPPOB', JSON.stringify(data));
+
+        // ;
     }
     render(){
         const {
@@ -63,8 +115,9 @@ class PulsaAll extends Component{
             // current_page,
             data
         } = this.props.pulsa_allPulsaAll;
+        console.log("STATE",this.state.no_telp);
         return (
-            <Layout page="Pulsa All Operator" subpage="PPOB">
+            <Layout page={`Pulsa All Operator`} subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card mb-3">
@@ -81,6 +134,8 @@ class PulsaAll extends Component{
                                                         containerClassName="intl-tel-input"
                                                         inputClassName="form-control"
                                                         onPhoneNumberChange={(status, value, countryData, number, id) => {
+                                                            console.log("VALUE",value.replace(/^0+/, ''));
+                                                            console.log("NUMBER",number.replace(/[^A-Z0-9]/ig, ""));
                                                             this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
                                                         }}
                                                         separateDialCode={true}
@@ -114,15 +169,15 @@ class PulsaAll extends Component{
                                 <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
                                     <Masonry>
                                         {
-                                            !this.props.isLoading?(
+                                            this.state.provider!==''?!this.props.isLoading?(
                                                 (
                                                     typeof data === 'object' ? data.length>0?
                                                         data.map((v,i)=>{
                                                             return(
-                                                                <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
+                                                                <div key={i} className="card widget-new-content p-3 mr-2 mb-2 bg-white">
                                                                     <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
                                                                         <div className="widget---content-text">
-                                                                        <h6 className="text-mute">Nama</h6>
+                                                                        <h6 className="text-mute">{v.provider}</h6>
                                                                         <p className="mb-0">{v.note}</p>
                                                                         </div>
                                                                         <h6 className="mb-0 text-success">Rp. {toRp(v.price)}</h6>
@@ -134,7 +189,9 @@ class PulsaAll extends Component{
                                                                             </div>
                                                                         </div>
                                                                         <div className="col-md-4">
-                                                                            <button type="button" className="btn btn-primary btn-block">BELI</button>
+                                                                            <Link to={`/ppob/checkout/Pulsa-All-Operator`}>
+                                                                                <button type="button" className="btn btn-primary btn-block" onClick={event => this.handleNext(i)}>BELI</button>
+                                                                            </Link>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -146,7 +203,7 @@ class PulsaAll extends Component{
                                                     const rows = [];
                                                     for (let i = 0; i < 9; i++) {
                                                         rows.push(
-                                                            <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
+                                                            <div key={i} className="card widget-new-content p-3 mr-2 mb-2 bg-white">
                                                                 <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
                                                                     <div className="widget---content-text">
                                                                         <Skeleton width={140} height={20}/><br/>
@@ -168,7 +225,7 @@ class PulsaAll extends Component{
                                                         );
                                                     }
                                                     return rows;
-                                                })()
+                                                })():"no data"
                                         }
                                     </Masonry>
                                 </ResponsiveMasonry>
@@ -182,7 +239,6 @@ class PulsaAll extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.pulsa_allReducer",state.pulsa_allReducer)
     return {
         auth:state.auth,
         pulsa_allPulsaAll:state.pulsa_allReducer.data,
