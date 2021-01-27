@@ -48,11 +48,14 @@ import TrxKai from '../App/PPOB/TrxKai';
 import TrxZakat from '../App/PPOB/TrxZakat';
 import indexProfile from '../App/Member/Profile/indexProfile';
 import Rekapitulasi from '../App/Member/Rekapitulasi';
+import PagesSpace from '../App/Landing/pages';
 
 const Routes = (
     <div>
         <Switch>
             <Route path="/" exact strict component={Landing} />
+            <Route path="/privacy-policy" exact strict component={PagesSpace} />
+            <Route path="/terms-and-condition" exact strict component={PagesSpace} />
             <Route path="/login" exact strict component={Login} />
             <Route path="/signup" exact strict component={Signup} />
             <Route path="/profile" exact strict component={indexProfile} />

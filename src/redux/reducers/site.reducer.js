@@ -5,7 +5,7 @@ import {
 const initialState = {
     isLoading: false,
     data: [],
-    data_list: [],
+    datum: [],
     data_folder: [],
     data_tables: [],
     msg:"",
@@ -20,39 +20,15 @@ export const siteReducer = (state = initialState, action) => {
     switch (action.type) {
         case SITE.SUCCESS:
             return Object.assign({}, state,{
-                data: action.data
-            });
-        case SITE.SUCCESS_LIST:
-            return Object.assign({}, state,{
-                data_list: action.data.result
-            });
-        case SITE.SUCCESS_FOLDER:
-            return Object.assign({}, state,{
-                data_folder: action.data.result
-            });
-        case SITE.SUCCESS_TABLES:
-            return Object.assign({}, state,{
-                data_tables: action.data.result
-            });
-        case SITE.DOWNLOAD_TXT:
-            return Object.assign({}, state,{
-                get_link: action.data.result
-            });
-        case SITE.SUCCESS_CHECK:
-            return Object.assign({}, state, {
-                check:action.data.result===0?false:true
-            });
-        case SITE.TRIGGER_ECAPS:
-            return Object.assign({}, state, {
-                triggerEcaps: action.data
-            });
-        case SITE.TRIGGER_MOBILE_ECAPS:
-            return Object.assign({}, state, {
-                triggerMobileEcaps: action.data
+                data: action.data.result
             });
         case SITE.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case SITE.SUCCESS_LIST:
+            return Object.assign({}, state,{
+                datum: action.data.result
             });
         default:
             return state

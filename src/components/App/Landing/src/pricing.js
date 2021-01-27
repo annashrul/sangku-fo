@@ -11,14 +11,14 @@ class Pricing extends Component{
     }
 
     render(){
+        const paket = this.props.data === undefined ? '' : this.props.data.data;
         return(
             <section id="pricing">
                 <div className="row pricing-content">
                     <div className="col-four pricing-intro">
                     <Fade top>
-                        <h1 className="intro-header" data-aos="fade-up">Beragam Pilihan Paket</h1>
-                        <p data-aos="fade-up">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus fuga minima, unde quos quasi sint modi labore placeat facilis vel iste, hic accusamus id corporis vitae voluptate doloremque, harum perferendis!
+                        <h1 className="intro-header" data-aos="fade-up">{this.props.data===undefined?'':this.props.data.title}</h1>
+                        <p data-aos="fade-up" dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.deskripsi }}>
                         </p>
                     </Fade>
                     </div>
@@ -30,27 +30,22 @@ class Pricing extends Component{
                             <div className="table-default table2 blue">
                                 {/* BEGIN TABLE HEADER */}
                                 <div className="table__header">
-                                {/* <h2 className="table__header--title">Silver</h2> */}
-                                <img className="table__header--icon" src="http://ptnetindo.com:6694/badge/silver.png" alt="Basic Icon" />
+                                <h2 className="table__header--title">{paket[0]===undefined?'':paket[0].title!=='-'?paket[0].title:''}</h2>
+                                <img className="table__header--icon" src={paket[0]===undefined?'':paket[0].image} alt={paket[0]===undefined?'':paket[0].title} />
                                 <p data-price={120} className="table__header--price">
-                                    Rp 150.000
+                                   {paket[0]===undefined?'':paket[0].price}
                                 </p>
                                 </div>
                                 {/* END TABLE HEADER */}
                                 <div className="table__content">
                                 {/* BEGIN TABLE LIST */}
-                                <ul className="table__content--list">
-                                    <li>Limited Times Marketing</li>
-                                    <li>500 Anylytics Campaings</li>
-                                    <li>250,000 crawled Page</li>
-                                    <li className="muted">Unlimited Updates</li>
-                                    <li className="muted">Free Website Design</li>
+                                <ul className="table__content--list" dangerouslySetInnerHTML={{ __html: paket[0]===undefined?'':paket[0].deskripsi }}>
                                 </ul>
                                 {/* END TABLE LIST */}
                                 </div>
                                 {/* BEGIN TABLE FOOTER */}
                                 <div className="table__footer">
-                                <a href={() => false} className="button">Get Started</a>
+                                <a href={paket[0]===undefined?'':paket[0].link} className="button">Get Started</a>
                                 </div>
                                 {/* END TABLE FOOTER */}
                             </div>
@@ -61,27 +56,22 @@ class Pricing extends Component{
                             <div className="table-default table2 recommended cyan" >
                                 {/* BEGIN TABLE HEADER */}
                                 <div className="table__header">
-                                {/* <h2 className="table__header--title">Gold</h2> */}
-                                <img className="table__header--icon" src="http://ptnetindo.com:6694/badge/gold.png" alt="Standard Icon" />
+                                <h2 className="table__header--title">{paket[1]===undefined?'':paket[1].title!=='-'?paket[1].title:''}</h2>
+                                <img className="table__header--icon" src={paket[1]===undefined?'':paket[1].image} alt={paket[1]===undefined?'':paket[1].title} />
                                 <p data-price={250} className="table__header--price">
-                                    Rp 350.000
+                                    {paket[1]===undefined?'':paket[1].price}
                                 </p>
                                 </div>
                                 {/* END TABLE HEADER */}
                                 <div className="table__content">
                                 {/* BEGIN TABLE LIST */}
-                                <ul className="table__content--list">
-                                    <li>Limited Times Marketing</li>
-                                    <li>500 Anylytics Campaings</li>
-                                    <li>250,000 crawled Page</li>
-                                    <li>Unlimited Updates</li>
-                                    <li className="muted">Free Website Design</li>
+                                <ul className="table__content--list" dangerouslySetInnerHTML={{ __html: paket[1]===undefined?'':paket[1].deskripsi }}>
                                 </ul>
                                 {/* END TABLE LIST */}
                                 </div>
                                 {/* BEGIN TABLE FOOTER */}
                                 <div className="table__footer">
-                                <a href={() => false} className="button">Get Started</a>
+                                <a href={paket[1]===undefined?'':paket[1].link} className="button">Get Started</a>
                                 </div>
                                 {/* END TABLE FOOTER */}
                             </div>
@@ -92,27 +82,22 @@ class Pricing extends Component{
                             <div className="table-default table2 yellow">
                                 {/* BEGIN TABLE HEADER */}
                                 <div className="table__header">
-                                {/* <h2 className="table__header--title">Platinum</h2> */}
-                                <img className="table__header--icon" src="http://ptnetindo.com:6694/badge/platinum.png" alt="Premium Icon" />
+                                <h2 className="table__header--title">{paket[2]===undefined?'': paket[2].title!=='-'?paket[2].title:''}</h2>
+                                <img className="table__header--icon" src={paket[2]===undefined?'':paket[2].image} alt={paket[2]===undefined?'':paket[2].title} />
                                 <p data-price={520} className="table__header--price">
-                                    Rp 550.000
+                                    {paket[2]===undefined?'':paket[2].price}
                                 </p>
                                 </div>
                                 {/* END TABLE HEADER */}
                                 <div className="table__content">
                                 {/* BEGIN TABLE LIST */}
-                                <ul className="table__content--list">
-                                    <li>Limited Times Marketing</li>
-                                    <li>500 Anylytics Campaings</li>
-                                    <li>250,000 crawled Page</li>
-                                    <li>Unlimited Updates</li>
-                                    <li>Free Website Design</li>
+                                <ul className="table__content--list" dangerouslySetInnerHTML={{ __html: paket[2]===undefined?'':paket[2].deskripsi }}>
                                 </ul>
                                 {/* END TABLE LIST */}
                                 </div>
                                 {/* BEGIN TABLE FOOTER */}
                                 <div className="table__footer">
-                                <a href={() => false} className="button">Get Started</a>
+                                <a href={paket[2]===undefined?'':paket[2].link} className="button">Get Started</a>
                                 </div>
                                 {/* END TABLE FOOTER */}
                             </div>

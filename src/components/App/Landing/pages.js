@@ -1,12 +1,9 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
 import Header from './src/header'
-import Home from './src/home'
-import About from './src/about'
-import Pricing from './src/pricing'
-import Testi from './src/testi'
-import Download from './src/download'
 import Footer from './src/footer'
+import Upper from './src/home-page'
+import Content from './src/content-page'
 // import { Helmet } from "react-helmet";
 import {HEADERS} from 'redux/actions/_constants'
 import {FetchSite} from 'redux/actions/site.action'
@@ -78,9 +75,7 @@ class Landing extends Component{
     }
 
     render(){
-        console.log("=====================================");
-        console.log(this.props.sites);
-
+        let page = window.location.pathname;
         return(
             <div>
                 {/* <Helmet link={[
@@ -94,7 +89,7 @@ class Landing extends Component{
                 ]}
                 /> */}
            {
-               this.props.isloading? (
+               this.props.isloading ? (
                 <Preloader/>
             ):(
                 <div>
@@ -103,26 +98,15 @@ class Landing extends Component{
                         logo={this.props.sites.logo}
                         title={this.props.sites.title}
                     />
-                    <Home
-                        title={this.props.sites.title}
+                    <Upper
                         data={this.props.sites.header}
-                        social_media = {
-                            this.props.sites.social_media
+                        site_title={this.props.sites.title}
+                        title = {
+                            page === '/privacy-policy' ? (this.props.sites.privacy === undefined ? '' : this.props.sites.privacy.title) : (this.props.sites.terms === undefined ? '' : this.props.sites.terms.title)
                         }
-
                     />
-                    <About
-                        data={this.props.sites.about}
-                        howto={this.props.sites.howto}
-                    />
-                    <Pricing
-                        data={this.props.sites.paket}
-                    />
-                    <Testi
-                        data={this.props.sites.testimoni}
-                    />
-                    <Download
-                        data={this.props.sites.download}
+                    <Content
+                        data={page === '/privacy-policy' ? (this.props.sites.privacy === undefined ? '' : this.props.sites.privacy.deskripsi) : (this.props.sites.terms === undefined ? '' : this.props.sites.terms.deskripsi)}
                     />
                     <Footer
                         logo={this.props.sites.logo}
