@@ -15067,3 +15067,149 @@ input[data-testid=input] {
       content: '\25BC';
       font-size: 9px;
 }
+
+.heading-footer {
+  height: 175px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 0px;
+  border-radius: 0px;
+}
+.panel-team-profile-img{
+  text-align: center;
+  max-width: 250px;
+  margin-top: -140px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  border-radius: 0%;
+}
+.panel-team-profile-img .apexcharts-legend-text {
+  color: white !important;
+  font-weight: 800;
+}
+.panel-profile-img {
+  text-align: center;
+  max-width: 250px;
+  margin-top: -95px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  border-radius: 0%;
+}
+
+.panel-profile-img h1 {
+  color: white;
+  font-size: 2em;
+  font-weight: 800;
+}
+
+.panel-profile-img h1 small {
+  font-size: .7em;
+  color: white;
+  font-weight: 600;
+}
+
+.heading-footer h6 {
+  font-size: .8em;
+  color: white;
+  font-weight: 600;
+}
+
+.content-widget-dashboard {
+  padding: 10px 25px
+}
+
+.saldo-aktif-title {
+  background: white;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, .125);
+  padding: 10px;
+  font-size: .9em;
+  margin-top: -13px;
+}
+
+.saldo-aktif-title h1 {
+  font-size: 1em;
+  margin: 0;
+  font-weight: 800;
+}
+
+li {
+  list-style: none;
+}
+
+.positions {
+  display: inline-block;
+  width: 100%;
+  padding-left: 0px;
+  transition: all 0.3s ease-in-out;
+  -webkit-animation: fade .3s 1;
+  animation: fade .3s 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.positions.fadeOut {
+  display: none;
+  -webkit-animation: fadeOut .4s 1;
+  animation: fadeOut .4s 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.positions ul {
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.positions .pos-card {
+  padding-top: 15px;
+  border-bottom: 1px solid #eee;
+  flex-basis: 100%;
+  transition: all 0.4s ease-in-out;
+}
+
+.positions .pos-card:last-child {
+  border-bottom: 0 none;
+}
+
+.positions .content {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.positions .title {
+  display: flex !important;
+  justify-content: flex-start;
+}
+
+.positions .content-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.positions .title h1 {
+  font-size: .9em;
+  text-align: left;
+}
+
+.positions .title h6 {
+  margin-top: -6px;
+  font-size: .6em;
+  color: gray;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.positions .amount {
+  font-weight: 500;
+}
+
+.title-widget-team{
+  font-size:.75em !important
+}
