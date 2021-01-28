@@ -101,7 +101,7 @@ class SideMenu extends Component {
             this.setState({
                 isStokist:true,
             })
-        } else if (path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem') {
+        } else if (path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem'||path==='/report/pembelian') {
                 this.setState({
                     isOrder: true,
                 })
@@ -190,12 +190,13 @@ class SideMenu extends Component {
                     {/* NETWORK MODUL END */}
                     {/* ORDER MODUL START */}
                     <li className={"treeview" +(this.state.isOrder===true
-                        || path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem'
+                        || path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem' ||path==='/report/pembelian'
                         ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isOrder')}><i className="zmdi zmdi-receipt" /> <span>Order</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isOrder===true?"block":"none"}}>
                             <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order Paket</span></Link></li>
                             <li  className={path==='/redeem'?"active":''}><Link to="/redeem"> <i className="fa fa-dashboard" /><span> Redeem Poin RO</span></Link></li>
+                            <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}><i className="fa fa-dashboard" /> <span>Riwayat Pembelian</span></Link></li>
                         </ul>
                     </li>
                     {/* ORDER MODUL END */}
@@ -268,7 +269,7 @@ class SideMenu extends Component {
                     <li className={"treeview" +(this.state.isReport===true || path==='/report/pembelian' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
-                            <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}> Pembelian</Link></li>
+
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
                             <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                         </ul>

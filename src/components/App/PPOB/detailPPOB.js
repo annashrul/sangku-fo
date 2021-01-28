@@ -6,6 +6,7 @@ import ModalSuccessScreenPPOB from "../modals/modal_success_screen_ppob";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import {toCurrency} from "../../../helper";
 import {postCheckoutPPOB} from "../../../redux/actions/ppob/pulsa_all/pulsa_all.action";
+import * as Swal from "sweetalert2";
 
 
 class DetailPPOB extends Component{
@@ -17,13 +18,11 @@ class DetailPPOB extends Component{
             provider: '',
             no_telp: '',
             number: '',
-            isModal: false,
-            isReload:false,
             code: 0,
             retrievedObject: {}
         }
-
     }
+
     componentWillMount(){
         const rtr = localStorage.getItem('dataPPOB');
         let retrievedObject = JSON.parse(rtr);
@@ -36,19 +35,20 @@ class DetailPPOB extends Component{
     componentWillReceiveProps(nextProps){
         console.log(localStorage.dataPPOB);
         if(localStorage.dataPPOB===undefined){
-            this.props.dispatch(ModalType("modalSuccessScreenPPOB"));
+            Swal.fire({
+                title: '<strong>TRANSAKSI BERHASIL !!!!!!!</strong>',
+                icon: 'success',
+                html:"terimakasi telah bertransaksi disini .....",
+            }).then((result) => {
+                this.props.history.push({pathname: '/ppob'});
+            })
         }
     }
 
     handleNext(){
-        this.setState({
-            isModal:true,
-            isReload:false
-        });
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("modalPin"));
-        // this.props.dispatch(ModalType("modalPin"));
     }
     handleSave(num){
         this.setState({
@@ -63,8 +63,8 @@ class DetailPPOB extends Component{
         }
         if(num.length===6){
             this.props.dispatch(postCheckoutPPOB(data));
-            console.log(this.props.isError);
         }
+
     }
 
     render(){
@@ -107,11 +107,11 @@ class DetailPPOB extends Component{
                                 <table className={"table"}>
                                     <thead>
                                     <tr>
-                                        <th style={{border:"none",paddingLeft:"0"}}><h6>Metode Pembayaran</h6></th>
+                                        <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Metode Pembayaran</h6></th>
                                         <th style={{border:"none"}}><h6 style={{float:"right"}}>Saldo</h6></th>
                                     </tr>
                                     <tr>
-                                        <th style={{border:"none",paddingLeft:"0"}}><h6>Subtotal Tagihan</h6></th>
+                                        <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Subtotal Tagihan</h6></th>
                                         <th style={{border:"none"}}><h6 style={{float:"right"}}>Rp {toCurrency(retrievedObject.harga)} .-</h6></th>
                                     </tr>
 
@@ -122,7 +122,7 @@ class DetailPPOB extends Component{
                                 <table className={"table"}>
                                     <thead>
                                     <tr>
-                                        <th style={{border:"none",paddingLeft:"0"}}><h6>Total Tagihan</h6></th>
+                                        <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Total Tagihan</h6></th>
                                         <th style={{border:"none"}}><h4 style={{float:"right",color:"green"}}>Rp {toCurrency(retrievedObject.harga)} .-</h4></th>
                                     </tr>
 
@@ -139,10 +139,6 @@ class DetailPPOB extends Component{
                 {
                     this.props.isOpen?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={''}/>:null
                 }
-                {
-                    <ModalSuccessScreenPPOB page={'/ppob'}/>
-                }
-
             </Layout>
         );
     }

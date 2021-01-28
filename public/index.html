@@ -20,7 +20,8 @@
   <!-- <link rel="stylesheet" href="%PUBLIC_URL%/css/tree.css"> -->
   <!-- <link rel="stylesheet" href="%PUBLIC_URL%/css/treedev.css"> -->
   <link rel="stylesheet" href="%PUBLIC_URL%/css/sponsor-style.css">
-
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -34,7 +35,19 @@
 
 
   <style>
+    .intl-tel-input .flag-container .arrow {
+      /*border:1px solid red!important;*/
+      /*margin-bottom: 20px!important;*/
+      /*position: absolute;*/
+      display: none!important;
+    }
 
+    .black{
+      color:#3D4147!important;
+    }
+    .bold{
+      font-weight: bold!important;
+    }
 
     article {
       padding: 0px;
@@ -145,14 +158,18 @@
     p,
     li,
     a {
-      font-family: 'Comfortaa', cursive !important;
-      font-weight: bold !important;
+      /*font-family: 'Comfortaa', cursive !important;*/
+      /*font-weight: bold !important;*/
+      font-family: 'Poppins', sans-serif!important;
+
     }
 
     td,
     th,
     a {
-      font-size: 12px !important;
+      /*font-size: 12px !important;*/
+      font-family: 'Poppins', sans-serif!important;
+
     }
 
     .btnBrg {
@@ -387,7 +404,9 @@
       margin-top: -4px;
       margin-right: -4px;
       color: white;
-      font-family: courier, sans;
+      /*font-family: courier, sans;*/
+      font-family: 'Poppins', sans-serif;
+
     }
 
     .card1 {
@@ -397,7 +416,7 @@
       background-color: #f2f8f9;
       border-radius: 4px;
       padding: 32px 24px;
-      margin: 12px;
+      margin-bottom:5px;
       text-decoration: none;
       z-index: 0;
       overflow: hidden;
@@ -422,8 +441,13 @@
     .svgImg{
       /*filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(220deg) brightness(100%) contrast(105%);*/
     }
+    .card1 p {
+      font-weight: bold;
+      color:#3D4147;
+    }
     .card1:hover p {
       transition: all 0.3s ease-out;
+      font-weight: bold;
       color: rgba(255, 255, 255, 0.8);
     }
     .card1:hover h3 {
@@ -431,7 +455,12 @@
       color: #ffffff;
     }
 
-
+    .telInput{
+      border-top: none!important;
+      border-left: none!important;
+      border-right: none!important;
+      border-bottom: 3px solid #E1E1E1;
+    }
 
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqD1Z03FoLnIGJTbpAgRvjcchrR-NiICk&libraries=places"

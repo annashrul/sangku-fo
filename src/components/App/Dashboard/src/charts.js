@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 
 class Charts extends Component {
     render(){
+        console.log(this.props.data);
         return(
              <div className="col-md-12 box-margin">
                 <div className="card text-center">
@@ -11,7 +12,7 @@ class Charts extends Component {
                         <Chart
                             options={this.props.data.options}
                             series={this.props.data.series}
-                            type="bar"
+                            type={this.props.type}
                             height="353"
                             />
                     </div>

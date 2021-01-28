@@ -10,6 +10,11 @@ import Charts from './src/charts'
 import FormReaktivasi from '../modals/member/form_reaktivasi';
 import { FetchAvailablePin } from 'redux/actions/pin/pin.action';
 import Overview from './src/overview'
+import Saldo from './src/saldo'
+import Team from './src/teams'
+import News from './src/news'
+import Member from './src/member'
+import Redeem from './src/redeem'
 // const socket = socketIOClient(HEADERS.URL);
 
 class Index extends Component {
@@ -31,43 +36,36 @@ class Index extends Component {
             location_data:[],
             location:"-",
 
-            lokasi_sales: {
+            pertumbuhan_downline: {
+                    series: [{
+                        name: 'Kiri',
+                        data: [31, 40, 28, 51, 42, 109, 100]
+                        }, {
+                        name: 'Kanan',
+                        data: [11, 32, 45, 32, 34, 52, 41]
+                        }],
                     options: {
                         chart: {
-                            id: "basic-bar"
+                            height: 350,
+                            type: 'area'
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            curve: 'smooth'
                         },
                         xaxis: {
-                            categories: []
-                        }
+                            type: 'datetime',
+                            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                        },
+                        tooltip: {
+                            x: {
+                            format: 'dd/MM/yy HH:mm'
+                            },
+                        },
                     },
-                    series: [{
-                            name: "Bulan Lalu",
-                            data: []
-                        },
-                        {
-                            name: "Bulan Sekarang",
-                            data: []
-                        }
-                    ],
-                },
-            lokasi_tr: {
-                    options: {
-                        chart: {
-                            id: "basic-bar"
-                        },
-                        xaxis: {
-                            categories: []
-                        }
-                    },
-                    series: [{
-                            name: "Bulan Lalu",
-                            data: []
-                        },
-                        {
-                            name: "Bulan Sekarang",
-                            data: []
-                        }
-                    ],
+
                 },
         };
 
@@ -81,7 +79,7 @@ class Index extends Component {
         //         netSales:toRp(parseInt(data.header.net_sales,10)),
         //         trxNum:data.header.transaksi,
         //         avgTrx:toRp(parseInt(data.header.avg,10)),
-        //         lokasi_sales: data.lokasi_sales,
+        //         pertumbuhan_downline: data.pertumbuhan_downline,
         //         lokasi_tr: data.lokasi_tr,
         //         hourly: data.hourly,
         //         daily: data.daily,
@@ -101,7 +99,7 @@ class Index extends Component {
     }
 
     UNSAFE_componentDidMount(){
-        this.props.dispatch(FetchStock());
+        // this.props.dispatch(FetchStock());
     }
 
     UNSAFE_componentWillReceiveProps = (nextProps) => {
@@ -185,19 +183,12 @@ class Index extends Component {
         return (
             <Layout page="Dashboard">
              
-                <div className="row">
-                    <div className="col-md-5">
-                        <div className="row">
-                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Referral Downlines" data={this.state.grossSales} icon="fa fa-area-chart text-primary"/>
-                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Commission Withdrawn" data={this.state.netSales} icon="fa fa-area-chart text-primary"/>
-                        </div>
-                        <div className="row">
-                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Payout Pending" data={this.state.trxNum} icon="fa fa-area-chart text-primary"/>
-                            <Cards className="col-md-6 col-xl-6 box-margin d-flex" title="Commission Earned" data={this.state.avgTrx} icon="fa fa-area-chart text-primary"/>
-                        </div>
-                        <div className="row">
-                            <Cards className="col-md-6 col-xl-12 box-margin" title="E-Wallet balance" data={this.state.trxNum} icon="fa fa-area-chart text-primary"/>
-                        </div>
+                <div className="row" style={{marginBottom:'20px'}}>
+                    <div className="col-md-4">
+                        <Saldo/>
+                    </div>
+                    <div className="col-md-4">
+                        <Team/>
                     </div>
                     <div className="col-md-4">
                         <Overview
@@ -206,14 +197,21 @@ class Index extends Component {
                     </div>
 
                 </div>
-                <div className="row">
-                    <div className="col-md-7 pr-0">
-                        <Charts title="Downline Members" data={this.state.lokasi_sales}/>
+                <div className="row" style={{marginBottom:'20px'}}>
+                    <div className="col-md-8 pr-0">
+                        <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" />
                     </div>
-                   <Charts title="Monthly Sales Amount" data={this.state.lokasi_sales}/>
+                     <div className="col-md-4 pr-0">
+                         <Member/>
+                    </div>
                 </div>
                 <div className="row">
-                    <Charts title="MONTHLY TRANSACTIONS" data={this.state.lokasi_tr}/>
+                     <div className="col-md-4 pr-0">
+                         <News/>
+                    </div>
+                     <div className="col-md-8 pr-0">
+                        <Redeem />
+                    </div>
 
                 </div>
                 <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
