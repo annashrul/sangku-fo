@@ -29,7 +29,9 @@ import Berita from '../App/Konten/Berita'
 import BeritaDetail from '../App/Konten/BeritaDetail'
 import Testimoni from '../App/Konten/Testimoni'
 import TestimoniDetail from '../App/Konten/TestimoniDetail'
-import Stokist from '../App/Report/Pin'
+import StokistAktivasi from '../App/Stokist/PinAktivasi'
+import StokistRo from '../App/Stokist/PinRo'
+// import Stokist from '../App/Report/Pin'
 import IndexPPOB from '../App/PPOB/indexPPOB'
 import DetailPPOB from '../App/PPOB/detailPPOB'
 import PulsaAll from '../App/PPOB/PulsaAll'
@@ -68,7 +70,8 @@ const Routes = (
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />
             
-            <PrivateRoute path="/stokist" exact strict component={Stokist} />
+            <PrivateRoute path="/stokist/pin-aktivasi" exact strict component={StokistAktivasi} />
+            <PrivateRoute path="/stokist/pin-ro" exact strict component={StokistRo} />
             <PrivateRoute path="/rekapitulasi" exact strict component={Rekapitulasi} />
            
             {/* DASHBOARD SECTION START */}

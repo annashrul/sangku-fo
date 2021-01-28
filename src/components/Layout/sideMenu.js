@@ -14,6 +14,8 @@ class SideMenu extends Component {
             isWallet: false,
             isReport: false,
             isPpob: false,
+            isStokist: false,
+            isOrder: false,
 
             // NETWORK
             // md_network:true,
@@ -45,6 +47,8 @@ class SideMenu extends Component {
             isWallet : false,
             isReport : false,
             isPpob : false,
+            isStokist : false,
+            isOrder: false
         }
         let sub_module = {
             // isReportAdjustment:false,
@@ -92,8 +96,15 @@ class SideMenu extends Component {
         }else if(path==='/deposit'||path==='/penarikan'||path==='/transfer'){
             this.setState({
                 isWallet:true,
-                // isNetwork:false,
             })
+        }else if(path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'){
+            this.setState({
+                isStokist:true,
+            })
+        } else if (path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem') {
+                this.setState({
+                    isOrder: true,
+                })
         }else if(
             path==='/ppob/pulsa-all-operator'
             || path==='/ppob/paket-data'
@@ -178,13 +189,25 @@ class SideMenu extends Component {
                     </li>
                     {/* NETWORK MODUL END */}
                     {/* ORDER MODUL START */}
-                    <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order</span></Link></li>
-                    {/* ORDER MODUL END */}
-                    {/* ORDER MODUL START */}
-                    <li  className={path==='/redeem'?"active":''}><Link to="/redeem"> <i className="fa fa-dashboard" /><span> Redeem</span></Link></li>
+                    <li className={"treeview" +(this.state.isOrder===true
+                        || path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem'
+                        ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isOrder')}><i className="zmdi zmdi-receipt" /> <span>Order</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isOrder===true?"block":"none"}}>
+                            <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order Paket</span></Link></li>
+                            <li  className={path==='/redeem'?"active":''}><Link to="/redeem"> <i className="fa fa-dashboard" /><span> Redeem Poin RO</span></Link></li>
+                        </ul>
+                    </li>
                     {/* ORDER MODUL END */}
                     {/* STKIST MODUL START */}
-                    <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li>
+                    {/* <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li> */}
+                    <li className={"treeview" +(this.state.isStokist===true || path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'||path==='/transfer' ?" active menu-open" : "")}>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isStokist')}><i className="zmdi zmdi-receipt" /> <span>Stokist</span> <i className="fa fa-angle-right" /></a>
+                        <ul className={"treeview-menu"} style={{display:this.state.isStokist===true?"block":"none"}}>
+                            <li className={path==='/stokist/pin-aktivasi'?"active":''}><Link to="/stokist/pin-aktivasi" style={{width:'fit-content'}}> PIN Aktivasi</Link></li>
+                            <li className={path==='/stokist/pin-ro'?"active":''}><Link to="/stokist/pin-ro" style={{width:'fit-content'}}>PIN RO</Link></li>
+                        </ul>
+                    </li>
                     {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
                     <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-receipt" /><span> PPOB</span></Link></li>

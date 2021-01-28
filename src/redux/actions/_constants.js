@@ -173,6 +173,8 @@ export const BANK = {
  *****************/
 export const MEMBER = {
   LOADING_POST: 'SET_MEMBER_LOADING_POST',
+  LOADING_AVAIL: 'SET_MEMBER_LOADING_AVAIL',
+  SUCCESS_AVAIL: 'SUCCESS_MEMBER_AVAIL',
 }
 
 /****************

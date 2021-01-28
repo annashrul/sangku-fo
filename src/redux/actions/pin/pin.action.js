@@ -24,14 +24,17 @@ export function setPinDetail(data=[]){
 export function setPinFailed(data=[]){
     return {type:PIN.FAILED,data}
 }
-export const FetchPin = (page=1,q='',perpage='')=>{
+export const FetchPin = (page=1,id='',where='',perpage='',type='')=>{
     return (dispatch) => {
         dispatch(setLoading(true));
         let url = '';
-        if(q===''){
-            url=`pin?page=${page}`;
+        if(where===''){
+            url=`member/pin/${id}?page=${page}`;
         }else{
-            url=`pin?page=${page}&q=${q}`;
+            url=`member/pin/${id}?page=${page}&${where}`;
+        }
+        if(type!==''){
+            url+=`&type=${type}`
         }
         if(perpage!==''){
             url+=`&perpage=${perpage}`
@@ -101,6 +104,48 @@ export const pinReaktivasi = (data) => {
                     title: 'Informasi.',
                     type: 'info',
                     text: 'Reaktivasi sukses!',
+                    showCancelButton: false,
+                    showConfirmButton: true
+                }).then((result) => {
+                    if(result){
+                        window.location.reload();
+                    }
+                })
+            })
+            .catch(function (error) {
+                // dispatch(setLoading(false));
+                Swal.fire({
+                    title: 'failed',
+                    type: 'error',
+                    text: error.response === undefined?'error!':error.response.data.msg,
+                });
+                if (error.response) {
+                }
+            })
+    }
+}
+
+export const pinTransfer = (data) => {
+    return (dispatch) => {
+        Swal.fire({
+            allowOutsideClick:false,
+            title: 'Silahkan tunggu.',
+            html: 'Sedang melakukan transfer..',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+            onClose: () => {}
+        })
+        const url = HEADERS.URL + `pin/transfer`;
+        axios.post(url, data)
+            .then(function (response) {
+                Swal.close()
+                dispatch(ModalToggle(false));
+                Swal.fire({
+                    allowOutsideClick:false,
+                    title: 'Informasi.',
+                    type: 'info',
+                    text: 'Transfer sukses!',
                     showCancelButton: false,
                     showConfirmButton: true
                 }).then((result) => {
