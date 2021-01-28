@@ -22,15 +22,15 @@ class ModalSuccessScreenPPOB extends Component{
 
     render(){
         return (
-            <WrapperModal isOpen={this.props.isOpen && this.props.type === "modalSuccessScreenPPOB"} size="lg" style={{backgroundColor:"black"}}>
-                <ModalHeader toggle={this.toggle} style={{backgroundColor:"black",color:"white"}}>
-                    <p className={"text-white"}>TRANSAKSI BERHASIL !!!</p>
+            <WrapperModal isOpen={this.props.isOpen && this.props.type === "modalSuccessScreenPPOB"} size="md">
+                <ModalHeader toggle={this.toggle}>
+                    <p>TRANSAKSI BERHASIL !!!</p>
                 </ModalHeader>
-                <ModalBody style={{backgroundColor:"black"}}>
+                <ModalBody>
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="font-20 mb-1">Congratulations Himla!</h5>
-                            <p className="mb-20">Best seller of the month</p>
+                            <h5 className="font-20 mb-1">SELAMAT .... </h5>
+                            <p className="mb-20">TRANSAKSI ANDA BERHASIL!</p>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="dashboard-content-right">
                                     <h2 className="text-success font-36 font-weight-bold">$59k</h2>

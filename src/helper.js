@@ -20,6 +20,42 @@ import confirmY from 'assets/status/confirmation.svg'
 import confirmWhite from 'assets/status/confirmation_white.svg'
 import confirm from 'assets/status/confirmation_non.svg'
 
+
+
+
+export const validatePhoneNumber=(no)=>{
+    let err='';
+    if(no.length<10){
+        err='Nomor terlalu pendek, minimal 10 karakter';
+    }
+    if(no.length>14){
+        err='Nomor terlalu panjang, maksimal 14 karakter';
+    }
+    return err;
+}
+
+export const dataPPOB=()=>{
+    return [
+        { code:"62838",value: "AXIS", label: "AXIS", icon: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Axis_logo.png", isDisabled: true },
+        { code:"62857",value: "INDOSAT", label: "INDOSAT", icon: "https://seeklogo.com/images/I/indosat-ooredoo-logo-1020D6C606-seeklogo.com.png", isDisabled: true }
+    ];
+}
+
+export const dataPascabayar=()=>{
+    return [
+        {title:"AETRA JAKARTA (Biaya Admin Rp. 2,750)"},
+        {title:"PALYJA JAKARTA (Biaya Admin Rp. 3,300)"},
+        {title:"PDAM KAB. BALANGAN (Biaya Admin Rp. 3,200)"},
+        {title:"PDAM KAB. BANGKALAN (Biaya Admin Rp. 3,000)"},
+        {title:"PDAM KAB. BATANG (Biaya Admin Rp. 3,400)"},
+        {title:"PDAM KAB. BOGOR (Biaya Admin Rp. 3,600)"},
+        {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
+    ];
+}
+
+
+
+
 export const noImage=()=>{
     return 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png';
 }
