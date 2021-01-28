@@ -50,6 +50,11 @@ export const dataPascabayar=()=>{
         {title:"PDAM KAB. BATANG (Biaya Admin Rp. 3,400)"},
         {title:"PDAM KAB. BOGOR (Biaya Admin Rp. 3,600)"},
         {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
+        // {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
+        // {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
+        // {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
+        // {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
+        // {title:"PDAM KAB. BOJONEGORO (Biaya Admin Rp. 2,800)"},
     ];
 }
 

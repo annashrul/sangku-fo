@@ -11,22 +11,22 @@ class IndexPPOB extends Component{
         super(props);
         this.state={
             arrPulsa:[
-                {img:'https://tripay.co.id/member-page/asset/icons/Pulsa.svg',title:'pulsa-all-operator',link:"/ppob/pulsa-all-operator"},
-                {img:'https://tripay.co.id/member-page/asset/icons/paket-data.svg',title:'paket-data',link:"/ppob/paket-data"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2020/8/28/47197032/47197032_914c9752-19e1-42b0-8181-91ef0629fd8a.png',title:'pulsa-all-operator',link:"/ppob/pulsa-all-operator"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2019/10/22/21181130/21181130_907dac9a-c185-43d1-b459-2389f0b6efea.png',title:'paket-data',link:"/ppob/paket-data"},
                 {img:'https://tripay.co.id/member-page/asset/icons/sms.svg',title:'pulsa-sms-telpon',link:"/ppob/pulsa-sms-telpon"},
             ],
             arrTagihan:[
                 {img:'https://tripay.co.id/member-page/asset/icons/token-listrik.svg',title:'pln',link:"/ppob/pembayaran-pln"},
                 {img:'https://tripay.co.id/member-page/asset/icons/pdam.svg',title:'pdam',link:"/ppob/pembayaran-pdam"},
                 {img:'https://tripay.co.id/member-page/asset/icons/telephone.svg',title:'telpon-kabel',link:"/ppob/pembayaran-telpon-kabel"},
-                {img:'https://tripay.co.id/member-page/asset/icons/phone.svg',title:'telpon-pascabayar',link:"/ppob/pembayaran-telpon-pascabayar"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2019/10/22/21181130/21181130_53682a49-5247-4374-82c0-4c2a8d3bdbea.png',title:'telpon-pascabayar',link:"/ppob/pembayaran-telpon-pascabayar"},
             ],
             arrLainnya:[
                 {img:'https://tripay.co.id/member-page/asset/icons/tol.svg',title:'e-toll',link:"/ppob/e-toll"},
                 {img:'https://tripay.co.id/member-page/asset/icons/paket-data.svg',title:'voucher-wifiid',link:"/ppob/voucher-wifiid"},
                 {img:'https://tripay.co.id/member-page/asset/icons/e-money.svg',title:'e-money',link:"/ppob/e-money"},
-                {img:'https://tripay.co.id/member-page/asset/icons/bpjs.svg',title:'bpjs',link:"/ppob/pembayaran-bpjs"},
-                {img:'https://tripay.co.id/member-page/asset/icons/zakat.svg',title:'zakat',link:"/ppob/pembayaran-zakat"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2021/1/7/22166894/22166894_a0e8d558-59eb-47af-bdc1-abc0f4d45a84.png',title:'bpjs',link:"/ppob/pembayaran-bpjs"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2019/12/13/51829405/51829405_77281743-12fd-402b-b212-67b52516229c.png',title:'zakat',link:"/ppob/pembayaran-zakat"},
             ],
 
         }
