@@ -369,7 +369,6 @@ class Sponsor extends Component{
         console.log("newwwwwwwww",this.state.arrs)
         return (
             <div id="block-system-main" className="block block-system clearfix">
-                {this.state.loading?<Preloader/> : ''}
                 <div className="binary-genealogy-tree binary_tree_extended">
                     <div className="zoom-wrapper m-t-lg m-b-lg">
                         <ul className="zoom-lists">
@@ -386,6 +385,13 @@ class Sponsor extends Component{
                         </div>
                     </div>
                 </div>
+                {this.state.loading?
+                <div className="pb-2 position-sticky fixed-bottom">
+                    <div className="progress h-8">
+                        <div className="progress-bar bg-primary progress-bar-animated progress-bar-striped" style={{width: '100%'}} role="progressbar"> <span className="sr-only">Memuat data...</span> </div>
+                    </div>
+                </div>
+                 : ''}
             </div>
         );
     }

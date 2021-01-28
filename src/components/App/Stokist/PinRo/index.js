@@ -6,11 +6,12 @@ import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchAvailablePin, FetchPin} from '../../../../redux/actions/pin/pin.action'
-import {toRp} from 'helper'
+// import {toRp} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import Select from 'react-select';
+import FormAktivasiPinRo from '../../modals/member/form_aktivasi_pin_ro';
 class PinRo extends Component{
     constructor(props){
         super(props);
@@ -23,6 +24,7 @@ class PinRo extends Component{
         this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
         this.handleReaktivasi = this.handleReaktivasi.bind(this);
         this.handleTransfer = this.handleTransfer.bind(this);
+        this.handleAktivasiPinRo = this.handleAktivasiPinRo.bind(this);
         this.state={
             where_data:"",
             pin_data:{},
@@ -36,7 +38,7 @@ class PinRo extends Component{
             sort_data:[],
             filter:"",
             filter_data:[],
-            status:"",
+            status:1,
             status_data:[],
         }
     }
@@ -176,10 +178,11 @@ class PinRo extends Component{
             return null;
         });
         let status = [
-            {kode:"",value: "Semua"},
-            {kode:"0",value: "PIN AKTIVASI"},
+            // {kode:"",value: "Semua"},
+            {kode:"0",value: "TELAH DIAKTIVASI"},
             {kode:"1",value: "TERSEDIA"},
             {kode:"3",value: "TERPAKAI"},
+            {kode:"4",value: "DI TRANSFER"},
         ];
         let data_status=[];
         status.map((i) => {
@@ -214,9 +217,9 @@ class PinRo extends Component{
             }
         }
         
-        localStorage.setItem('status_pin_ro',this.state.status===''||this.state.status===undefined?status[0].kode:localStorage.status_pin_ro)
-        localStorage.setItem('sort_pin_ro',this.state.sort===''||this.state.sort===undefined?sort[0].kode:localStorage.sort_pin_ro)
-        localStorage.setItem('filter_pin_ro',this.state.filter===''||this.state.filter===undefined?filter[0].kode:localStorage.filter_pin_ro)
+        localStorage.setItem('status_pin_ro',this.state.status===''&&this.state.status===undefined?status[1].kode:localStorage.status_pin_ro===undefined?this.state.status:localStorage.status_pin_ro)
+        localStorage.setItem('sort_pin_ro',this.state.sort===''&&this.state.sort===undefined?sort[0].kode:localStorage.sort_pin_ro)
+        localStorage.setItem('filter_pin_ro',this.state.filter===''&&this.state.filter===undefined?filter[0].kode:localStorage.filter_pin_ro)
     }
     HandleChangeLokasi(data) {
         this.setState({
@@ -256,6 +259,12 @@ class PinRo extends Component{
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormPinTransfer"));
+    }
+    handleAktivasiPinRo(e,v){
+        this.setState({pin_data:v})
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("FormAktivasiRo"));
     }
     render(){
         const {
@@ -327,7 +336,8 @@ class PinRo extends Component{
                                                                                 <i className={`fa fa-circle text-success font-11 mr-2`}/>&nbsp;<p className="mb-0">{v.status}</p>
                                                                             </div>
                                                                         </div>
-                                                                        <h6 className="mb-0 text-success">PV : {v.point_volume}</h6>
+                                                                        <h6 className="mb-0 text-success"></h6>
+                                                                        {/* <h6 className="mb-0 text-success">PV : {v.point_volume}</h6> */}
                                                                     </div>
                                                                     <div className="progress h-5">
                                                                         <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
@@ -335,7 +345,7 @@ class PinRo extends Component{
                                                                     <div className="d-flex align-items-center justify-content-between">
                                                                         <div>
                                                                             {/* {v.status===0?statusQ('info','Tidak Terdsedia'):(v.status===1?statusQ('success','Tersedia'):(v.status===3?statusQ('success','Selesai'):""))} */}
-                                                                            &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleReaktivasi(e,v)}>Aktivasi</button>
+                                                                            &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleAktivasiPinRo(e,v)}>Aktivasi</button>
                                                                             &nbsp;<button className="btn btn-primary btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleTransfer(e,v)}>Transfer</button>
                                                                         </div>
                                                                         <p className="mt-3 font-11">PIN RO</p>
@@ -390,6 +400,7 @@ class PinRo extends Component{
                 </div>
                 <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
                 <FormPinTransfer data={this.state.pin_data}/>
+                <FormAktivasiPinRo data={this.state.pin_data}/>
             </Layout>
             );
     }

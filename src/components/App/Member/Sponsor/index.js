@@ -3,7 +3,7 @@ import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import SponsorNode from './src/sponsor';
 import { FetchNetwork } from 'redux/actions/member/network.action';
-import Preloader from 'Preloader'
+import Spinner from 'Spinner'
 // import jQuery from 'jquery';
 class Sponsor extends Component{
    //  constructor(props){
@@ -191,7 +191,7 @@ class Sponsor extends Component{
                             {
                               !this.props.isLoading?
                               <SponsorNode dataList={this.props.list}/>
-                              :<Preloader/>
+                              :<Spinner/>
                            }
                             {/* ====================================================== */}
                         </div>

@@ -78,7 +78,25 @@ export const FetchAvailableMember = (id)=>{
                 dispatch(setMemberAvail(data));
                 dispatch(setLoadingAvail(false));
             }).catch(function(error){
-            
+                dispatch(setLoadingAvail(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
         })
     }
 }

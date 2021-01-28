@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import { FetchNetwork } from 'redux/actions/member/network.action';
-import Preloader from 'Preloader'
+import Spinner from 'Spinner'
 import BinaryNetwork from './src/network'
 class Binary extends Component{
 
@@ -45,7 +45,7 @@ class Binary extends Component{
                             {
                                 !this.props.isLoading?
                                 <BinaryNetwork dataList={this.props.list}/>
-                                :<Preloader/>
+                                :<Spinner/>
                             }
                         </div>
                     </div>
