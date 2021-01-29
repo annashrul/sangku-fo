@@ -18,6 +18,9 @@ import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle 
 import { getReportPembelian, getReportPembelianDetail, getReportPembelianExcel } from '../../../../redux/actions/transaction/pembelian.action';
 import { cekResi, trxDone } from '../../../../redux/actions/product/kurir.action';
 import Swal from 'sweetalert2';
+import {noImage, toCurrency} from "../../../../helper";
+import Skeleton from 'react-loading-skeleton';
+
 class PembelianReport extends Component{
     constructor(props){
         super(props);
@@ -29,6 +32,7 @@ class PembelianReport extends Component{
         this.HandleChangeFilter = this.HandleChangeFilter.bind(this);
         this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
         this.handleRePrint = this.handleRePrint.bind(this);
+        this.handleToggleDetail = this.handleToggleDetail.bind(this);
         this.state={
             where_data:"",
             any:"",
@@ -42,6 +46,10 @@ class PembelianReport extends Component{
             filter_data:[],
             status:"",
             status_data:[],
+            lengthDetail:1,
+            idDetail:'',
+            isShowDetail:false,
+            dataDetail:[]
         }
     }
     componentWillMount(){
@@ -90,12 +98,12 @@ class PembelianReport extends Component{
         let param = {}
         // param['resi'] = 'JP3738533084';
         // param['kurir'] = 'jnt';
-        param['resi'] = data.resi;
-        param['kurir'] = String(data.layanan_pengiriman).split('|')[0];
-        const bool = !this.props.isOpen;
-        this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("pembelianCekResi"));
-        this.props.dispatch(cekResi(param))
+        // param['resi'] = data.resi;
+        // param['kurir'] = String(data.layanan_pengiriman).split('|')[0];
+        // const bool = !this.props.isOpen;
+        // this.props.dispatch(ModalToggle(bool));
+        // this.props.dispatch(ModalType("pembelianCekResi"));
+        // this.props.dispatch(cekResi(param))
     };
     handleDone(e,kd_trx){
         e.preventDefault();
@@ -162,6 +170,8 @@ class PembelianReport extends Component{
         this.props.dispatch(getReportPembelian(pageNumber,where))
         // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
+
+
     componentWillReceiveProps = (nextProps) => {
         let sort = [
             {kode:"desc",value: "DESCENDING"},
@@ -239,7 +249,6 @@ class PembelianReport extends Component{
     handleChange(event){
         this.setState({ [event.target.name]: event.target.value });
     }
-
     HandleChangeSort(sr) {
         this.setState({
             sort: sr.value,
@@ -258,7 +267,6 @@ class PembelianReport extends Component{
         });
         localStorage.setItem('status_pembelian_report', st.value);
     }
-
     toggleModal(e,total,perpage) {
         e.preventDefault();
         const bool = !this.props.isOpen;
@@ -270,6 +278,14 @@ class PembelianReport extends Component{
     handleRePrint(e,id){
         e.preventDefault();
         // this.props.dispatch(rePrintFaktur(id));
+    }
+    handleToggleDetail(i,id){
+        console.log(i);
+        // this.state.dataDetail[i]
+        this.setState({
+            idDetail:id,
+            isShowDetail:!this.state.isShowDetail
+        })
     }
 
 
@@ -284,214 +300,290 @@ class PembelianReport extends Component{
             data,
             // total
         } = this.props.pembelianReport;
-        console.log("this.props.pembelianCekResi!==null",this.props.pembelianCekResi!==null)
-        console.log("Object.keys(this.props.pembelianCekResi).length",Object.keys(this.props.pembelianCekResi).length)
+        let dataID=[];
+        console.log(data);
         return (
             <Layout page="Pembelian" subpage="Laporan" >
-                <div className="col-12 box-margin">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-md-10" style={{zoom:"85%"}}>
-                                    <div className="row">
-                                        <div className="col-6 col-xs-6 col-md-2">
-                                            <div className="form-group">
-                                                <label htmlFor=""> Periode </label>
-                                                <DateRangePicker
-                                                    style={{display:'unset'}}
-                                                    ranges={rangeDate}
-                                                    alwaysShowCalendars={true}
-                                                    onEvent={this.handleEvent}
-                                                >
-                                                    <input type="text" className="form-control" value={`${this.state.startDate} to ${this.state.endDate}`} style={{padding: '10px',fontWeight:'bolder'}}/>
-                                                </DateRangePicker>
-                                            </div>
-                                        </div>
-                                        {/* <div className="col-6 col-xs-6 col-md-2">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Status
-                                                </label>
-                                                <Select
-                                                    options={this.state.status_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeStatus}
-                                                    value={
-                                                        this.state.status_data.find(op => {
-                                                            return op.value === this.state.status
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div> */}
-                                        {/* <div className="col-6 col-xs-6 col-md-2">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Filter
-                                                </label>
-                                                <Select
-                                                    options={this.state.filter_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeFilter}
-                                                    value={
-                                                        this.state.filter_data.find(op => {
-                                                            return op.value === this.state.filter
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div> */}
-                                        {/* <div className="col-6 col-xs-6 col-md-2">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Sort
-                                                </label>
-                                                <Select
-                                                    options={this.state.sort_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeSort}
-                                                    value={
-                                                        this.state.sort_data.find(op => {
-                                                            return op.value === this.state.sort
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div> */}
-                                        <div className="col-6 col-xs-6 col-md-2">
-                                            <div className="form-group">
-                                                <label>Cari</label>
-                                                <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                    <i className="fa fa-search"/>
-                                                </button>
-                                                <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
-                                                    <i className="fa fa-print"></i> Export
-                                                </button>
-                                            </div>
+                <div className="card" style={{borderRadius:"10px"}}>
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-md-10" style={{zoom:"85%"}}>
+                                <div className="row">
+                                    <div className="col-6 col-xs-6 col-md-2">
+                                        <div className="form-group">
+                                            <label htmlFor=""> Periode </label>
+                                            <DateRangePicker
+                                                style={{display:'unset'}}
+                                                ranges={rangeDate}
+                                                alwaysShowCalendars={true}
+                                                onEvent={this.handleEvent}
+                                            >
+                                                <input type="text" className="form-control" value={`${this.state.startDate} to ${this.state.endDate}`} style={{padding: '10px',fontWeight:'bolder'}}/>
+                                            </DateRangePicker>
                                         </div>
                                     </div>
 
+                                    <div className="col-6 col-xs-6 col-md-2">
+                                        <div className="form-group">
+                                            <label>Cari</label>
+                                            <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
+                                                <i className="fa fa-search"/>
+                                            </button>
+                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
+                                                <i className="fa fa-print"/> Export
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
-                            <div style={{overflowX: "auto"}}>
-                                <table className="table table-hover table-bordered">
-                                    <thead className="bg-light">
-                                    <tr>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">No</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">#</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Kode TRX</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Nama lengkap</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Subtotal</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Ongkir</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Grand Total</th>
-                                        {/* <th className="text-black" style={columnStyle} rowSpan="2">Layanan Pengiriman</th> */}
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Status</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Metode Pembayaran</th>
-                                        {/* <th className="text-black" style={columnStyle} rowSpan="2">title</th> */}
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Penerima</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">No. Telpon</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Resi</th>
-                                        {/* <th className="text-black" style={columnStyle} rowSpan="2">valid_resi</th> */}
-                                        {/* <th className="text-black" style={columnStyle} rowSpan="2">create_resi</th> */}
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Tanggal Diterima</th>
-                                    </tr>
-                                    </thead>
-                                    {
-                                        !this.props.isLoadingReport?(
-                                            <tbody>
-                                            {
-                                                (
-                                                    typeof data === 'object' ? data.length>0?
-                                                        data.map((v,i)=>{
-                                                            return(
-                                                                <tr key={i}>
-                                                                    <td style={columnStyle}> {i+1 + (10 * (parseInt(current_page,10)-1))}</td>
 
-                                                                    <td style={columnStyle}>
-                                                                        <div className="btn-group">
-                                                                            <UncontrolledButtonDropdown>
-                                                                                <DropdownToggle caret>
-                                                                                    Aksi
-                                                                                </DropdownToggle>
-                                                                                <DropdownMenu>
-                                                                                    <DropdownItem onClick={(e)=>this.toggle(e,btoa(v.kd_trx),'','')}>Detail</DropdownItem>
-                                                                                    {v.resi!=='-'?<DropdownItem onClick={(e)=>this.toggleResi(e,v)}>Cek Resi</DropdownItem>:''}
-                                                                                    {v.status===1?<DropdownItem onClick={(e)=>this.handleDone(e,v.kd_trx)}>Pesanan Diterima</DropdownItem>:''}
-                                                                                </DropdownMenu>
-                                                                                </UncontrolledButtonDropdown>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td style={columnStyle}>{v.kd_trx}</td>
-                                                                    <td style={columnStyle}>{v.full_name}</td>
-                                                                    <td style={columnStyle}>{toRp(v.subtotal)}</td>
-                                                                    <td style={columnStyle}>{toRp(v.ongkir)}</td>
-                                                                    <td style={columnStyle}>{toRp(v.grand_total)}</td>
-                                                                    {/* <td style={columnStyle}>{v.layanan_pengiriman}</td> */}
-                                                                    <td style={columnStyle}>{
-                                                                        v.status===0?statusQ('info','Dikirim'):(v.status===1?statusQ('success','Diterima'):(v.status===3?statusQ('success','Selesai'):""))
-                                                                        // v.status===0?statusQ('danger','proses'):(v.status===1?statusQ('warning','packing')?(v.status===2?statusQ('info','dikirim'):statusQ('info','diterima')):""):""
-                                                                    }</td>
-                                                                    <td style={columnStyle}>{v.metode_pembayaran}</td>
-                                                                    {/* <td style={columnStyle}>{v.title}</td> */}
-                                                                    <td style={columnStyle}>{v.penerima}</td>
-                                                                    <td style={columnStyle}>{v.no_hp}</td>
-                                                                    <td style={columnStyle}>{v.resi}</td>
-                                                                    {/* <td style={columnStyle}>{v.valid_resi}</td> */}
-                                                                    {/* <td style={columnStyle}>{v.create_resi}</td> */}
-                                                                    <td style={columnStyle}>{moment(v.tgl_terima).format("DD-MM-YYYY")}</td>
-                                                                    {/* <td style={columnStyle}>{moment(v.tgl_mutasi).format("DD-MM-YYYY")}</td>
-                                                                    <td style={columnStyle}>{v.lokasi_asal}</td>
-                                                                    <td style={columnStyle}>{v.lokasi_tujuan}</td>
-                                                                    <td style={columnStyle}>{v.no_faktur_beli}</td>
-                                                                    <td style={columnStyle}>{
-                                                                        v.status==='0'?statusQ('info','Dikirim'):(v.status==='1'?statusQ('success','Diterima'):"")
-                                                                        // v.status===0?statusQ('danger','proses'):(v.status===1?statusQ('warning','packing')?(v.status===2?statusQ('info','dikirim'):statusQ('info','diterima')):""):""
-                                                                    }</td>
-                                                                    <td style={columnStyle}>{v.keterangan}</td> */}
-
-                                                                </tr>
-                                                            )
-                                                        })
-                                                        : "No data." : "No data."
-                                                )
-                                            }
-                                            </tbody>
-                                        ):<Preloader/>
-                                    }
-                                </table>
-
-                            </div>
-                            <div style={{"marginTop":"20px","float":"right"}}>
-                                <Paginationq
-                                    current_page={current_page}
-                                    per_page={per_page}
-                                    total={parseInt((per_page*last_page),10)}
-                                    callback={this.handlePageChange.bind(this)}
-                                />
-                            </div>
-                            <PembelianDetail pembelianDetail={this.props.pembelianDetail}/>
-                            <PembelianCekResi pembelianCekResi={this.props.pembelianCekResi}/>
-                            <PembelianReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />
                         </div>
                     </div>
                 </div>
+                <br/>
+                {
+                    !this.props.isLoadingReport? typeof data==='object'?data.length>0?data.map((v,i)=>{
+                        let status='';
+                        if(v.status===0){
+                            // status='Menunggu Pembayaran';
+                            status=<span className={"btn btn-secondary btn-sm bold text-white"}>Menunggu Pembayaran</span>;
+                        }else if(v.status===1){
+                            // status='dikemas'
+                            status=<span className={"btn btn-warning btn-sm bold text-white"}>Dikemas</span>;
+
+                        }else if(v.status===2){
+                            // status='dikirim'
+                            status=<span className={"btn btn-info btn-sm bold"}>Dikirim</span>;
+
+                        }else if(v.status===3){
+                            // status='selesai'
+                            status=<span className={"btn btn-success btn-sm bold"}>Selesai</span>;
+
+                        }else if(v.status===4){
+                            // status='dibatalkan'
+                            status=<span className={"btn btn-danger btn-sm bold"}>Dibatalkan</span>;
+                        }
+                        return(
+                            <div key={i} className="card" style={{borderRadius:"10px",marginBottom:"10px"}}>
+                                <div className="card-body">
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <button className={"btn btn-secondary btn-sm"} style={{borderRadius:"10%"}}>
+                                                {v.type===0?'AKTIVASI':'RO'}
+                                            </button>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <span className={"black"} style={{fontWeight:"normal",float:"right",textAlign:"right"}}>{v.resi}</span>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div className="row">
+                                        <div className="col-md-2" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                            <p style={{color:"rgb(66, 181, 73)",fontWeight:"bold"}}>( {v.kd_trx} )<br/>
+                                                <span className={"black"} style={{fontWeight:"normal"}}>{moment(v.created_at).format('LL')}</span><br/>
+                                            </p>
+                                        </div>
+                                        <div className="col-md-3" style={{verticalAlign:"left",borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                            <p className={"black"}>Status<br/>
+                                                {status}
+                                            </p>
+                                        </div>
+                                        <div className="col-md-2" style={{verticalAlign:"left",borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                            <p className={"black"}>Total Belanja<br/>
+                                                <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(v.grand_total)} .-</span>
+                                            </p>
+                                        </div>
+                                        <div className="col-md-5" style={{verticalAlign:"left"}}>
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <p className={"black"}>Ongkir<br/>
+                                                        <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {v.ongkir==='0'?0:toCurrency(v.ongkir)} .-</span>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-2" style={{display:'flex',justifyContent:'center'}} >
+                                                    <img src={v.kurir} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} style={{height:"50px",objectFit:'contain'}}/>
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <p className={"black"}>Layanan<br/>
+                                                        <span className={"bold"}>{v.layanan_pengiriman.split("|")[1]}</span>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <p className={"black"}>Metode<br/>
+                                                        <span className={"bold"}>{v.metode_pembayaran}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    {
+                                        (() => {
+                                            const rows = [];
+                                            for (let key = 0; key < v.detail.length; key++) {
+                                                let cardDisplay='none';
+                                                let cardTransition='opacity 1s ease-out';
+                                                let cardOpacity=0;
+                                                if(key===0){
+                                                    cardDisplay='block';
+                                                    cardOpacity=1;
+                                                }else if(this.state.idDetail===v.id&&this.state.isShowDetail){
+                                                    cardDisplay='block';
+                                                    cardOpacity=1;
+                                                }
+                                                dataID.push(key);
+                                                rows.push(
+                                                    <div className="row" key={key} style={{marginBottom:"10px",transition:cardTransition,opacity:cardOpacity}}>
+                                                        <div className="col-md-12" style={{display:cardDisplay}}>
+                                                            <div className="row">
+                                                                <div className="col-md-6" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                                    <div className="media">
+                                                                        <img src={v.detail[key].foto} className="mr-3 media-thumb" alt="..."/>
+                                                                        <div className="media-body">
+                                                                            <h5 style={{color:"rgb(66, 181, 73)"}} className="mt-0 font-17 bold">{v.detail[key].paket}</h5>
+                                                                            <span style={{color:"rgb(250, 89, 29)",fontWeight:"bold"}}>Rp {toCurrency(v.detail[key].price)} .- <small style={{marginLeft:"10px"}} className={"black"}>{v.detail[key].qty} Item </small></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-3">
+                                                                    <p style={{float:"left"}} className={"black"}>Total Harga<br/>
+                                                                        <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(parseInt(v.detail[key].price)*parseInt(v.detail[key].qty))} .-</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div className="col-md-3" style={{position:"relative",verticalAlign:"left"}}>
+                                                                    <button style={{right:"12px",bottom:"0px",position:"absolute",float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)",border:"1px solid rgb(66, 181, 73)"}} className={"btn btn-primary"}>
+                                                                        Beli Lagi
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                            return rows;
+                                        })()
+
+                                    }
+                                    <hr/>
+                                    <div className="row">
+                                        <div onClick={(e)=>this.toggle(e,btoa(v.kd_trx),'','')} className="col-md-2" style={{cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                            <i className={"fa fa-eye"} style={{color:'rgba(49, 53, 59, 0.68)'}}/> Lihat Detail Pesanan
+                                        </div>
+                                        <div onClick={(e)=>this.toggleResi(e,v)} className="col-md-2" style={{cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                            <i className={"fa fa-random"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Lacak Resi
+                                        </div>
+                                        <div className="col-md-8" onClick={event => this.handleToggleDetail(dataID,v.id)} style={{display:v.detail.length>1?"block":"none",cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                            <span style={{float:"right"}}>
+                                                {this.state.idDetail===v.id&&this.state.isShowDetail?'Tutup':'Buka'} {v.detail.length-1} Produk Lainnya <i className={`fa ${this.state.idDetail===v.id&&this.state.isShowDetail?'fa-angle-up':'fa-angle-down'}`} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        );
+                    }):"No Data.":"No Data.":(() => {
+                        const rows = [];
+                        for (let i = 0; i < 2; i++) {
+                            rows.push(
+                                <div key={i} className="card" style={{borderRadius:"10px",marginBottom:"10px"}}>
+                                    <div className="card-body">
+                                        <div className="row">
+                                            <div className="col-md-3" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                <p style={{color:"rgb(66, 181, 73)",fontWeight:"bold"}}><Skeleton width={'50%'}/><br/>
+                                                    <span className={"black"} style={{fontWeight:"normal"}}><Skeleton/></span><br/>
+
+                                                </p>
+                                            </div>
+                                            <div className="col-md-2" style={{verticalAlign:"left",borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                    <span className={"bold"}><Skeleton/></span>
+                                                </p>
+                                            </div>
+                                            <div className="col-md-2" style={{verticalAlign:"left",borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                    <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}><Skeleton/></span>
+                                                </p>
+                                            </div>
+                                            <div className="col-md-5" style={{verticalAlign:"left"}}>
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                            <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}><Skeleton/></span>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                            <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}><Skeleton/></span>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                            <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}><Skeleton/></span>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-3">
+                                                        <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                            <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}><Skeleton/></span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <hr/>
+                                        <div className="row">
+                                            <div className="col-md-6" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                <div className="media">
+                                                    <Skeleton height={70} width={70}/>
+                                                    <div className="media-body" style={{marginLeft:"10px"}}>
+                                                        <span style={{color:"rgb(250, 89, 29)"}}><Skeleton width={'100%'}/></span><br/>
+                                                        <span style={{color:"rgb(250, 89, 29)"}}><Skeleton width={'50%'}/></span><br/>
+                                                        <span style={{color:"rgb(250, 89, 29)"}}><Skeleton width={'30%'}/></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3">
+                                                <p className={"black"}><Skeleton width={'50%'}/><br/>
+                                                    <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}><Skeleton/></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+                        return rows;
+                    })()
+                }
+
+                <div style={{"marginTop":"20px","float":"right"}}>
+                    <Paginationq
+                        current_page={current_page}
+                        per_page={per_page}
+                        total={parseInt((per_page*last_page),10)}
+                        callback={this.handlePageChange.bind(this)}
+                    />
+                </div>
+                <PembelianDetail pembelianDetail={this.props.pembelianDetail}/>
+                <PembelianCekResi pembelianCekResi={this.props.pembelianCekResi}/>
+                <PembelianReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />
             </Layout>
             );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.kurirReducer.isLoading",state.kurirReducer.isLoading)
     return {
         auth:state.auth,
         pembelianReport:state.pembelianReducer.data_report,
