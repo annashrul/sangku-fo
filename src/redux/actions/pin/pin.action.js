@@ -166,3 +166,45 @@ export const pinTransfer = (data) => {
             })
     }
 }
+
+export const pinRoAktivasi = (data) => {
+    return (dispatch) => {
+        Swal.fire({
+            allowOutsideClick:false,
+            title: 'Silahkan tunggu.',
+            html: 'Sedang mengaktivasi..',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+            onClose: () => {}
+        })
+        const url = HEADERS.URL + `pin/aktivasi/ro`;
+        axios.post(url, data)
+            .then(function (response) {
+                Swal.close()
+                dispatch(ModalToggle(false));
+                Swal.fire({
+                    allowOutsideClick:false,
+                    title: 'Informasi.',
+                    type: 'info',
+                    text: 'Aktivasi sukses!',
+                    showCancelButton: false,
+                    showConfirmButton: true
+                }).then((result) => {
+                    if(result){
+                        window.location.reload();
+                    }
+                })
+            })
+            .catch(function (error) {
+                // dispatch(setLoading(false));
+                Swal.fire({
+                    title: 'failed',
+                    type: 'error',
+                    text: error.response === undefined?'error!':error.response.data.msg,
+                });
+                if (error.response) {
+                }
+            })
+    }
+}

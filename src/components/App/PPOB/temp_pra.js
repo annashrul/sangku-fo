@@ -4,16 +4,16 @@ import Layout from 'components/Layout';
 import {rmComma, ToastQ, toCurrency} from "helper";
 import {postTransfer} from "redux/actions/member/transfer.action";
 import Stepper from 'react-stepper-horizontal';
-import noUser from '../../../../assets/no-user.png'
-import imgCancel from '../../../../assets/cancel.gif'
-import imgCheck from '../../../../assets/check.gif'
-import {dataPascabayar, validatePhoneNumber} from "../../../../helper";
+import noUser from '../../../assets/no-user.png'
+import imgCancel from '../../../assets/cancel.gif'
+import imgCheck from '../../../assets/check.gif'
+import {dataPascabayar, validatePhoneNumber} from "../../../helper";
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
-import ModalPin from "../../modals/modal_pin";
-import {ModalToggle, ModalType} from "../../../../redux/actions/modal.action";
-
+import ModalPin from "../modals/modal_pin";
+import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 const dataKategori=dataPascabayar();
-class TrxPln extends Component{
+
+class TempPra extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -181,12 +181,12 @@ class TrxPln extends Component{
             cursor:'no-drop',
             userSelect:'none'
         }
-        return (
-            <Layout page="Pembayaran PLN" subpage="PPOB" link={"/ppob"}>
+        return(
+            <Layout page={this.props.page} subpage="PPOB" link={"/ppob"}>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
                         <div className="dashboard-header-title mb-3 d-flex justify-content-center">
-                            <h5 className="mb-0 text-center font-weight-bold">Pembayaran PLN</h5>
+                            <h5 className="mb-0 text-center font-weight-bold">{this.props.page}</h5>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,6 @@ class TrxPln extends Component{
                                                                 })
                                                             }
                                                         </div>
-                                                        <br/>
                                                         <div className="col-md-12">
                                                             <div className="form-group">
                                                                 <label className={"bold black"}>ID Pelanggan</label>
@@ -368,10 +367,9 @@ class TrxPln extends Component{
                     this.props.isOpen?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={''}/>:null
                 }
             </Layout>
-            );
+        );
     }
 }
-
 const mapStateToProps = (state) => {
     return {
         isOpen: state.modalReducer,
@@ -383,4 +381,6 @@ const mapStateToProps = (state) => {
         isError:state.transferReducer.isError,
     }
 }
-export default connect(mapStateToProps)(TrxPln);
+
+
+export default connect(mapStateToProps)(TempPra);

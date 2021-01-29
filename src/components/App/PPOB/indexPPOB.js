@@ -10,25 +10,25 @@ class IndexPPOB extends Component{
     constructor(props){
         super(props);
         this.state={
-            arrProduct:[
-                {img:iPulsa,title:'pulsa-all-operator',link:"/ppob/pulsa-all-operator"},
-                {img:iPulsa,title:'paket-data',link:"/ppob/paket-data"},
-                {img:iPulsa,title:'pulsa-sms-telpon',link:"/ppob/pulsa-sms-telpon"},
-                {img:iPulsa,title:'pulsa-transfer',link:"/ppob/pulsa-transfer"},
-                {img:iEtoll,title:'e-toll',link:"/ppob/e-toll"},
-                {img:iWifiId,title:'voucher-wifiid',link:"/ppob/voucher-wifiid"},
-                {img:iPulsa,title:'e-money',link:"/ppob/e-money"},
-                {img:iPulsa,title:'pln',link:"/ppob/pembayaran-pln"},
-                {img:iPulsa,title:'tv',link:"/ppob/pembayaran-tv"},
-                {img:iPulsa,title:'pdam',link:"/ppob/pembayaran-pdam"},
-                {img:iPulsa,title:'telpon-kabel',link:"/ppob/pembayaran-telpon-kabel"},
-                {img:iPulsa,title:'telpon-pascabayar',link:"/ppob/pembayaran-telpon-pascabayar"},
-                {img:iPulsa,title:'bpjs',link:"/ppob/pembayaran-bpjs"},
-                {img:iPulsa,title:'asuransi',link:"/ppob/pembayaran-asuransi"},
-                {img:iPulsa,title:'multifinance',link:"/ppob/pembayaran-multifinance"},
-                {img:iPulsa,title:'kereta-api',link:"/ppob/pembayaran-kereta-api"},
-                {img:iPulsa,title:'zakat',link:"/ppob/pembayaran-zakat"},
-            ]
+            arrPulsa:[
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2020/8/28/47197032/47197032_914c9752-19e1-42b0-8181-91ef0629fd8a.png',title:'pulsa-all-operator',link:"/ppob/pulsa-all-operator"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2019/10/22/21181130/21181130_907dac9a-c185-43d1-b459-2389f0b6efea.png',title:'paket-data',link:"/ppob/paket-data"},
+                {img:'https://tripay.co.id/member-page/asset/icons/sms.svg',title:'pulsa-sms-telpon',link:"/ppob/pulsa-sms-telpon"},
+            ],
+            arrTagihan:[
+                {img:'https://tripay.co.id/member-page/asset/icons/token-listrik.svg',title:'pln',link:"/ppob/pembayaran-pln"},
+                {img:'https://tripay.co.id/member-page/asset/icons/pdam.svg',title:'pdam',link:"/ppob/pembayaran-pdam"},
+                {img:'https://tripay.co.id/member-page/asset/icons/telephone.svg',title:'telpon-kabel',link:"/ppob/pembayaran-telpon-kabel"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2019/10/22/21181130/21181130_53682a49-5247-4374-82c0-4c2a8d3bdbea.png',title:'telpon-pascabayar',link:"/ppob/pembayaran-telpon-pascabayar"},
+            ],
+            arrLainnya:[
+                {img:'https://tripay.co.id/member-page/asset/icons/tol.svg',title:'e-toll',link:"/ppob/e-toll"},
+                {img:'https://tripay.co.id/member-page/asset/icons/paket-data.svg',title:'voucher-wifiid',link:"/ppob/voucher-wifiid"},
+                {img:'https://tripay.co.id/member-page/asset/icons/e-money.svg',title:'e-money',link:"/ppob/e-money"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2021/1/7/22166894/22166894_a0e8d558-59eb-47af-bdc1-abc0f4d45a84.png',title:'bpjs',link:"/ppob/pembayaran-bpjs"},
+                {img:'https://ecs7.tokopedia.net/img/cache/100-square/attachment/2019/12/13/51829405/51829405_77281743-12fd-402b-b212-67b52516229c.png',title:'zakat',link:"/ppob/pembayaran-zakat"},
+            ],
+
         }
     }
 
@@ -37,37 +37,107 @@ class IndexPPOB extends Component{
             <Layout page="PPOB">
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="row">
-                            <div className="card">
-                                <div className="card-body">
-                                   <div className="row">
-                                       {
-                                           this.state.arrProduct.map((v,i)=>{
-                                               return(
-                                                   <div className="col-md-2" key={i}>
-                                                       <div className="wrapperCard" style={{textAlign:"center"}}>
-                                                           <Link to={v.link} className="card1" href="#">
-                                                               <img style={{height:"50px"}} className={"svgImg"} src={v.img} alt=""/>
-                                                               <br/>
-                                                               <br/>
-                                                               <p>{v.title}</p>
-                                                               <div className="go-corner" href="#">
-                                                                   <div className="go-arrow">
-                                                                       <i className={"fa fa-arrow-right"}/>
-                                                                   </div>
-                                                               </div>
-                                                           </Link>
-                                                       </div>
-                                                   </div>
-                                               );
-                                           })
-                                       }
-                                   </div>
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <h4 className={"black bold"}>Pulsa Reguler & Paket Data</h4>
+                                    </div>
+                                    {
+                                        this.state.arrPulsa.map((v,i)=>{
+                                            return(
+                                                <div className="col-md-3" key={i}>
+                                                    <div className="wrapperCard" style={{textAlign:"center"}}>
+                                                        <Link to={v.link} className="card1" href="#">
+                                                            <img style={{height:"100px"}} className={"svgImg"} src={v.img} alt=""/>
+                                                            <br/>
+                                                            <br/>
+                                                            <p>{v.title.toUpperCase().replaceAll('-',' ')}</p>
+                                                            <div className="go-corner" href="#">
+                                                                <div className="go-arrow">
+                                                                    <i className={"fa fa-arrow-right"}/>
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    }
                                 </div>
                             </div>
-
                         </div>
                     </div>
+                </div>
+                <div className="row" style={{marginTop:"10px"}}>
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <h4 className={"black bold"}>Bayar Tagihan</h4>
+                                    </div>
+                                    {
+                                        this.state.arrTagihan.map((v,i)=>{
+                                            return(
+                                                <div className="col-md-3" key={i}>
+                                                    <div className="wrapperCard" style={{textAlign:"center"}}>
+                                                        <Link to={v.link} className="card1" href="#">
+                                                            <img style={{height:"100px"}} className={"svgImg"} src={v.img} alt=""/>
+                                                            <br/>
+                                                            <br/>
+                                                            <p>{v.title.toUpperCase().replaceAll('-',' ')}</p>
+                                                            <div className="go-corner" href="#">
+                                                                <div className="go-arrow">
+                                                                    <i className={"fa fa-arrow-right"}/>
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="row" style={{marginTop:"10px"}}>
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <h4 className={"black bold"}>Pembayaran Lainnya</h4>
+                                    </div>
+                                    {
+                                        this.state.arrLainnya.map((v,i)=>{
+                                            return(
+                                                <div className="col-md-3" key={i}>
+                                                    <div className="wrapperCard" style={{textAlign:"center"}}>
+                                                        <Link to={v.link} className="card1" href="#">
+                                                            <img style={{height:"100px"}} className={"svgImg"} src={v.img} alt=""/>
+                                                            <br/>
+                                                            <br/>
+                                                            <p>{v.title.toUpperCase().replaceAll('-',' ')}</p>
+                                                            <div className="go-corner" href="#">
+                                                                <div className="go-arrow">
+                                                                    <i className={"fa fa-arrow-right"}/>
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </Layout>
         );

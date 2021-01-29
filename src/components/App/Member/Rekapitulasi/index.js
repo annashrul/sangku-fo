@@ -19,8 +19,10 @@ class Rekapitulasi extends Component{
         let start = moment(new Date()).subtract(4,'days');
         let end = moment(new Date()).add(1,'days');
         for (var m = moment(start); m.isBefore(end); m.add(1, 'days')) {
-            let param = 'tgl='+moment(m).format("yyyy-MM-DD")
-            this.props.dispatch(FetchRekapitulasi(param));
+            if(moment(m).format("yyyy-MM-DD")!==moment(new Date()).add(1,'days').format("yyyy-MM-DD")){
+                let param = 'tgl='+moment(m).format("yyyy-MM-DD")
+                this.props.dispatch(FetchRekapitulasi(param));
+            }
         }
         this.getData()
     }
