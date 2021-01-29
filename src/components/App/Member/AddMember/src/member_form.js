@@ -7,7 +7,7 @@ import { Card, CardBody, CardFooter, CardHeader, Table } from 'reactstrap';
 import { TabList, Tabs, Tab } from 'react-tabs';
 import { FetchDetailPin } from 'redux/actions/pin/pin.action';
 // import Spinner from 'Spinner'
-import Preloader from 'Preloader'
+import Spinner from 'Spinner'
 import { createMember } from 'redux/actions/authActions';
 import Swal from 'sweetalert2';
 import Default from 'assets/default.png'
@@ -688,7 +688,7 @@ class MemberForm extends Component{
                                                 <Table striped>
                                                     <thead className="bg-primary">
                                                         <tr>
-                                                            <th className="text-center text-light">Mmbership</th>
+                                                            <th className="text-center text-light">Membership</th>
                                                             <th className="text-center text-light">Syarat</th>
                                                             {/* <th className="text-center text-light">Paket</th>
                                                             <th className="text-center text-light">Volume</th>
@@ -803,7 +803,7 @@ class MemberForm extends Component{
                         </CardFooter>
                     </Card>
                 </div>
-            : <Preloader/>
+            : <Spinner spinnerLabel="Sedang memproses data..."/>
         );
     }
 }

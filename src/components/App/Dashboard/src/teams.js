@@ -97,8 +97,20 @@ class Overview extends Component {
                                 </div>
                             </div>
                         </div>
-
-
+                         <div className="row mt-3 mb-4">
+                            <div className='col-md-12'>
+                                <div className="card">
+                                    <div className="card-body" style={{padding:'10px'}}>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <h5><small>Rp</small> 3.000.000</h5>
+                                                <p className="title-widget-team mb-0">SangQuota</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

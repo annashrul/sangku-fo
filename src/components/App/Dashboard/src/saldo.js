@@ -15,18 +15,49 @@ class Overview extends Component {
                     <div className="saldo-aktif-title">
                         <h1>Saldo Aktif</h1>
                     </div>
-                    <div className="content-widget-dashboard">
-                    <ul className="positions">
-                         <li className="pos-card" id="pos_1">
-                            <div className="content"> 
-                                <div className="title d-inline-block">
-                                <img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
-                                <div className="content-title">
-                                    <h1>SangQuota</h1> <h6>Limit bonus yang anda punya.</h6></div>
+                    <div className="content-widget-dashboard" style={{marginBottom:'30px'}}>
+                        <div className="row mt-3 mb-4">
+                            <div className='col-md-4'>
+                                <div className="card">
+                                    <div className="card-body" style={{padding:'10px'}}>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <h5><img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                                </h5>
+                                                <p className="title-widget-team mb-0">Deposit</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="amount"><small>Rp</small> 3.000.000</div>
                             </div>
-                        </li>
+                            <div className='col-md-4'>
+                                <div className="card">
+                                    <div className="card-body" style={{padding:'10px'}}>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <h5><img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                                </h5>
+                                                <p className="title-widget-team mb-0">Transfer</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-md-4'>
+                                <div className="card">
+                                    <div className="card-body" style={{padding:'10px'}}>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <h5><img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                                </h5>
+                                                <p className="title-widget-team mb-0">Withdraw</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <ul className="positions">
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">

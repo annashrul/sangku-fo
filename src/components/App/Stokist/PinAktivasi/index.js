@@ -37,7 +37,7 @@ class Pin extends Component{
             sort_data:[],
             filter:"",
             filter_data:[],
-            status:"",
+            status:1,
             status_data:[],
         }
     }
@@ -177,10 +177,10 @@ class Pin extends Component{
             return null;
         });
         let status = [
-            {kode:"",value: "Semua"},
-            {kode:"0",value: "PIN AKTIVASI"},
+            {kode:"0",value: "TELAH DIAKTIVASI"},
             {kode:"1",value: "TERSEDIA"},
             {kode:"3",value: "TERPAKAI"},
+            {kode:"4",value: "DI TRANSFER"},
         ];
         let data_status=[];
         status.map((i) => {
@@ -215,7 +215,7 @@ class Pin extends Component{
             }
         }
         
-        localStorage.setItem('status_pin',this.state.status===''||this.state.status===undefined?status[0].kode:localStorage.status_pin)
+        localStorage.setItem('status_pin',this.state.status===''||this.state.status===undefined?status[1].kode:localStorage.status_pin===undefined?this.state.status:localStorage.status_pin)
         localStorage.setItem('sort_pin',this.state.sort===''||this.state.sort===undefined?sort[0].kode:localStorage.sort_pin)
         localStorage.setItem('filter_pin',this.state.filter===''||this.state.filter===undefined?filter[0].kode:localStorage.filter_pin)
     }

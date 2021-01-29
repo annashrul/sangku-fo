@@ -37,20 +37,29 @@ export const getInvoice = (trx) => {
         let url = `transaction/get_payment/${trx}`;
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
-                console.log(response);
                 const data = response.data;
-                console.log(data);
                 dispatch(setData(data));
                 dispatch(setLoading(false));
             })
             .catch(function (error) {
                 dispatch(setLoading(false));
+                console.log(error.response.data);
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',
                         'Please check your connection',
                         'error'
                     );
+                }else{
+                    Swal.fire({
+                        title: 'Perhatian!',
+                        html: `Transaksi telah selesai!`,
+                        icon: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: `Oke`,
+                    }).then((result) => {
+                        window.location.href = "/dashboard";
+                    })
                 }
             })
 

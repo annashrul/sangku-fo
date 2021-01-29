@@ -1,5 +1,6 @@
 import axios from "axios"
 import Swal from "sweetalert2";
+import { ToastQ } from "../../../helper";
 import {TRANSFER, HEADERS, NOTIF_ALERT} from "../_constants";
 
 
@@ -60,18 +61,19 @@ export const postTransfer = (data) => {
             .then(function (response) {
                 const data = (response.data);
                 if (data.status === 'success') {
-                    Swal.fire({
-                        title: 'Berhasil !!!',
-                        html:`Terimakasih telah melakukan transaksi`,
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Riwayat Transaksi`,
-                        cancelButtonText: 'Oke',
-                    }).then((result) => {
+                    // Swal.fire({
+                    //     title: 'Berhasil !!!',
+                    //     html:`Terimakasih telah melakukan transaksi`,
+                    //     icon: 'success',
+                    //     showCancelButton: true,
+                    //     confirmButtonColor: '#3085d6',
+                    //     cancelButtonColor: '#d33',
+                    //     confirmButtonText: `Riwayat Transaksi`,
+                    //     cancelButtonText: 'Oke',
+                    // }).then((result) => {
 
-                    })
+                    // })
+                    ToastQ.fire({icon:'success',title:`Transfer sukses.`});
                     dispatch(setIsError(true));
                 } else {
                     Swal.fire({
