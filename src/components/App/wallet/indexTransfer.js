@@ -10,8 +10,7 @@ import imgCheck from '../../../assets/check.gif'
 import { FetchAvailableMember } from '../../../redux/actions/member/member.action';
 import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
-// import imgWait from '../../../assets/wait.gif'
-// import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router-dom';
 
 class IndexTransfer extends Component{
     constructor(props){
@@ -38,21 +37,14 @@ class IndexTransfer extends Component{
         this.handleSubmit   = this.handleSubmit.bind(this);
         this.onClickNext = this.onClickNext.bind(this);
         this.onClickPrev = this.onClickPrev.bind(this);
-        this.pinValidate = this.pinValidate.bind(this);
         this.konfirmRefs = React.createRef();
         this.pengisianRefs = React.createRef();
         this.berhasilRefs = React.createRef();
     }
     componentDidUpdate(prevState){
-        console.log(this.props.isError);
-        console.log(this.props.isOpen);
-        console.log(this.state.currentStep);
         if(prevState.memberAvail!==this.props.memberAvail){
             this.setState({member_data:this.props.memberAvail})
         }
-        // if(this.props.isError===true){
-        //     this.setState({currentStep:this.state.currentStep+1});
-        // }
         if(prevState.isOpen===true&&this.state.currentStep===2){
             this.setState({currentStep:this.state.currentStep-1});
         }
@@ -60,19 +52,9 @@ class IndexTransfer extends Component{
             this.setState({currentStep:2});
         }
     }
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.isError){
-    //         this.setState({currentStep:this.state.currentStep+1});
-    //     }
-    // }
     onClickNext() {
         const { 
-            // steps,
             currentStep } = this.state;
-            // const konfirmasiNode = ReactDOM.findDOMNode(this.refs.konfirmasi)
-            // if (some_logic){
-            //     window.scrollTo(0, konfirmasiNode.offsetTop);
-            // }
         if(currentStep===0){
             if(this.valid()){
                 this.setState({
@@ -86,35 +68,24 @@ class IndexTransfer extends Component{
         } 
         else if(currentStep===1){
             if(this.state.member_data!=={}&&this.state.member_data.id!==undefined){
-                // if(this.state.pin!==''){
-                    // if(this.pinValidate()){
-                        this.setState({
-                            currentStep: currentStep + 1,
-                        });
-                        this.berhasilRefs.current.scrollIntoView()
-                        // this.submit()
-                        this.setState({
-                            isModal:true
-                        });
-                        const bool = !this.props.isOpen;
-                        this.props.dispatch(ModalToggle(bool));
-                        this.props.dispatch(ModalType("modalPin"));
-                    // } else {
-                        
-                    // }
-                // } else {
-                //     ToastQ.fire({icon:'error',title:`PIN anda belum diisi!`});
-                // }
+                this.setState({
+                    currentStep: currentStep + 1,
+                });
+                this.berhasilRefs.current.scrollIntoView()
+                this.setState({
+                    isModal:true
+                });
+                const bool = !this.props.isOpen;
+                this.props.dispatch(ModalToggle(bool));
+                this.props.dispatch(ModalType("modalPin"));
             } else {
-                // this.setState({currentStep:0})
                 this.props.dispatch(FetchAvailableMember(this.state.id_penerima))
             }
         }
     }
     onClickPrev() {
-        const { 
-            // steps,
-        currentStep } = this.state;
+        const {
+            currentStep } = this.state;
         this.setState({
             currentStep: currentStep - 1,
         });
@@ -162,6 +133,10 @@ class IndexTransfer extends Component{
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
             return false;
         }
+        else if(data['amount']<10000){
+            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah 10.000`});
+            return false;
+        }
         else if(this.state.id_penerima===""||this.state.id_penerima==="0"||this.state.id_penerima===undefined){
             ToastQ.fire({icon:'error',title:`silahkan masukan penerima`});
             return false;
@@ -174,26 +149,6 @@ class IndexTransfer extends Component{
             return true;
         }
     }
-    pinValidate(){
-        let myPin=123456;
-        
-        console.log("mypin",myPin)
-        console.log("state pin",this.state.pin)
-        if(String(myPin)!==String(this.state.pin)){
-            ToastQ.fire({icon:'error',title:`PIN yang anda masukan salah!`});
-            return false;
-        }
-        else{
-            ToastQ.fire({icon:'success',title:`PIN diterima!`});
-            return true;
-        }
-    }
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.isError===true){
-    //         this.setState({amount:"0",id_penerima:""})
-    //     }
-    // }
-
     render(){
         const { steps, currentStep } = this.state;
 
@@ -201,21 +156,9 @@ class IndexTransfer extends Component{
             WebkitFilter: 'blur(5px)',
             cursor:'no-drop',
             userSelect:'none'
-            // margin: '-5px 0 0 -5px',
-            // background: 'url(https: images.unsplash.com photo-1511447333015-45b65e60f6d5?ixid="MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=823&q=80&quot)',
-            // height:'400px',
-            // width:'400px'
         }
-        console.log("MB5711868825",this.state.member_data)
         return(
             <Layout page={"Transfer"}>
-                <div className="row align-items-center">
-                    <div className="col-12 d-flex justify-content-center">
-                        <div className="dashboard-header-title mb-3 d-flex justify-content-center">
-                            <h5 className="mb-0 text-center font-weight-bold">Transfer</h5>
-                        </div>
-                    </div>
-                </div>
                 <div className="row">
                     <div className="col-12 box-margin">
                         <div className="container">
@@ -348,6 +291,7 @@ class IndexTransfer extends Component{
                                                         <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount)} yang ditujukan kepada Yth. Sdr/i {this.state.member_data!=={}&&this.state.member_data!==undefined?this.state.member_data.full_name:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
+                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -394,4 +338,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(IndexTransfer);
+export default withRouter(connect(mapStateToProps)(IndexTransfer));
