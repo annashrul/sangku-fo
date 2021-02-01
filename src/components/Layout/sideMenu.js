@@ -163,7 +163,6 @@ class SideMenu extends Component {
     };
     render() {
         const path = this.props.location.pathname;
-        console.log(path.split("/"));
         // const {
             //modul only
             // md_network,
