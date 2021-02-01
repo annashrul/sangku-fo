@@ -321,35 +321,36 @@
   width: 202px; height: 202px;
   overflow: hidden;
 }
-  .loader-42 .loader-container {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px; height: 200px;
-    border: 2px solid rgba(235,235,236,0.1);
-  }
-  .loader-42 .loader-container::before,
-  .loader-42 .loader-container::after {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 40px; height: 0px;
-  }
-  .loader-42 .loader-container::before {
-    top: 0; right: 0;
-    border-top: 2px solid #fff;
-    border-right: 2px solid #fff;
-    transform: translate(-198px, -2px);
-    animation: spinBefore42 2s infinite linear;
-  }
-  .loader-42 .loader-container::after {
-    bottom: 0; left: 0;
-    border-bottom: 2px solid #fff;
-    border-left: 2px solid #fff;
-    transform: translate(200px, 2px);
-    animation: spinAfter42 2s 0.9s infinite linear;
-  }
-    .loader-42 p {
+.loader-42 .loader-container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  border: 2px solid rgba(235,235,236,0.1);
+  /*border: 2px solid red;*/
+}
+.loader-42 .loader-container::before,
+.loader-42 .loader-container::after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 40px; height: 0px;
+}
+.loader-42 .loader-container::before {
+  top: 0; right: 0;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: translate(-198px, -2px);
+  animation: spinBefore42 2s infinite linear;
+}
+.loader-42 .loader-container::after {
+  bottom: 0; left: 0;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  transform: translate(200px, 2px);
+  animation: spinAfter42 2s 0.9s infinite linear;
+}
+.loader-42 p {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -357,15 +358,14 @@
       letter-spacing: 3px;
       color: #fff;
     }
-
-  @keyframes spinBefore42 {
-    0%   { transform: translate(-198px, -3px);  width: 70px; height: 0px;  }
-    20%  { transform: translate(3px, -3px);  width: 70px; height: 0px; }
-    25%  { transform: translate(3px, -3px);  width: 0px; height: 60px; }    
-    50%  { transform: translate(3px, 199px); width: 0px; height: 40px; }
-    100% { transform: translate(3px, 199px); width: 0px; height: 40px; }
-  }
-  @keyframes spinAfter42 {
+@keyframes spinBefore42 {
+  0%   { transform: translate(-198px, -3px);  width: 70px; height: 0px;  }
+  20%  { transform: translate(3px, -3px);  width: 70px; height: 0px; }
+  25%  { transform: translate(3px, -3px);  width: 0px; height: 60px; }
+  50%  { transform: translate(3px, 199px); width: 0px; height: 40px; }
+  100% { transform: translate(3px, 199px); width: 0px; height: 40px; }
+}
+@keyframes spinAfter42 {
     0%   { transform: translate(198px, 3px); width: 40px; height: 0px;  }                                
     20%  { transform: translate(-3px, 3px); width: 40px; height: 0px; }
     25%  { transform: translate(-3px, 3px);  width: 0px; height: 40px; }    
@@ -460,6 +460,28 @@
       border-left: none!important;
       border-right: none!important;
       border-bottom: 3px solid #E1E1E1;
+    }
+    .modal-header{
+      border-bottom: none!important;
+    }
+    .txtGreen{
+      color:rgb(66, 181, 73);
+    }
+    .txtRed{
+      color:rgb(250, 89, 29);
+    }
+    .modal-header{
+      background-color: rgb(66, 181, 73);
+
+    }
+    .modal-title,.close{
+      color: white!important;
+      font-weight: bold!important;
+      vertical-align: middle!important;
+    }
+    .modal-content{
+      border: none!important;
+      padding:15px!important;
     }
 
   </style>
