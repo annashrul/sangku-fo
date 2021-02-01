@@ -12,13 +12,8 @@ import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
 import { withRouter } from 'react-router-dom';
 import Select, { components } from "react-select";
-import {getBankMember} from "redux/actions/member/bankMember.action";
-import {postPenarikan} from "redux/actions/member/penarikan.action";
-
-const options = [
-    { value: "AXIS", label: "AXIS", chipLabel:"TEST", icon: "https://tripay.co.id/assets/images/provider/axis.png" },
-    { value: "INDOSAT", label: "INDOSAT", chipLabel:"TEST", icon: "https://tripay.co.id/assets/images/provider/indosat.png" }
-];
+import {getBank} from "redux/actions/member/bank.action";
+import {postDeposit} from "redux/actions/member/deposit.action";
 
 const { Option } = components;
 const IconOption = props => (
@@ -39,7 +34,7 @@ const IconOption = props => (
     {/* <div className="card mb-1 p-0"> */}
     {/* <div className="card-body"> */}
     <div className="client-media-content d-flex align-items-center p-1">
-    {/* <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} /> */}
+    <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} />
     <div className="user--media-body">
         <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
         <span className="font-13 text-dark">{props.data.childLabel}</span>
@@ -51,7 +46,7 @@ const IconOption = props => (
 </Option>
 );
 
-class IndexPenarikan extends Component{
+class IndexDeposit extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -85,7 +80,7 @@ class IndexPenarikan extends Component{
         this.berhasilRefs = React.createRef();
     }
     componentWillMount(){
-        this.props.dispatch(getBankMember());
+        this.props.dispatch(getBank());
     }
     componentWillReceiveProps(nextProps){
         console.log(nextProps.resBank);
@@ -96,7 +91,7 @@ class IndexPenarikan extends Component{
                     value: i.id,
                     label: i.acc_name,
                     childLabel: i.bank_name,
-                    icon: i.value,
+                    icon: i.logo,
                 });
                 return null;
             });
@@ -177,10 +172,10 @@ class IndexPenarikan extends Component{
         this.setState({pin:num})
         if(num.length===6&&this.valid){
             let data={};
-            data['id_bank'] = this.state.bank.value;
+            data['id_bank_destination'] = this.state.bank.value;
             data['pin_member'] = num;
             data['amount'] = rmComma(this.state.amount);
-            this.props.dispatch(postPenarikan(data));
+            this.props.dispatch(postDeposit(data));
             this.props.dispatch(ModalToggle(false));
             this.setState({
                 pin:0,
@@ -224,7 +219,7 @@ class IndexPenarikan extends Component{
 
         console.log(this.state.bank);
         return(
-            <Layout page={"Penarikan"} subpage="Wallet">
+            <Layout page={"Deposit"} subpage="Wallet">
                 <div className="row">
                     <div className="col-12 box-margin">
                         <div className="container">
@@ -415,13 +410,13 @@ class IndexPenarikan extends Component{
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
-        resBank:state.bankMemberReducer.data,
+        resBank:state.bankReducer.data,
         isLoadingBank:state.bankReducer.isLoading,
-        isLoadingPost:state.penarikanReducer.isLoadingPost,
-        isError:state.penarikanReducer.isError,
+        isLoadingPost:state.depositReducer.isLoadingPost,
+        isError:state.depositReducer.isError,
         isOpen: state.modalReducer,
     }
 }
 
 
-export default withRouter(connect(mapStateToProps)(IndexPenarikan));
+export default withRouter(connect(mapStateToProps)(IndexDeposit));
