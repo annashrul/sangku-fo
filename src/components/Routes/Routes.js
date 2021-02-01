@@ -14,7 +14,7 @@ import IndexCart from '../App/transaction/indexCart';
 import IndexCheckout from '../App/transaction/indexCheckout';
 import IndexInvoice from '../App/transaction/indexInvoice';
 import AddMember from '../App/Member/AddMember';
-import IndexDeposit from '../App/wallet/deposit';
+import IndexDeposit from '../App/wallet/indexDeposit';
 import IndexPenarikan from '../App/wallet/indexPenarikan';
 import IndexTransfer from '../App/wallet/indexTransfer';
 import IndexAlamat from '../App/Member/Alamat/indexAlamat';

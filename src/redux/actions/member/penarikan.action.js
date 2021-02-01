@@ -52,25 +52,35 @@ export function setDataFailed(data = []) {
 
 export const postPenarikan = (data) => {
     return (dispatch) => {
+        Swal.fire({
+            allowOutsideClick:false,
+            title: 'Silahkan tunggu.',
+            html: 'Sedang melakukan penarikan..',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+            onClose: () => {}
+        })
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
         const url = HEADERS.URL + `transaction/withdrawal`;
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);
+                Swal.close()
                 if (data.status === 'success') {
-                    Swal.fire({
-                        title: 'Berhasil !!!',
-                        html:`Terimakasih telah melakukan transaksi`,
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Riwayat Penarikan`,
-                        cancelButtonText: 'Oke',
-                    }).then((result) => {
+                    // Swal.fire({
+                    //     title: 'Berhasil !!!',
+                    //     html:`Terimakasih telah melakukan transaksi`,
+                    //     icon: 'success',
+                    //     showCancelButton: true,
+                    //     confirmButtonColor: '#3085d6',
+                    //     cancelButtonColor: '#d33',
+                    //     confirmButtonText: `Riwayat Penarikan`,
+                    //     cancelButtonText: 'Oke',
+                    // }).then((result) => {
 
-                    })
+                    // })
                     dispatch(setIsError(true));
                 } else {
                     Swal.fire({
@@ -83,6 +93,7 @@ export const postPenarikan = (data) => {
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
+                Swal.close()
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(false));
                 if (error.message === 'Network Error') {
