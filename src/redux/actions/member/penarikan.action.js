@@ -49,7 +49,30 @@ export function setDataFailed(data = []) {
         data
     }
 }
-
+export function setLoadingReport(load) {
+    return {
+        type: PENARIKAN.LOADING_REPORT,
+        load
+    }
+}
+export function setReport(data = []) {
+    return {
+        type: PENARIKAN.SUCCESS_REPORT,
+        data
+    }
+}
+export function setPersen(data = []) {
+    return {
+        type: PENARIKAN.SUCCESS_PERSEN,
+        data
+    }
+}
+export function setReportExcel(data=[]){
+    return {
+        type: PENARIKAN.SUCCESS_REPORT_EXCEL,
+        data
+    }
+}
 export const postPenarikan = (data) => {
     return (dispatch) => {
         Swal.fire({
@@ -120,3 +143,85 @@ export const postPenarikan = (data) => {
 }
 
 
+export const FetchReport = (page = 1,where='') => {
+    return (dispatch) => {
+        dispatch(setLoadingReport(true));
+        let url=`transaction/withdrawal?page=${page==='NaN'||isNaN(page)?1:page}`;
+        if(where!==''){
+            url+=`&${where}`
+        }
+        
+        axios.get(HEADERS.URL+`${url}`)
+            .then(function(response){
+                const data = response.data;
+                dispatch(setReport(data));
+                dispatch(setLoadingReport(false));
+            }).catch(function(error){
+                dispatch(setLoadingReport(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response===undefined?'Something error!':error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+        })
+
+    }
+}
+export const FetchReportExcel = (page=1,where='',perpage='') => {
+    return (dispatch) => {
+        dispatch(setLoading(true));
+        let url=`transaction/withdrawal?page=${isNaN(page)||page==='NaN'?1:page}&perpage=${isNaN(perpage)||perpage==='NaN'?99999:perpage}`;
+        if(where!==''){
+            url+=`&${where}`
+        }
+        
+        axios.get(HEADERS.URL+`${url}`, {
+            onDownloadProgress: progressEvent => {
+                const total = parseFloat(progressEvent.total);
+                const current = parseFloat(progressEvent.loaded);
+                let percentCompleted = Math.floor(current / total * 100)
+                dispatch(setPersen(percentCompleted));
+            }
+        })
+            .then(function(response){
+                const data = response.data;
+                dispatch(setReportExcel(data));
+                dispatch(setLoading(false));
+                dispatch(setPersen(0));
+            }).catch(function(error){
+                dispatch(setLoading(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response===undefined?'Something error!':error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+        })
+
+    }
+}
