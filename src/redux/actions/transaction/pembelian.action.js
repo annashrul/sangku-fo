@@ -79,18 +79,19 @@ export const getReportPembelianDetail = (id='')=>{
     }
 }
 
-export const getReportPembelianExcel = (page=1,where='',perpage=99999)=>{
+export const getReportPembelianExcel = (where='')=>{
     return (dispatch) => {
         dispatch(setLoadingReportExcel(true));
-        let url=`transaction/penjualan/report?page=${page==='NaN'||page===null||page===''||page===undefined?1:page}&perpage=${perpage}`;
+        // let url=`transaction/penjualan/report?page=${page==='NaN'||page===null||page===''||page===undefined?1:page}&perpage=${perpage}`;
+        let url=`transaction/penjualan/report`;
         if(where!==''){
-            url+=where
+            url+=`?${where}`
         }
-        
+        // console.log(url);
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;
-                
+                console.log(data);
                 dispatch(setReportExcel(data));
                 dispatch(setLoadingReportExcel(false));
             }).catch(function(error){

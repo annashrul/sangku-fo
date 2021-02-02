@@ -20,6 +20,7 @@ import { cekResi, trxDone } from '../../../../redux/actions/product/kurir.action
 import Swal from 'sweetalert2';
 import {noImage, toCurrency} from "../../../../helper";
 import Skeleton from 'react-loading-skeleton';
+import {postCart} from "../../../../redux/actions/product/cart.action";
 
 class PembelianReport extends Component{
     constructor(props){
@@ -34,6 +35,9 @@ class PembelianReport extends Component{
         this.handleRePrint = this.handleRePrint.bind(this);
         this.handleToggleDetail = this.handleToggleDetail.bind(this);
         this.state={
+            detail:{},
+            detailReport:{},
+            detaiDataReport:{},
             where_data:"",
             any:"",
             location:"",
@@ -49,14 +53,23 @@ class PembelianReport extends Component{
             lengthDetail:1,
             idDetail:'',
             isShowDetail:false,
-            dataDetail:[]
+            dataDetail:[],
+            idx:''
         }
     }
     componentWillMount(){
+        localStorage.removeItem("modalResi");
+        localStorage.removeItem("modalDetail");
+        localStorage.removeItem("modalExportReport");
         let page=localStorage.page_pembelian_report;
         this.handleParameter(page!==undefined&&page!==null?page:1);
     }
     componentDidMount(){
+        localStorage.removeItem("modalResi");
+        localStorage.removeItem("modalDetail");
+        localStorage.removeItem("modalExportReport");
+
+
         if (localStorage.location_pembelian_report !== undefined && localStorage.location_pembelian_report !== '') {
             this.setState({location: localStorage.location_pembelian_report})
         }
@@ -85,24 +98,36 @@ class PembelianReport extends Component{
     }
     toggle(e,code,barcode,name){
         e.preventDefault();
+        this.setState({
+            detaiDataReport:{code:code}
+        });
+        localStorage.setItem("modalDetail","true");
         localStorage.setItem("code",code);
         localStorage.setItem("barcode",barcode);
         localStorage.setItem("name",name);
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("pembelianDetail"));
-        this.props.dispatch(getReportPembelianDetail(code))
+        // this.props.dispatch(getReportPembelianDetail(code))
     };
     toggleResi(e,data){
         e.preventDefault();
-        let param = {}
+        localStorage.setItem("modalResi","true");
+        // let param = {};
         // param['resi'] = 'JP3738533084';
         // param['kurir'] = 'jnt';
+        console.log("DATA RESI",data);
+        this.setState({
+            detail:{resi:'JP3738533084',kurir:'jnt',kd_trx:''}
+            // detail:{resi:data.resi,kurir:data.kurir,kd_trx:data.kd_trx}
+        });
+        // console.log(param);
         // param['resi'] = data.resi;
         // param['kurir'] = String(data.layanan_pengiriman).split('|')[0];
-        // const bool = !this.props.isOpen;
-        // this.props.dispatch(ModalToggle(bool));
-        // this.props.dispatch(ModalType("pembelianCekResi"));
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("pembelianCekResi"));
+
         // this.props.dispatch(cekResi(param))
     };
     handleDone(e,kd_trx){
@@ -170,8 +195,6 @@ class PembelianReport extends Component{
         this.props.dispatch(getReportPembelian(pageNumber,where))
         // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
-
-
     componentWillReceiveProps = (nextProps) => {
         let sort = [
             {kode:"desc",value: "DESCENDING"},
@@ -268,18 +291,24 @@ class PembelianReport extends Component{
         localStorage.setItem('status_pembelian_report', st.value);
     }
     toggleModal(e,total,perpage) {
+        localStorage.setItem("modalExportReport","true");
         e.preventDefault();
+        console.log(total);
+        this.setState({
+            detailReport:{perpage:total}
+        })
         const bool = !this.props.isOpen;
-        // let range = total*perpage;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("formPembelianExcel"));
-        this.props.dispatch(getReportPembelianExcel(1,this.state.where_data,total));
+        // this.props.dispatch(getReportPembelianExcel(1,this.state.where_data,total));
+        // this.props.dispatch(getReportPembelianExcel('page=1'));
     }
     handleRePrint(e,id){
         e.preventDefault();
         // this.props.dispatch(rePrintFaktur(id));
     }
     handleToggleDetail(i,id){
+        // localStorage.setItem("modalDetail","true");
         console.log(i);
         // this.state.dataDetail[i]
         this.setState({
@@ -287,9 +316,44 @@ class PembelianReport extends Component{
             isShowDetail:!this.state.isShowDetail
         })
     }
+    handleCart(e,i,id){
+        e.preventDefault();
+        this.setState({
+            idx:i,
+        });
+        let data={
+            "id_paket":id,
+            "qty":1
+        };
+        if(localStorage.productType===undefined){
+            this.props.dispatch(postCart(data,'a'));
+        }else{
+            if(localStorage.productType!=='a'){
+                Swal.fire({
+                    title: 'Perhatian !!!',
+                    html: `Terdapat barang RO didalam keranjang.. <br/>anda yakin akan menghapus barang RO dan melanjutkan transaksi ???`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: `Ya, hapus & lanjutkan`,
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.value) {
+                        this.props.dispatch(postCart(data,'a'));
 
+                    }
+                })
+            }else{
+                this.props.dispatch(postCart(data,'a'));
+            }
+        }
+
+
+    }
 
     render(){
+
         const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
         const {
             per_page,
@@ -301,7 +365,6 @@ class PembelianReport extends Component{
             // total
         } = this.props.pembelianReport;
         let dataID=[];
-        console.log(data);
         return (
             <Layout page="Pembelian" subpage="Laporan" >
                 <div className="card" style={{borderRadius:"10px"}}>
@@ -331,21 +394,21 @@ class PembelianReport extends Component{
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group">
-                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                <i className="fa fa-search"/>
-                                            </button>
-                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
-                                                <i className="fa fa-print"/> Export
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            {/*<div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>*/}
+                                {/*<div className="row">*/}
+                                    {/*<div className="col-md-12">*/}
+                                        {/*<div className="form-group">*/}
+                                            {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>*/}
+                                                {/*<i className="fa fa-search"/>*/}
+                                            {/*</button>*/}
+                                            {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>*/}
+                                                {/*<i className="fa fa-print"/> Export*/}
+                                            {/*</button>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
-                            </div>
+                            {/*</div>*/}
 
                         </div>
                     </div>
@@ -355,22 +418,17 @@ class PembelianReport extends Component{
                     !this.props.isLoadingReport? typeof data==='object'?data.length>0?data.map((v,i)=>{
                         let status='';
                         if(v.status===0){
-                            // status='Menunggu Pembayaran';
                             status=<span className={"btn btn-secondary btn-sm bold text-white"}>Menunggu Pembayaran</span>;
                         }else if(v.status===1){
-                            // status='dikemas'
                             status=<span className={"btn btn-warning btn-sm bold text-white"}>Dikemas</span>;
 
                         }else if(v.status===2){
-                            // status='dikirim'
                             status=<span className={"btn btn-info btn-sm bold"}>Dikirim</span>;
 
                         }else if(v.status===3){
-                            // status='selesai'
                             status=<span className={"btn btn-success btn-sm bold"}>Selesai</span>;
 
                         }else if(v.status===4){
-                            // status='dibatalkan'
                             status=<span className={"btn btn-danger btn-sm bold"}>Dibatalkan</span>;
                         }
                         return(
@@ -430,39 +488,48 @@ class PembelianReport extends Component{
                                     {
                                         (() => {
                                             const rows = [];
-                                            for (let key = 0; key < v.detail.length; key++) {
+                                            let no=0;
+                                            for (let val = 0; val < v.detail.length; val++) {
+                                                console.log(v.detail[val]);
+                                                // no=key++;
                                                 let cardDisplay='none';
                                                 let cardTransition='opacity 1s ease-out';
                                                 let cardOpacity=0;
-                                                if(key===0){
+                                                if(val===0){
                                                     cardDisplay='block';
                                                     cardOpacity=1;
                                                 }else if(this.state.idDetail===v.id&&this.state.isShowDetail){
                                                     cardDisplay='block';
                                                     cardOpacity=1;
                                                 }
-                                                dataID.push(key);
+                                                dataID.push(val);
                                                 rows.push(
-                                                    <div className="row" key={key} style={{marginBottom:"10px",transition:cardTransition,opacity:cardOpacity}}>
+                                                    <div className="row" key={val} style={{marginBottom:"10px",transition:cardTransition,opacity:cardOpacity}}>
                                                         <div className="col-md-12" style={{display:cardDisplay}}>
                                                             <div className="row">
                                                                 <div className="col-md-6" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
                                                                     <div className="media">
-                                                                        <img src={v.detail[key].foto} className="mr-3 media-thumb" alt="..."/>
+                                                                        <img src={v.detail[val].foto} className="mr-3 media-thumb" alt="..."/>
                                                                         <div className="media-body">
-                                                                            <h5 style={{color:"rgb(66, 181, 73)"}} className="mt-0 font-17 bold">{v.detail[key].paket}</h5>
-                                                                            <span style={{color:"rgb(250, 89, 29)",fontWeight:"bold"}}>Rp {toCurrency(v.detail[key].price)} .- <small style={{marginLeft:"10px"}} className={"black"}>{v.detail[key].qty} Item </small></span>
+                                                                            <h5 style={{color:"rgb(66, 181, 73)"}} className="mt-0 font-17 bold">{v.detail[val].paket}</h5>
+                                                                            <span style={{color:"rgb(250, 89, 29)",fontWeight:"bold"}}>Rp {toCurrency(v.detail[val].price)} .- <small style={{marginLeft:"10px"}} className={"black"}>{v.detail[val].qty} Item </small></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-3">
                                                                     <p style={{float:"left"}} className={"black"}>Total Harga<br/>
-                                                                        <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(parseInt(v.detail[key].price)*parseInt(v.detail[key].qty))} .-</span>
+                                                                        <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(parseInt(v.detail[val].price)*parseInt(v.detail[val].qty))} .-</span>
                                                                     </p>
                                                                 </div>
                                                                 <div className="col-md-3" style={{position:"relative",verticalAlign:"left"}}>
-                                                                    <button style={{right:"12px",bottom:"0px",position:"absolute",float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)",border:"1px solid rgb(66, 181, 73)"}} className={"btn btn-primary"}>
-                                                                        Beli Lagi
+                                                                    <button onClick={(event)=>this.handleCart(event,`PAKET-${i}-${val}`,v.detail[val].id_paket)} style={{right:"12px",bottom:"0px",position:"absolute",float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)",border:"1px solid rgb(66, 181, 73)"}} className={"btn btn-primary"}>
+                                                                        {
+                                                                            this.state.idx===`PAKET-${i}-${val}`?this.props.isLoadingPost?(
+                                                                                <div className="spinner-border text-white" role="status">
+                                                                                    <span className="sr-only">Loading...</span>
+                                                                                </div>
+                                                                            ):'Beli Lagi':'Beli Lagi'
+                                                                        }
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -575,9 +642,16 @@ class PembelianReport extends Component{
                         callback={this.handlePageChange.bind(this)}
                     />
                 </div>
-                <PembelianDetail pembelianDetail={this.props.pembelianDetail}/>
-                <PembelianCekResi pembelianCekResi={this.props.pembelianCekResi}/>
-                <PembelianReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />
+                {
+                    localStorage.modalDetail==="true"? <PembelianDetail detail={this.state.detaiDataReport}/>:null
+                }
+                {
+                    localStorage.modalResi==='true'?<PembelianCekResi detailResi={this.state.detail}/>:null
+                }
+                {
+                    localStorage.modalExportReport==='true'?<PembelianReportExcel startDate={this.state.startDate} endDate={this.state.endDate} />:null
+                }
+
             </Layout>
             );
     }
@@ -588,11 +662,13 @@ const mapStateToProps = (state) => {
         auth:state.auth,
         pembelianReport:state.pembelianReducer.data_report,
         isLoadingReport:state.pembelianReducer.isLoadingReport,
-        pembelianDetail:state.pembelianReducer.data_report_detail,
-        pembelianCekResi:state.kurirReducer.data_resi,
-        isLoadingResi:state.kurirReducer.isLoading,
+        // pembelianDetail:state.pembelianReducer.data_report_detail,
+        // pembelianCekResi:state.kurirReducer.data_resi,
+        // isLoadingResi:state.kurirReducer.isLoading,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
+        isLoadingPost:state.cartReducer.isLoadingPost
+
     }
 }
 export default connect(mapStateToProps)(PembelianReport);
