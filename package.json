@@ -59,7 +59,8 @@
     "redux-thunk": "^2.2.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^1.7.4",
-    "sweetalert2": "^9.15.3"
+    "sweetalert2": "^9.15.3",
+    "xlsx": "^0.16.9"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",

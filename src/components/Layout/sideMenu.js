@@ -107,6 +107,14 @@ class SideMenu extends Component {
             this.setState({
                 isReport:true,
             })
+        }else if(
+            path==='/report/wallet/deposit'
+            || path==='/report/wallet/penarikan'
+            ){
+            this.setState({
+                isReport:true,
+                isReportWallet:true,
+            })
         } else if (path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem'||path==='/report/pembelian') {
                 this.setState({
                     isOrder: true,
@@ -289,7 +297,7 @@ class SideMenu extends Component {
                                         ?"block" : "none"}}>
                                             {/* {r_adjusment==='1'      ? */}
                                                 <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
-                                                <li className={path==='/report/wallet/transfer'?"active":''}><Link to="/report/wallet/transfer" style={{width:'fit-content'}}> Transfer</Link></li>
+                                                {/* <li className={path==='/report/wallet/transfer'?"active":''}><Link to="/report/wallet/transfer" style={{width:'fit-content'}}> Transfer</Link></li> */}
                                                 <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
                                             {/*}:''} */}
                                         </ul>

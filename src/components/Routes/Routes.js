@@ -51,6 +51,8 @@ import TrxZakat from '../App/PPOB/TrxZakat';
 import indexProfile from '../App/Member/Profile/indexProfile';
 import Rekapitulasi from '../App/Member/Rekapitulasi';
 import PagesSpace from '../App/Landing/pages';
+import PenarikanReport from '../App/Report/Wallet/reportPenarikan';
+import DepositReport from '../App/Report/Wallet/reportDeposit';
 
 const Routes = (
     <div>
@@ -107,6 +109,11 @@ const Routes = (
             <PrivateRoute path="/transfer" exact strict component={IndexTransfer} />
             {/* WALLET SECTION END */}
             {/* REPORT SECTION START */}
+            {/* REPORT WALLET SECTION START */}
+            <PrivateRoute path="/report/wallet/deposit" exact strict component={DepositReport} />
+            <PrivateRoute path="/report/wallet/penarikan" exact strict component={PenarikanReport} />
+            <PrivateRoute path="/report/wallet/transfer" exact strict component={IndexTransfer} />
+            {/* REPORT WALLET SECTION END */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
             <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
             {/* REPORT SECTION END */}
