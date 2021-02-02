@@ -34,6 +34,8 @@ import StokistRo from '../App/Stokist/PinRo'
 // import Stokist from '../App/Report/Pin'
 import IndexPPOB from '../App/PPOB/indexPPOB'
 import DetailPPOB from '../App/PPOB/detailPPOB'
+import TempPasca from '../App/PPOB/temp_pasca'
+import TempPra from '../App/PPOB/temp_pra'
 import PulsaAll from '../App/PPOB/PulsaAll'
 import PaketData from '../App/PPOB/PaketData';
 import PulsaSmsTelp from '../App/PPOB/PulsaSmsTelp';
@@ -84,6 +86,8 @@ const Routes = (
             {/* PPOB SECTION START */}
             <PrivateRoute path="/ppob" exact strict component={IndexPPOB} />
             <PrivateRoute path="/ppob/checkout/:page" exact strict component={DetailPPOB} />
+            <PrivateRoute path="/ppob/pascabayar/:kategori/:code" exact strict component={TempPasca} />
+            <PrivateRoute path="/ppob/prabayar/:kategori/:code" exact strict component={TempPra} />
             <PrivateRoute path="/ppob/pulsa-all-operator" exact strict component={PulsaAll} />
             <PrivateRoute path="/ppob/paket-data" exact strict component={PaketData} />
             <PrivateRoute path="/ppob/pulsa-sms-telpon" exact strict component={PulsaSmsTelp} />

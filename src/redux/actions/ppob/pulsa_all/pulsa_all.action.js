@@ -35,13 +35,10 @@ export function setIsError(load) {
 }
 
 
-export const FetchPulsaAll = (provider,value)=>{
+export const FetchPulsaAll = (where)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url = '';
-        if(provider!==''){
-            url=`transaction/produk/list?${provider}=${value}`;
-        }
+        let url=`transaction/produk/list?${where}`;
         console.log(url);
         axios.get(HEADERS.URL+url)
             .then(function(response){

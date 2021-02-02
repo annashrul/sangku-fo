@@ -33,7 +33,6 @@ class DetailPPOB extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(localStorage.dataPPOB);
         if(localStorage.dataPPOB===undefined){
             Swal.fire({
                 title: '<strong>TRANSAKSI BERHASIL !!!!!!!</strong>',
@@ -57,7 +56,7 @@ class DetailPPOB extends Component{
         const {retrievedObject}=this.state;
         let data={
             "code":retrievedObject.kode,
-            "nohp":retrievedObject.nomor,
+            "nohp":retrievedObject.nomor.replaceAll("-",""),
             "mtr_pln":"-",
             "pin":num
         }
@@ -70,8 +69,9 @@ class DetailPPOB extends Component{
     render(){
         const path = this.props.location.pathname;
         const {retrievedObject}=this.state;
+        let page = path.split("/")[3].replaceAll('-',' ');
         return (
-            <Layout page={`Checkout ${path.split("/")[3].replaceAll('-',' ')}`} subpage="PPOB" link={"/ppob"}>
+            <Layout page={`Checkout ${page}`} subpage="PPOB" link={"/ppob"}>
                 <div className="row" style={{backgroundColor:"white",padding:"20px"}}>
                     <div className="col-md-8">
                         <table className={"table"}>
@@ -91,10 +91,20 @@ class DetailPPOB extends Component{
                                 <th><h5 style={{color:"grey"}}>:</h5></th>
                                 <th><h5>Rp {toCurrency(retrievedObject.harga)} .-</h5></th>
                             </tr>
+                            {
+                                page==='pulsa all operator'?(
+                                    <tr>
+                                        <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Nominal</h5></th>
+                                        <th><h5 style={{color:"grey"}}>:</h5></th>
+                                        <th><h5>Rp {toCurrency(parseInt(retrievedObject.keterangan.split(' ')[1].replaceAll(".","")))} .-</h5></th>
+                                    </tr>
+                                ):null
+                            }
+
                             <tr>
-                                <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Kode</h5></th>
-                                <th><h5 style={{color:"grey"}}>:</h5></th>
-                                <th><h5>{retrievedObject.kode}</h5></th>
+                                <th style={{border:"none",paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Keterangan</h5></th>
+                                <th style={{border:"none"}}><h5 style={{color:"grey"}}>:</h5></th>
+                                <th style={{border:"none"}}><h5>{retrievedObject.keterangan}</h5></th>
                             </tr>
                             </thead>
                         </table>
