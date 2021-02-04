@@ -2,7 +2,9 @@ import React,{Component} from 'react';
 import Fade from 'react-reveal/Fade';
 import HeadShake from 'react-reveal/HeadShake';
 import Slider from "react-slick";
-
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 class Testimoni extends Component{
     constructor(props){
@@ -16,7 +18,7 @@ class Testimoni extends Component{
         const settings = {
             dots: true,
             infinite: true,
-            speed: 500,
+            speed: 2000,
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,

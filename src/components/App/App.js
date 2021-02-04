@@ -4,6 +4,7 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import store from 'redux/store';
 import setAuthToken from '../../utils/setAuthToken';
 import {setCurrentUser, setLoggedin,logoutUser} from 'redux/actions/authActions';
+import Cookies from 'js-cookie'
 
 import Routes from 'components/Routes/Routes';
 import { DBConfig } from 'DBConfig';
@@ -16,18 +17,18 @@ initDB(DBConfig);
 axios.defaults.headers.common['username'] = `${HEADERS.USERNAME}`;
 axios.defaults.headers.common['password'] = `${HEADERS.PASSWORD}`;
 axios.defaults.headers.common['myconnection'] = `apps`;
-// axios.defaults.headers.common['myconnection'] = `backoffice`;
 axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencoded`;
 
-// Check token in localStorage
-  if (localStorage.sangku) {
-    setAuthToken(atob(localStorage.sangku));
+  const token = Cookies.get('sangqu_datum');
+  // Check token in localStorage
+  if (token) {
+    setAuthToken(atob(token));
     store.dispatch(setLoggedin(true))
     const sess = get('sess');
       sess.then(res => {
         if (res.length!==0) {
           // Set auth token header auth
-          setAuthToken(res[0].token);
+          // setAuthToken(res[0].token);
           store.dispatch(setCurrentUser(res[0]))
 
           // Decode auth token and get user info
@@ -50,6 +51,12 @@ axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencod
           window.location.href = '/login';
         }
     })
+  } else {
+    store.dispatch(logoutUser());
+    localStorage.removeItem('sangku')
+    // TODO: Clear current profile
+    // Redirect to login
+    window.location.href = '/login';
   }
 
 class App extends Component {

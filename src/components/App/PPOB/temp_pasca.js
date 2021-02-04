@@ -13,7 +13,7 @@ class TempPasca extends Component{
         super(props);
         this.HandleChangeProvider = this.HandleChangeProvider.bind(this)
         this.state={
-            provider:'',
+            provider:'im3',
             no_telp:'',
             number:'',
             errorMsg:"",
@@ -56,20 +56,20 @@ class TempPasca extends Component{
         });
         let prov=null;
         if(number.length>=4){
-            dataPPOB().forEach((v,i)=>{
-                if(v.code===number.substr(0,5)||v.code===number.substr(0,4)){
-                    prov=v;
-                    return;
-                }
-            });
-            this.HandleChangeProvider(prov);
-            if(prov!==null){
-                if(prov.code===number.substr(0,5)||prov.code===number.substr(0,4)){
+            // dataPPOB().forEach((v,i)=>{
+            //     if(v.code===number.substr(0,5)||v.code===number.substr(0,4)){
+            //         prov=v;
+            //         return;
+            //     }
+            // });
+            // this.HandleChangeProvider(prov);
+            // if(prov!==null){
+                // if(prov.code===number.substr(0,5)||prov.code===number.substr(0,4)){
                     if(number.length===5){
                         this.props.dispatch(FetchPulsaAll('nohp',number))
                     }
-                }
-            }
+                // }
+            // }
 
         }
     }
@@ -87,6 +87,7 @@ class TempPasca extends Component{
         const {
             data
         } = this.props.pulsa_allPulsaAll;
+        console.log(data);
         return (
             <Layout page={this.props.page} subpage="PPOB" link={"/ppob"}>
                 <div className="row">
