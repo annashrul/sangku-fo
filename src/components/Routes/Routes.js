@@ -34,6 +34,8 @@ import StokistRo from '../App/Stokist/PinRo'
 // import Stokist from '../App/Report/Pin'
 import IndexPPOB from '../App/PPOB/indexPPOB'
 import DetailPPOB from '../App/PPOB/detailPPOB'
+import TempPasca from '../App/PPOB/temp_pasca'
+import TempPra from '../App/PPOB/temp_pra'
 import PulsaAll from '../App/PPOB/PulsaAll'
 import PaketData from '../App/PPOB/PaketData';
 import PulsaSmsTelp from '../App/PPOB/PulsaSmsTelp';
@@ -49,6 +51,8 @@ import TrxZakat from '../App/PPOB/TrxZakat';
 import indexProfile from '../App/Member/Profile/indexProfile';
 import Rekapitulasi from '../App/Member/Rekapitulasi';
 import PagesSpace from '../App/Landing/pages';
+import PenarikanReport from '../App/Report/Wallet/reportPenarikan';
+import DepositReport from '../App/Report/Wallet/reportDeposit';
 
 const Routes = (
     <div>
@@ -84,6 +88,8 @@ const Routes = (
             {/* PPOB SECTION START */}
             <PrivateRoute path="/ppob" exact strict component={IndexPPOB} />
             <PrivateRoute path="/ppob/checkout/:page" exact strict component={DetailPPOB} />
+            <PrivateRoute path="/ppob/pascabayar/:kategori/:code" exact strict component={TempPasca} />
+            <PrivateRoute path="/ppob/prabayar/:kategori/:code" exact strict component={TempPra} />
             <PrivateRoute path="/ppob/pulsa-all-operator" exact strict component={PulsaAll} />
             <PrivateRoute path="/ppob/paket-data" exact strict component={PaketData} />
             <PrivateRoute path="/ppob/pulsa-sms-telpon" exact strict component={PulsaSmsTelp} />
@@ -103,6 +109,11 @@ const Routes = (
             <PrivateRoute path="/transfer" exact strict component={IndexTransfer} />
             {/* WALLET SECTION END */}
             {/* REPORT SECTION START */}
+            {/* REPORT WALLET SECTION START */}
+            <PrivateRoute path="/report/wallet/deposit" exact strict component={DepositReport} />
+            <PrivateRoute path="/report/wallet/penarikan" exact strict component={PenarikanReport} />
+            <PrivateRoute path="/report/wallet/transfer" exact strict component={IndexTransfer} />
+            {/* REPORT WALLET SECTION END */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
             <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
             {/* REPORT SECTION END */}

@@ -316,7 +316,7 @@ class PembelianReport extends Component{
             isShowDetail:!this.state.isShowDetail
         })
     }
-    handleCart(e,i,id){
+    handleCart(e,i,id,type){
         e.preventDefault();
         this.setState({
             idx:i,
@@ -325,30 +325,7 @@ class PembelianReport extends Component{
             "id_paket":id,
             "qty":1
         };
-        if(localStorage.productType===undefined){
-            this.props.dispatch(postCart(data,'a'));
-        }else{
-            if(localStorage.productType!=='a'){
-                Swal.fire({
-                    title: 'Perhatian !!!',
-                    html: `Terdapat barang RO didalam keranjang.. <br/>anda yakin akan menghapus barang RO dan melanjutkan transaksi ???`,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: `Ya, hapus & lanjutkan`,
-                    cancelButtonText: 'Batal',
-                }).then((result) => {
-                    if (result.value) {
-                        this.props.dispatch(postCart(data,'a'));
-
-                    }
-                })
-            }else{
-                this.props.dispatch(postCart(data,'a'));
-            }
-        }
-
+        this.props.dispatch(postCart(data,type));
 
     }
 
@@ -394,22 +371,6 @@ class PembelianReport extends Component{
                                     </div>
                                 </div>
                             </div>
-                            {/*<div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>*/}
-                                {/*<div className="row">*/}
-                                    {/*<div className="col-md-12">*/}
-                                        {/*<div className="form-group">*/}
-                                            {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>*/}
-                                                {/*<i className="fa fa-search"/>*/}
-                                            {/*</button>*/}
-                                            {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>*/}
-                                                {/*<i className="fa fa-print"/> Export*/}
-                                            {/*</button>*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
-                                {/*</div>*/}
-
-                            {/*</div>*/}
-
                         </div>
                     </div>
                 </div>
@@ -488,10 +449,7 @@ class PembelianReport extends Component{
                                     {
                                         (() => {
                                             const rows = [];
-                                            let no=0;
                                             for (let val = 0; val < v.detail.length; val++) {
-                                                console.log(v.detail[val]);
-                                                // no=key++;
                                                 let cardDisplay='none';
                                                 let cardTransition='opacity 1s ease-out';
                                                 let cardOpacity=0;
@@ -522,7 +480,7 @@ class PembelianReport extends Component{
                                                                     </p>
                                                                 </div>
                                                                 <div className="col-md-3" style={{position:"relative",verticalAlign:"left"}}>
-                                                                    <button onClick={(event)=>this.handleCart(event,`PAKET-${i}-${val}`,v.detail[val].id_paket)} style={{right:"12px",bottom:"0px",position:"absolute",float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)",border:"1px solid rgb(66, 181, 73)"}} className={"btn btn-primary"}>
+                                                                    <button onClick={(event)=>this.handleCart(event,`PAKET-${i}-${val}`,v.detail[val].id_paket,v.detail[val].type)} style={{right:"12px",bottom:"0px",position:"absolute",float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)",border:"1px solid rgb(66, 181, 73)"}} className={"btn btn-primary"}>
                                                                         {
                                                                             this.state.idx===`PAKET-${i}-${val}`?this.props.isLoadingPost?(
                                                                                 <div className="spinner-border text-white" role="status">

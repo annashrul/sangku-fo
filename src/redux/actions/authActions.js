@@ -130,6 +130,9 @@ export const loginUser = (userData) =>
                 Cookies.set('sangqu_datum', btoa(token), {
                     expires: 1
                 });
+                Cookies.set('sangqu_exp', btoa(res.data.result.id), {
+                    expires: 1
+                });
 
             
                 // Set token to Auth Header 
@@ -208,6 +211,7 @@ export const logoutUser = () => dispatch =>{
     // localStorage.removeItem('jwtToken');
     destroy('sess');
     Cookies.remove('sangqu_datum');
+    Cookies.remove('sangqu_exp');
     dispatch(setLoggedin(false));
     localStorage.clear()
 

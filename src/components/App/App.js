@@ -21,14 +21,12 @@ axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencod
 
   const token = Cookies.get('sangqu_datum');
   // Check token in localStorage
-  if (token) {
+  if (token !==undefined) {
     setAuthToken(atob(token));
     store.dispatch(setLoggedin(true))
     const sess = get('sess');
       sess.then(res => {
         if (res.length!==0) {
-          // Set auth token header auth
-          // setAuthToken(res[0].token);
           store.dispatch(setCurrentUser(res[0]))
 
           // Decode auth token and get user info
@@ -45,19 +43,13 @@ axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencod
           // }
         }else{
           store.dispatch(logoutUser());
-          localStorage.removeItem('sangku')
+          Cookies.remove('sangqu_datum')
           // TODO: Clear current profile
           // Redirect to login
           window.location.href = '/login';
         }
     })
-  } else {
-    store.dispatch(logoutUser());
-    localStorage.removeItem('sangku')
-    // TODO: Clear current profile
-    // Redirect to login
-    window.location.href = '/login';
-  }
+  } 
 
 class App extends Component {
   render() {

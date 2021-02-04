@@ -29,6 +29,9 @@ import {testimoniReducer} from './konten/testimoni.reducer';
 import {pulsa_allReducer} from './ppob/pulsa_all/pulsa_all.reducer';
 import {rekapitulasiReducer} from './member/rekapitulasi.reducer';
 import {redeemReducer} from "./product/redeem.reducer";
+import {kategoriPPOBReducer} from "./ppob/kategoriPPOB.reducer";
+import {pascabayarReducer} from "./ppob/pascabayar.reducer";
+import {prabayarReducer} from "./ppob/prabayar.reducer";
 
 
 export default combineReducers({
@@ -59,6 +62,9 @@ export default combineReducers({
     beritaReducer,
     testimoniReducer,
     pulsa_allReducer,
+    pascabayarReducer,
+    prabayarReducer,
+    kategoriPPOBReducer,
     memberReducer,
     rekapitulasiReducer,
     

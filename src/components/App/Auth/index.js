@@ -11,7 +11,6 @@ import bycrypt from 'bcryptjs';
 import Swal from 'sweetalert2'
 import {loginUser, setLoggedin} from 'redux/actions/authActions';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie'
 
 
 class Auth extends Component{

@@ -66,7 +66,11 @@ class IndexDeposit extends Component{
                 {id:4,amount:'500,000'},
                 {id:5,amount:'1,000,000'},
             ],
-            steps: [{title: 'Pengisian'}, {title: 'Konfirmasi'}, {title: 'Berhasil'}],
+            steps: [
+                {title: 'Pengisian'},
+                {title: 'Konfirmasi'},
+                // {title: 'Berhasil'}
+            ],
             currentStep: 0,
         };
         this.HandleChangeBank   = this.HandleChangeBank.bind(this);
@@ -229,7 +233,7 @@ class IndexDeposit extends Component{
                                 </div>
                                 <div className="col-md-12 mb-4">
                                     <div className="row">
-                                        <div className="col-md-4 d-flex">
+                                        <div className="col-md-6 d-flex">
                                             <div ref={this.pengisianRefs} className="card w-100" style={currentStep===0?null:this.state.bank!=={}&&this.state.bank.value!==undefined?blur:null}>
                                                 <div className="card-body">
                                                 <div className="row no-gutters">
@@ -263,7 +267,7 @@ class IndexDeposit extends Component{
                                                                 <input type="text" className={"form-control"} name={"id_bank"} value={this.state.id_bank} onChange={this.handleChange}/>
                                                             </div> */}
                                                             <div className="form-group">
-                                                                <label>Pilih Bank</label>
+                                                                <label>Pilih Bank Tujuan</label>
                                                                 <Select
                                                                     defaultValue={this.state.bank_data[0]}
                                                                     options={this.state.bank_data}
@@ -278,12 +282,12 @@ class IndexDeposit extends Component{
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-4 d-flex">
+                                        <div className="col-md-6 d-flex">
                                             <div ref={this.konfirmRefs} className="card w-100" style={currentStep===1&&this.state.bank!=={}&&this.state.bank.value!==undefined&&!this.props.isLoadingAvail?null:blur}>
                                                 <div className="card-body pb-0">
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===1&&this.state.bank!=={}&&this.state.bank.value!==undefined&&!this.props.isLoadingAvail?'none':''}}/>
-                                                    <div className="text-center mb-4">
-                                                        <h5>Konfirmasi Transfer</h5>
+                                                    <div className="text-center mb-30">
+                                                        <h5>Konfirmasi Deposit</h5>
                                                     </div>
                                                     {/* <div className="profile-thumb-contact text-center mb-4">
                                                         <div className="profile--tumb">
@@ -356,7 +360,7 @@ class IndexDeposit extends Component{
                                                 </div> */}
                                             </div>
                                         </div>
-                                        <div className="col-md-4 d-flex">
+                                        <div className="col-md-4 d-none">
                                             <div ref={this.berhasilRefs} className="card w-100" style={currentStep===2&&this.state.isModal===false?null:blur}>
                                                 <div className="card-body d-flex align-items-center">
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===2&&this.state.isModal===false?'none':''}}/>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {noImage} from "helper";
+import {toRp} from "helper";
 import Chart from "react-apexcharts";
 
 class Overview extends Component {
@@ -8,30 +8,16 @@ class Overview extends Component {
 
         this.state = {
 
-            series: [1500000, 3000000],
             options: {
-                chart: {
-                    width: 380,
-                    type: 'pie',
-                },
-                labels: ['Kiri','Kanan'],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
+                labels: ['Kiri','Kanan']
             },
 
 
         };
     }
+
     render(){
+        console.log(this.props.pie_series);
         return(
             <div className="card">
                 <div className="card-header heading-footer" style={{background:`url('https://image.freepik.com/free-vector/abstract-realistic-technology-particle-background_52683-33063.jpg')`,backgroundSize:'cover'}}>
@@ -39,7 +25,7 @@ class Overview extends Component {
                 </div>
                 <div className="card-block text-center">
                     <div className="panel-team-profile-img">
-                          <Chart options={this.state.options} series={this.state.series} type="pie" width={250} />
+                          <Chart options={this.state.options} series={this.props.pie_series} type="pie" width={250} height="125.7px" />
                     </div>
                     {/* <div className="saldo-aktif-title">
                         <h1>Saldo Aktif</h1>
@@ -51,7 +37,7 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5>40</h5>
+                                                <h5>{this.props.pv_kiri}</h5>
                                                 <p className="title-widget-team mb-0">PV Kiri</p>
                                             </div>
                                         </div>
@@ -63,7 +49,7 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5>40</h5>
+                                                <h5>{this.props.pv_kanan}</h5>
                                                 <p className="title-widget-team mb-0">PV Kanan</p>
                                             </div>
                                         </div>
@@ -77,7 +63,7 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5>5000</h5>
+                                                <h5>{this.props.point_ro}</h5>
                                                 <p className="title-widget-team mb-0">Poin Repeat Order</p>
                                             </div>
                                         </div>
@@ -89,7 +75,7 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5>70</h5>
+                                                <h5>{this.props.sponsor}</h5>
                                                 <p className="title-widget-team mb-0">Sponsor</p>
                                             </div>
                                         </div>
@@ -103,7 +89,7 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5><small>Rp</small> 3.000.000</h5>
+                                                <h5><small>Rp</small> {toRp(this.props.plafon)}</h5>
                                                 <p className="title-widget-team mb-0">SangQuota</p>
                                             </div>
                                         </div>

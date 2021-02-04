@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
+import {HEADERS} from 'redux/actions/_constants'
 
 class Cards extends Component {
     render(){
         return(
             <div className={this.props.className===undefined?'col-md-6 col-xl-6 box-margin':this.props.className}>
-                <div className={this.props.bg===undefined?"card w-100":"card w-100 "+this.props.bg}>
-                    <div className="card-header bg-transparent border-bottom-0">{this.props.title}</div>
-                    <div className="card-body">
-                        <div className="row justify-content-between" style={{paddingLeft:12,paddingRight:12}}>
-                            <h2><i className={this.props.icon}></i></h2>
-                            <h2 style={{paddingLeft:5}} className="font-20">{this.props.data}</h2>
+                <div className="card">
+                    <div className="card-body" style={{padding:'10px', cursor:'pointer', textAlign:'center'}} onClick={(e)=>this.wallet_redirect(e,'deposit')}>
+                        <div className="row">
+                            <div className="col-12">
+                                <h5><img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle" alt="" style={{height: '100px', width: '100px', objectFit: 'contain'}} />
+                                </h5>
+                                <p className="mb-0" style={{fontSize:'1em'}}>Deposit</p>
+                            </div>
                         </div>
                     </div>
                 </div>

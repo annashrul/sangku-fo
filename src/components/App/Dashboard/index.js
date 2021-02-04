@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Layout from 'components/Layout';
 import moment from 'moment';
-import {FetchStock} from 'redux/actions/dashboard/dashboard.action'
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
-import Cards from './src/Cards'
 import Charts from './src/charts'
 import FormReaktivasi from '../modals/member/form_reaktivasi';
 import { FetchAvailablePin } from 'redux/actions/pin/pin.action';
@@ -13,9 +11,18 @@ import Overview from './src/overview'
 import Saldo from './src/saldo'
 import Team from './src/teams'
 import News from './src/news'
-import Member from './src/member'
 import Redeem from './src/redeem'
-// const socket = socketIOClient(HEADERS.URL);
+import socketIOClient from "socket.io-client";
+import {HEADERS} from 'redux/actions/_constants'
+import Cookies from 'js-cookie'
+import Preloader from 'Preloader'
+
+const socket = socketIOClient(HEADERS.URL, {
+    withCredentials: true,
+    extraHeaders: {
+        "my-custom-header": "abcd"
+    }
+});
 
 class Index extends Component {
     constructor(props) {
@@ -24,118 +31,142 @@ class Index extends Component {
             startDate:localStorage.getItem("startDateDashboard")===null?moment(new Date()).format("yyyy-MM-DD"):localStorage.getItem("startDateDashboard"),
             endDate:localStorage.getItem("endDateDashboard")===null?moment(new Date()).format("yyyy-MM-DD"):localStorage.getItem("endDateDashboard"),
 
-            grossSales:"0",
-            wGrossSales:110,
-            netSales:"0",
-            wNetSales:110,
-            trxNum:"0",
-            wTrxNum:110,
-            avgTrx:"0",
-            wAvgTrx:110,
-
-            location_data:[],
-            location:"-",
-
+            bonus: 0,
+            bonus_sponsor: 0,
+            jenjang_karir: "Member",
+            jenjang_karir_badge:'',
+            membership: "",
+            nama: "",
             pertumbuhan_downline: {
-                    series: [{
-                        name: 'Kiri',
-                        data: [31, 40, 28, 51, 42, 109, 100]
-                        }, {
-                        name: 'Kanan',
-                        data: [11, 32, 45, 32, 34, 52, 41]
-                        }],
-                    options: {
-                        chart: {
-                            height: 350,
-                            type: 'area'
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        stroke: {
-                            curve: 'smooth'
-                        },
-                        xaxis: {
-                            type: 'datetime',
-                            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                            x: {
-                            format: 'dd/MM/yy HH:mm'
-                            },
-                        },
+                options: {
+                    chart: {
+                        height: 350,
+                        type: "area"
                     },
-
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: "smooth"
+                    },
+                    tooltip: {
+                        x: {
+                            format: "dd/MM/yy"
+                        }
+                    },
+                    xaxis: {
+                        type: "date",
+                        categories: ["2021-02-01T17:00:00.000Z"]
+                    }
                 },
+                series: [
+                    {
+                        name: "Kiri",
+                        data: [0]
+                    },
+                    {
+                        name: "Kanan",
+                        data: [0]
+                    }
+                ]
+            },
+            picture: "",
+            pie_series: ["0", "0"],
+            plafon: "0",
+            point_ro: "0",
+            pv_kanan: "0",
+            pv_kiri: "0",
+            reward: {
+                title: "Motor CB1000RR",
+                caption: "Selamat anda telah mencapai karir ZIRCON. Anda berhak mendapatkan hadiah motor.",
+                gambar: "https://i0.wp.com/www.otomercon.com/wp-content/uploads/2014/07/yamaha-r15-motor-red.png?ssl=1"
+            },
+            reward_kanan: "0",
+            reward_kiri: "0",
+            saldo: "0",
+            sponsor: "0",
+            uid: "0",
+            withdrawal: "0",
+            load_socket:true,
+            membership_badge:""
         };
 
-        // socket.on('refresh_dashboard',(data)=>{
-        //     this.refreshData();
-        // })
+        socket.on('refresh_dashboard',(data)=>{
+            this.refreshData(atob(Cookies.get('sangqu_exp')));
+        })
         
-        // socket.on("set_dashboard", (data) => {
-        //     this.setState({
-        //         grossSales:toRp(parseInt(data.header.penjualan,10)),
-        //         netSales:toRp(parseInt(data.header.net_sales,10)),
-        //         trxNum:data.header.transaksi,
-        //         avgTrx:toRp(parseInt(data.header.avg,10)),
-        //         pertumbuhan_downline: data.pertumbuhan_downline,
-        //         lokasi_tr: data.lokasi_tr,
-        //         hourly: data.hourly,
-        //         daily: data.daily,
-        //         top_item_qty: data.top_item_qty,
-        //         top_item_sale: data.top_item_sale,
-        //         top_cat_qty: data.top_cat_qty,
-        //         top_cat_sale: data.top_cat_sale,
-        //         top_sp_qty: data.top_sp_qty,
-        //         top_sp_sale: data.top_sp_sale,
-        //     });
-        // });
-        this.HandleChangeLokasi = this.HandleChangeLokasi.bind(this);
+        socket.on("set_dashboard", (data) => {
+           this.setState({
+               load_socket:false,
+               bonus:data.bonus,
+               bonus_sponsor:data.bonus_sponsor,
+               jenjang_karir:data.jenjang_karir,
+               membership:data.membership,
+               nama:data.nama,
+               pertumbuhan_downline:data.pertumbuhan_downline,
+               picture:data.picture,
+               pie_series:data.pie_series,
+               plafon:data.plafon,
+               point_ro:data.point_ro,
+               pv_kanan:data.pv_kanan,
+               pv_kiri:data.pv_kiri,
+               reward:data.reward,
+               reward_kanan:data.reward_kanan,
+               reward_kiri:data.reward_kiri,
+               saldo:data.saldo,
+               sponsor:data.sponsor,
+               uid:data.uid,
+               withdrawal:data.withdrawal,
+               membership_badge: data.membership_badge,
+               jenjang_karir_badge: data.jenjang_karir_badge
+           })
+        });
+
+        this.handleModal=this.handleModal.bind(this)
     }
 
     componentDidMount(){
         this.props.dispatch(FetchAvailablePin(1));
     }
 
-    UNSAFE_componentDidMount(){
-        // this.props.dispatch(FetchStock());
-    }
-
     UNSAFE_componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
-          let lk = [{
-              value: "-",
-              label: "Semua Lokasi"
-          }]
-          let loc = nextProps.auth.user.lokasi;
-          if(loc!==undefined){
-              loc.map((i) => {
-                lk.push({
-                  value: i.kode,
-                  label: i.nama
-                });
-                return null;
-              })
-              
-              this.setState({
-                location_data: lk,
-                userid: nextProps.auth.user.id
-              })
-          }
+            if(nextProps.auth.user.id !== undefined){
+                const cek = Cookies.get('sangqu_exp');
+                if(cek===undefined || cek===''){
+                    Cookies.set('sangqu_exp', btoa(nextProps.auth.user.id), {
+                        expires: 1
+                    });
+                }
+            }
+            let lk = [{
+                value: "-",
+                label: "Semua Lokasi"
+            }]
+            let loc = nextProps.auth.user.lokasi;
+            if(loc!==undefined){
+                loc.map((i) => {
+                    lk.push({
+                    value: i.kode,
+                    label: i.nama
+                    });
+                    return null;
+                })
+                
+                this.setState({
+                    location_data: lk,
+                    userid: nextProps.auth.user.id
+                })
+            }
         }
       }
 
-    // refreshData(start=null,end=null,loc=null){
-    //     socket.emit('get_dashboard', {
-    //         datefrom: start!==null?start:this.state.startDate,
-    //         dateto: end!==null?end:this.state.endDate,
-    //         location: loc!==null?loc:this.state.location
-    //     })
-    // }
+    refreshData(id){
+        socket.emit('get_dashboard', {id_member:id})
+    }
 
     componentWillMount(){
-        // this.refreshData();
+        this.refreshData(atob(Cookies.get('sangqu_exp')));
     }
 
     componentWillUnmount(){
@@ -143,73 +174,67 @@ class Index extends Component {
         localStorage.removeItem('endDateDashboard');
     }
 
-    onChange = date => this.setState({ date })
-
-    handleEvent = (event, picker) => {
-        // end:  2020-07-02T16:59:59.999Z
-        const awal = picker.startDate._d.toISOString().substring(0,10);
-        const akhir = picker.endDate._d.toISOString().substring(0,10);
-        this.setState({
-            startDate:awal,
-            endDate:akhir
-        });
-        this.refreshData(awal,akhir,null);
-    };
-
-    handleSubmit = (event) => {
-        event.preventDefault()
-        this.refreshData();
-    }
 
     handleModal(e){
+        e.preventDefault();
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormReaktivasi"));
     }
 
-    HandleChangeLokasi(lk) {
-        let err = Object.assign({}, this.state.error, {
-            location: ""
-        });
-        this.setState({
-            location: lk.value,
-            error: err
-        })
-        this.refreshData(null, null, lk.value)
-
-    }
 
     render() {
-        return (
+        if(this.state.load_socket) return <Preloader/>
+        else return (
             <Layout page="Dashboard">
              
                 <div className="row" style={{marginBottom:'20px'}}>
                     <div className="col-md-4">
-                        <Saldo/>
+                        <Saldo
+                            saldo={this.state.saldo}
+                            saldo_bonus={this.state.bonus}
+                            bonus_sponsor={this.state.bonus_sponsor}
+                            withdrawal={this.state.withdrawal}
+                            load={this.state.load_socket}
+                        />
                     </div>
                     <div className="col-md-4">
-                        <Team/>
+                        <Team
+                            pie_series={this.state.pie_series}
+                            plafon={this.state.plafon}
+                            point_ro={this.state.point_ro}
+                            pv_kanan={this.state.pv_kanan}
+                            pv_kiri={this.state.pv_kiri}
+                            sponsor={this.state.sponsor}
+                        />
                     </div>
                     <div className="col-md-4">
                         <Overview
-                            user={this.props.auth.user}
+                            user={this.state.nama}
+                            uid={this.state.uid}
+                            membership={this.state.membership}
+                            picture={this.state.picture}
+                            jenjang_karir={this.state.jenjang_karir}
+                            jenjang_karir_badge={this.state.jenjang_karir_badge}
+                            reward={this.state.reward}
+                            membership_badge={this.state.membership_badge}
+                            reward_kiri={this.state.reward_kiri}
+                            reward_kanan={this.state.reward_kanan}
+                            handleModal={this.handleModal}
                         />
                     </div>
 
                 </div>
                 <div className="row" style={{marginBottom:'20px'}}>
-                    <div className="col-md-8 pr-0">
+                    <div className="col-md-12 pr-0">
                         <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" />
-                    </div>
-                     <div className="col-md-4 pr-0">
-                         <Member/>
                     </div>
                 </div>
                 <div className="row">
                      <div className="col-md-4 pr-0">
                          <News/>
                     </div>
-                     <div className="col-md-8 pr-0">
+                     <div className="col-md-8">
                         <Redeem />
                     </div>
 
@@ -226,9 +251,11 @@ class Index extends Component {
 
 const mapStateToProps = (state) =>{
      return{
-       auth: state.auth,
-       stock: state.dashboardReducer.data,
-       getPin:state.pinReducer.data_available,
+        auth: state.auth,
+        stock: state.dashboardReducer.data,
+        getPin:state.pinReducer.data_available,
+        isOpen: state.modalReducer,
+        type: state.modalTypeReducer,
      }
 }
 export default connect(mapStateToProps)(Index);
