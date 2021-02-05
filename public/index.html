@@ -21,7 +21,9 @@
   <!-- <link rel="stylesheet" href="%PUBLIC_URL%/css/treedev.css"> -->
   <link rel="stylesheet" href="%PUBLIC_URL%/css/sponsor-style.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
+  <!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
+  <!--<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">-->
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -35,6 +37,15 @@
 
 
   <style>
+    .css-1pahdxg-control:hover{
+      border-color:rgb(66, 181, 73)!important;
+    }
+    .css-1pahdxg-control{
+      box-shadow:0 0 0 1px rgb(66, 181, 73)!important;
+    }
+    input.form-control:focus{
+      border:1px solid rgb(66, 181, 73)!important;
+    }
     .intl-tel-input .flag-container .arrow {
       /*border:1px solid red!important;*/
       /*margin-bottom: 20px!important;*/
@@ -159,16 +170,19 @@
     li,
     a {
       /*font-family: 'Comfortaa', cursive !important;*/
-      /*font-weight: bold !important;*/
-      font-family: 'Poppins', sans-serif!important;
-
+      /*font-weight: normal !important;*/
+      /*font-family: 'Poppins', sans-serif!important;*/
+      /*font-family: 'Roboto Slab', serif!important;*/
+      font-family: 'Noto Sans HK', sans-serif!important;
     }
 
     td,
     th,
     a {
       /*font-size: 12px !important;*/
-      font-family: 'Poppins', sans-serif!important;
+      /*font-family: 'Poppins', sans-serif!important;*/
+      font-family: 'Noto Sans HK', sans-serif!important;
+
 
     }
 
@@ -405,7 +419,9 @@
       margin-right: -4px;
       color: white;
       /*font-family: courier, sans;*/
-      font-family: 'Poppins', sans-serif;
+      /*font-family: 'Poppins', sans-serif;*/
+      font-family: 'Noto Sans HK', sans-serif!important;
+
 
     }
 
@@ -469,8 +485,10 @@
     }
     .bgGreen{
       background-color:rgb(66, 181, 73);
+      border:1px solid rgb(66, 181, 73);
       color:white;
     }
+
     .txtRed{
       color:rgb(250, 89, 29);
     }
@@ -486,6 +504,34 @@
     .modal-content{
       border: none!important;
       padding:15px!important;
+    }
+    a.page-link{
+      border:2px solid rgb(66, 181, 73)!important;
+      outline: none!important;
+      color:rgb(66, 181, 73)!important;
+      font-weight: bold!important;
+    }
+    .page-item.active .page-link{
+      background-color: rgb(66, 181, 73)!important;
+      color:white!important;
+    }
+    .btn-primary{
+      background-color: rgb(66, 181, 73)!important;
+      border:1px solid rgb(66, 181, 73)!important;
+
+    }
+    .table thead tr th{
+      color:white!important;
+      font-weight: bold!important;
+      letter-spacing: 3px;
+    }
+    .sidebar-menu .treeview-menu>li.active>a{
+      color:rgb(66, 181, 73)!important;
+      font-weight: bold!important;
+    }
+    .bg-info{
+      background-color: rgb(66, 181, 73)!important;
+      color:white!important;
     }
 
   </style>

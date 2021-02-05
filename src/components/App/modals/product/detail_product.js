@@ -26,11 +26,9 @@ class DetailProduct extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("componentWillReceiveProps",nextProps);
         // if(typeof nextProps.data.data==='object'){
             if(nextProps.data.detail.length>0){
                 let data=[];
-                console.log("abus");
                 nextProps.data.detail.map((v,i)=>{
                     data.push(v);
                     return null
@@ -60,12 +58,12 @@ class DetailProduct extends Component{
                                         <div className="col-md-4">
                                             <div className="single-product-item mb-30">
                                                 <div className="product-card">
-                                                    <h3 className="product font-16 mb-15">{this.props.data.title}</h3>
+                                                    <h3 className="product font-16 mb-15 txtGreen bold">{this.props.data.title}</h3>
                                                     <a className="product-thumb" href="#!">
                                                         <img src={this.props.data.foto} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} alt="Product" style={{width:"100%"}}/>
                                                     </a>
                                                     <div className="product-price">
-                                                        <h4 className="text-green" style={{color:"green"}}>Rp {toCurrency(this.props.data.harga)} .-</h4>
+                                                        <h4 className="txtRed bold">Rp {toCurrency(this.props.data.harga)} .-</h4>
                                                     </div>
                                                     {
                                                         this.props.detail.tipe==='ro'?'':(
@@ -95,8 +93,8 @@ class DetailProduct extends Component{
                                         <div className="col-md-12">
                                             <p>Isi Dari {this.props.data.title}</p>
                                             <div style={{overflowX: "auto"}}>
-                                                <table className="table table-hover">
-                                                    <thead className="bg-light">
+                                                <table className="table table-hover table-bordered">
+                                                    <thead className="bg-info">
                                                     <tr>
                                                         <th className="text-black" style={columnStyle}>No</th>
                                                         <th className="text-black" style={columnStyle}>Nama</th>

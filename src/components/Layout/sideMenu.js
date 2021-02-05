@@ -103,7 +103,7 @@ class SideMenu extends Component {
             this.setState({
                 isStokist:true,
             })
-        }else if(path==='/transaksi/riwayat'){
+        }else if(path==='/transaksi/riwayat'||path==='/transaksi/ppob'){
             this.setState({
                 isReport:true,
             })
@@ -279,12 +279,13 @@ class SideMenu extends Component {
                     {/* WALLET MODUL END */}
 
                     {/* REPORT MODUL START */}
-                    <li className={"treeview" +(this.state.isReport===true || path==='/report/pembelian' ?" active menu-open" : "")}>
+                    <li className={"treeview" +(this.state.isReport===true || path==='/transaksi/riwayat' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
 
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
                             <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
+                            <li className={path==='/transaksi/ppob'?"active":''}><Link to="/transaksi/ppob" style={{width:'fit-content'}}> PPOB</Link></li>
 
                             {/* SUBLAPORAN PEMBAYARAN MODUL START */}
                                 {/* {md_report_inventory? */}
@@ -295,15 +296,15 @@ class SideMenu extends Component {
                                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport','isReportWallet')}> Wallet <i className="fa fa-angle-right"/></a>
                                         <ul className={"treeview-menu animate__animated" + (this.state.isReportWallet===true ?" animate__bounceInRight " : " animate__fadeOutLeft ") + "animate__faster"} style={{display:this.state.isReportWallet===true
                                         ?"block" : "none"}}>
-                                            {/* {r_adjusment==='1'      ? */}
-                                                <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
-                                                {/* <li className={path==='/report/wallet/transfer'?"active":''}><Link to="/report/wallet/transfer" style={{width:'fit-content'}}> Transfer</Link></li> */}
-                                                <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
-                                            {/*}:''} */}
+
+                                            <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
+                                            {/* <li className={path==='/report/wallet/transfer'?"active":''}><Link to="/report/wallet/transfer" style={{width:'fit-content'}}> Transfer</Link></li> */}
+                                            <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
+
                                         </ul>
                                     </li>
                                     {/* :''
-                                } */}
+
                                 {/* SUBLAPORAN PEMBAYARAN MODUL END */}
 
                         </ul>

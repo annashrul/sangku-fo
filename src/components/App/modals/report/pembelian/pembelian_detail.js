@@ -189,8 +189,8 @@ class PembelianDetail extends Component{
                                                                 </button>
                                                             </div>
                                                             <div className="col-md-12" style={{marginTop:"10px",display:v.isShow?"block":'none',height:'200px',overflow:'auto'}}>
-                                                                <table className="table table-hover">
-                                                                    <thead>
+                                                                <table className="table table-hover table-bordered">
+                                                                    <thead className="bg-info">
                                                                     <tr>
                                                                         <th>NO</th>
                                                                         <th>KODE</th>

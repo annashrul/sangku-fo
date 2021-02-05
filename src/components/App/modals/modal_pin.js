@@ -57,8 +57,8 @@ class ModalPin extends Component{
                                 this.props.isLoading?(
                                     <div className="col-md-12">
                                         <div className="d-flex align-items-center">
-                                            <div className="spinner-border text-primary ml-auto" role="status" aria-hidden="true"/>
-                                            <strong className={"text-white"}>Tunggu sebentar    ...</strong>
+                                            <div className="spinner-border text-primary ml-10" role="status" aria-hidden="true"/>
+                                            <strong className={"text-black text-center"} style={{position:"absolute",marginLeft:"10px",marginTop:"5px",verticalAlign:"middle"}}>Tunggu sebentar    ...</strong>
                                         </div>
                                     </div>
                                 ):null

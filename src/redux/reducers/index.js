@@ -32,6 +32,7 @@ import {redeemReducer} from "./product/redeem.reducer";
 import {kategoriPPOBReducer} from "./ppob/kategoriPPOB.reducer";
 import {pascabayarReducer} from "./ppob/pascabayar.reducer";
 import {prabayarReducer} from "./ppob/prabayar.reducer";
+import {reportPPOBReducer} from "./ppob/reportPPOB.reducer";
 
 
 export default combineReducers({
@@ -67,7 +68,8 @@ export default combineReducers({
     kategoriPPOBReducer,
     memberReducer,
     rekapitulasiReducer,
-    
+    reportPPOBReducer,
+
     auth: authReducer,
     errors : errorsReducer
 });

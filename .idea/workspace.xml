@@ -2,24 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab5630a5-1968-411a-b888-808ea3c9e7b6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/modal_otp.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/ppob/kategoriPPOB.action.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/ppob/pascabayar.action.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/ppob/prabayar.action.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/ppob/kategoriPPOB.reducer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/ppob/pascabayar.reducer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/ppob/prabayar.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/Report/PPOB/indexReportPPOB.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/ppob/reportPPOB.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/ppob/reportPPOB.reducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/Member/paket/indexRO.js" afterPath="$PROJECT_DIR$/src/components/App/Member/paket/indexRO.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/Member/paket/indexRegister.js" afterPath="$PROJECT_DIR$/src/components/App/Member/paket/indexRegister.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js" afterPath="$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/PPOB/indexPPOB.js" afterPath="$PROJECT_DIR$/src/components/App/PPOB/indexPPOB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/PPOB/temp_pasca.js" afterPath="$PROJECT_DIR$/src/components/App/PPOB/temp_pasca.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/PPOB/temp_pra.js" afterPath="$PROJECT_DIR$/src/components/App/PPOB/temp_pra.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/Report/Pembelian/index.js" afterPath="$PROJECT_DIR$/src/components/App/Report/Pembelian/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/modal_otp.js" afterPath="$PROJECT_DIR$/src/components/App/modals/modal_otp.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/modal_pin.js" afterPath="$PROJECT_DIR$/src/components/App/modals/modal_pin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/product/detail_product.js" afterPath="$PROJECT_DIR$/src/components/App/modals/product/detail_product.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/product/detail_redeem.js" afterPath="$PROJECT_DIR$/src/components/App/modals/product/detail_redeem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_detail.js" afterPath="$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_detail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/transaction/indexCart.js" afterPath="$PROJECT_DIR$/src/components/App/transaction/indexCart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/transaction/indexCheckout.js" afterPath="$PROJECT_DIR$/src/components/App/transaction/indexCheckout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/transaction/redeem/indexRedeem.js" afterPath="$PROJECT_DIR$/src/components/App/transaction/redeem/indexRedeem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Layout/sideMenu.js" afterPath="$PROJECT_DIR$/src/components/Layout/sideMenu.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Routes/Routes.js" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/helper.js" afterPath="$PROJECT_DIR$/src/helper.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/_constants.js" afterPath="$PROJECT_DIR$/src/redux/actions/_constants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/ppob/pulsa_all/pulsa_all.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/ppob/pulsa_all/pulsa_all.action.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -37,54 +43,75 @@
       <file leaf-file-name="temp_pra.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/temp_pra.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="87" column="26" lean-forward="false" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="26" />
+            <state relative-caret-position="120">
+              <caret line="198" column="77" lean-forward="false" selection-start-line="198" selection-start-column="77" selection-end-line="198" selection-end-column="77" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
-                <element signature="n#!!block;n#HandleChangeProvider#0;n#TempPra#0" expanded="false" />
+                <element signature="n#!!block;n#setPhone#0;n#TempPra#0" expanded="false" />
+                <element signature="e#5398#6755#0" expanded="false" />
+                <element signature="e#13404#14761#0" expanded="false" />
+                <marker date="1612524925066" expanded="true" signature="4810:12786" ph="&lt;div/&gt;" />
+                <marker date="1612524925066" expanded="true" signature="4870:12746" ph="&lt;div/&gt;" />
+                <marker date="1612524925066" expanded="true" signature="9228:12703" ph="&lt;div/&gt;" />
+                <marker date="1612524925066" expanded="true" signature="9319:12656" ph="&lt;div/&gt;" />
+                <marker date="1612524925066" expanded="true" signature="9386:12605" ph="&lt;div/&gt;" />
+                <marker date="1612524925066" expanded="true" signature="9462:10049" ph="&lt;table/&gt;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indexPPOB.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/indexPPOB.js">
+      <file leaf-file-name="indexReportPPOB.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/App/Report/PPOB/indexReportPPOB.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="248">
+              <caret line="278" column="4" lean-forward="false" selection-start-line="278" selection-start-column="4" selection-end-line="278" selection-end-column="4" />
+              <folding>
+                <element signature="n#!!block;n#handleChange#0;n#IndexReportPPOB#0" expanded="false" />
+                <element signature="n#!!block;n#handlePage#0;n#IndexReportPPOB#0" expanded="false" />
+                <element signature="e#2422#2653#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="77">
+              <caret line="503" column="19" lean-forward="true" selection-start-line="503" selection-start-column="19" selection-end-line="503" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="temp_pasca.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/temp_pasca.js">
+      <file leaf-file-name="detail_product.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/App/modals/product/detail_product.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+            <state relative-caret-position="216">
+              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="detail_redeem.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/App/modals/product/detail_redeem.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="551">
+              <caret line="115" column="42" lean-forward="true" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="42" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
-                <element signature="n#!!block;n#componentWillReceiveProps#0;n#TempPasca#0" expanded="false" />
-                <element signature="e#2890#3041#0" expanded="false" />
-                <element signature="n#!!block;n#onClickNext#0;n#TempPasca#0" expanded="false" />
-                <element signature="n#!!block;n#onClickPrev#0;n#TempPasca#0" expanded="false" />
-                <element signature="e#5563#5636#0" expanded="false" />
-                <element signature="n#!!block;n#handleSubmit#0;n#TempPasca#0" expanded="false" />
-                <element signature="n#!!block;n#submit#0;n#TempPasca#0" expanded="false" />
-                <element signature="n#!!block;n#handleSavePin#0;n#TempPasca#0" expanded="false" />
-                <element signature="n#!!block;n#handleClick#0;n#TempPasca#0" expanded="false" />
-                <element signature="n#!!block;n#validatePhone#0;n#TempPasca#0" expanded="false" />
-                <element signature="n#!!block;n#setPhone#0;n#TempPasca#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detailPPOB.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js">
+      <file leaf-file-name="pembelian_detail.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="69" column="12" lean-forward="false" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
+            <state relative-caret-position="272">
+              <caret line="196" column="88" lean-forward="true" selection-start-line="196" selection-start-column="88" selection-end-line="196" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -101,17 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>arti</find>
-      <find>#dddccf</find>
-      <find>typePage</find>
-      <find>IconOption</find>
-      <find>handleSave</find>
-      <find>productType</find>
-      <find>local</find>
-      <find>metode_pembayaran</find>
-      <find>Options</find>
-      <find>handleChange</find>
-      <find>font</find>
       <find>font-fami</find>
       <find>wrapperCard</find>
       <find>.card</find>
@@ -130,6 +146,17 @@
       <find>total</find>
       <find>sendOtp</find>
       <find>auth</find>
+      <find>data</find>
+      <find>REPORT</find>
+      <find>PPOB</find>
+      <find>font-weight</find>
+      <find>font-family</find>
+      <find>handleChangeAlamat</find>
+      <find>conso</find>
+      <find>beli</find>
+      <find>input</find>
+      <find>opera</find>
+      <find>cons</find>
       <find>console</find>
     </findStrings>
   </component>
@@ -139,15 +166,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/redux/actions/product/redeem.action.js" />
-        <option value="$PROJECT_DIR$/src/redux/reducers/ppob/pulsa_all/pulsa_all.reducer.js" />
-        <option value="$PROJECT_DIR$/src/components/Layout/header.js" />
-        <option value="$PROJECT_DIR$/src/components/App/transaction/indexProduct.js" />
-        <option value="$PROJECT_DIR$/src/components/App/Member/paket/indexRegister.js" />
-        <option value="$PROJECT_DIR$/src/components/App/Member/paket/indexRO.js" />
-        <option value="$PROJECT_DIR$/src/components/App/transaction/indexCart.js" />
-        <option value="$PROJECT_DIR$/src/components/App/transaction/redeem/indexRedeem.js" />
-        <option value="$PROJECT_DIR$/src/components/Layout/index.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/product/checkout.action.js" />
         <option value="$PROJECT_DIR$/src/components/App/Member/Sponsor/src/sponsor.js" />
         <option value="$PROJECT_DIR$/src/components/App/modals/modal_success_screen_ppob.js" />
@@ -163,32 +181,41 @@
         <option value="$PROJECT_DIR$/src/components/App/PPOB/TrxTelpPasca/index.js" />
         <option value="$PROJECT_DIR$/src/components/App/PPOB/TrxBpjs/index.js" />
         <option value="$PROJECT_DIR$/src/components/App/PPOB/TrxZakat/index.js" />
-        <option value="$PROJECT_DIR$/src/components/Layout/sideMenu.js" />
-        <option value="$PROJECT_DIR$/src/components/App/transaction/indexCheckout.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/product/kurir.action.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/transaction/pembelian.action.js" />
-        <option value="$PROJECT_DIR$/src/helper.js" />
         <option value="$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_form_excel.js" />
         <option value="$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_cek_resi.js" />
-        <option value="$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_detail.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/ppob/kategoriPPOB.action.js" />
         <option value="$PROJECT_DIR$/src/redux/reducers/ppob/kategoriPPOB.reducer.js" />
         <option value="$PROJECT_DIR$/src/components/App/PPOB/subKategoriPPOB.js" />
-        <option value="$PROJECT_DIR$/src/components/Routes/Routes.js" />
         <option value="$PROJECT_DIR$/src/components/App/PPOB/indexPPOB.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/ppob/pulsa_all/pulsa_all.action.js" />
-        <option value="$PROJECT_DIR$/src/components/App/Report/Pembelian/index.js" />
-        <option value="$PROJECT_DIR$/src/redux/actions/_constants.js" />
         <option value="$PROJECT_DIR$/src/redux/reducers/ppob/pascabayar.reducer.js" />
         <option value="$PROJECT_DIR$/src/redux/reducers/ppob/prabayar.reducer.js" />
-        <option value="$PROJECT_DIR$/src/redux/reducers/index.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/ppob/prabayar.action.js" />
-        <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/src/components/App/modals/modal_pin.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/ppob/pascabayar.action.js" />
-        <option value="$PROJECT_DIR$/src/components/App/modals/modal_otp.js" />
-        <option value="$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js" />
         <option value="$PROJECT_DIR$/src/components/App/PPOB/temp_pasca.js" />
+        <option value="$PROJECT_DIR$/src/components/Routes/Routes.js" />
+        <option value="$PROJECT_DIR$/src/components/Layout/sideMenu.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/_constants.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/ppob/reportPPOB.action.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/ppob/reportPPOB.reducer.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/index.js" />
+        <option value="$PROJECT_DIR$/src/helper.js" />
+        <option value="$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Member/paket/indexRO.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Member/paket/indexRegister.js" />
+        <option value="$PROJECT_DIR$/src/components/App/transaction/redeem/indexRedeem.js" />
+        <option value="$PROJECT_DIR$/src/components/App/transaction/indexCart.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/modal_otp.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/modal_pin.js" />
+        <option value="$PROJECT_DIR$/src/components/App/transaction/indexCheckout.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_detail.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Report/Pembelian/index.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/components/App/Report/PPOB/indexReportPPOB.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/product/detail_product.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/product/detail_redeem.js" />
         <option value="$PROJECT_DIR$/src/components/App/PPOB/temp_pra.js" />
       </list>
     </option>
@@ -221,6 +248,9 @@
             <id>GeneralJavaScript</id>
           </State>
           <State>
+            <id>HTML</id>
+          </State>
+          <State>
             <id>JavaScript</id>
           </State>
           <State>
@@ -229,7 +259,7 @@
         </expanded-state>
         <selected-state>
           <State>
-            <id>JSUnresolvedVariable</id>
+            <id>HtmlUnknownAttribute</id>
           </State>
         </selected-state>
       </profile-state>
@@ -250,8 +280,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -288,7 +318,16 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="App" type="462c0819:PsiDirectoryNode" />
-              <item name="PPOB" type="462c0819:PsiDirectoryNode" />
+              <item name="modals" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sangku-fo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sangku-fo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="App" type="462c0819:PsiDirectoryNode" />
+              <item name="modals" type="462c0819:PsiDirectoryNode" />
+              <item name="product" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sangku-fo" type="b2602c69:ProjectViewProjectNode" />
@@ -331,7 +370,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="redux" type="462c0819:PsiDirectoryNode" />
               <item name="actions" type="462c0819:PsiDirectoryNode" />
-              <item name="transaction" type="462c0819:PsiDirectoryNode" />
+              <item name="ppob" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sangku-fo" type="b2602c69:ProjectViewProjectNode" />
@@ -339,14 +378,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="redux" type="462c0819:PsiDirectoryNode" />
               <item name="reducers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sangku-fo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sangku-fo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="redux" type="462c0819:PsiDirectoryNode" />
-              <item name="reducers" type="462c0819:PsiDirectoryNode" />
-              <item name="member" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sangku-fo" type="b2602c69:ProjectViewProjectNode" />
@@ -407,25 +438,27 @@
       <workItem from="1611807479403" duration="24648000" />
       <workItem from="1611896077656" duration="17932000" />
       <workItem from="1612154843348" duration="21883000" />
-      <workItem from="1612240847029" duration="24018000" />
+      <workItem from="1612240847029" duration="24556000" />
+      <workItem from="1612413817358" duration="2791000" />
+      <workItem from="1612506381471" duration="18438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243396000" />
+    <option name="totallyTimeSpent" value="265163000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20089285" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19494048" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34703946" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.044407893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -487,80 +520,11 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/TrxTelpKabel/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="10" column="25" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/TrxTelpPasca/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="15" column="51" lean-forward="false" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/TrxBpjs/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="5" column="46" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/Member/paket/indexRO.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="87" column="203" lean-forward="false" selection-start-line="87" selection-start-column="169" selection-end-line="87" selection-end-column="203" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/Stokist/PinRo/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="2" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/product/kurir.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432">
-          <caret line="43" column="34" lean-forward="true" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Preloader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/Report/Deposit/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4560">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#37#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/riwayat/src/card.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="31" column="18" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="31" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/redux/reducers/transaction/riwayat.reducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -588,10 +552,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="65" column="68" lean-forward="true" selection-start-line="65" selection-start-column="68" selection-end-line="65" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-            <element signature="e#338#412#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -599,7 +559,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="12" column="16" lean-forward="false" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -621,15 +580,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="55" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Layout/sideMenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="164" column="18" lean-forward="true" selection-start-line="164" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -641,78 +591,305 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/subKategoriPPOB.js">
+    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/subKategoriPPOB.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/PulsaAll/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="17" column="37" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="17" selection-end-column="37" />
+        <state relative-caret-position="64">
+          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/konten/berita.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="100" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/konten/testimoni.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1136">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/member/alamat.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/member/alamat.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="55" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/prabayar.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="46" column="15" lean-forward="true" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/pascabayar.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="28" column="15" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="54" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/prabayar.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/authActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-992">
+          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/Auth/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="62" column="48" lean-forward="true" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/pulsa_all/pulsa_all.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/redeem/indexRedeem.js">
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/pascabayar.action.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1488">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="245">
+          <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/temp_pasca.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="114" column="43" lean-forward="false" selection-start-line="114" selection-start-column="42" selection-end-line="114" selection-end-column="43" />
           <folding>
-            <element signature="e#0#41#0" expanded="false" />
+            <element signature="e#2890#3041#0" expanded="false" />
+            <element signature="n#!!block;n#submit#0;n#TempPasca#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/riwayat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="195" column="15" lean-forward="false" selection-start-line="195" selection-start-column="15" selection-end-line="195" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Routes/Routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="36" column="47" lean-forward="true" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Layout/sideMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="105" column="69" lean-forward="false" selection-start-line="105" selection-start-column="69" selection-end-line="105" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/kategoriPPOB.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="50" column="13" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/kategoriPPOB.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="25" column="40" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/reportPPOB.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="43" lean-forward="true" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/reportPPOB.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#60#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/_constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="439" column="17" lean-forward="true" selection-start-line="439" selection-start-column="17" selection-end-line="439" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="329" column="38" lean-forward="false" selection-start-line="329" selection-start-column="38" selection-end-line="329" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="124" column="101" lean-forward="false" selection-start-line="124" selection-start-column="101" selection-end-line="124" selection-end-column="101" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/App/transaction/indexProduct.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+        <state relative-caret-position="432">
+          <caret line="40" column="39" lean-forward="false" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/Member/paket/indexRO.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="97" column="168" lean-forward="false" selection-start-line="97" selection-start-column="168" selection-end-line="97" selection-end-column="168" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/App/Member/paket/indexRegister.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="86" column="211" lean-forward="true" selection-start-line="86" selection-start-column="75" selection-end-line="86" selection-end-column="211" />
-          <folding>
-            <element signature="e#1262#1963#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Routes/Routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="90" column="90" lean-forward="false" selection-start-line="90" selection-start-column="82" selection-end-line="90" selection-end-column="90" />
-          <folding>
-            <element signature="e#1651#1696#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/pulsa_all/pulsa_all.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+        <state relative-caret-position="183">
+          <caret line="62" column="4" lean-forward="false" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/PulsaAll/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/redeem/indexRedeem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        <state relative-caret-position="192">
+          <caret line="113" column="95" lean-forward="true" selection-start-line="113" selection-start-column="95" selection-end-line="113" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/modal_otp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="60" column="207" lean-forward="false" selection-start-line="60" selection-start-column="207" selection-end-line="60" selection-end-column="207" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/modal_pin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="60" column="207" lean-forward="false" selection-start-line="60" selection-start-column="207" selection-end-line="60" selection-end-column="207" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/member/kurir.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/indexCheckout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="481" column="41" lean-forward="false" selection-start-line="481" selection-start-column="41" selection-end-line="481" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#6120#6779#0" expanded="false" />
+            <element signature="e#6834#7660#0" expanded="false" />
+            <element signature="n#!!block;n#handleChecked#0;n#IndexCheckout#0" expanded="false" />
+            <element signature="n#!!block;n#handleChange#0;n#IndexCheckout#0" expanded="false" />
+            <element signature="n#!!block;n#handleChangeAlamat#0;n#IndexCheckout#0" expanded="false" />
+            <element signature="n#!!block;n#handleChangeLayanan#0;n#IndexCheckout#0" expanded="false" />
+            <element signature="n#!!block;n#handleChangeBank#0;n#IndexCheckout#0" expanded="false" />
+            <element signature="n#!!block;n#handleSubmit#0;n#IndexCheckout#0" expanded="false" />
+            <element signature="n#!!block;n#handleSave#0;n#IndexCheckout#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/indexCart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="131" column="65" lean-forward="true" selection-start-line="123" selection-start-column="60" selection-end-line="131" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/indexPPOB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="55" column="78" lean-forward="true" selection-start-line="51" selection-start-column="71" selection-end-line="55" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="503" column="19" lean-forward="true" selection-start-line="503" selection-start-column="19" selection-end-line="503" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/App/Report/Pembelian/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="120" column="38" lean-forward="false" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="38" />
+        <state relative-caret-position="240">
+          <caret line="594" column="61" lean-forward="false" selection-start-line="594" selection-start-column="61" selection-end-line="594" selection-end-column="61" />
           <folding>
-            <element signature="e#241#294#0" expanded="true" />
-            <element signature="e#673#701#0" expanded="true" />
             <element signature="e#1017#1160#0" expanded="true" />
             <element signature="n#!!block;n#componentDidMount#0;n#PembelianReport#0" expanded="false" />
             <element signature="n#!!block;n#handlePageChange#0;n#PembelianReport#0" expanded="false" />
+            <element signature="n#!!block;n#toggle#0;n#PembelianReport#0" expanded="false" />
+            <element signature="n#!!block;n#toggleResi#0;n#PembelianReport#0" expanded="false" />
             <element signature="n#!!block;n#handleDone#0;n#PembelianReport#0" expanded="false" />
             <element signature="e#6710#7087#0" expanded="false" />
             <element signature="n#!!block;n#handleSearch#0;n#PembelianReport#0" expanded="false" />
@@ -734,268 +911,73 @@
             <element signature="n#!!block;n#toggleModal#0;n#PembelianReport#0" expanded="false" />
             <element signature="n#!!block;n#handleRePrint#0;n#PembelianReport#0" expanded="false" />
             <element signature="n#!!block;n#handleToggleDetail#0;n#PembelianReport#0" expanded="false" />
-            <element signature="e#16380#17072#0" expanded="false" />
-            <element signature="e#17151#20392#0" expanded="false" />
-            <element signature="e#27226#32846#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding>
-            <element signature="e#1818#2599#0" expanded="false" />
-            <element signature="e#2777#3339#0" expanded="false" />
-            <element signature="e#3382#3495#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/kategoriPPOB.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/konten/berita.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="100" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/_constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="404" column="9" lean-forward="true" selection-start-line="404" selection-start-column="9" selection-end-line="404" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/konten/testimoni.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1136">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#58#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/member/alamat.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="110" column="11" lean-forward="true" selection-start-line="110" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-            <element signature="e#2580#4423#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/kategoriPPOB.reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/reducers/member/alamat.reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="55" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/reducers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="65" column="12" lean-forward="false" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/prabayar.reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="46" column="15" lean-forward="true" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/reducers/ppob/pascabayar.reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="28" column="15" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="54" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/prabayar.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#57#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/indexCart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2686">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/authActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-992">
-          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1833#3135#0" expanded="false" />
-            <element signature="e#3224#5619#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/Auth/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="62" column="48" lean-forward="true" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-            <element signature="e#235#279#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="471" column="18" lean-forward="false" selection-start-line="471" selection-start-column="18" selection-end-line="471" selection-end-column="18" />
-          <folding>
-            <element signature="e#7388#7454#0" expanded="false" />
-            <element signature="e#7455#7524#0" expanded="false" />
-            <element signature="e#7525#7592#0" expanded="false" />
-            <element signature="e#7684#7819#0" expanded="false" />
-            <element signature="e#8800#9186#0" expanded="false" />
-            <element signature="e#9187#9620#0" expanded="false" />
+            <element signature="e#17132#20373#0" expanded="false" />
+            <element signature="e#27207#32827#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/App/modals/report/pembelian/pembelian_detail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="137" column="63" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+        <state relative-caret-position="272">
+          <caret line="196" column="88" lean-forward="true" selection-start-line="196" selection-start-column="88" selection-end-line="196" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/Report/Deposit/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="432" column="4" lean-forward="false" selection-start-line="432" selection-start-column="0" selection-end-line="432" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/Report/PPOB/indexReportPPOB.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="278" column="4" lean-forward="false" selection-start-line="278" selection-start-column="4" selection-end-line="278" selection-end-column="4" />
           <folding>
-            <element signature="n#!!block;n#toggle#0;n#PembelianDetail#0" expanded="false" />
+            <element signature="n#!!block;n#handleChange#0;n#IndexReportPPOB#0" expanded="false" />
+            <element signature="n#!!block;n#handlePage#0;n#IndexReportPPOB#0" expanded="false" />
+            <element signature="e#2422#2653#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/modals/modal_pin.js">
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/product/detail_product.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="35" column="40" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/redux/actions/ppob/pascabayar.action.js">
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/product/detail_redeem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="53" column="45" lean-forward="true" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/transaction/indexCheckout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="281" column="9" lean-forward="true" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
-          <folding>
-            <element signature="e#3012#3971#0" expanded="false" />
-            <element signature="e#4028#4767#0" expanded="false" />
-            <element signature="e#4800#5698#0" expanded="false" />
-            <element signature="e#5750#6409#0" expanded="false" />
-            <element signature="e#6464#7290#0" expanded="false" />
-            <element signature="n#!!block;n#handleChecked#0;n#IndexCheckout#0" expanded="false" />
-            <element signature="n#!!block;n#handleChange#0;n#IndexCheckout#0" expanded="false" />
-            <element signature="n#!!block;n#handleChangeAlamat#0;n#IndexCheckout#0" expanded="false" />
-            <element signature="n#!!block;n#handleChangeLayanan#0;n#IndexCheckout#0" expanded="false" />
-            <element signature="n#!!block;n#handleChangeBank#0;n#IndexCheckout#0" expanded="false" />
-            <element signature="n#!!block;n#handleSubmit#0;n#IndexCheckout#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/modals/modal_otp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="43" column="149" lean-forward="false" selection-start-line="43" selection-start-column="149" selection-end-line="43" selection-end-column="149" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/detailPPOB.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="69" column="12" lean-forward="false" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/indexPPOB.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/temp_pasca.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+        <state relative-caret-position="551">
+          <caret line="115" column="42" lean-forward="true" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="42" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
-            <element signature="n#!!block;n#componentWillReceiveProps#0;n#TempPasca#0" expanded="false" />
-            <element signature="e#2890#3041#0" expanded="false" />
-            <element signature="n#!!block;n#onClickNext#0;n#TempPasca#0" expanded="false" />
-            <element signature="n#!!block;n#onClickPrev#0;n#TempPasca#0" expanded="false" />
-            <element signature="e#5563#5636#0" expanded="false" />
-            <element signature="n#!!block;n#handleSubmit#0;n#TempPasca#0" expanded="false" />
-            <element signature="n#!!block;n#submit#0;n#TempPasca#0" expanded="false" />
-            <element signature="n#!!block;n#handleSavePin#0;n#TempPasca#0" expanded="false" />
-            <element signature="n#!!block;n#handleClick#0;n#TempPasca#0" expanded="false" />
-            <element signature="n#!!block;n#validatePhone#0;n#TempPasca#0" expanded="false" />
-            <element signature="n#!!block;n#setPhone#0;n#TempPasca#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/App/PPOB/temp_pra.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="87" column="26" lean-forward="false" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="26" />
+        <state relative-caret-position="120">
+          <caret line="198" column="77" lean-forward="false" selection-start-line="198" selection-start-column="77" selection-end-line="198" selection-end-column="77" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-            <element signature="n#!!block;n#HandleChangeProvider#0;n#TempPra#0" expanded="false" />
+            <element signature="n#!!block;n#setPhone#0;n#TempPra#0" expanded="false" />
+            <element signature="e#5398#6755#0" expanded="false" />
+            <element signature="e#13404#14761#0" expanded="false" />
+            <marker date="1612524925066" expanded="true" signature="4810:12786" ph="&lt;div/&gt;" />
+            <marker date="1612524925066" expanded="true" signature="4870:12746" ph="&lt;div/&gt;" />
+            <marker date="1612524925066" expanded="true" signature="9228:12703" ph="&lt;div/&gt;" />
+            <marker date="1612524925066" expanded="true" signature="9319:12656" ph="&lt;div/&gt;" />
+            <marker date="1612524925066" expanded="true" signature="9386:12605" ph="&lt;div/&gt;" />
+            <marker date="1612524925066" expanded="true" signature="9462:10049" ph="&lt;table/&gt;" />
           </folding>
         </state>
       </provider>

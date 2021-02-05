@@ -148,8 +148,8 @@ export const addFooters = doc => {
 var date = new Date();
 date.setDate(date.getDate());
 export const rangeDate = {
-    'Hari Ini'          : [date.setDate(date.getDate()+1), moment()],
-    'Kemarin'           : [date.setDate(date.getDate()-1), date.setDate(date.getDate()-1)],
+    'Hari Ini'          : [moment(),moment()],
+    'Kemarin'           : [date.setDate(date.getDate()-1), date.setDate(date.getDate())],
     '7 Hari Terakhir'   : [moment().subtract(6, 'days'), moment()],
     '30 Hari Terakhir'  : [moment().subtract(29, 'days'), moment()],
     'Minggu Ini'        : [moment().startOf('isoWeek'), moment().endOf('isoWeek')],
@@ -159,6 +159,8 @@ export const rangeDate = {
     'Tahun Ini'         : [moment().startOf('year'), moment().endOf('year')],
     'Tahun Lalu'        : [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
 };
+
+
 
 export const toMoney = (angka) => {
     return angka.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
@@ -322,10 +324,10 @@ class Paginationq extends Component{
                 linkClass="page-link"
                 activeClass="page-item active"
                 disabledClass="page-item disabled"
-                prevPageText='prev'
-                nextPageText='next'
-                firstPageText='first'
-                lastPageText='last'
+                prevPageText='sebelumnya'
+                nextPageText='selanjutnya'
+                firstPageText='pertama'
+                lastPageText='terakhir'
             />
         )
     }

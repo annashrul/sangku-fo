@@ -67,7 +67,7 @@ class IndexRedeem extends Component{
                                     </div>
                                     <div className="media-body">
                                         <div className="mb-0 font-14 font-weight-bold">Poin Anda</div>
-                                        <h3 className="mb-2 font-24">{toCurrency(parseInt(saldo))}</h3>
+                                        <h3 className="mb-2 font-24 txtRed bold">{toCurrency(parseInt(saldo))}</h3>
                                     </div>
 
                                 </div>
@@ -117,7 +117,7 @@ class IndexRedeem extends Component{
                                                                         <div className="ribbon ribbon-bookmark ribbon-success">{v.title}</div>
                                                                         <img src={v.gambar} alt="Avatar" style={{width:'100%'}}/>
                                                                         <br/>
-                                                                        <h5 className={"text-center"} style={{border:'2px dashed green',padding:"10px",color:"green"}}><b>{toCurrency(v.harga)} POIN</b></h5>
+                                                                        <h5 className={"text-center"} style={{border:'2px dashed rgb(250, 89, 29)',padding:"10px"}}><b className="txtRed bold">{toCurrency(v.harga)} POIN</b></h5>
                                                                         <p>stock barang {v.stock}</p>
                                                                         <p>{desc} {det}</p>
                                                                         <button onClick={event => this.handleDetail(i)} disabled={isDisable} className={`btn btn-${btn} btn-block`}>{btnTxt}</button>

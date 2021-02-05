@@ -101,14 +101,14 @@ class DetailRedeem extends Component{
                                             <div className="single-contact-area d-flex">
                                                 <div>
                                                     <p className={`font-weight-bold font-12 ${idx===i?'text-white':''}`}>
-                                                        TIPE ALAMAT : <span className={"badge badge-success"}>{v.title}</span>
+                                                        TIPE ALAMAT : <button className={"btn btn-success"}>{v.title}</button>
                                                     </p>
                                                     <h4 className={`font-18 font-weight-bold ${idx===i?'text-white':''}`}>{v.penerima}</h4>
                                                     <div className="contact-address mt-15">
-                                                        <p className={`mb-2 font-weight-bold font-11 ${idx===i?'text-white':''}`}>
+                                                        <p className={`mb-2 font-weight-bold ${idx===i?'text-white':''}`}>
                                                             {v.main_address}
                                                         </p>
-                                                        <p className={`mb-0 font-weight-bold font-11 ${idx===i?'text-white':''}`}>{v.no_hp}</p>
+                                                        <p className={`mb-0 font-weight-bold ${idx===i?'text-white':''}`}>{v.no_hp}</p>
                                                     </div>
                                                 </div>
                                             </div>
