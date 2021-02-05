@@ -9,7 +9,7 @@ import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import {postRedeem} from "../../../redux/actions/product/redeem.action";
 
-class ModalPin extends Component{
+class ModalOtp extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -32,7 +32,7 @@ class ModalPin extends Component{
 
     render(){
         return (
-            <WrapperModal isOpen={this.props.isOpen && this.props.type === "modalPin"} size="lg" style={{backgroundColor:"black"}}>
+            <WrapperModal isOpen={this.props.isOpen && this.props.type === "modalOtp"} size="lg">
                 <ModalHeader toggle={this.toggle}>KEAMANAN</ModalHeader>
 
                 <ModalBody style={{backgroundColor:"black"}}>
@@ -41,12 +41,12 @@ class ModalPin extends Component{
                             <img src="https://www.gbb.co.in/wp-content/uploads/2017/02/Firewall-companies-in-hyderabad.png" alt=""/>
                         </div>
                         <div className="col-md-6" style={{margin:"auto"}}>
-                            <p className={"text-white"} style={{textAlign:"center"}}>masukan PIN demi keamanan bertransaksi anda di sistem ini !</p>
+                            <p className={"text-white"} style={{textAlign:"center"}}>masukan OTP yang kami kirim ke no telepon anda ! {this.props.otp}</p>
                             <OTPInput
                                 value={this.props.code}
                                 onChange={this.props.save}
                                 autoFocus={true}
-                                OTPLength={6}
+                                OTPLength={4}
                                 otpType="number"
                                 disabled={false}
                                 style={{AlignItem:"center",justifyContent:"center"}}
@@ -79,4 +79,4 @@ const mapStateToProps = (state) => {
         type: state.modalTypeReducer,
     }
 }
-export default connect(mapStateToProps)(ModalPin);
+export default connect(mapStateToProps)(ModalOtp);

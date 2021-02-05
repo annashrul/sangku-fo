@@ -6,6 +6,7 @@ import setAuthToken from '../../utils/setAuthToken';
 import {HEADERS} from "./_constants";
 // import {getPaket} from "./product/paket.action";
 import {getCart} from "./product/cart.action";
+import Cookies from 'js-cookie'
 
 // user register
 
@@ -26,7 +27,7 @@ export const sendOtp = (userData) =>
                     function () {
                         Swal.close()
                         // save token to localStorage
-                        console.log(res);
+                        // console.log(res);
                         dispatch(setCurrentOtp(res.data.result));
                         dispatch(setIsError(true));
                     },800)
@@ -116,24 +117,29 @@ export const loginUser = (userData) =>
                 const token = res.data.result.token;
                 store('sess', {
                     id: res.data.result.id,
-                    token: res.data.result.token,
                     full_name: res.data.result.full_name,
                     mobile_no: res.data.result.mobile_no,
                     membership: res.data.result.membership,
                     referral_code: res.data.result.referral_code,
                     status: res.data.result.status,
                     picture: res.data.result.picture,
-                    otp: res.data.result.otp,
                     have_pin: res.data.result.have_pin,
                     have_ktp: res.data.result.have_ktp,
                 });
+
+                Cookies.set('sangqu_datum', btoa(token), {
+                    expires: 1
+                });
+                Cookies.set('sangqu_exp', btoa(res.data.result.id), {
+                    expires: 1
+                });
+
             
                 // Set token to Auth Header 
                 setAuthToken(token);
                 // decode token to set user data
                 dispatch(setCurrentUser(res.data.result));
                 dispatch(setLoggedin(true));
-                localStorage.setItem('sangku', btoa(token));
                 dispatch(getCart());
                 // if(res.data.result.otp===''&&res.data.result.otp===undefined){
                 //     dispatch(setLoggedin(true));
@@ -203,7 +209,9 @@ export const setLoggedin = decoded => {
 export const logoutUser = () => dispatch =>{
     // remove jwtToken from localStorage
     // localStorage.removeItem('jwtToken');
-    destroy('sess')
+    destroy('sess');
+    Cookies.remove('sangqu_datum');
+    Cookies.remove('sangqu_exp');
     dispatch(setLoggedin(false));
     localStorage.clear()
 
