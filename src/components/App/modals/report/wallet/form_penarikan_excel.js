@@ -106,12 +106,12 @@ class PenarikanReportExcel extends Component{
                         [
                             'No Faktur',
                             'Tanggal',
-                            'Nama Pemilik Bank',
+                            // 'Nama Pemilik Bank',
                             'Bank',
-                            'No. Akun',
+                            // 'No. Akun',
                             'Amount',
-                            'Potongan',
-                            'Nama',
+                            // 'Potongan',
+                            // 'Nama',
                             'Status',
                         ]
                     ]
@@ -125,13 +125,13 @@ class PenarikanReportExcel extends Component{
         let raw = typeof this.props.penarikanReportExcel.data === 'object'?this.props.penarikanReportExcel.data.map(v => [
             v.kd_trx,
             moment(v.created_at).format("YYYY-MM-DD"),
-            v.acc_name,
+            // v.acc_name,
             v.bank_name,
-            v.acc_no,
+            // v.acc_no,
             toRp(v.amount),
-            v.charge,
-            v.full_name,
-            v.status,
+            // v.charge,
+            // v.full_name,
+            v.status===0?'Pending':v.status===1?'Selesai':v.status===2?'Batal':''
         ]):'';
 
         let body = header.concat(raw);

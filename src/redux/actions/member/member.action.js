@@ -1,5 +1,6 @@
 import axios from "axios"
 import Swal from "sweetalert2";
+import { logoutUser } from "../authActions";
 import {MEMBER, HEADERS, NOTIF_ALERT} from "../_constants";
 
 
@@ -30,11 +31,13 @@ export const putMember = (data,id) => {
             .then(function (response) {
                 const data = (response.data);
                 if (data.status === 'success') {
+                    dispatch(logoutUser())
                     Swal.fire({
                         title: 'Success',
                         icon: 'success',
                         text: "Data berhasil diperbarui, untuk melihat perubahan, silahkan relogin.",
                     });
+                    window.location.href = '/'
                 } else {
                     Swal.fire({
                         title: 'failed',

@@ -17,6 +17,8 @@ import {postPenarikan} from "redux/actions/member/penarikan.action";
 import imgDefault from 'assets/default.png';
 import File64 from "components/common/File64";
 import { putMember } from '../../../redux/actions/member/member.action';
+import { FetchWalletConfig } from '../../../redux/actions/site.action';
+import { toRp } from '../../../helper';
 
 const options = [
     { value: "AXIS", label: "AXIS", chipLabel:"TEST", icon: "https://tripay.co.id/assets/images/provider/axis.png" },
@@ -59,6 +61,9 @@ class IndexPenarikan extends Component{
         super(props);
         this.state={
             amount:"0",
+            is_have_ktp:false,
+            wd_min:0,
+            wd_charge:0,
             bank_data:[],
             bank:"",
             id_bank:"",
@@ -92,9 +97,17 @@ class IndexPenarikan extends Component{
     }
     componentWillMount(){
         this.props.dispatch(getBankMember());
+        this.props.dispatch(FetchWalletConfig());
     }
     componentWillReceiveProps(nextProps){
         console.log(nextProps.resBank);
+        if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.wd_min!==undefined){
+            this.setState({
+                wd_min:parseInt(nextProps.resWalletConfig.wd_min,10),
+                wd_charge:parseInt(nextProps.resWalletConfig.wd_charge,10),
+                is_have_ktp:nextProps.resWalletConfig.is_have_ktp,
+            })
+        }
         let data_bank=[];
         if(nextProps.resBank!==undefined&&nextProps.resBank.data!==undefined){
             nextProps.resBank.data.map((i) => {
@@ -185,7 +198,7 @@ class IndexPenarikan extends Component{
             let data={};
             data['id_bank'] = this.state.bank.value;
             data['pin_member'] = num;
-            data['amount'] = rmComma(this.state.amount);
+            data['amount'] = rmComma(this.state.amount+this.state.wd_charge);
             this.props.dispatch(postPenarikan(data));
             this.props.dispatch(ModalToggle(false));
             this.setState({
@@ -203,8 +216,8 @@ class IndexPenarikan extends Component{
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
             return false;
         }
-        else if(data['amount']<10000){
-            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah 10.000`});
+        else if(data['amount']<parseInt(this.state.wd_min,10)){
+            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah ${toRp(this.state.wd_min)}`});
             return false;
         }
         else if(this.state.bank.value===""||this.state.bank.value==="0"||this.state.bank.value===undefined){
@@ -245,7 +258,7 @@ class IndexPenarikan extends Component{
         return(
             <Layout page={"Penarikan"} subpage="Wallet">
                 <div className="row">
-                    {this.props.auth.user.have_id===undefined||this.props.auth.user.have_id==false?
+                    {!this.state.is_have_ktp?
                     <div className="col-12 box-margin">
                         <div className="row">
                             {/* <div className="col-md-3 d-flex">
@@ -346,7 +359,7 @@ class IndexPenarikan extends Component{
                                                             <div className="form-group mt-3">
                                                                 <label>Nominal</label>
                                                                 <input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>
-                                                                <small className="text-muted">Setiap penarikan akan dikenakan fee sebesar IDR 0,-</small>
+                                                                <small className="text-muted">Setiap penarikan akan dikenakan fee sebesar IDR {toRp(this.state.wd_charge)},-</small>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
@@ -411,7 +424,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.amount}</span>
+                                                        <span className="font-14">{toCurrency(this.state.amount)}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -423,7 +436,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">0</span>
+                                                        <span className="font-14">{toCurrency(this.state.wd_charge)}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -435,7 +448,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.amount}</span>
+                                                        <span className="font-14">{toCurrency(rmComma(this.state.amount)+this.state.wd_charge)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -463,7 +476,7 @@ class IndexPenarikan extends Component{
                                                             }
                                                         </div>
                                                         <h5 className="mt-15">Penarikan {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'Gagal':'Berhasil'}</h5>
-                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount)} yang ditujukan kepada Yth. Sdr/i {this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
+                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount+this.state.wd_charge)} yang ditujukan kepada Yth. Sdr/i {this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                         <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
@@ -508,6 +521,8 @@ const mapStateToProps = (state) => {
         isLoadingPost:state.penarikanReducer.isLoadingPost,
         isError:state.penarikanReducer.isError,
         isOpen: state.modalReducer,
+        isLoadingWalletConfig: state.siteReducer.isLoadingWalletConfig,
+        resWalletConfig: state.siteReducer.data_wallet_config,
     }
 }
 
