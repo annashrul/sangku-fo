@@ -194,7 +194,7 @@ class PembelianDetail extends Component{
                                                                     <tr>
                                                                         <th>NO</th>
                                                                         <th>KODE</th>
-                                                                        <th>EXPIRED</th>
+                                                                        <th>TYPE</th>
                                                                         <th>STATUS</th>
                                                                     </tr>
                                                                     </thead>
@@ -218,7 +218,7 @@ class PembelianDetail extends Component{
                                                                                 <tr key={key}>
                                                                                     <td>{key+1}</td>
                                                                                     <td>{val.kode}</td>
-                                                                                    <td>{moment(val.exp_date).format('LL')}</td>
+                                                                                    <td>{val.type===0?(<span className='badge badge-dark'>AKTIVASI</span>):(<span className='badge badge-warning'>RO</span>)}</td>
                                                                                     <td>{stsPin}</td>
                                                                                 </tr>
                                                                             );
@@ -249,7 +249,7 @@ class PembelianDetail extends Component{
                                                     <p><span className="bold txtRed">Rp {toCurrency(data.subtotal)} .-</span></p>
                                                     <p><span className="bold txtRed">Rp {toCurrency(data.ongkir)} .-</span></p>
                                                     <p><span className="bold txtRed">Rp {toCurrency(data.grand_total)} .-</span></p>
-                                                    <p><span className="bold txtGreen">{data.metode_pembayaran}</span></p>
+                                                    <p><span className="bold txtGreen">{data.metode_pembayaran===undefined?'':data.metode_pembayaran.toUpperCase()}</span></p>
                                                 </div>
                                             </div>
                                         </div>

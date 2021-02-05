@@ -1,7 +1,19 @@
 import React, {Component} from 'react'
-import {noImage} from "helper";
+import {noImage,toRp} from "helper";
+import {HEADERS} from 'redux/actions/_constants'
+import {connect} from "react-redux";
+import { withRouter } from 'react-router-dom';
 
 class Overview extends Component {
+    constructor(props){
+        super(props);
+        this.wallet_redirect=this.wallet_redirect.bind(this)
+    }
+
+    wallet_redirect(e,url){
+        e.preventDefault();
+        this.props.history.push({pathname: '/'+url,state: {from: this.props.location.pathname}});
+    }
     render(){
         return(
             <div className="card">
@@ -9,8 +21,9 @@ class Overview extends Component {
                     <h6>SangQu Pay</h6>
                 </div>
                 <div className="card-block text-center">
-                    <div className="panel-profile-img">
-                        <h1><small>Rp</small> 3.000.000</h1>
+                    <div className="panel-profile-img">{
+                        <h1><small>Rp</small> {toRp(this.props.saldo)}</h1>
+                    }
                     </div>
                     <div className="saldo-aktif-title">
                         <h1>Saldo Aktif</h1>
@@ -19,10 +32,10 @@ class Overview extends Component {
                         <div className="row mt-3 mb-4">
                             <div className='col-md-4'>
                                 <div className="card">
-                                    <div className="card-body" style={{padding:'10px'}}>
+                                    <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'deposit')}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5><img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                                <h5><img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                                 </h5>
                                                 <p className="title-widget-team mb-0">Deposit</p>
                                             </div>
@@ -32,10 +45,10 @@ class Overview extends Component {
                             </div>
                             <div className='col-md-4'>
                                 <div className="card">
-                                    <div className="card-body" style={{padding:'10px'}}>
+                                    <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'transfer')}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5><img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                                <h5><img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                                 </h5>
                                                 <p className="title-widget-team mb-0">Transfer</p>
                                             </div>
@@ -45,10 +58,10 @@ class Overview extends Component {
                             </div>
                             <div className='col-md-4'>
                                 <div className="card">
-                                    <div className="card-body" style={{padding:'10px'}}>
+                                    <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'penarikan')}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5><img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                                <h5><img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle " alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                                 </h5>
                                                 <p className="title-widget-team mb-0">Withdraw</p>
                                             </div>
@@ -61,31 +74,31 @@ class Overview extends Component {
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
-                                <img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                <img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                 <div className="content-title">
                                     <h1>Bonus diterima</h1> <h6>Total komisi dan bonus anda</h6></div>
                                 </div>
-                                <div className="amount"><small>Rp</small> 3.000.000</div>
+                                <div className="amount"><small>Rp</small> {toRp(this.props.saldo_bonus)}</div>
                             </div>
                         </li>
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
-                                <img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                <img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                 <div className="content-title">
                                     <h1>Bonus Sponsor</h1> <h6>Total bonus dari member yang anda sponsori</h6></div>
                                 </div>
-                                <div className="amount"><small>Rp</small> 3.000.000</div>
+                                <div className="amount"><small>Rp</small> {toRp(this.props.bonus_sponsor)}</div>
                             </div>
                         </li>
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
-                                <img src="http://192.168.100.10:3010/images/kurir/cod.png" className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                <img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                 <div className="content-title">
                                     <h1>Total Withdrawal</h1> <h6>Total penarikan bonus.</h6></div>
                                 </div>
-                                <div className="amount"><small>Rp</small> 3.000.000</div>
+                                <div className="amount"><small>Rp</small> {toRp(this.props.withdrawal)}</div>
                             </div>
                         </li>
                     </ul>
@@ -97,4 +110,4 @@ class Overview extends Component {
     }
 }
 
-export default Overview;
+export default withRouter(connect()(Overview));

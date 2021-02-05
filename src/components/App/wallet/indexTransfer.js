@@ -11,12 +11,16 @@ import { FetchAvailableMember } from '../../../redux/actions/member/member.actio
 import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
 import { withRouter } from 'react-router-dom';
+import { FetchWalletConfig } from '../../../redux/actions/site.action';
+import { toRp } from '../../../helper';
 
 class IndexTransfer extends Component{
     constructor(props){
         super(props);
         this.state={
             amount:"0",
+            tf_min:0,
+            tf_charge:0,
             id_penerima:"",
             code:"0",
             pin:"",
@@ -40,6 +44,18 @@ class IndexTransfer extends Component{
         this.konfirmRefs = React.createRef();
         this.pengisianRefs = React.createRef();
         this.berhasilRefs = React.createRef();
+    }
+    componentWillMount(){
+        this.props.dispatch(FetchWalletConfig());
+    }
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps.resBank);
+        if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.tf_min!==undefined){
+            this.setState({
+                tf_min:parseInt(nextProps.resWalletConfig.tf_min,10),
+                tf_charge:parseInt(nextProps.resWalletConfig.tf_charge,10),
+            })
+        }
     }
     componentDidUpdate(prevState){
         if(prevState.memberAvail!==this.props.memberAvail){
@@ -115,7 +131,7 @@ class IndexTransfer extends Component{
             let data={};
             data['id_penerima'] = this.state.member_data.id;
             data['pin_member'] = num;
-            data['amount'] = rmComma(this.state.amount);
+            data['amount'] = rmComma(this.state.amount)+this.state.tf_charge;
             this.props.dispatch(postTransfer(data));
             this.props.dispatch(ModalToggle(false));
             this.setState({
@@ -133,8 +149,8 @@ class IndexTransfer extends Component{
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
             return false;
         }
-        else if(data['amount']<10000){
-            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah 10.000`});
+        else if(data['amount']<this.state.tf_min){
+            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah ${toRp(this.state.tf_min)}`});
             return false;
         }
         else if(this.state.id_penerima===""||this.state.id_penerima==="0"||this.state.id_penerima===undefined){
@@ -198,8 +214,9 @@ class IndexTransfer extends Component{
                                                         </div>
                                                         <div className="col-md-12">
                                                             <div className="form-group">
-                                                                <label>Penerima</label>
+                                                                <label>ID Penerima</label>
                                                                 <input type="text" className={"form-control"} name={"id_penerima"} value={this.state.id_penerima} onChange={this.handleChange}/>
+                                                                <small className="text-muted">ID Penerima bisa dilihat melalui profil penerima itu sendiri</small>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -248,7 +265,7 @@ class IndexTransfer extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">0</span>
+                                                        <span className="font-14">{toRp(this.state.tf_charge)}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -260,7 +277,7 @@ class IndexTransfer extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.amount}</span>
+                                                        <span className="font-14">{toRp(rmComma(this.state.amount)+this.state.tf_charge)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -288,7 +305,7 @@ class IndexTransfer extends Component{
                                                             }
                                                         </div>
                                                         <h5 className="mt-15">Transfer {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'Gagal':'Berhasil'}</h5>
-                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount)} yang ditujukan kepada Yth. Sdr/i {this.state.member_data!=={}&&this.state.member_data!==undefined?this.state.member_data.full_name:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
+                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toRp(rmComma(this.state.amount)+this.state.tf_charge)} yang ditujukan kepada Yth. Sdr/i {this.state.member_data!=={}&&this.state.member_data!==undefined?this.state.member_data.full_name:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                         <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
@@ -334,6 +351,8 @@ const mapStateToProps = (state) => {
         isLoadingAvail:state.memberReducer.isLoadingAvail,
         memberAvail:state.memberReducer.data_avail,
         isOpen: state.modalReducer,
+        isLoadingWalletConfig: state.siteReducer.isLoadingWalletConfig,
+        resWalletConfig: state.siteReducer.data_wallet_config,
     }
 }
 

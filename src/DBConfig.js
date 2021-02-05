@@ -1,6 +1,6 @@
 export const DBConfig = {
-    name: 'backoffice_shop',
-    version: 1,
+    name: 'sangqu',
+    version: 2,
     objectStoresMeta: [
         {
             store: 'sess',

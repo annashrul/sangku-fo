@@ -31,9 +31,21 @@ export function setLoading(load) {
         load
     }
 }
+export function setLoadingWalletConfig(load) {
+    return {
+        type: SITE.LOADING_WALLET_CONFIG,
+        load
+    }
+}
 export function setSite(data = []) {
     return {
         type: SITE.SUCCESS,
+        data
+    }
+}
+export function setWalletConfig(data = []) {
+    return {
+        type: SITE.SUCCESS_WALLET_CONFIG,
         data
     }
 }
@@ -76,6 +88,23 @@ export const FetchSite = () => {
             .catch(function (error) {
                 // handle error
                 dispatch(setLoading(false));
+            })
+
+    }
+}
+
+export const FetchWalletConfig = () => {
+    return (dispatch) => {
+        dispatch(setLoadingWalletConfig(true));
+        axios.get(HEADERS.URL + `transaction/wallet/config`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setWalletConfig(data));
+                dispatch(setLoadingWalletConfig(false));
+            })
+            .catch(function (error) {
+                // handle error
+                dispatch(setLoadingWalletConfig(false));
             })
 
     }
