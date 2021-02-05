@@ -14,6 +14,8 @@ import { withRouter } from 'react-router-dom';
 import Select, { components } from "react-select";
 import {getBank} from "redux/actions/member/bank.action";
 import {postDeposit} from "redux/actions/member/deposit.action";
+import { FetchWalletConfig } from '../../../redux/actions/site.action';
+import { toRp } from '../../../helper';
 
 const { Option } = components;
 const IconOption = props => (
@@ -51,6 +53,7 @@ class IndexDeposit extends Component{
         super(props);
         this.state={
             amount:"0",
+            dp_min:0,
             bank_data:[],
             bank:"",
             id_bank:"",
@@ -85,10 +88,14 @@ class IndexDeposit extends Component{
     }
     componentWillMount(){
         this.props.dispatch(getBank());
+        this.props.dispatch(FetchWalletConfig());
     }
     componentWillReceiveProps(nextProps){
         console.log(nextProps.resBank);
         let data_bank=[];
+        if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.dp_min!==undefined){
+            this.setState({dp_min:nextProps.resWalletConfig.dp_min})
+        }
         if(nextProps.resBank!==undefined&&nextProps.resBank.data!==undefined){
             nextProps.resBank.data.map((i) => {
                 data_bank.push({
@@ -196,8 +203,8 @@ class IndexDeposit extends Component{
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
             return false;
         }
-        else if(data['amount']<10000){
-            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah 10.000`});
+        else if(data['amount']<this.state.dp_min){
+            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah ${toRp(this.state.dp_min)}`});
             return false;
         }
         else if(this.state.bank.value===""||this.state.bank.value==="0"||this.state.bank.value===undefined){
@@ -220,8 +227,7 @@ class IndexDeposit extends Component{
             cursor:'no-drop',
             userSelect:'none'
         }
-
-        console.log(this.state.bank);
+        console.log("this.props.resWalletConfig",this.props.resWalletConfig);
         return(
             <Layout page={"Deposit"} subpage="Wallet">
                 <div className="row">
@@ -419,6 +425,8 @@ const mapStateToProps = (state) => {
         isLoadingPost:state.depositReducer.isLoadingPost,
         isError:state.depositReducer.isError,
         isOpen: state.modalReducer,
+        isLoadingWalletConfig: state.siteReducer.isLoadingWalletConfig,
+        resWalletConfig: state.siteReducer.data_wallet_config,
     }
 }
 

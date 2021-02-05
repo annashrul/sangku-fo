@@ -5,6 +5,8 @@ import {
 const initialState = {
     isLoading: false,
     data: [],
+    isLoadingWalletConfig: false,
+    data: [],
     datum: [],
     data_folder: [],
     data_tables: [],
@@ -25,6 +27,16 @@ export const siteReducer = (state = initialState, action) => {
         case SITE.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case SITE.SUCCESS_WALLET_CONFIG:
+            return Object.assign({}, state,{
+                msg: action.data.msg,
+                status: action.data.status,
+                data_wallet_config: action.data.result
+            });
+        case SITE.LOADING_WALLET_CONFIG:
+            return Object.assign({}, state, {
+                isLoadingWalletConfig: action.load
             });
         case SITE.SUCCESS_LIST:
             return Object.assign({}, state,{
