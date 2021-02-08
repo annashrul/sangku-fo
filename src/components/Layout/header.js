@@ -17,6 +17,16 @@ import {
     DropdownToggle
 } from 'reactstrap';
 import {noImage} from "helper";
+import socketIOClient from "socket.io-client";
+import {HEADERS} from 'redux/actions/_constants'
+import Cookies from 'js-cookie'
+import { NOTIF_ALERT } from '../../redux/actions/_constants';
+const socket = socketIOClient(HEADERS.URL, {
+    withCredentials: true,
+    extraHeaders: {
+        "my-custom-header": "abcd"
+    }
+});
 
 class Header extends Component {
     constructor(props) {
@@ -33,9 +43,19 @@ class Header extends Component {
             server_price:"",
             acc_name:"",
             acc_number:"",
+            list_notif:[],
         }
+        socket.on('refresh_notif',(data)=>{
+            this.refreshData(atob(Cookies.get('sangqu_exp')));
+        })
+        socket.on("set_notif", (data) => {
+            console.log('set_notif',data.list_notif);
+            this.setState({list_notif:data.list_notif})
+        })
     }
-    
+    refreshData(id){
+        socket.emit('get_notif', {id_member:id})
+    }
     handleLogout = () => {
         this.props.logoutUser();
     };
@@ -60,6 +80,9 @@ class Header extends Component {
         }
     }
 
+    componentWillMount(){
+        this.refreshData(atob(Cookies.get('sangqu_exp')));
+    }
 
     infoCart(e){
         e.preventDefault();
@@ -70,7 +93,7 @@ class Header extends Component {
         })
     }
     render() {
-
+        console.log("aaaaaaaaaaaaaaaaaaaaaa",this.state.list_notif);
         return (
         // <!-- Top Header Area -->
         <header className="top-header-area d-flex align-items-center justify-content-between" style={{backgroundColor:(!isMobile?'':'#242939')}} >
@@ -108,22 +131,22 @@ class Header extends Component {
                                     {/* Heading */}
                                     <div className="notifications-heading">
                                         <div className="heading-title">
-                                        <h6>Notifications</h6>
+                                        <h6>Notifikasi</h6>
                                         </div>
-                                        <span>1 New</span>
+                                        <span>{this.state.list_notif.length}</span>
                                     </div>
                                     <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
                                         <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
+                                        {
+                                            typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
+                                                this.state.list_notif.map((v, i) => {
+                                                    return (
+                                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-success" /><span>{v.title}<br/><small className="text-muted">{v.msg}</small></span></a>
+                                                    );
+                                                }
+                                            )
+                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                        }
                                         </div><div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} /></div>
                                     </div>
                                 </DropdownMenu>
@@ -164,12 +187,12 @@ class Header extends Component {
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
                                         <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
                                         </DropdownItem>
-                                        <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
+                                        {/* <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                         <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                         </DropdownItem>
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/bank'});}}>
                                         <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
-                                        </DropdownItem>
+                                        </DropdownItem> */}
                                         <DropdownItem  onClick={this.handleLogout}>
                                         <i className="fa fa-chain-broken profile-icon bg-warning" aria-hidden="true"/> Sign-out
                                         </DropdownItem>
@@ -193,22 +216,22 @@ class Header extends Component {
                                     {/* Heading */}
                                     <div className="notifications-heading">
                                         <div className="heading-title">
-                                        <h6>Notifications</h6>
+                                        <h6>Notifikasi</h6>
                                         </div>
-                                        <span>1 New</span>
+                                        <span>{this.state.list_notif.length}</span>
                                     </div>
                                     <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
                                         <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-face-smile bg-success" /><span>We've got something for you!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-danger" /><span>Domain names expiring on Tuesday</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-check" /><span>Your commissions has been sent</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-heart bg-success" /><span>You sold an item!</span></a>
-                                        <a href={()=> false} className="dropdown-item"><i className="ti-bolt bg-warning" /><span>Security alert for your linked Google account</span></a>
+                                        {
+                                            typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
+                                                this.state.list_notif.map((v, i) => {
+                                                    return (
+                                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-success" /><span>{v.title}<br/><small className="text-muted">{v.msg}</small></span></a>
+                                                    );
+                                                }
+                                            )
+                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                        }
                                         </div><div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} /></div>
                                     </div>
                                 </DropdownMenu>
@@ -262,12 +285,12 @@ class Header extends Component {
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
                                         <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
                                         </DropdownItem>
-                                        <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
+                                        {/* <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                         <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                         </DropdownItem>
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/bank'});}}>
                                         <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
-                                        </DropdownItem>
+                                        </DropdownItem> */}
                                         <DropdownItem  onClick={this.handleLogout}>
                                         <i className="fa fa-chain-broken profile-icon bg-warning" aria-hidden="true"/> Sign-out
                                         </DropdownItem>

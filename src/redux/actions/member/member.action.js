@@ -22,6 +22,18 @@ export function setMemberAvail(data=[]) {
         data
     }
 }
+export function setLoadingDetailMember(load) {
+    return {
+        type: MEMBER.LOADING_DETAIL_MEMBER,
+        load
+    }
+}
+export function setMemberDetail(data=[]) {
+    return {
+        type: MEMBER.SUCCESS_DETAIL_MEMBER,
+        data
+    }
+}
 
 export const putMember = (data,id) => {
     return (dispatch) => {
@@ -82,6 +94,38 @@ export const FetchAvailableMember = (id)=>{
                 dispatch(setLoadingAvail(false));
             }).catch(function(error){
                 dispatch(setLoadingAvail(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+        })
+    }
+}
+export const FetchDetailMember = (id)=>{
+    return (dispatch) => {
+        dispatch(setLoadingDetailMember(true));
+        let url = `member/get/${id}`;
+        axios.get(HEADERS.URL+url)
+            .then(function(response){
+                const data = response.data;
+                dispatch(setMemberDetail(data));
+                dispatch(setLoadingDetailMember(false));
+            }).catch(function(error){
+                dispatch(setLoadingDetailMember(false));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

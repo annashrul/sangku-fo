@@ -1,204 +1,71 @@
 import React, {Component} from 'react'
 import Chart from "react-apexcharts";
+import { toRp } from '../../../../helper';
 
 class Charts extends Component {
     render(){
+        
+        const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
         return(
              <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">Redeem Poin RO</h5>
+                    <h5 className="card-title">Rekapitulasi 5 Hari Kebelakang</h5>
                     <div className="product-table-area">
-                    <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: '400px'}}><div className="table-responsive" id="dashboardTable" style={{overflow: 'hidden', width: 'auto', height: '400px'}}>
-                        <table className="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Code</th>
-                                <th>Sales</th>
-                                <th>Earning</th>
-                                <th style={{maxWidth: '70px'}}>Stock</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-4.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Head Phone</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>2864</td>
-                                <td>81</td>
-                                <td>$1,912.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-success" style={{width: '82%'}} />
-                                    </div>
-                                    <div>
-                                    824
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-3.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Hand Watch</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>3664</td>
-                                <td>26</td>
-                                <td>$1,377.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-success" style={{width: '61%'}} />
-                                    </div>
-                                    <div>
-                                    161
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-2.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Sun Glass</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>2364</td>
-                                <td>71</td>
-                                <td>$9,212.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-danger" style={{width: '23%'}} />
-                                    </div>
-                                    <div>
-                                    123
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-3.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Hand Watch</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>25664</td>
-                                <td>79</td>
-                                <td>$1,298.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-warning" style={{width: '54%'}} />
-                                    </div>
-                                    <div>
-                                    254
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-4.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Head Phone</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>9564</td>
-                                <td>26</td>
-                                <td>$1,377.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-success" style={{width: '61%'}} />
-                                    </div>
-                                    <div>
-                                    61
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-3.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Hand Watch</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>7864</td>
-                                <td>71</td>
-                                <td>$9,212.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-danger" style={{width: '23%'}} />
-                                    </div>
-                                    <div>
-                                    145
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <div className="media align-items-center">
-                                    <div className="chat-img mr-2">
-                                    <img src="img/shop-img/best-2.png" alt="" />
-                                    </div>
-                                    <div>
-                                    <span>Sun Glass</span>
-                                    </div>
-                                </div>
-                                </td>
-                                <td>1564</td>
-                                <td>60</td>
-                                <td>$7,376.00</td>
-                                <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="progress progress-sm">
-                                    <div className="progress-bar bg-success" style={{width: '76%'}} />
-                                    </div>
-                                    <div>
-                                    176
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
+                    <div style={{overflowX: "auto", zoom:'80%'}}>
+                                <table className="table table-hover table-bordered">
+                                    <thead className="bg-light">
+                                    <tr>
+                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="0">NO</th>
+                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="0">TANGGAL</th>
+                                        <th className="text-light bg-danger" style={columnStyle} rowSpan="1" colSpan="2">PERTUMBUHAN</th>
+                                        <th className="text-black bg-warning" style={columnStyle} rowSpan="1" colSpan="2">TABUNGAN</th>
+                                        <th className="text-light bg-primary" style={columnStyle} rowSpan="1" colSpan="2">BALANCE</th>
+                                        <th className="text-light bg-info" style={columnStyle} rowSpan="0">TERPASANG (T)</th>
+                                        <th className="text-light bg-info" style={columnStyle} rowSpan="0">BONUS<br/>(T x {this.props.list!==undefined&&this.props.list.length>0?toRp(this.props.list[0].pairing_bonus):0})</th>
+                                    </tr>
+                                    <tr>
+                                        {/* <th className="text-black" style={columnStyle} rowSpan="2">No</th> */}
+                                        <th className="text-light bg-danger" style={columnStyle} rowSpan="2">KIRI</th>
+                                        <th className="text-light bg-danger" style={columnStyle} rowSpan="2">KANAN</th>
+                                        <th className="text-black bg-warning" style={columnStyle} rowSpan="2">KIRI</th>
+                                        <th className="text-black bg-warning" style={columnStyle} rowSpan="2">KANAN</th>
+                                        <th className="text-light bg-primary" style={columnStyle} rowSpan="2">KIRI</th>
+                                        <th className="text-light bg-primary" style={columnStyle} rowSpan="2">KANAN</th>
+                                        {/* <th className="text-light bg-info" style={columnStyle} rowSpan="2">NOMINAL</th>
+                                        <th className="text-light bg-info" style={columnStyle} rowSpan="2">PAIRING</th> */}
+                                        {/* <th className="text-light bg-info" style={columnStyle} rowSpan="2">HAK</th> */}
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                        {
+                                            (
+                                                typeof this.props.list === 'object' ? this.props.list.length>0?
+                                                    this.props.list.sort((a, b) => new Date(b.id) - new Date(a.id)).map((v,i)=>{
+                                                        return(
+                                                            <tr key={i}>
+                                                                <td style={columnStyle}> {i+1}</td>
+                                                                <td style={columnStyle}>{v.id}</td>
+                                                                <td className="bg-danger-soft" style={columnStyle}>{v.pertumbuhan_kiri}</td>
+                                                                <td className="bg-danger-soft" style={columnStyle}>{v.pertumbuhan_kanan}</td>
+                                                                <td className="bg-warning-soft" style={columnStyle}>{v.tabungan_kiri}</td>
+                                                                <td className="bg-warning-soft" style={columnStyle}>{v.tabungan_kanan}</td>
+                                                                <td className="bg-primary-soft" style={columnStyle}>{v.balance_kiri}</td>
+                                                                <td className="bg-primary-soft" style={columnStyle}>{v.balance_kanan}</td>
+                                                                <td className="bg-info-soft" style={columnStyle}>{toRp(v.hak_bonus)}</td>
+                                                                <td className="bg-info-soft" style={columnStyle}>{toRp(v.nominal_bonus)}</td>
+                                                                {/* <td className="bg-info-soft" style={columnStyle}>{toRp(v.pairing_bonus)}</td> */}
+                                                                {/* <td style={columnStyle}>{toRp(v.sisa_plafon)}</td> */}
+                                                                {/* <td style={columnStyle}>{v.bagde}</td> */}
+                                                            </tr>
+                                                        )
+                                                    })
+                                                    : <tr><td colSpan="11">NO DATA</td></tr> : <tr><td colSpan="11">NO DATA</td></tr>
+                                            )
+                                        }
+                                        </tbody>
+                                </table>
+
+                            </div>
                     </div>
                 </div>
                 </div>

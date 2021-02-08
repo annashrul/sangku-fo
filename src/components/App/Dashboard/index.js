@@ -16,7 +16,10 @@ import socketIOClient from "socket.io-client";
 import {HEADERS} from 'redux/actions/_constants'
 import Cookies from 'js-cookie'
 import Preloader from 'Preloader'
-
+import { FetchRekapitulasi } from '../../../redux/actions/member/rekapitulasi.action';
+import {get, destroy} from "components/model/app.model";
+import { getBerita } from '../../../redux/actions/konten/berita.action';
+const table = 'rekapitulasi';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
     extraHeaders: {
@@ -30,7 +33,7 @@ class Index extends Component {
         this.state = {
             startDate:localStorage.getItem("startDateDashboard")===null?moment(new Date()).format("yyyy-MM-DD"):localStorage.getItem("startDateDashboard"),
             endDate:localStorage.getItem("endDateDashboard")===null?moment(new Date()).format("yyyy-MM-DD"):localStorage.getItem("endDateDashboard"),
-
+            list: [],
             bonus: 0,
             bonus_sponsor: 0,
             jenjang_karir: "Member",
@@ -94,7 +97,9 @@ class Index extends Component {
         socket.on('refresh_dashboard',(data)=>{
             this.refreshData(atob(Cookies.get('sangqu_exp')));
         })
-        
+        // socket.on("set_notif", (data) => {
+        //     console.log('set_notif',data);
+        // })
         socket.on("set_dashboard", (data) => {
            this.setState({
                load_socket:false,
@@ -127,6 +132,8 @@ class Index extends Component {
 
     componentDidMount(){
         this.props.dispatch(FetchAvailablePin(1));
+        this.props.dispatch(getBerita(1,'&perpage=5'))
+        this.getData()
     }
 
     UNSAFE_componentWillReceiveProps = (nextProps) => {
@@ -163,17 +170,45 @@ class Index extends Component {
 
     refreshData(id){
         socket.emit('get_dashboard', {id_member:id})
+        socket.emit('get_notif', {id_member:id})
     }
 
     componentWillMount(){
         this.refreshData(atob(Cookies.get('sangqu_exp')));
+        let start = moment(new Date()).subtract(4,'days');
+        let end = moment(new Date()).add(1,'days');
+        for (var m = moment(start); m.isBefore(end); m.add(1, 'days')) {
+            if(moment(m).format("yyyy-MM-DD")!==moment(new Date()).add(1,'days').format("yyyy-MM-DD")){
+                let param = 'tgl='+moment(m).format("yyyy-MM-DD")
+                this.props.dispatch(FetchRekapitulasi(param));
+            }
+        }
+        this.getData()
     }
 
     componentWillUnmount(){
         localStorage.removeItem('startDateProduct');
         localStorage.removeItem('endDateDashboard');
+        destroy(table)
     }
-
+    getData(){
+        const data = get(table);
+        // console.log("mmmmmmmmmmmm",data.length)
+        data.then(res => {
+            let val = [];
+            res.map((i) => {
+                val.push(i);
+                return null;
+            })
+            this.setState({
+                list: val,
+            })
+            return null;
+        });
+    }
+    componentWillReceiveProps(nextProps){
+        this.getData()
+    }
 
     handleModal(e){
         e.preventDefault();
@@ -232,10 +267,10 @@ class Index extends Component {
                 </div>
                 <div className="row">
                      <div className="col-md-4 pr-0">
-                         <News/>
+                         {this.props.beritaBerita.data!==undefined?<News list={this.props.beritaBerita}/>:''}
                     </div>
                      <div className="col-md-8">
-                        <Redeem />
+                        <Redeem list={this.state.list}/>
                     </div>
 
                 </div>
@@ -254,6 +289,10 @@ const mapStateToProps = (state) =>{
         auth: state.auth,
         stock: state.dashboardReducer.data,
         getPin:state.pinReducer.data_available,
+        rekapData:state.rekapitulasiReducer.data,
+        isLoadingRekapitulasi:state.rekapitulasiReducer.isLoading,
+        beritaBerita:state.beritaReducer.data_berita,
+        isLoadingBerita:state.beritaReducer.isLoadingBerita,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
      }
