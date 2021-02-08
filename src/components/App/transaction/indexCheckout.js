@@ -10,7 +10,6 @@ import {detailAlamat, getAlamat} from "redux/actions/member/alamat.action";
 import {getKurir} from "redux/actions/product/kurir.action";
 import Select from 'react-select'
 import {postOngkir} from "redux/actions/product/ongkir.action";
-import Skeleton from 'react-loading-skeleton';
 import {getBank} from "redux/actions/member/bank.action";
 import {toCurrency} from "../../../helper";
 import Preloader from "../../../Preloader";
@@ -19,6 +18,8 @@ import {NOTIF_ALERT} from "../../../redux/actions/_constants";
 import StickyBox from "react-sticky-box/dist/esnext/index";
 import ModalPin from "../modals/modal_pin";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
+import Skeleton from 'react-loading-skeleton';
+
 class IndexCheckout extends Component{
     constructor(props){
         super(props);
@@ -40,7 +41,7 @@ class IndexCheckout extends Component{
             dataBank:[],
             isAlamat:false,
             isLoadingLayanan:false,
-            code:0
+            code:0,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChecked = this.handleChecked.bind(this);
@@ -61,6 +62,21 @@ class IndexCheckout extends Component{
             this.props.dispatch(getCart());
             this.props.dispatch(getKurir());
             this.props.dispatch(getBank());
+        }
+
+    }
+
+
+    componentDidUpdate(prevProps,prevState){
+
+        if(this.state.valAlamat.title!==prevState.valAlamat.title){
+            this.setState({
+                totOngkir:0,
+                dataLayanan:[],
+                kurir:''
+            })
+            console.log(this.state.valAlamat.title);
+            console.log(prevState.valAlamat.title);
         }
     }
 
@@ -129,6 +145,7 @@ class IndexCheckout extends Component{
                 valAlamat['kd_kec']         = nextProps.resDetailAlamat.kd_kec;
                 valAlamat['no_hp']          = nextProps.resDetailAlamat.no_hp;
                 valAlamat['ismain']         = nextProps.resDetailAlamat.ismain;
+
                 this.setState({valAlamat:valAlamat});
             }
         }
@@ -201,6 +218,7 @@ class IndexCheckout extends Component{
     handleChangeAlamat(val){
         let alamat      = val.value.split("|");
         let valAlamat   = {};
+
         valAlamat['id']         = alamat[0];
         valAlamat['title']      = alamat[1];
         valAlamat['penerima']   = alamat[2];
@@ -210,6 +228,7 @@ class IndexCheckout extends Component{
         valAlamat['kd_kec']     = alamat[6];
         valAlamat['no_hp']      = alamat[7];
         valAlamat['ismain']     = alamat[8];
+
         this.setState({
             alamat      : alamat[1],
             valAlamat   : valAlamat,
@@ -286,197 +305,239 @@ class IndexCheckout extends Component{
         let {totOngkir,totBelanja,valAlamat,idBank} = this.state;
         return(
             <Layout page="Checkout">
-                <Card>
-                    <CardBody>
-                            <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                                <div className="box-margin" style={{width:"70%"}}>
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <div className="check-out-area">
-                                                <div className="col-md-12 col-xl-12 box-margin">
-                                                    <div className="row">
-                                                        <div className="col-9 col-xs-9 col-md-9">
-                                                            <div className="single-contact-area d-flex">
-                                                                <div>
-                                                                    <h4 className="mb-1 font-18">{valAlamat.penerima}</h4>
-                                                                    <p className="mb-10 text-dark font-weight-bold font-12 text-primary">
-                                                                        <span className={"badge badge-success"}>{valAlamat.title}</span>
-                                                                    </p>
-                                                                    <div className="contact-address mt-15">
-                                                                        <p className="mb-2 font-weight-bold font-11">
-                                                                            {valAlamat.main_address}
+                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <div className="box-margin" style={{width:"70%"}}>
+                        <div className="card" style={{marginBottom:"10px"}}>
+                            <div className="card-body">
+                                {
+                                    !this.props.isLoadingAlamat?(
+                                        <div className="row">
+                                            <div className="col-9 col-xs-9 col-md-9">
+                                                <div className="single-contact-area d-flex">
+                                                    <div>
+                                                        <h4 className="mb-1 font-18">{valAlamat.penerima}</h4>
+                                                        <p className="text-dark font-weight-bold font-12 text-primary">
+                                                            <button className={"btn btn-success btn-sm"}>{valAlamat.title}</button>
+                                                        </p>
+                                                        <div className="contact-address">
+                                                            <p className="mb-2 font-weight-bold">
+                                                                {valAlamat.main_address}
+                                                            </p>
+                                                            <p className="mb-0 font-weight-bold">{valAlamat.no_hp}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-3 col-xs-3 col-md-3 text-right" style={{zoom:"80%",padding:'0'}}>
+                                                <Select
+                                                    options={this.state.dataAlamat} placeholder="Alamat Lain"
+                                                    onChange={this.handleChangeAlamat}
+                                                    value={this.state.dataAlamat.find(op => {return op.value === this.state.alamat})}
+                                                />
+                                            </div>
+                                        </div>
+                                    ):(
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <p>
+                                                    <Skeleton/>
+                                                    <Skeleton/>
+                                                    <Skeleton/>
+                                                    <Skeleton/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <div className="row" style={{marginBottom:"10px"}}>
+                            <div className="col-md-5" style={{paddingRight:"0px"}}>
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h4 className="txtGreen bold">PILIH KURIR {this.props.isLoadingKurir?'loading ..':''}</h4>
+                                        <div className="row" style={{height:"300px",overflow:"auto"}}>
+                                            <div className="col-md-12">
+                                                <div class="outer">
+                                                    <div class="inner" style={{display:'flex',flexWrap:'wrap'}}>
+                                                        {
+                                                            !this.props.isLoadingKurir?this.state.dataKurir.length>0?this.state.dataKurir.map((v,i)=>{
+                                                                return(
+                                                                    <div key={i} onClick={event=>this.handleChangeKurir(v)} style={{cursor:"pointer",backgroundColor:v.kurir===this.state.kurir?"#00838d":"",flex:"auto",marginRight:'5px',paddingBottom:"5px"}} class="cards card1">
+                                                                        <p style={{padding:'0',color:v.kurir===this.state.kurir?"white":""}}>
+                                                                            <img src={v.gambar} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} className={"img-circle"} alt="" style={{float:"left",marginRight:"5px",height:"30px",width:'30px',objectFit:'contain'}}/>
+                                                                            {v.title}
                                                                         </p>
-                                                                        <p className="mb-0 font-weight-bold font-11">{valAlamat.no_hp}</p>
+                                                                        <div className="go-corner" href="#">
+                                                                            <div className="go-arrow">
+                                                                                <i className={`fa ${v.kurir===this.state.kurir?'fa-check':'fa-arrow-right'}`}/>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                );
+                                                            }):"No Data.":(
+                                                                <div className="row">
+                                                                    {
+                                                                        (() => {
+                                                                            const rows = [];
+                                                                            for (let i = 0; i < 9; i++) {
+                                                                                rows.push(
+                                                                                    <div className="col-md-4">
+                                                                                        <Skeleton width={100} height={80}/>
+                                                                                    </div>
+                                                                                );
+                                                                            }
+                                                                            return rows;
+                                                                        })()
+                                                                    }
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-3 col-xs-3 col-md-3 text-right" style={{zoom:"80%",padding:'0'}}>
-                                                            <Select
-                                                                options={this.state.dataAlamat} placeholder="Alamat Lain"
-                                                                onChange={this.handleChangeAlamat}
-                                                                value={this.state.dataAlamat.find(op => {return op.value === this.state.alamat})}
-                                                            />
-                                                        </div>
+                                                            )
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div className="row">
-                                        <div className="col-md-5">
-                                            <p>Pilih Kurir</p>
-                                            <div className="row" style={{height:"300px",overflow:"auto"}}>
-                                                {
-                                                    this.state.dataKurir.length>0?this.state.dataKurir.map((v,i)=>{
-                                                        return(
-                                                            <div className="col-md-12" key={i} style={{marginBottom:"5px",cursor:'pointer'}}>
-                                                                <div onClick={event=>this.handleChangeKurir(v)} className="card" style={{padding:"0",border:this.state.kurir===v.kurir?'1px solid green':'',borderRadius:"10px"}}>
-                                                                    <div className="card-body" style={{padding:"5px"}}>
-                                                                        <div className="media align-items-center">
-                                                                            <div className="d-inline-block mr-3">
-                                                                                <img src={v.gambar} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} className={"img-circle"} alt="" style={{height:"30px",width:'30px',objectFit:'contain'}}/>
-                                                                            </div>
-                                                                            <div className="media-body">
-                                                                                <h3 className="mb-0 font-12">{v.title}</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }):""
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="col-md-7">
-                                            <p>Pilih Layanan</p>
-                                            <div className="row">
-                                                {
-                                                    !this.props.isLoadingOngkir?this.state.dataLayanan.length>0?this.state.dataLayanan.map((v,i)=>{
-                                                        return(
-                                                            <div className="col-md-12" key={i} style={{marginBottom:"5px",cursor:'pointer'}}
-                                                                 onClick={event => this.handleChangeLayanan({
-                                                                     value: `${v.cost}|${v.service}`,
-                                                                     label: `${toRp(v.cost)} | ${v.description} | ${v.estimasi}`
-                                                                 })}
-                                                            >
-                                                                <div className="card" style={{border:this.state.layanan===v.service?'1px solid green':'',borderRadius:"10px"}}>
-                                                                    <div className="card-body" style={{padding:"10px"}}>
-                                                                        <div className="media align-items-center">
-                                                                            <div className="media-body">
-                                                                                <h3 className="mb-0 font-12">{v.service} | {toRp(v.cost)} | {v.description} | {v.estimasi}</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }):<div className={"col-md-12"}><p>Layanan tidak tersedia</p></div>:<Preloader/>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <div className="row">
-                                                <div className="col-md-12">
-                                                    <div className="form-group">
-                                                        <label>Metode Pembyaran</label>
-                                                    </div>
-                                                </div>
-                                                {
 
-                                                    !this.props.isLoadingBank?this.state.dataBank.length>0?this.state.dataBank.map((v,i)=>{
-                                                        return(
-                                                            <div key={i} className="col-md-12 box-margin" onClick={(event)=>this.handleChangeBank(event,i,v.id)}>
-                                                                <div className="card" style={{padding:"1px",border:v.id===idBank?"2px solid green":"",borderRadius:"10px"}}>
-                                                                    <div className="card-body" style={{padding:"0!important"}}>
-                                                                        <div className="media align-items-center">
-                                                                            <div className="d-inline-block mr-3">
-                                                                                <img onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} src={v.logo} alt="" style={{height:"40px"}}/>
-                                                                            </div>
-                                                                            <div className="media-body">
-                                                                                <h3 className="mb-2 font-14">{v.bank_name} {v.acc_no!=='-'?`( ${v.acc_no} )`:''}</h3>
-                                                                                <div className="mb-0 font-14 font-weight-bold">{v.acc_name}</div>
-                                                                            </div>
-                                                                            <div className="pirty-chart"><i className={`fa ${v.id===idBank?'fa-check':'fa-angle-double-right'}`}/></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }):"":""
-                                                }
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <StickyBox offsetTop={100} offsetBottom={20} style={{width:"30%",marginLeft:"10px"}}>
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                                <span className="card-title mb-0">Ringkasan Belanja</span>
-                                                <span className="badge badge-primary font-14 badge-pill">{this.props.resCart.length}</span>
-                                            </h4>
-                                            <ul className="list-group mb-3">
-                                                {
-                                                    this.state.dataCart.map((v,i)=>{
-                                                        console.log(v);
-                                                        totBelanja = totBelanja+(parseInt(v.qty,10)*parseInt(v.harga,10));
-                                                        return (
-                                                            <li key={i} className="list-group-item d-flex justify-content-between lh-condensed">
-                                                                <div>
-                                                                    <div className="checkout-thumb mb-10">
-                                                                        <img src={v.foto} style={{width:"100%",objectFit:'contain'}}/>
-                                                                    </div>
-                                                                    <h6 className="mb-0 font-14">{v.title}</h6>
-                                                                </div>
-                                                                <span className="font-weight-bold text-success text-right">{v.qty} X {toRp(v.harga)}
-                                                                    <hr/> {toRp(parseInt(v.qty,10)*parseInt(v.harga,10))}
-                                                            </span>
-                                                            </li>
-                                                        );
-                                                    })
-                                                }
+                            </div>
+                            <div className="col-md-7" style={{paddingLeft:"10px"}}>
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h4 className="txtGreen bold">PILIH LAYANAN </h4>
+                                        <div style={{height:'300px',overflow:'auto'}}>
+                                            {
+                                                !this.props.isLoadingOngkir?this.state.dataLayanan.length>0?this.state.dataLayanan.map((v,i)=>{
+                                                    return(
+                                                        <div onClick={event => this.handleChangeLayanan({
+                                                            value: `${v.cost}|${v.service}`,
+                                                            label: `${toRp(v.cost)} | ${v.description} | ${v.estimasi}`
+                                                        })} key={i} className="media align-items-center" style={{cursor:'pointer',backgroundColor:this.state.layanan===v.service?'#00838d':'',border:'1px solid #00838d',borderRadius:"10px",padding:"10px",marginBottom:"10px"}}>
+                                                            <div className="media-body">
+                                                                <h3 className={`mb-0 font-12 ${this.state.layanan===v.service?'text-white bold':'text-black'}`} style={{color:this.state.layanan===v.service?'white':'black'}}>
+                                                                    <span style={{float:"left"}}>{v.service} | {toRp(v.cost)} | {v.description} | {v.estimasi}</span>
+                                                                    {
+                                                                        this.state.layanan===v.service?(<span style={{float:"right"}}><i className="text-white fa fa-check"/></span>):null
+                                                                    }
 
-
-                                            </ul>
-
-                                            <ul className="list-group mb-3">
-                                                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                                                    <span className="font-weight-bold text-dark text-left">TOTAL BELANJA</span>
-                                                    <span className="font-weight-bold text-success text-right">{toRp(totBelanja)}</span>
-                                                </li>
-
-                                                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                                                    <span className="font-weight-bold text-dark text-left">TOTAL ONGKOS KIRIM</span>
-                                                    <span className="font-weight-bold text-success text-right">{toRp(totOngkir)}</span>
-                                                </li>
-                                                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                                                    <span className="font-weight-bold text-dark text-left">YANG HARUS DIBAYAR</span>
-                                                    <span className="font-weight-bold text-success text-right">{toRp(totBelanja+totOngkir)}</span>
-                                                </li>
-
-                                            </ul>
-
-                                            <button className={"btn btn-primary btn-block"} onClick={this.handleSubmit} disabled={
-                                                this.props.resCart.length<1||this.state.kurir===''||this.state.layanan===''
-                                            }>Bayar</button>
-
-
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }):<p>Layanan tidak tersedia</p>:<div>
+                                                    <div className="spinner-border text-primary ml-10" role="status" aria-hidden="true"/>
+                                                    <strong className={"text-black text-center"} style={{position:"absolute",marginLeft:"10px",marginTop:"5px",verticalAlign:"middle"}}>Tunggu sebentar    ...</strong>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                </StickyBox>
+                                </div>
                             </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <label>Metode Pembyaran</label>
+                                        </div>
+                                    </div>
+                                    {
+
+                                        !this.props.isLoadingBank?this.state.dataBank.length>0?this.state.dataBank.map((v,i)=>{
+                                            return(
+                                                <div key={i} className="col-md-12" style={{cursor:'pointer',marginBottom:"10px"}} onClick={(event)=>this.handleChangeBank(event,i,v.id)}>
+                                                    <div className="card" style={{backgroundColor:v.id===idBank?'#00838d':'',padding:"1px",border:"2px solid #00838d",borderRadius:"10px"}}>
+                                                        <div className="card-body" style={{padding:"0!important"}}>
+                                                            <div className="media align-items-center">
+                                                                <div className="d-inline-block mr-3">
+                                                                    <img onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} src={v.logo} alt="" style={{height:"40px"}}/>
+                                                                </div>
+                                                                <div className="media-body">
+                                                                    <h3 className={`mb-2 font-14 ${v.id===idBank?'text-white bold':''}`}>{v.bank_name} {v.acc_no!=='-'?`( ${v.acc_no} )`:''}</h3>
+                                                                    <div className={`mb-0 font-14 font-weight-bold ${v.id===idBank?'text-white':''}`}>{v.acc_name}</div>
+                                                                </div>
+                                                                <div className="pirty-chart"><i className={`fa ${v.id===idBank?'text-white fa-check':'fa-angle-double-right'}`}/></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }):"":""
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <StickyBox offsetTop={100} offsetBottom={20} style={{width:"30%",marginLeft:"10px"}}>
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                    <span className="card-title mb-0">Ringkasan Belanja</span>
+                                    <span className="badge badge-primary font-14 badge-pill">{this.props.resCart.length}</span>
+                                </h4>
+                                <ul className="list-group mb-3">
+                                    {
+                                        !this.props.isLoading?this.state.dataCart.map((v,i)=>{
+                                            totBelanja = totBelanja+(parseInt(v.qty,10)*parseInt(v.harga,10));
+                                            return (
+                                                <tr key={i} style={{border:"1px solid #EEEEEE"}}>
+                                                    <td className="text-left">
+                                                        <img src={v.foto} alt="contact-img" title="contact-img" className="round mr-3 product-thumb" />
+                                                        <p className="m-0 d-inline-block align-middle font-16">
+                                                            <span className="txtGreen bold">{v.title}</span>
+                                                            <br/>
+                                                            <small className="mr-2">{v.qty} X {toRp(v.harga)} </small>
+                                                            <small className="text-right txtRed bold">{toRp(parseInt(v.qty,10)*parseInt(v.harga,10))}</small>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        }):<Skeleton height={70}/>
+                                    }
+
+                                </ul>
+                                {
+                                    !this.props.isLoading?(
+                                        <ul className="list-group mb-3">
+
+                                            <li className="list-group-item d-flex justify-content-between lh-condensed">
+                                                <span className="font-weight-bold text-dark text-left">TOTAL BELANJA</span>
+                                                <span className="font-weight-bold txtRed text-right">Rp {toRp(totBelanja)} .-</span>
+                                            </li>
+
+                                            <li className="list-group-item d-flex justify-content-between lh-condensed">
+                                                <span className="font-weight-bold text-dark text-left">TOTAL ONGKOS KIRIM</span>
+                                                <span className="font-weight-bold txtRed text-right">Rp {toRp(totOngkir)} .-</span>
+                                            </li>
+                                            <li className="list-group-item d-flex justify-content-between lh-condensed">
+                                                <span className="font-weight-bold text-dark text-left">YANG HARUS DIBAYAR</span>
+                                                <span className="font-weight-bold txtRed text-right">Rp {toRp(totBelanja+totOngkir)} .-</span>
+                                            </li>
+
+                                        </ul>
+                                    ):(
+                                        <ul className="list-group mb-3">
+                                            <Skeleton height={30}/>
+                                            <Skeleton height={30}/>
+                                            <Skeleton height={30}/>
+                                        </ul>
+                                    )
+                                }
+
+                                <button className="btn btn-primary bgGreen" style={{borderRadius:"10px",width:"100%",padding:"10px",fontSize:"20px"}} disabled={
+                                    this.props.resCart.length<1||this.state.kurir===''||this.state.layanan===''
+                                }>
+                                    Bayar
+                                </button>
 
 
 
-
-                    </CardBody>
-                </Card>
+                            </div>
+                        </div>
+                    </StickyBox>
+                </div>
                 <ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={''}/>
             </Layout>
         );
@@ -489,11 +550,13 @@ const mapStateToProps = (state) => {
         auth: state.auth,
         resCart:state.cartReducer.data,
         isLoading: state.cartReducer.isLoading,
+        isLoadingKurir: state.kurirReducer.isLoading,
         isLoadingPost:state.checkoutReducer.isLoadingPost,
         isLoadingOngkir:state.ongkirReducer.isLoading,
         isLoadingBank:state.bankReducer.isLoading,
         isError: state.checkoutReducer.isError,
         resAlamat:state.alamatReducer.data,
+        isLoadingAlamat:state.alamatReducer.isLoading,
         resDetailAlamat:state.alamatReducer.detail,
         resKurir:state.kurirReducer.data,
         resOngkir:state.ongkirReducer.data,

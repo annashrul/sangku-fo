@@ -349,7 +349,7 @@ class PembelianReport extends Component{
                         <div className="row">
                             <div className="col-md-10" style={{zoom:"85%"}}>
                                 <div className="row">
-                                    <div className="col-6 col-xs-6 col-md-2">
+                                    <div className="col-6 col-xs-6 col-md-3">
                                         <div className="form-group">
                                             <label htmlFor=""> Periode </label>
                                             <DateRangePicker
@@ -363,7 +363,7 @@ class PembelianReport extends Component{
                                         </div>
                                     </div>
 
-                                    <div className="col-6 col-xs-6 col-md-2">
+                                    <div className="col-6 col-xs-6 col-md-3">
                                         <div className="form-group">
                                             <label>Cari</label>
                                             <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
@@ -397,8 +397,8 @@ class PembelianReport extends Component{
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-6">
-                                            <button className={"btn btn-secondary btn-sm"} style={{borderRadius:"10%"}}>
-                                                {v.type===0?'AKTIVASI':'RO'}
+                                            <button className={"btn btn-secondary btn-sm"}>
+                                                {v.type===0?'AKTIVASI':'REPEAT ORDER'}
                                             </button>
                                         </div>
                                         <div className="col-md-6">
@@ -592,13 +592,17 @@ class PembelianReport extends Component{
                     })()
                 }
 
-                <div style={{"marginTop":"20px","float":"right"}}>
-                    <Paginationq
-                        current_page={current_page}
-                        per_page={per_page}
-                        total={parseInt((per_page*last_page),10)}
-                        callback={this.handlePageChange.bind(this)}
-                    />
+                <div className="card" style={{marginTop:"10px"}}>
+                    <div className="card-body">
+                        <div style={{"marginTop":"20px","float":"right"}}>
+                            <Paginationq
+                                current_page={current_page}
+                                per_page={per_page}
+                                total={parseInt((per_page*last_page),10)}
+                                callback={this.handlePageChange.bind(this)}
+                            />
+                        </div>
+                    </div>
                 </div>
                 {
                     localStorage.modalDetail==="true"? <PembelianDetail detail={this.state.detaiDataReport}/>:null

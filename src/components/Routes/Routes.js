@@ -23,6 +23,7 @@ import Binary from '../App/Member/Binary';
 import Sponsor from '../App/Member/Sponsor';
 import Testt from '../App/Masterdata/test';
 import RiwayatTransaksi from '../App/transaction/riwayat'
+import RiwayatPPOB from '../App/Report/PPOB/indexReportPPOB'
 import ReportDeposit from '../App/Report/Deposit'
 import ReportPembelian from '../App/Report/Pembelian'
 import Berita from '../App/Konten/Berita'
@@ -124,6 +125,7 @@ const Routes = (
             <PrivateRoute path="/konten/testimoni/:id" exact strict component={TestimoniDetail} />
             {/* KONTEN SECTION END */}
             <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
+            <PrivateRoute path="/transaksi/ppob" exact strict component={RiwayatPPOB} />
 
 
 

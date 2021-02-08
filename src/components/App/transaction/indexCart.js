@@ -117,27 +117,27 @@ class IndexCart extends Component{
                                                     //     v.qty=1;
                                                     //     isError='qty tidak boleh kurang dari 1';
                                                     // }
+
                                                     totalCart = totalCart+(parseInt(v.harga,10)*parseInt(v.qty,10));
                                                     return (
                                                         <tr key={i}>
                                                             <td className="text-left">
-                                                                <img src={noImage()} alt="contact-img" title="contact-img" className="round mr-3 product-thumb" />
+                                                                <img src={v.foto} alt="contact-img" title="contact-img" className="round mr-3 product-thumb" />
                                                                 <p className="m-0 d-inline-block align-middle font-16">
-                                                                    {v.title}
+                                                                    <span className="txtGreen bold">{v.title}</span>
                                                                     <br/>
-                                                                    <small className="mr-2"><b>Kategori:</b> {v.kategori} </small>
-                                                                    <small><b>Berat:</b> {toCurrency(parseInt(v.berat,10)*parseInt(v.qty,10))}
-                                                                    </small>
+                                                                    <small className="mr-2">Kategori : {v.kategori} </small>
+                                                                    <small>Berat : {toCurrency(parseInt(v.berat,10)*parseInt(v.qty,10))}</small>
                                                                 </p>
                                                             </td>
-                                                            <td className={"text-success"} style={{textAlign:"right"}}>
+                                                            <td className={"text-right txtRed bold"}>
                                                                 Rp {toCurrency(v.harga)} .-
                                                             </td>
                                                             <td>
                                                                 <input type="number" name={"qty"} min="1" value={v.qty} className="form-control" placeholder="Qty" style={{width:" 90px"}} onChange={(e) => this.HandleChangeInputValue(e, i)}/>
                                                                 <small style={{color:'res'}}>{isError}</small>
                                                             </td>
-                                                            <td className={"text-success"} style={{textAlign:"right"}}>
+                                                            <td className={"text-right txtRed bold"}>
                                                                 Rp {toCurrency(parseInt(v.harga,10)*parseInt(v.qty,10))} .-
                                                             </td>
                                                             <td>
@@ -151,7 +151,7 @@ class IndexCart extends Component{
                                             <tfoot>
                                             <tr>
                                                 <td colSpan={3}>TOTAL BELANJA</td>
-                                                <td className={"text-success"} style={{textAlign:"right"}}>Rp {toCurrency(totalCart)} .-</td>
+                                                <td className={"text-right txtRed bold"}>Rp {toCurrency(totalCart)} .-</td>
                                                 <td/>
                                             </tr>
                                             </tfoot>

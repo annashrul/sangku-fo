@@ -87,15 +87,15 @@ class IndexRO extends Component{
                                     <div className="row p-2 bg-white border rounded">
                                         <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={v.foto} style={{width:"100%",height:"150px",objectFit:'contain'}}/></div>
                                         <div className="col-md-6 mt-1">
-                                            <h5 className={"text-primary"}>{v.title}</h5>
+                                            <h5 className={"txtGreen bold"}>{v.title}</h5>
                                             <div className="d-flex flex-row align-items-center">
-                                                <h4 className="mr-1" style={{color:"green"}}>Rp {toCurrency(v.harga)} .-</h4>
+                                                <h4 className="mr-1 txtRed bold">Rp {toCurrency(v.harga)} .-</h4>
                                             </div>
                                             <p className="text-justify">{v.deskripsi.length>180?v.deskripsi.substr(0,180)+' ...':v.deskripsi}</p>
                                         </div>
                                         <div className=" col-md-3 border-left mt-1">
                                             <div className="d-flex flex-column">
-                                                <button className="btn btn-primary btn-sm" type="button" onClick={(event)=>this.handleDetail(event,v.id)}>Details</button>
+                                                <button className="btn btn-outline-primary btn-sm" type="button" onClick={(event)=>this.handleDetail(event,v.id)}>Detail</button>
                                                 <button className="btn btn-primary btn-sm mt-2" type="button"  onClick={(event)=>this.handleCart(event,i)}>
                                                     {
                                                         this.state.idx===i?this.props.isLoadingPost?(

@@ -439,3 +439,10 @@ export const SUB_KATEGORI_PPOB = {
     LOADING: 'SET_SUB_KATEGORI_PPOB_LOADING',
     SUCCESS: 'SUCCESS_SUB_KATEGORI_PPOB',
 }
+/****************
+ REPORT_PPOB
+ *****************/
+export const REPORT_PPOB = {
+    LOADING: 'SET_REPORT_PPOB_LOADING',
+    SUCCESS: 'SUCCESS_REPORT_PPOB',
+}

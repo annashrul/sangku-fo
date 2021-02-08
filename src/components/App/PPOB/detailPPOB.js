@@ -89,14 +89,14 @@ class DetailPPOB extends Component{
                             <tr>
                                 <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Harga</h5></th>
                                 <th><h5 style={{color:"grey"}}>:</h5></th>
-                                <th><h5>Rp {toCurrency(retrievedObject.harga)} .-</h5></th>
+                                <th><h5 className="txtRed">Rp {toCurrency(retrievedObject.harga)} .-</h5></th>
                             </tr>
                             {
                                 page==='pulsa all operator'?(
                                     <tr>
                                         <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Nominal</h5></th>
                                         <th><h5 style={{color:"grey"}}>:</h5></th>
-                                        <th><h5>Rp {toCurrency(parseInt(retrievedObject.keterangan.split(' ')[1].replaceAll(".","")))} .-</h5></th>
+                                        <th><h5 className="txtRed">Rp {toCurrency(parseInt(retrievedObject.keterangan.split(' ')[1].replaceAll(".","")))} .-</h5></th>
                                     </tr>
                                 ):null
                             }
@@ -122,7 +122,7 @@ class DetailPPOB extends Component{
                                     </tr>
                                     <tr>
                                         <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Subtotal Tagihan</h6></th>
-                                        <th style={{border:"none"}}><h6 style={{float:"right"}}>Rp {toCurrency(retrievedObject.harga)} .-</h6></th>
+                                        <th style={{border:"none"}}><h6 className="txtRed text-right">Rp {toCurrency(retrievedObject.harga)} .-</h6></th>
                                     </tr>
 
                                     </thead>
@@ -133,7 +133,7 @@ class DetailPPOB extends Component{
                                     <thead>
                                     <tr>
                                         <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Total Tagihan</h6></th>
-                                        <th style={{border:"none"}}><h4 style={{float:"right",color:"green"}}>Rp {toCurrency(retrievedObject.harga)} .-</h4></th>
+                                        <th style={{border:"none"}}><h4 className="txtRed text-right">Rp {toCurrency(retrievedObject.harga)} .-</h4></th>
                                     </tr>
 
                                     </thead>

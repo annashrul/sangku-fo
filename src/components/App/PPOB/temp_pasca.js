@@ -221,20 +221,7 @@ class TempPasca extends Component{
                 "pin":num
                 },'checkout'
             ));
-            // localStorage.setItem("isPin","false");
-            // if(num===this.props.auth.user_otp.otp_anying){
-            //     // this.props.dispatch(ModalToggle(false));
-            //     this.setState({
-            //         isPin:true
-            //     })
-            //     this.props.dispatch(ModalType("modalPin"));
-            // }
 
-
-            // this.setState({
-            //     currentStep: currentStep + 1,
-            // });
-            // this.berhasilRefs.current.scrollIntoView();
         }
 
     }
@@ -363,12 +350,6 @@ class TempPasca extends Component{
                                             <div ref={this.konfirmRefs} className="card w-100" style={currentStep===1?null:blur}>
                                                 <div className="card-body pb-0">
                                                     <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:currentStep===1?'none':''}}/>
-
-                                                    <div className="profile-thumb-contact text-center mb-4">
-                                                        <div className="profile--tumb">
-                                                            <img src={noUser} alt="sangqu" />
-                                                        </div>
-                                                    </div>
                                                     <div className="row align-items-center">
                                                         <div className="col">
                                                             <h6 className="font-14 mb-0">

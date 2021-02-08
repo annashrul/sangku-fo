@@ -6,8 +6,16 @@ class Header extends Component{
     constructor(props){
         super(props);
         this.state={
-            
+            isOpen:false
         };
+        this.onClickMenu=this.onClickMenu.bind(this)
+    }
+
+    onClickMenu(e){
+        e.preventDefault();
+        this.setState({
+            isOpen:!this.state.isOpen
+        })
     }
 
     render(){
@@ -16,7 +24,7 @@ class Header extends Component{
                 <div className="header-logo" style={{background: `url("${this.props.logo}") no-repeat center`,backgroundSize: '100%'}}>
                     <a href="/">{this.props.title}</a>
                 </div>
-                <nav id="header-nav-wrap">
+                <nav id="header-nav-wrap" style={this.state.isOpen?{display:'block'}:{display:'none'}}>
                     <ul className="header-main-nav">
                     <li className="current"><a className="smoothscroll" href="/" title="home">Home</a></li>
                     <li><a className="smoothscroll" href="#about" title="about">Tentang</a></li>
@@ -32,7 +40,7 @@ class Header extends Component{
 
                     }
                 </nav>
-                <a className="header-menu-toggle" href={() => false}><span>Menu</span></a>    	
+                <a className="header-menu-toggle" href="#" onClick={(e)=>this.onClickMenu(e)}><span>Menu</span></a>    	
             </header> 
         );
     }
