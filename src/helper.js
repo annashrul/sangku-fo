@@ -175,7 +175,6 @@ export const toCurrency = (angka) => {
         
     }else{
         numbers=angka;
-        
     }
     var number_string = (numbers===''||numbers===undefined)? String(0.0) : numbers.toString().replace(/,|\D/g,''),
         split = number_string.split('.'),
