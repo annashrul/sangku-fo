@@ -4,7 +4,7 @@ import Layout from 'components/Layout';
 import imgCover from 'assets/cover.png';
 import imgDefault from 'assets/default.png';
 import File64 from "components/common/File64";
-import { putMember } from '../../../../redux/actions/member/member.action';
+import { FetchDetailMember, putMember } from '../../../../redux/actions/member/member.action';
 import {ToastQ} from 'helper'
 import Swal from 'sweetalert2';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
@@ -46,6 +46,7 @@ class IndexProfile extends Component{
         this.state = {
             isEdit:false,
             editFoto:false,
+            member_detail:{},
             full_name:'',
             picture:'',
             pin:'',
@@ -59,14 +60,24 @@ class IndexProfile extends Component{
             aspect: 1 / 1,
         }
     }
+    componentDidUpdate(prevState){
+        if(prevState.auth.user.id!==this.props.auth.user.id){
+            let page=localStorage.page_pin;
+            this.props.dispatch(FetchDetailMember(this.props.auth.user.id));
+        }
+    }
     componentWillMount(){
         this.props.dispatch(getAlamat(`page=1`));
         this.props.dispatch(getBankMember(`page=1`));
+        if(this.props.auth.user.id!==undefined){
+            this.props.dispatch(FetchDetailMember(this.props.auth.user.id));
+        }
     }
     componentWillReceiveProps(nextProps){
         this.setState({
             full_name:nextProps.auth.user.full_name,
             picture:nextProps.auth.user.picture,
+            member_detail:nextProps.data_member,
         })
     }
 
@@ -331,6 +342,15 @@ class IndexProfile extends Component{
 
     render(){
         console.log("full_name",this.state.full_name)
+        const {
+            saldo,
+            sponsor,
+            left_pv,
+            right_pv,
+            total_payment,
+            membership,
+            referral_code,
+        } = this.state.member_detail
         return(
             <Layout page="Profile">
                 <div className="row">
@@ -488,10 +508,10 @@ class IndexProfile extends Component{
                                                 <div className="card-body">
                                                     <div className="form-inline d-flex justify-content-between mb-30">
                                                         <div>
-                                                            <p className="text-muted m-0">Paket Member</p>
-                                                            <h5 className="text-black">Member Silver</h5>
+                                                            <p className="text-muted m-0">Membership</p>
+                                                            <h5 className="text-black">{membership}</h5>
                                                         </div>
-                                                        <a className="user-avatar text-right" href={()=>null}><img src="http://ptnetindo.com:6694/badge/executive.png" alt="user" className="img-fluid w-50" /> </a>
+                                                        {/* <a className="user-avatar text-right" href={()=>null}><img src="http://ptnetindo.com:6694/badge/executive.png" alt="user" className="img-fluid w-50" /> </a> */}
                                                     </div>
                                                     <div className="form-inline d-flex justify-content-between w-50 mb-30">
                                                         <div>
@@ -512,30 +532,30 @@ class IndexProfile extends Component{
                                                             <div className="col-md-3 border-right">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-primary-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-user" aria-hidden="true" style={{}} /></span>
-                                                                    PV Saya
+                                                                    Total Sponsor
                                                                 </p>
-                                                                <h5 className="text-black">99</h5>
+                                                                <h5 className="text-black">{sponsor}</h5>
                                                             </div>
                                                             <div className="col-md-3 border-right">
                                                                 <p className="text-muted m-0">
-                                                                    <span className="circle bg-warning-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-group" aria-hidden="true" style={{}} /></span>
-                                                                    PV Grup
+                                                                    <span className="circle bg-warning-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-dollar" aria-hidden="true" style={{}} /></span>
+                                                                    Total Pembayaran
                                                                 </p>
-                                                                <h5 className="text-black">99</h5>
+                                                                <h5 className="text-black">{total_payment}</h5>
                                                             </div>
                                                             <div className="col-md-3 border-right">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-success-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-arrow-left" aria-hidden="true" style={{}} /></span>
-                                                                    Reward Kiri
+                                                                    PV Kiri
                                                                 </p>
-                                                                <h5 className="text-black">99</h5>
+                                                                <h5 className="text-black">{left_pv}</h5>
                                                             </div>
                                                             <div className="col-md-3">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-danger-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-arrow-right" aria-hidden="true" style={{}} /></span>
-                                                                    Reward Kanan
+                                                                    PV Kanan
                                                                 </p>
-                                                                <h5 className="text-black">99</h5>
+                                                                <h5 className="text-black">{right_pv}</h5>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -587,8 +607,6 @@ class IndexProfile extends Component{
                                                                     </div>
                                                                 );
                                                             })
-                                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
-
                                                             :(()=>{
                                                                 let container =[];
                                                                 for(let x=0; x<10; x++){
@@ -611,6 +629,8 @@ class IndexProfile extends Component{
                                                                 }
                                                                 return container;
                                                             })()
+                                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+
 
                                                     }
                                                 </div>
@@ -664,8 +684,6 @@ class IndexProfile extends Component{
                                                                     </div>
                                                                 );
                                                             })
-                                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
-
                                                             :(()=>{
                                                                 let container =[];
                                                                 for(let x=0; x<10; x++){
@@ -690,6 +708,8 @@ class IndexProfile extends Component{
                                                                 }
                                                                 return container;
                                                             })()
+                                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+
 
                                                     }
                                                 </div>
@@ -881,6 +901,7 @@ const mapStateToProps = (state) => {
         data_alamat:state.alamatReducer.data,
         isLoadingBank: state.bankMemberReducer.isLoading,
         data_bank:state.bankMemberReducer.data,
+        data_member:state.memberReducer.data_detail_member,
         isOpen:state.modalReducer,
     }
 }

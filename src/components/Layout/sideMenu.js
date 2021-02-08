@@ -190,7 +190,7 @@ class SideMenu extends Component {
                         ||path==='/bank'
                         ||path==='/rekapitulasi'
                         ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="zmdi zmdi-receipt" /> <span>Jaringan</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="fa fa-sitemap" /><span>Jaringan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isNetwork===true?"block":"none"}}>
                             <li className={path==='/binary'?"active":''}><Link to="/binary" style={{width:'fit-content'}}> Genealogy Binary</Link></li>
                             <li className={path==='/downline/add'?"active":''}><Link to="/downline/add" style={{width:'fit-content'}}> Tambah downline</Link></li>
@@ -205,18 +205,18 @@ class SideMenu extends Component {
                     <li className={"treeview" +(this.state.isOrder===true
                         || path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem' ||path==='/report/pembelian'
                         ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isOrder')}><i className="zmdi zmdi-receipt" /> <span>Order</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isOrder')}><i className="fa fa-shopping-basket" /> <span>Order</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isOrder===true?"block":"none"}}>
-                            <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product"> <i className="fa fa-dashboard" /><span> Order Paket</span></Link></li>
-                            <li  className={path==='/redeem'?"active":''}><Link to="/redeem"> <i className="fa fa-dashboard" /><span> Redeem Poin RO</span></Link></li>
-                            <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}><i className="fa fa-dashboard" /> <span>Riwayat Pembelian</span></Link></li>
+                            <li  className={path==='/product'||path==='/cart'||path==='/checkout'||path==='/invoice'?"active":''}><Link to="/product">  Order Paket</Link></li>
+                            <li  className={path==='/redeem'?"active":''}><Link to="/redeem">  Redeem Poin RO</Link></li>
+                            <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}>Riwayat Pembelian</Link></li>
                         </ul>
                     </li>
                     {/* ORDER MODUL END */}
                     {/* STKIST MODUL START */}
                     {/* <li  className={path==='/stokist'?"active":''}><Link to="/stokist"> <i className="fa fa-dashboard" /><span> Stokist</span></Link></li> */}
                     <li className={"treeview" +(this.state.isStokist===true || path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'||path==='/transfer' ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isStokist')}><i className="zmdi zmdi-receipt" /> <span>Stokist</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isStokist')}><i className="fa fa-tasks" /> <span>Stokist</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isStokist===true?"block":"none"}}>
                             <li className={path==='/stokist/pin-aktivasi'?"active":''}><Link to="/stokist/pin-aktivasi" style={{width:'fit-content'}}> PIN Aktivasi</Link></li>
                             <li className={path==='/stokist/pin-ro'?"active":''}><Link to="/stokist/pin-ro" style={{width:'fit-content'}}>PIN RO</Link></li>
@@ -224,7 +224,7 @@ class SideMenu extends Component {
                     </li>
                     {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
-                    <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-receipt" /><span> PPOB</span></Link></li>
+                    <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> PPOB</span></Link></li>
 
                     {/*<li className={"treeview" +(this.state.isPpob===true*/}
                         {/*|| path==='/ppob/pulsa-all-operator'*/}
@@ -269,7 +269,7 @@ class SideMenu extends Component {
                     {/* PPOB MODUL END */}
                     {/* WALLET MODUL START */}
                     <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isWallet')}><i className="zmdi zmdi-receipt" /> <span>Wallet</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isWallet')}><i className="fa fa-google-wallet" /> <span>Wallet</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isWallet===true?"block":"none"}}>
                             <li className={path==='/deposit'?"active":''}><Link to="/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/penarikan'?"active":''}><Link to="/penarikan" style={{width:'fit-content'}}>Penarikan</Link></li>
@@ -280,7 +280,7 @@ class SideMenu extends Component {
 
                     {/* REPORT MODUL START */}
                     <li className={"treeview" +(this.state.isReport===true || path==='/transaksi/riwayat' ?" active menu-open" : "")}>
-                        <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="zmdi zmdi-receipt" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
+                        <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="fa fa-file-text" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
 
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
@@ -312,8 +312,8 @@ class SideMenu extends Component {
                     {/* REPORT MODUL END */}
 
                     {/* KONTEN MODUL START */}
-                    <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-dashboard" /><span> Berita</span></Link></li>
-                    <li  className={path==='/konten/testimoni'?"active":''}><Link to="/konten/testimoni"> <i className="fa fa-dashboard" /><span> Testimoni</span></Link></li>
+                    <li  className={path==='/konten/berita'?"active":''}><Link to="/konten/berita"> <i className="fa fa-newspaper-o" /><span> Berita</span></Link></li>
+                    <li  className={path==='/konten/testimoni'?"active":''}><Link to="/konten/testimoni"> <i className="zmdi zmdi-favorite" /><span> Testimoni</span></Link></li>
                     {/* KONTEN MODUL END */}
                     {/* LOGOUT MODUL START */}
                     <li><a href={() => false} style={{cursor:'pointer',color:'#a6b6d0'}} onClick={(event)=>this.handleLogout(event)}> <i className="fa fa-chain-broken" /><span> Logout</span></a></li>
