@@ -7,10 +7,11 @@ import Stepper from 'react-stepper-horizontal';
 // import noUser from '../../../assets/no-user.png'
 import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
+import sorry from '../../../assets/sorry.png'
 // import { FetchAvailableMember } from '../../../redux/actions/member/member.action';
 import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Select, { components } from "react-select";
 import {getBankMember} from "redux/actions/member/bankMember.action";
 import {postPenarikan} from "redux/actions/member/penarikan.action";
@@ -61,9 +62,10 @@ class IndexPenarikan extends Component{
         super(props);
         this.state={
             amount:"0",
-            is_have_ktp:false,
+            is_have_ktp:true,
             wd_min:0,
             wd_charge:0,
+            trx_wd:'',
             bank_data:[],
             bank:"",
             id_bank:"",
@@ -80,6 +82,7 @@ class IndexPenarikan extends Component{
                 {id:4,amount:'500,000'},
                 {id:5,amount:'1,000,000'},
             ],
+            saldo:0,
             steps: [{title: 'Pengisian'}, {title: 'Konfirmasi'}, {title: 'Berhasil'}],
             currentStep: 0,
         };
@@ -105,6 +108,8 @@ class IndexPenarikan extends Component{
             this.setState({
                 wd_min:parseInt(nextProps.resWalletConfig.wd_min,10),
                 wd_charge:parseInt(nextProps.resWalletConfig.wd_charge,10),
+                saldo:parseInt(nextProps.resWalletConfig.saldo,10),
+                trx_wd:parseInt(nextProps.resWalletConfig.trx_wd,10),
                 is_have_ktp:nextProps.resWalletConfig.is_have_ktp,
             })
         }
@@ -187,7 +192,7 @@ class IndexPenarikan extends Component{
     handleClickPrice(e,i){
         e.preventDefault();
         this.setState({
-            amount:this.state.arrAmount[i].amount
+            amount:this.state.saldo
         })
     }
 
@@ -198,7 +203,7 @@ class IndexPenarikan extends Component{
             let data={};
             data['id_bank'] = this.state.bank.value;
             data['pin_member'] = num;
-            data['amount'] = rmComma(this.state.amount+this.state.wd_charge);
+            data['amount'] = rmComma(this.state.amount);
             this.props.dispatch(postPenarikan(data));
             this.props.dispatch(ModalToggle(false));
             this.setState({
@@ -315,6 +320,7 @@ class IndexPenarikan extends Component{
                         </div>
                     </div>
                     :
+                    this.state.trx_wd===0?
                     <div className="col-12 box-margin">
                         <div className="container">
                             <div className="row">
@@ -332,7 +338,7 @@ class IndexPenarikan extends Component{
                                                             {/* <label>Pilih nominal cepat</label> */}
                                                             <div className="card text-white text-center bg-success">
                                                             <div className="card-body">
-                                                                <h4 className="text-white">IDR 200.000</h4>
+                                                                <h4 className="text-white">IDR {toRp(this.state.saldo)}</h4>
                                                                 <p className="card-text text-white">Saldo Tersedia</p>
                                                                 <button
                                                                 type="button"
@@ -359,7 +365,7 @@ class IndexPenarikan extends Component{
                                                             <div className="form-group mt-3">
                                                                 <label>Nominal</label>
                                                                 <input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>
-                                                                <small className="text-muted">Setiap penarikan akan dikenakan fee sebesar IDR {toRp(this.state.wd_charge)},-</small>
+                                                                <small className="text-muted">Setiap penarikan akan dikenakan fee sebesar {this.state.wd_charge}%,-</small>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
@@ -367,6 +373,7 @@ class IndexPenarikan extends Component{
                                                                 <label>Penerima</label>
                                                                 <input type="text" className={"form-control"} name={"id_bank"} value={this.state.id_bank} onChange={this.handleChange}/>
                                                             </div> */}
+                                                            {this.state.bank_data.length>0?
                                                             <div className="form-group">
                                                                 <label>Pilih Rekening Bank</label>
                                                                 <Select
@@ -377,7 +384,12 @@ class IndexPenarikan extends Component{
                                                                     value={this.state.bank}
                                                                 />
                                                             </div>
-
+                                                            :
+                                                            <div className="form-group">
+                                                                <label>Tambah Rekening Bank</label>
+                                                                <Link to={`/profile`} className="btn btn-outline-info btn-block">TAMBAH BARU</Link>
+                                                            </div>
+                }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -424,7 +436,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toCurrency(this.state.amount)}</span>
+                                                        <span className="font-14">{toRp(this.state.amount)}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -436,7 +448,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toCurrency(this.state.wd_charge)}</span>
+                                                        <span className="font-14">{toRp(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.wd_charge,10)/100)))}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -448,7 +460,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toCurrency(rmComma(this.state.amount)+this.state.wd_charge)}</span>
+                                                        <span className="font-14">{toRp(rmComma(this.state.amount)+(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.wd_charge,10)/100))))}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -476,9 +488,10 @@ class IndexPenarikan extends Component{
                                                             }
                                                         </div>
                                                         <h5 className="mt-15">Penarikan {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'Gagal':'Berhasil'}</h5>
-                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toCurrency(this.state.amount+this.state.wd_charge)} yang ditujukan kepada Yth. Sdr/i {this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
+                                                        <p className="mt-15 font-15 text-dark">Permintaan penarikan anda dengan nominal Rp. {toRp(rmComma(this.state.amount)+(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.wd_charge,10)/100))))} {this.props.isLoadingPost?'sedang diproses.':!this.props.isError?'gagal diproses':'telah diterima, tunggu konfirmasi dari admin untuk pencairan dana tersebut.'}.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
+                                                        <br/>
                                                         <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
                                                     </div>
                                                 </div>
@@ -504,7 +517,14 @@ class IndexPenarikan extends Component{
                             </div>
                         </div>
                     </div>
-                    }
+                    :
+                    <div className="alert alert-danger bg-white text-danger text-center p-30 m-4" role="alert">
+                        <img className="img-fluid w-40" src={sorry} alt="sangqu" />
+                        <br/>
+                        Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.
+                    </div>
+
+                }
                 </div>
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.pin} save={this.handleSubmit} typePage={'FormWalletTransfer'}/>:null

@@ -5,6 +5,7 @@ import moment from "moment";
 import {toRp} from "helper";
 import { FetchRekapitulasi } from '../../../../redux/actions/member/rekapitulasi.action';
 import {get, destroy} from "components/model/app.model";
+import Spinner from 'Spinner'
 const table = 'rekapitulasi';
 class Rekapitulasi extends Component{
     constructor(props){
@@ -103,11 +104,12 @@ class Rekapitulasi extends Component{
                                 </div>
                             </div>
                             <div style={{overflowX: "auto"}}>
+                                {this.props.isLoading?<div  className="text-center m-3 w-100"><Spinner/></div>:''}
                                 <table className="table table-hover table-bordered">
                                     <thead className="bg-light">
                                     <tr>
-                                        <th className="text-black" style={columnStyle} rowSpan="0">NO</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="0">TANGGAL</th>
+                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="0">NO</th>
+                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="0">TANGGAL</th>
                                         <th className="text-light bg-danger" style={columnStyle} rowSpan="1" colSpan="2">PERTUMBUHAN</th>
                                         <th className="text-black bg-warning" style={columnStyle} rowSpan="1" colSpan="2">TABUNGAN</th>
                                         <th className="text-light bg-primary" style={columnStyle} rowSpan="1" colSpan="2">BALANCE</th>

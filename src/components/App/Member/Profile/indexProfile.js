@@ -5,7 +5,7 @@ import imgCover from 'assets/cover.png';
 import imgDefault from 'assets/default.png';
 import File64 from "components/common/File64";
 import { FetchDetailMember, putMember } from '../../../../redux/actions/member/member.action';
-import {ToastQ} from 'helper'
+import {ToastQ, toRp} from 'helper'
 import Swal from 'sweetalert2';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import FormBankMember from "../../modals/member/bank_member/form_bank_member"
@@ -349,7 +349,8 @@ class IndexProfile extends Component{
             right_pv,
             total_payment,
             membership,
-            referral_code,
+            jenjang_karir,
+            pin,
         } = this.state.member_detail
         return(
             <Layout page="Profile">
@@ -515,16 +516,16 @@ class IndexProfile extends Component{
                                                     </div>
                                                     <div className="form-inline d-flex justify-content-between w-50 mb-30">
                                                         <div>
-                                                            <p className="text-muted m-0">Sponsor</p>
-                                                            <h5 className="text-black">Sponsor Name</h5>
+                                                            <p className="text-muted m-0">Jenjang Karir</p>
+                                                            <h5 className="text-black">{jenjang_karir}</h5>
                                                         </div>
                                                         <div>
-                                                            <p className="text-muted m-0">Upline</p>
-                                                            <h5 className="text-black">Upline Name</h5>
+                                                            <p className="text-muted m-0">Saldo</p>
+                                                            <h5 className="text-black">{toRp(saldo)}</h5>
                                                         </div>
                                                         <div>
-                                                            <p className="text-muted m-0">Posisi</p>
-                                                            <h5 className="text-black">KANAN</h5>
+                                                            <p className="text-muted m-0">Total Pembayaran</p>
+                                                            <h5 className="text-black">{toRp(total_payment)}</h5>
                                                         </div>
                                                     </div>
                                                     <div className="card bg-transparent border img-thumbnail p-4 shadow-none">
@@ -538,10 +539,10 @@ class IndexProfile extends Component{
                                                             </div>
                                                             <div className="col-md-3 border-right">
                                                                 <p className="text-muted m-0">
-                                                                    <span className="circle bg-warning-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-dollar" aria-hidden="true" style={{}} /></span>
-                                                                    Total Pembayaran
+                                                                    <span className="circle bg-warning-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-shield" aria-hidden="true" style={{}} /></span>
+                                                                    PIN Tersedia
                                                                 </p>
-                                                                <h5 className="text-black">{total_payment}</h5>
+                                                                <h5 className="text-black">{pin}</h5>
                                                             </div>
                                                             <div className="col-md-3 border-right">
                                                                 <p className="text-muted m-0">
