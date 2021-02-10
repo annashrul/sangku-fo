@@ -113,21 +113,11 @@ class DetailPPOB extends Component{
                     <div className="col-md-4">
                         <div className="card ">
                             <div className="card-body ">
-                                <h5>Ringkasan Pembayaran</h5>
-                                <table className={"table"}>
-                                    <thead>
-                                    <tr>
-                                        <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Metode Pembayaran</h6></th>
-                                        <th style={{border:"none"}}><h6 style={{float:"right"}}>Saldo</h6></th>
-                                    </tr>
-                                    <tr>
-                                        <th style={{border:"none",paddingLeft:"0"}}><h6 style={{color:"grey"}}>Subtotal Tagihan</h6></th>
-                                        <th style={{border:"none"}}><h6 className="txtRed text-right">Rp {toCurrency(retrievedObject.harga)} .-</h6></th>
-                                    </tr>
-
-                                    </thead>
-
-                                </table>
+                                <h5>Ringkasan Pembayaran</h5><br/>
+                                <h6 style={{color:"grey"}}>Metode Pembayaran</h6>
+                                <h6>Saldo</h6><br/>
+                                <h6 style={{color:"grey"}}>Subtotal</h6>
+                                <h6 className="txtRed">Rp {toCurrency(retrievedObject.harga)} .-</h6>
                                 <hr/>
                                 <table className={"table"}>
                                     <thead>

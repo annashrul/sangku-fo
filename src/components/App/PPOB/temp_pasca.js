@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
-import {rmComma, ToastQ, toCurrency} from "helper";
-import {postTransfer} from "redux/actions/member/transfer.action";
+import { ToastQ, toCurrency} from "helper";
 import Stepper from 'react-stepper-horizontal';
 import noUser from '../../../assets/no-user.png'
 import imgCancel from '../../../assets/cancel.gif'
@@ -83,10 +82,11 @@ class TempPasca extends Component{
             }
         }
         if(this.props.isLoadingCekTagihan){
+            console.log('nextProps.isErrorCekTagihan', nextProps.isErrorCekTagihan);
             if(!nextProps.isErrorCekTagihan){
-
+                console.log(!nextProps.isErrorCekTagihan);
                 this.setState({
-                    currentStep: currentStep + 1,
+                    currentStep:  1,
                     dataStep2:{
                         admin: nextProps.dataTagihan.admin,
                         kd_trx: nextProps.dataTagihan.kd_trx,

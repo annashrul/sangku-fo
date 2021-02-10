@@ -7,10 +7,11 @@ import Select from 'react-select';
 import moment from "moment";
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import {rangeDate} from "helper";
-import {statusQ} from "helper";
-import {getReportPPOB} from "../../../../redux/actions/ppob/reportPPOB.action";
-import Skeleton from 'react-loading-skeleton';
-import {toCurrency} from "../../../../helper";
+import {getReportPPOB, getReportDetail} from "redux/actions/ppob/reportPPOB.action";
+import Cards from './src/cards'
+import Skeleton from './src/skeleton'
+import { NOTIF_ALERT } from 'redux/actions/_constants';
+import Detail from "components/App/modals/report/ppob/detail";
 
 class IndexReportPPOB extends Component{
     constructor(props){
@@ -28,8 +29,10 @@ class IndexReportPPOB extends Component{
             filter_data:[],
             status:"",
             status_data:[],
-            data:[]
+            data:[],
+            detail_trx:'-'
         };
+        this.toggleDetail = this.toggleDetail.bind(this)
         this.handleChange = this.handleChange.bind(this);
 
     }
@@ -56,6 +59,7 @@ class IndexReportPPOB extends Component{
                         status:v.status,
                         target:v.target,
                         tipe:v.tipe,
+                        created_at:v.created_at,
                     })
                 })
             }
@@ -82,16 +86,23 @@ class IndexReportPPOB extends Component{
 
     };
 
+    toggleDetail(e,kd_trx) {
+        e.preventDefault();
+        this.props.dispatch(getReportDetail(btoa(kd_trx)))
+
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("riwayatppobDetail"));
+    }
+
     render(){
-        const columnStyle = {verticalAlign: "middle",whiteSpace:"nowrap"};
         const {
             per_page,
             last_page,
             current_page,
         } = this.props.data;
-        let totalHarga=0;
         return (
-            <Layout page="Laporan PPOB">
+            <Layout page="Riwayat Top Up & Tagihan">
                 <div className="col-12 box-margin">
                     <div className="card" style={{marginBottom:"10px"}}>
                         <div className="card-body">
@@ -185,79 +196,18 @@ class IndexReportPPOB extends Component{
 
                             </div>
 
-
                         </div>
                     </div>
-                    <div className="card" style={{marginBottom:"10px"}}>
-                        <div className="card-body">
-                            <div style={{overflowX: "auto",zoom:"85%"}}>
-                                <table className="table table-hover table-bordered">
-                                    <thead className="bg-info">
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>OPERATOR</th>
-                                        <th>NO.INVOICE</th>
-                                        <th>NAMA</th>
-                                        <th>TARGET</th>
-                                        <th>PRODUK</th>
-                                        <th>KATEGORI</th>
-                                        <th>HARGA</th>
+                        {
 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        !this.props.isLoading?this.state.data.length>0?this.state.data.map((v,i)=>{
-                                            totalHarga = totalHarga+parseInt(v.harga);
-                                            return(
-                                                <tr key={i}>
-                                                    <td style={columnStyle}>{i+1 + (10 * (parseInt(current_page,10)-1))}</td>
-                                                    <td style={columnStyle}>
-                                                        <img src={v.logo} alt="" style={{textAlign:"center",height:"30px"}}/>
+                            !this.props.isLoading?this.state.data.length>0?
+                            <Cards 
+                                data={this.state.data}
+                                handleOnClick={this.toggleDetail}
+                            />:
+                            <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA}/></div>:<Skeleton/>
 
-                                                    </td>
-                                                    <td style={columnStyle} className="txtGreen">{v.kd_trx}</td>
-                                                    <td style={columnStyle}>{v.full_name}</td>
-                                                    <td style={columnStyle}>{v.target}</td>
-                                                    <td style={columnStyle}>{v.produk}</td>
-                                                    <td style={columnStyle}>
-                                                        <img src={v.icon} alt="" style={{float:"left",height:"30px"}}/>{v.kategori}
-                                                    </td>
-                                                    <td style={columnStyle} className="txtRed text-right">Rp {toCurrency(v.harga)} .-</td>
-                                                </tr>
-                                            );
-                                        }):"":(()=>{
-                                            let container =[];
-                                            for(let i=0; i<10; i++){
-                                                container.push(
-                                                    <tr key={i}>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                        <td><Skeleton/></td>
-                                                    </tr>
-                                                )
-                                            }
-                                            return container;
-                                        })()
-
-                                    }
-                                    </tbody>
-                                    <tfoot>
-                                    <tr style={{backgroundColor:"#EEEEEE"}}>
-                                        <th colSpan={7}>TOTAL PERHALAMAN</th>
-                                        <th className="txtRed text-right" colSpan={1}>Rp {toCurrency(totalHarga)} .-</th>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
+                        }
                     <div className="card">
                         <div className="card-body">
                             <div style={{"marginTop":"20px","float":"right"}}>
@@ -271,6 +221,7 @@ class IndexReportPPOB extends Component{
                         </div>
                     </div>
                 </div>
+                <Detail/>
             </Layout>
         );
     }

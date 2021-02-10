@@ -33,16 +33,7 @@ class Layout extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
-            // const favicon = this.getFaviconEl(); // Accessing favicon element
-            // favicon.href = nextProps.auth.user.fav_icon;
-            
-            if(nextProps.auth.user.site_title!==undefined){
-            document.title = `Sangku - ${this.props.page}`;
-            // document.title = `${nextProps.auth.user.site_title} - ${this.props.page}`;
-            }else
-            document.title = `Sangku - ${this.props.page}`;
-            // document.title = `${localStorage.getItem("site_title")} - ${this.props.page}`;
-
+            document.title = `SangQu - ${this.props.page}`;
         }
     }
 

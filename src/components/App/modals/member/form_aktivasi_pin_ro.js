@@ -153,7 +153,6 @@ class FormAktivasiRo extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaa",state.memberReducer)
     return {
         auth:state.auth,
         isOpen: state.modalReducer,

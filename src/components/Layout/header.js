@@ -99,7 +99,6 @@ class Header extends Component {
         })
     }
     render() {
-        console.log("aaaaaaaaaaaaaaaaaaaaaa",this.state.list_notif);
         return (
         // <!-- Top Header Area -->
         <header className="top-header-area d-flex align-items-center justify-content-between" style={{backgroundColor:(!isMobile?'':'#242939')}} >

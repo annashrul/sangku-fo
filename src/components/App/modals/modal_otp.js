@@ -27,7 +27,6 @@ class ModalOtp extends Component{
         e.preventDefault();
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType(this.props.typePage));
     };
 
     render(){

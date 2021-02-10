@@ -219,7 +219,7 @@ class SideMenu extends Component {
 
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
                             <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
-                            <li className={path==='/transaksi/ppob'?"active":''}><Link to="/transaksi/ppob" style={{width:'fit-content'}}> PPOB</Link></li>
+                            <li className={path==='/transaksi/ppob'?"active":''}><Link to="/transaksi/ppob" style={{width:'fit-content'}}> Top Up & Tagihan</Link></li>
 
                             {/* SUBLAPORAN PEMBAYARAN MODUL START */}
                                 {/* {md_report_inventory? */}

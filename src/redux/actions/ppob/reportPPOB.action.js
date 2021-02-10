@@ -17,6 +17,18 @@ export function setData(data = []) {
         data
     }
 }
+export function setDetail(data = []) {
+    return {
+        type: REPORT_PPOB.DETAIL,
+        data
+    }
+}
+export function setLoadingDetail(load) {
+    return {
+        type: REPORT_PPOB.LOAD_DETAIL,
+        load
+    }
+}
 
 
 export const getReportPPOB = (where='')=>{
@@ -38,3 +50,18 @@ export const getReportPPOB = (where='')=>{
     }
 }
 
+export const getReportDetail = (kd_trx) => {
+    return (dispatch) => {
+        dispatch(setLoadingDetail(true));
+        let url = `transaction/ppob/report/${kd_trx}`;
+        axios.get(HEADERS.URL + url)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setDetail(data));
+                dispatch(setLoadingDetail(false));
+            })
+            .catch(function (error) {
+                dispatch(setLoadingDetail(false));
+            })
+    }
+}

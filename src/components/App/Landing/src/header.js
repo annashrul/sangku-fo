@@ -1,12 +1,14 @@
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
+import {withRouter} from "react-router-dom"
 
 
 class Header extends Component{
     constructor(props){
         super(props);
         this.state={
-            isOpen:false
+            isOpen:false,
+            path:'/'
         };
         this.onClickMenu=this.onClickMenu.bind(this)
     }
@@ -14,23 +16,33 @@ class Header extends Component{
     onClickMenu(e){
         e.preventDefault();
         this.setState({
-            isOpen:!this.state.isOpen
+            isOpen:!this.state.isOpen,
+            home:true,
+            about:false,
+            pricing:false,
+            testimonials:false,
+            download:false,
         })
+    }
+    componentDidMount(){
+        this.setState({
+            path: this.props.location.pathname
+        });
     }
 
     render(){
         return(
             <header id="header" className="row">   
                 <div className="header-logo" style={{background: `url("${this.props.logo}") no-repeat center`,backgroundSize: '100%'}}>
-                    <a href="/">{this.props.title}</a>
+                    <a href={this.state.path==='/'?'#home':'/'}>{this.props.title}</a>
                 </div>
                 <nav id="header-nav-wrap" style={this.state.isOpen?{display:'block'}:{display:'none'}}>
                     <ul className="header-main-nav">
-                    <li className="current"><a className="smoothscroll" href="/" title="home">Home</a></li>
-                    <li><a className="smoothscroll" href="#about" title="about">Tentang</a></li>
-                    <li><a className="smoothscroll" href="#pricing" title="pricing">Paket</a></li>
-                    <li><a className="smoothscroll" href="#testimonials" title="testimonials">Testimoni</a></li>
-                    <li><a className="smoothscroll" href="#download" title="download">Download</a></li>	
+                    <li className="current"><a className="smoothscroll" href={this.state.path==='/'?'#home':'/'} title="home">Home</a></li>
+                    <li><a className="smoothscroll" href={this.state.path==='/'?"#about":'/'} title="about">Tentang</a></li>
+                    <li><a className="smoothscroll" href={this.state.path==='/'?"#pricing":'/'} title="pricing">Paket</a></li>
+                    <li><a className="smoothscroll" href={this.state.path==='/'?"#testimonials":'/'} title="testimonials">Testimoni</a></li>
+                    <li><a className="smoothscroll" href={this.state.path==='/'?"#download":'/'} title="download">Download</a></li>	
                     </ul>
                     {
                         this.props.isLoggedin?
@@ -46,4 +58,4 @@ class Header extends Component{
     }
 }
 
-export default Header;
+export default withRouter(Header);
