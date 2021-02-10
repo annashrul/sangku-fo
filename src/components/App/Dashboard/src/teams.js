@@ -19,7 +19,7 @@ class Overview extends Component {
     render(){
         console.log(this.props.pie_series);
         return(
-            <div className="card">
+            <div className="card h-100">
                 <div className="card-header heading-footer" style={{background:`url('https://image.freepik.com/free-vector/abstract-realistic-technology-particle-background_52683-33063.jpg')`,backgroundSize:'cover'}}>
                     <h6>Pertumbuhan Anda</h6>
                 </div>

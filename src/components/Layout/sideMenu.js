@@ -17,7 +17,7 @@ class SideMenu extends Component {
             isStokist: false,
             isOrder: false,
 
-            isReportWallet: false,
+            // isReportWallet: false,
 
             // NETWORK
             // md_network:true,
@@ -53,7 +53,7 @@ class SideMenu extends Component {
             isOrder: false
         }
         let sub_module = {
-            isReportWallet:false,
+            // isReportWallet:false,
         }
         module[param] = (this.state[param])&&(sub_param!==undefined)?true:!this.state[param];
         sub_module[sub_param] = !this.state[sub_param];
@@ -103,17 +103,13 @@ class SideMenu extends Component {
             this.setState({
                 isStokist:true,
             })
-        }else if(path==='/transaksi/riwayat'||path==='/transaksi/ppob'){
-            this.setState({
-                isReport:true,
-            })
         }else if(
-            path==='/report/wallet/deposit'
-            || path==='/report/wallet/penarikan'
-            ){
+            path==='/transaksi/riwayat'
+            || path==='/transaksi/ppob'
+            || path==='/report/wallet/deposit'
+            || path==='/report/wallet/penarikan'){
             this.setState({
                 isReport:true,
-                isReportWallet:true,
             })
         } else if (path === '/product' || path === '/cart' || path === '/checkout' || path === '/invoice' || path === '/redeem'||path==='/report/pembelian') {
                 this.setState({
@@ -284,28 +280,10 @@ class SideMenu extends Component {
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
 
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
-                            <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                             <li className={path==='/transaksi/ppob'?"active":''}><Link to="/transaksi/ppob" style={{width:'fit-content'}}> PPOB</Link></li>
-
-                            {/* SUBLAPORAN PEMBAYARAN MODUL START */}
-                                {/* {md_report_inventory? */}
-                                    <li className={"treeview" + (this.state.isReportWallet===true || 
-                                        path==='/report/adjustmnet'
-                                        ?" active menu-open" : "")}>
-
-                                        <a href="!#" onClick={(e) => this.changeMenu(e,'isReport','isReportWallet')}> Wallet <i className="fa fa-angle-right"/></a>
-                                        <ul className={"treeview-menu animate__animated" + (this.state.isReportWallet===true ?" animate__bounceInRight " : " animate__fadeOutLeft ") + "animate__faster"} style={{display:this.state.isReportWallet===true
-                                        ?"block" : "none"}}>
-
-                                            <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
-                                            {/* <li className={path==='/report/wallet/transfer'?"active":''}><Link to="/report/wallet/transfer" style={{width:'fit-content'}}> Transfer</Link></li> */}
-                                            <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
-
-                                        </ul>
-                                    </li>
-                                    {/* :''
-
-                                {/* SUBLAPORAN PEMBAYARAN MODUL END */}
+                            <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
+                            <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
+                            <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
 
                         </ul>
                     </li>

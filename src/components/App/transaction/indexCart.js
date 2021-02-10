@@ -50,10 +50,19 @@ class IndexCart extends Component{
         this.setState({res_cart:data});
     }
 
-    HandleChangeInputValue(e,i){
+    HandleChangeInputValue(e,i, qty, param){
         e.preventDefault();
-        let column = e.target.name;
-        let value = e.target.value;
+        let column = 'qty';
+        let id = param;
+        console.log("asasa",id);
+        let value = qty;
+        if(id==='qtyMin'){
+            if(value>1){
+                value = parseInt(qty,10)-1
+            }
+        } else if(id==='qtyPlus'){
+            value = parseInt(qty,10)+1
+        }
         let res_cart = [...this.state.res_cart];
         res_cart[i] = {...res_cart[i], [column]: value};
         this.setState({ res_cart });
@@ -100,7 +109,7 @@ class IndexCart extends Component{
                                 localStorage.totCart>"0"?<div className="col-12">
                                     <div className="table-responsive cart-area">
                                         <table className="table table-borderless table-centered mb-0">
-                                            <thead className="thead-light">
+                                            <thead className="thead-dark">
                                             <tr>
                                                 <th>Barang</th>
                                                 <th className="text-center">Harga</th>
@@ -133,8 +142,17 @@ class IndexCart extends Component{
                                                             <td className={"text-right txtRed bold"}>
                                                                 Rp {toCurrency(v.harga)} .-
                                                             </td>
-                                                            <td>
-                                                                <input type="number" name={"qty"} min="1" value={v.qty} className="form-control" placeholder="Qty" style={{width:" 90px"}} onChange={(e) => this.HandleChangeInputValue(e, i)}/>
+                                                            <td className="text-center">
+                                                                <div className="input-group justify-content-center">
+                                                                    <div className="input-group-prepend">
+                                                                        <button type="button" className="btn btn-outline-dark" id="qtyMin" onClick={(e) => this.HandleChangeInputValue(e, i, v.qty, 'qtyMin')}><i className="fa fa-minus"></i></button>
+                                                                    </div>
+                                                                    {/* <input type="number" name={"qty"} min="1" value={v.qty} className="form-control" placeholder="Qty" style={{width:" 90px"}} onChange={(e) => this.HandleChangeInputValue(e, i)} readOnly/> */}
+                                                                    <span className="border p-2 text-dark" ref={(node) => { if (node) { node.style.setProperty("border-color", "#343a40", "important"); }}}>{v.qty}</span>
+                                                                    <div className="input-group-append">
+                                                                        <button type="button" className="btn btn-outline-dark" id="qtyPlus" onClick={(e) => this.HandleChangeInputValue(e, i, v.qty, 'qtyPlus')}><i className="fa fa-plus"></i></button>
+                                                                    </div>
+                                                                </div>
                                                                 <small style={{color:'res'}}>{isError}</small>
                                                             </td>
                                                             <td className={"text-right txtRed bold"}>

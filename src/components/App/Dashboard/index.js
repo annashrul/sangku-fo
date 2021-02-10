@@ -223,7 +223,7 @@ class Index extends Component {
         else return (
             <Layout page="Dashboard">
              
-                <div className="row" style={{marginBottom:'20px'}}>
+                <div className="row d-flex box-margin">
                     <div className="col-md-4">
                         <Saldo
                             saldo={this.state.saldo}
@@ -260,12 +260,10 @@ class Index extends Component {
                     </div>
 
                 </div>
-                <div className="row" style={{marginBottom:'20px'}}>
-                    <div className="col-md-12 pr-0">
-                        <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" />
-                    </div>
+                <div className="row box-margin">
+                    <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" />
                 </div>
-                <div className="row">
+                <div className="row d-flex box-margin">
                      <div className="col-md-4 pr-0">
                          {this.props.beritaBerita.data!==undefined?<News list={this.props.beritaBerita}/>:''}
                     </div>

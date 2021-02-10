@@ -16,7 +16,7 @@ class Overview extends Component {
     }
     render(){
         return(
-            <div className="card">
+            <div className="card h-100">
                 <div className="card-header heading-footer" style={{background:`url('https://image.freepik.com/free-vector/abstract-futuristic-purple-background-with-shiny-lines_23-2148392375.jpg')`,backgroundSize:'cover'}}>
                     <h6>SangQu Pay</h6>
                 </div>

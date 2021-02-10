@@ -4,6 +4,7 @@ import {
 
 const initialState = {
     isLoading: false,
+    isLoadingPut: false,
     data: [],
     isLoadingWalletConfig: false,
     data: [],
@@ -27,6 +28,10 @@ export const siteReducer = (state = initialState, action) => {
         case SITE.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case SITE.LOADING_PUT:
+            return Object.assign({}, state, {
+                isLoadingPut: action.load
             });
         case SITE.SUCCESS_WALLET_CONFIG:
             return Object.assign({}, state,{

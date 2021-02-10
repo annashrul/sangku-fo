@@ -15,38 +15,75 @@ import WrapperModal from "../../_wrapper.modal";
 // import {postAlamat, putAlamat} from "redux/actions/member/alamat.action";
 import {ToastQ} from "helper";
 import {postBankMember, putBankMember} from "redux/actions/member/bankMember.action";
+import { getBankData } from '../../../../../redux/actions/member/bank.action';
+import Select, { components } from "react-select";
+import Spinner from 'Spinner'
 
+const { Option } = components;
+const IconOption = props => (
+<Option {...props}>
+    <div className="client-media-content d-flex align-items-center p-1">
+    {/* <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} /> */}
+    <div className="user--media-body">
+        <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
+        <span className="font-13 text-dark">{props.data.childLabel}</span>
+    </div>
+    </div>
+</Option>
+);
 class FormBankMember extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.HandleChangeBank = this.HandleChangeBank.bind(this);
         this.state={
+            data_bank:[],
+            bank:"",
             bank_name:"",
             acc_name:"",
             acc_no:"",
         }
     }
 
-
+    HandleChangeBank(bk) {
+        console.log(bk);
+        this.setState({bank:bk.label})
+    }
 
 
     getProps(param){
         if(param.detail.id!==''){
             this.setState({
-                bank_name:param.detail.bank_name,
+                bank:param.detail.bank_name,
                 acc_name:param.detail.acc_name,
                 acc_no:param.detail.acc_no,
             });
         }
     }
     componentWillMount(){
+        this.props.dispatch(getBankData())
         this.getProps(this.props);
     }
 
     componentWillReceiveProps(nextProps){
        this.getProps(nextProps);
+       let data_bank = []
+       if(nextProps.resBank!==undefined&&nextProps.resBank.length>0){
+        nextProps.resBank.map((i) => {
+            data_bank.push({
+                value: i.id,
+                label: i.name,
+                childLabel: i.code,
+                icon: i.value,
+            });
+            return null;
+        });
+        this.setState({
+            bank_data:data_bank
+        })
+    }
     }
 
     clearState(){
@@ -74,7 +111,7 @@ class FormBankMember extends Component{
     handleSubmit(e) {
         e.preventDefault();
         let parsedata = {};
-        parsedata['bank_name'] = this.state.bank_name;
+        parsedata['bank_name'] = this.state.bank;
         parsedata['acc_name'] = this.state.acc_name;
         parsedata['acc_no'] = this.state.acc_no;
         if(parsedata['bank_name']===''){
@@ -107,14 +144,25 @@ class FormBankMember extends Component{
                 <ModalBody>
                     <div className="form-group">
                         <label>Nama Bank</label>
-                        <input type="text" className="form-control" name="bank_name" value={this.state.bank_name} onChange={this.handleChange} />
+                        { typeof this.state.bank_data === 'object'? this.state.bank_data.length>0?
+                        <Select
+                            defaultValue={this.state.bank_data[0]}
+                            options={this.state.bank_data}
+                            components={{ Option: IconOption }}
+                            onChange={this.HandleChangeBank}
+                            value={
+                                this.state.bank_data.find(op => {
+                                return op.label === this.state.bank
+                            })}
+                        /> : <Spinner/> : <Spinner/>
+                        }
                     </div>
                     <div className="form-group">
-                        <label>Nama Akun</label>
+                        <label>Atas Nama</label>
                         <input type="text" className="form-control" name="acc_name" value={this.state.acc_name} onChange={this.handleChange} />
                     </div>
                     <div className="form-group">
-                        <label>No Akun</label>
+                        <label>No Rekening</label>
                         <input type="number" className="form-control" name="acc_no" value={this.state.acc_no} onChange={this.handleChange} />
                     </div>
                 </ModalBody>
@@ -131,6 +179,8 @@ class FormBankMember extends Component{
 const mapStateToProps = (state) => {
     return {
         isLoadingPost: state.bankMemberReducer.isLoadingPost,
+        isLoadingData: state.bankReducer.isLoadingData,
+        resBank: state.bankReducer.data_bank,
         isError: state.bankMemberReducer.isError,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
