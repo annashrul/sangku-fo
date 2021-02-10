@@ -10,7 +10,7 @@ import imgCheck from '../../../assets/check.gif'
 // import { FetchAvailableMember } from '../../../redux/actions/member/member.action';
 import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Select, { components } from "react-select";
 import {getBank} from "redux/actions/member/bank.action";
 import {postDeposit} from "redux/actions/member/deposit.action";
@@ -54,6 +54,7 @@ class IndexDeposit extends Component{
         this.state={
             amount:"0",
             dp_min:0,
+            trx_dp:'',
             bank_data:[],
             bank:"",
             id_bank:"",
@@ -94,7 +95,11 @@ class IndexDeposit extends Component{
         console.log(nextProps.resBank);
         let data_bank=[];
         if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.dp_min!==undefined){
-            this.setState({dp_min:nextProps.resWalletConfig.dp_min})
+            this.setState({
+                dp_min:nextProps.resWalletConfig.dp_min,
+                trx_dp:'-',
+                // trx_dp:nextProps.resWalletConfig.trx_dp,
+            })
         }
         if(nextProps.resBank!==undefined&&nextProps.resBank.data!==undefined){
             nextProps.resBank.data.map((i) => {
@@ -204,11 +209,11 @@ class IndexDeposit extends Component{
             return false;
         }
         else if(data['amount']<this.state.dp_min){
-            ToastQ.fire({icon:'error',title:`Minimal nominal transfer adalah ${toRp(this.state.dp_min)}`});
+            ToastQ.fire({icon:'error',title:`Minimal nominal deposit adalah ${toRp(this.state.dp_min)}`});
             return false;
         }
         else if(this.state.bank.value===""||this.state.bank.value==="0"||this.state.bank.value===undefined){
-            ToastQ.fire({icon:'error',title:`silahkan masukan data bank`});
+            ToastQ.fire({icon:'error',title:`silahkan pilih data bank`});
             return false;
         }
         else if(this.state.pin===""||this.state.pin==="0"||this.state.pin===undefined){
@@ -239,6 +244,7 @@ class IndexDeposit extends Component{
                                 </div>
                                 <div className="col-md-12 mb-4">
                                     <div className="row">
+                                        {this.state.trx_dp==='-'?
                                         <div className="col-md-6 d-flex">
                                             <div ref={this.pengisianRefs} className="card w-100" style={currentStep===0?null:this.state.bank!=={}&&this.state.bank.value!==undefined?blur:null}>
                                                 <div className="card-body">
@@ -265,6 +271,7 @@ class IndexDeposit extends Component{
                                                             <div className="form-group mt-3">
                                                                 <label>Nominal</label>
                                                                 <input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>
+                                                                <small className="text-muted">Minimun Deposit <span className="text-danger">Rp. {toRp(this.state.dp_min)}</span></small>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
@@ -288,6 +295,17 @@ class IndexDeposit extends Component{
                                                 </div>
                                             </div>
                                         </div>
+                                        :
+                                        <div className="col-md-6 d-flex">
+                                            <div className="card w-100" style={{height:'400px'}}>
+                                                <div className="card-body text-center mt-30">
+                                                    <h4 className="text-dark">Pemberitahuan</h4>
+                                                    <p>Saat ini anda tidak dapat melakukan deposit, dikarenakan terdapat pembayaran yang belum dituntaskan dengan Kode Transaksi <span className="text-danger">{this.state.trx_dp}</span>. Harap tuntaskan terlebih dahulu pembayaran yang belum anda lunasi.</p>
+                                                    <Link to={`/invoice/${btoa(this.state.trx_dp)}`} className="btn btn-outline-success btn-rounded">BAYAR</Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        }
                                         <div className="col-md-6 d-flex">
                                             <div ref={this.konfirmRefs} className="card w-100" style={currentStep===1&&this.state.bank!=={}&&this.state.bank.value!==undefined&&!this.props.isLoadingAvail?null:blur}>
                                                 <div className="card-body pb-0">
@@ -390,6 +408,7 @@ class IndexDeposit extends Component{
                                             </div>
                                         </div>
                                     </div>
+                                    {this.state.trx_dp==='-'?
                                     <div class="mt-4 w-100 position-sticky fixed-bottom">
                                         <div className="row justify-content-between">
                                             <div className="col-xs-3">
@@ -404,7 +423,8 @@ class IndexDeposit extends Component{
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> : ''
+                                    }
                                 </div>
                             </div>
                         </div>

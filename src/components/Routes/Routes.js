@@ -63,9 +63,9 @@ const Routes = (
             <Route path="/terms-and-condition" exact strict component={PagesSpace} />
             <Route path="/login" exact strict component={Login} />
             <Route path="/signup" exact strict component={Signup} />
-            <Route path="/profile" exact strict component={indexProfile} />
             <Route path="/confirm" exact strict component={ConfirmPage} />
 
+            <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />

@@ -25,15 +25,15 @@ export const FetchRekapitulasi = (where) => {
         if(where){
             url+=`?${where}`;
         }
-        Swal.fire({
-            allowOutsideClick:false,
-            title: 'Tunggu sebentar.',
-            html: 'Sedang mengambil data..',
-            onBeforeOpen: () => {
-                Swal.showLoading()
-            },
-            onClose: () => {}
-        })
+        // Swal.fire({
+        //     allowOutsideClick:false,
+        //     title: 'Tunggu sebentar.',
+        //     html: 'Sedang mengambil data..',
+        //     onBeforeOpen: () => {
+        //         Swal.showLoading()
+        //     },
+        //     onClose: () => {}
+        // })
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
                 const data = response.data;

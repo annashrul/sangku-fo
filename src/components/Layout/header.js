@@ -44,13 +44,19 @@ class Header extends Component {
             acc_name:"",
             acc_number:"",
             list_notif:[],
+            list_cart:[],
+            pending_trx:[],
         }
         socket.on('refresh_notif',(data)=>{
             this.refreshData(atob(Cookies.get('sangqu_exp')));
         })
         socket.on("set_notif", (data) => {
-            console.log('set_notif',data.list_notif);
-            this.setState({list_notif:data.list_notif})
+            console.log('set_notif',data);
+            this.setState({
+                list_notif:data.list_notif,
+                list_cart:data.list_cart,
+                pending_trx:data.pending_trx,
+            })
         })
     }
     refreshData(id){
@@ -137,6 +143,18 @@ class Header extends Component {
                                     </div>
                                     <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
                                         <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
+                                        <small className="text-muted m-3">Transaksi Tertunda</small>
+                                        {
+                                            typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
+                                                this.state.pending_trx.map((v, i) => {
+                                                    return (
+                                                        <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-info" /><span>{toRp(v.amount)}<br/><small className="text-muted">{v.kd_trx}</small></span></Link>
+                                                    );
+                                                }
+                                            )
+                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                        }
+                                        <small className="text-muted m-3">Semua Pemberitahuan</small>
                                         {
                                             typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
                                                 this.state.list_notif.map((v, i) => {
@@ -214,7 +232,7 @@ class Header extends Component {
                                 <DropdownMenu right>
                                 <div className="top-notifications-area">
                                     {/* Heading */}
-                                    <div className="notifications-heading">
+                                    <div className="notifications-heading bg-warning">
                                         <div className="heading-title">
                                         <h6>Notifikasi</h6>
                                         </div>
@@ -222,6 +240,23 @@ class Header extends Component {
                                     </div>
                                     <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
                                         <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
+                                        {typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
+                                            <>
+                                            <small className="text-muted m-3">Transaksi Tertunda</small>
+                                            {
+                                                typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
+                                                    this.state.pending_trx.map((v, i) => {
+                                                        return (
+                                                            <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-info" /><span>{toRp(v.amount)}<br/><small className="text-muted">{v.kd_trx}</small></span></Link>
+                                                        );
+                                                    }
+                                                )
+                                                : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                            }
+                                            </>
+                                            :'':''
+                                        }
+                                        <small className="text-muted m-3">Semua Pemberitahuan</small>
                                         {
                                             typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
                                                 this.state.list_notif.map((v, i) => {
@@ -238,7 +273,95 @@ class Header extends Component {
                             </UncontrolledButtonDropdown>
 
                     </li>
-                    {
+                    <li className="nav-item dropdown">
+                        <UncontrolledButtonDropdown>
+                                    <DropdownToggle className="nohover m-0">
+                                        <i className="fa fa-shopping-cart text-secondary" aria-hidden="true" style={{fontSize:"26px"}}/>
+                                        {/* <span className="active-status"></span> */}
+                                        <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{this.state.list_cart.length}</label>
+                                    </DropdownToggle>
+                                <DropdownMenu right>
+                                <div className="top-notifications-area">
+                                    {/* Heading */}
+                                    <div className="notifications-heading bg-secondary">
+                                        <div className="heading-title">
+                                        <h6>Keranjang</h6>
+                                        </div>
+                                        <span>{this.state.list_cart.length}</span>
+                                    </div>
+                                    <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
+                                        <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
+                                        {
+                                            typeof this.state.list_cart === 'object' ? this.state.list_cart.length > 0 ?
+                                                this.state.list_cart.map((v, i) => {
+                                                    return (
+                                                        <a href={()=> false} className="dropdown-item">
+                                                            {/* <i className="zmdi zmdi-notifications-active bg-success" /> */}
+                                                            <img className="img-fluid mr-2" src={HEADERS.URL+'images/'+v.foto} style={{height:'40px'}} alt={v.title}/>
+                                                            <div className="d-flex justify-content-between align-items-center w-100">
+                                                                <span>{v.title}<br/><small className="text-muted">{toRp(v.harga)}</small></span>
+                                                                <span><small>QTY</small> : {v.qty}x</span>
+                                                            </div>
+                                                        </a>
+                                                    );
+                                                }
+                                            )
+                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                        }
+                                        </div>
+                                        <div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} />
+                                    </div>
+                                    <div className="notifications-heading bg-transparent pb-2" style={{display:'inline-table'}}>
+                                        <h6 style={{whiteSpace:'no-wrap'}}>Total : {this.state.list_cart.length > 0 ? toRp(this.state.list_cart.reduce((a, b) => ({harga: (parseInt(a.harga,10)*parseInt(a.qty,10)) + (parseInt(b.harga,10)*parseInt(b.qty,10))})).harga) :0}</h6>
+                                        <div className="d-flex justify-content-between align-items-center w-100">
+                                            <Link
+                                                to={'/product'}
+                                                className="btn btn-secondary m-0 pb-2"
+                                                style={{
+                                                    backgroundColor:'#5d87ff',
+                                                    border:'1px solid #5d87ff',
+                                                    fontSize:'14px',
+                                                    borderRadius: '0.15rem',
+                                                    fontWeight: '600',
+                                                    letterSpacing: '0.5px',
+                                                    color:'#fff',
+                                                    display:'inline-block',
+                                                    textAlign:'center',
+                                                    verticalAlign:'middle',
+                                                    userSelect:'none',
+                                                    padding:'0.375rem 0.75rem'
+                                                }}
+                                                >
+                                                        Belanja Lagi
+                                            </Link>
+                                            <Link
+                                                to={'/cart'}
+                                                className="btn btn-primary m-0 pb-2"
+                                                style={{
+                                                    backgroundColor:'rgb(66, 181, 73)',
+                                                    border:'1px solid rgb(66, 181, 73)',
+                                                    fontSize:'14px',
+                                                    borderRadius: '0.15rem',
+                                                    fontWeight: '600',
+                                                    letterSpacing: '0.5px',
+                                                    color:'#fff',
+                                                    display:'inline-block',
+                                                    textAlign:'center',
+                                                    verticalAlign:'middle',
+                                                    userSelect:'none',
+                                                    padding:'0.375rem 0.75rem'
+                                                }}
+                                                >
+                                                        Bayar
+                                            </Link>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </DropdownMenu>
+                            </UncontrolledButtonDropdown>
+
+                    </li>
+                    {/* {
                         parseInt(localStorage.totCart,10)>0?(
                             <li className="nav-item dropdown">
                                 <Link to={"/cart"}>
@@ -252,7 +375,7 @@ class Header extends Component {
                                 <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
                             </li>
                         )
-                    }
+                    } */}
 
                     <li className="nav-item dropdown">
                             <UncontrolledButtonDropdown>
