@@ -51,18 +51,19 @@ class Overview extends Component {
                         </div>
                 </div>
                 <div className="card" style={{marginTop:'10px'}}>
-                    <div className="card-body" style={{padding: '22px',filter: 'blur(2px)', cursor: 'no-drop', userSelect: 'none'}}>
+                    <div id="overlay"></div>
+                    <div className="card-body" style={{padding: '22px',filter: 'blur(5px)', cursor: 'no-drop', userSelect: 'none'}}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}
                         <div className="row">
-                            <div className="col-md-4">
-                                <img src={this.props.reward.gambar}/>
+                            <div className="col-md-4" style={{height:'100px'}}>
+                                <img style={{width:'100%',height:'100%',objectFit:'contain'}} src={this.props.reward.gambar}/>
                             </div>
                             <div className="col-md-8">
                                 <h5>
                                     {this.props.reward.title}
                                 </h5>
                                 <p className="title-widget-team mb-0">{this.props.reward.caption}</p>
-                                <a href="!#" className='badge badge-info'>Klaim Hadiah</a>
+                                <a href="!#" className='badge badge-info' onClick={(e)=>{e.preventDefault();return false;}}>Klaim Hadiah</a>
                             </div>
                         </div>
                     </div>
