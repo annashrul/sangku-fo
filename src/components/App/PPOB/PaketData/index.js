@@ -7,7 +7,7 @@ class PaketData extends Component{
     }
 
     render(){
-        return <TempPasca page={'Pemabayaran Paket Data'}/>
+        return <TempPasca page={'Pembayaran Paket Data'}/>
     }
 }
 

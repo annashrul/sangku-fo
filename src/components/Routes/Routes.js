@@ -124,8 +124,8 @@ const Routes = (
             <PrivateRoute path="/konten/testimoni" exact strict component={Testimoni} />
             <PrivateRoute path="/konten/testimoni/:id" exact strict component={TestimoniDetail} />
             {/* KONTEN SECTION END */}
-            <PrivateRoute path="/transaksi/riwayat" exact strict component={RiwayatTransaksi} />
-            <PrivateRoute path="/transaksi/ppob" exact strict component={RiwayatPPOB} />
+            <PrivateRoute path="/report/riwayat" exact strict component={RiwayatTransaksi} />
+            <PrivateRoute path="/report/ppob" exact strict component={RiwayatPPOB} />
 
 
 

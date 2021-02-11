@@ -90,20 +90,20 @@ export const postDeposit = (data) => {
                 Swal.close()
                 const data = (response.data);
                 if (data.status === 'success') {
-                    Swal.fire({
-                        title: 'Sukses.',
-                        html: `Permintaan Deposit Diterima, Silahkan lakukan pengunggahan bukti transfer.`,
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: `Unggah Bukti`,
-                    }).then((result) => {
-                        if (result.value) {
+                    // Swal.fire({
+                    //     title: 'Sukses.',
+                    //     html: `Permintaan Deposit Diterima, Silahkan lakukan pengunggahan bukti transfer.`,
+                    //     icon: 'success',
+                    //     showCancelButton: false,
+                    //     confirmButtonColor: '#3085d6',
+                    //     cancelButtonColor: '#d33',
+                    //     confirmButtonText: `Oke`,
+                    // }).then((result) => {
+                    //     if (result.value) {
                             window.location.href = "/invoice/" + btoa(data.result.kd_trx);
-                        }
+                        // }
 
-                    })
+                    // })
                     // window.location.href = "/invoice/" + btoa(data.result.kd_trx);
 
                     dispatch(setIsError(true));
@@ -153,11 +153,11 @@ export const postDeposit = (data) => {
     }
 }
 
-export const cancelDeposit = (data) => {
+export const cancelDeposit = (data,kd_trx) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
-        const url = HEADERS.URL + `transaction/deposit/${localStorage.kdTrxInvoice}`;
+        const url = HEADERS.URL + `transaction/deposit/${kd_trx}`;
         Swal.fire({
             title: 'Tunggu sebentar',
             html: 'sistem sedang memproses transaksi anda',
@@ -174,18 +174,15 @@ export const cancelDeposit = (data) => {
                         Swal.close();
                         const data = (response.data);
                         if (data.status === 'success') {
-                            localStorage.removeItem("kdTrxInvoice");
                             Swal.fire({
                                 title: 'Berhasil !!!',
                                 html:`Transaksi Anda Berhasil Dibatalkan`,
                                 icon: 'success',
-                                showCancelButton: true,
+                                showCancelButton: false,
                                 confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: `Invoice`,
-                                cancelButtonText: 'Oke',
+                                confirmButtonText: `Oke`,
                             }).then((result) => {
-                                window.location.href="/deposit";
+                                window.location.href="/dashboard";
                             })
                             dispatch(setIsError(true));
                         } else {

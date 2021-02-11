@@ -25,18 +25,9 @@ class FormUploadBuktiTransfer extends Component{
         this.setState({});
     };
     getFiles(files) {
-        console.log(files);
-        if(files.type==="image/jpeg"||files.type==="image/jpg"||files.type==="image/png"){
-            this.setState({
-                foto: files
-            })
-        }
-        else{
-            this.setState({
-                foto: ''
-            })
-            ToastQ.fire({icon:'error',title:`format gambar harus png, jpeg atau jpg`});
-        }
+        this.setState({
+            foto: files
+        })
     };
 
     handleSubmit(e){

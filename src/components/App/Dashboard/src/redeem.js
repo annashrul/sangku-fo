@@ -7,7 +7,7 @@ class Charts extends Component {
         
         const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
         return(
-             <div className="card">
+             <div className="card h-100">
                 <div className="card-body">
                     <h5 className="card-title">Rekapitulasi 5 Hari Kebelakang</h5>
                     <div className="product-table-area">

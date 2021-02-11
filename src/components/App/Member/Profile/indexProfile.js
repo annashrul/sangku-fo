@@ -41,9 +41,11 @@ class IndexProfile extends Component{
         this.onCropComplete    = this.onCropComplete.bind(this);
         this.handleLoadMoreAlamat    = this.handleLoadMoreAlamat.bind(this);
         this.handleLoadMoreBank    = this.handleLoadMoreBank.bind(this);
+        this.showPin    = this.showPin.bind(this);
         this.alamatInnerRef = React.createRef();
         this.bankInnerRef = React.createRef();
         this.state = {
+            showPin:false,
             isEdit:false,
             editFoto:false,
             member_detail:{},
@@ -83,6 +85,10 @@ class IndexProfile extends Component{
 
     onCropChange = crop => {
         this.setState({ crop })
+    }
+    showPin(e){
+        e.preventDefault()
+        this.setState({ showPin:!this.state.showPin })
     }
 
     onCropComplete = (croppedArea, croppedAreaPixels) => {
@@ -157,7 +163,7 @@ class IndexProfile extends Component{
         e.preventDefault()
         let param = {}
         param['full_name'] = this.state.full_name
-        param['pin'] = this.state.pin
+        param['pin'] = parseInt(this.state.pin,10)
         param['password'] = this.state.password
 
         if(param.full_name===''){
@@ -468,14 +474,24 @@ class IndexProfile extends Component{
                                                                                 <td><h6 className="font-14"><span className="text-muted">PIN</span></h6></td>
                                                                                 <td>
                                                                                     <div className="form-group">
-                                                                                        <input
-                                                                                            className="form-control"
-                                                                                            type="text"
-                                                                                            style={{padding: '9px',fontWeight:'bolder'}}
-                                                                                            name="pin"
-                                                                                            defaultValue=""
-                                                                                            readOnly={!this.state.isEdit}
-                                                                                            onChange={(e) => this.handleChange(e)}/>
+                                                                                        <div className="input-group mb-3">
+                                                                                            <input
+                                                                                                className="form-control"
+                                                                                                type={this.state.showPin?"text":"password"}
+                                                                                                style={{padding: '9px',fontWeight:'bolder'}}
+                                                                                                name="pin"
+                                                                                                defaultValue=""
+                                                                                                maxLength="6"
+                                                                                                readOnly={!this.state.isEdit}
+                                                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
+                                                                                                onChange={(e) => this.handleChange(e)}/>
+                                                                                            <div className="input-group-append">
+                                                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e)}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
+                                                                                            </div>
+                                                                                            <small id="passwordHelpBlock" class="form-text text-muted">
+                                                                                                Kosongkan jika tidak akan di update.
+                                                                                            </small>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </td>
                                                                                 {/* <td><h6 className="font-14">: {parseFloat(investment).toFixed(8)}</h6></td> */}
@@ -567,7 +583,7 @@ class IndexProfile extends Component{
                                             <div className="card box-margin">
                                                 <div className="card-body">
                                                     <div className="form-inline d-flex justify-content-between">
-                                                        <h4>Alamat Yang Tersimpan</h4>
+                                                        <h4>Alamat Saya</h4>
                                                         <div className="d-flex">
                                                         <div className="input-group mr-2">
                                                             <input type="text" className="form-control" name="any_alamat" value={this.state.any_alamat} onChange={(e) => this.handleChange(e)} placeholder="Cari data Alamat" aria-label="Cari data Alamat" aria-describedby="basic-addon2" />
@@ -642,7 +658,7 @@ class IndexProfile extends Component{
                                             <div className="card box-margin">
                                                 <div className="card-body">
                                                     <div className="form-inline d-flex justify-content-between">
-                                                        <h4>Bank Yang Tersimpan</h4>
+                                                        <h4>Bank Saya</h4>
                                                         <div className="d-flex">
                                                         <div className="input-group mr-2">
                                                             <input type="text" className="form-control" name="any_bank" value={this.state.any_bank} onChange={(e) => this.handleChange(e)} placeholder="Cari data Bank" aria-label="Cari data Bank" aria-describedby="basic-addon2" />
@@ -654,13 +670,13 @@ class IndexProfile extends Component{
                                                         </div>
                                                     </div>
                                                     <hr/>
-                                                    <div className="row justify-content-center" style={{maxHeight:'500px', minHeight:'auto',overflow:'auto'}} onScroll={() => this.handleLoadMoreBank()} ref={this.bankInnerRef}>
+                                                    <div className="row justify-content-center d-flex" style={{maxHeight:'500px', minHeight:'auto',overflow:'auto'}} onScroll={() => this.handleLoadMoreBank()} ref={this.bankInnerRef}>
                                                     {
                                                         typeof this.props.data_bank.data === 'object' ? this.props.data_bank.data.length > 0 ?
                                                             this.props.data_bank.data.map((v, i) => {
                                                                 return (
-                                                                    <div className="col-md-6">
-                                                                    <div className="card p-4 box-margin">
+                                                                    <div className="col-md-6 box-margin">
+                                                                    <div className="card p-4 h-100">
                                                                     <div className="d-flex align-items-center justify-content-between">
                                                                     <div className="d-flex align-items-center mr-3">
                                                                     <div className="mr-3">

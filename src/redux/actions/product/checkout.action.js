@@ -91,7 +91,6 @@ export const postCheckout = (res) => {
                             dispatch(setIsError(true));
                             localStorage.setItem("totCart","0");
                             if(res.metode_pembayaran==='transfer'){
-                                localStorage.setItem("kdTrxInvoice",btoa(data.result.kd_trx));
                                 Swal.fire({
                                     title: 'Berhasil !!!',
                                     html:`Terimakasih telah melakukan transaksi`,
@@ -174,22 +173,11 @@ export const postBuktiTransfer = (res,kdtrx) => {
                         const data = (response.data);
                         if (data.status === 'success') {
                             Swal.fire({
-                                title: 'Berhasil !!!',
-                                html:`Terimakasih telah melakukan transaksi`,
+                                title: 'Sukses',
                                 icon: 'success',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: `Riwayat Transaksi`,
-                                cancelButtonText: 'Belanja Lagi',
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.location.href="/product";
-                                }
-                                else{
-                                    window.location.href="/product";
-                                }
-                            })
+                                text: 'Berhasil mengunggah bukti transfer.',
+                            });
+                            dispatch(getInvoice(kdtrx))
                             dispatch(setIsError(true));
                             dispatch(ModalToggle(false));
                         } else {

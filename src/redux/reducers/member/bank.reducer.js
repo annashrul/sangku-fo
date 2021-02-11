@@ -4,12 +4,14 @@ import {BANK} from "../../actions/_constants";
 
 const initialState = {
     isLoading: true,
+    isLoadingData: false,
     isLoadingDetail: true,
     isLoadingPost: false,
     isError: false,
     status: "",
     msg: "",
     data: [],
+    data_bank: [],
     edit:[],
     detail:[]
 }
@@ -22,6 +24,13 @@ export const bankReducer = (state = initialState, action) => {
                 status: action.data.status,
                 msg: action.data.msg,
                 data: action.data.result,
+            });
+        case BANK.SUCCESS_DATA:
+            // console.log()
+            return Object.assign({}, state, {
+                status: action.data.status,
+                msg: action.data.msg,
+                data_bank: action.data.result,
             });
 
         case BANK.DETAIL:
@@ -37,6 +46,10 @@ export const bankReducer = (state = initialState, action) => {
         case BANK.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case BANK.LOADING_DATA:
+            return Object.assign({}, state, {
+                isLoadingData: action.load
             });
         case BANK.LOADING_DETAIL:
             return Object.assign({}, state, {

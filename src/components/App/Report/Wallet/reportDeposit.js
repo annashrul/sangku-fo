@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Layout from "components/Layout";
 import connect from "react-redux/es/connect/connect";
-import Preloader from "Preloader";
+import Spinner from "Spinner";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import {rangeDate} from "helper";
 import Select from "react-select";
@@ -242,8 +242,8 @@ class DepositReport extends Component{
                                                                     {/* <td style={columnStyle}>{v.acc_name}</td> */}
                                                                     <td style={columnStyle}>{v.bank_name}</td>
                                                                     {/* <td style={columnStyle}>{v.acc_no}</td> */}
-                                                                    {/* <td style={columnStyle}>{toRp(v.amount===null?0:v.amount)}</td> */}
-                                                                    <td style={columnStyle}>{v.charge}</td>
+                                                                    <td style={columnStyle}>{toRp(v.amount===null?0:v.amount)}</td>
+                                                                    {/* <td style={columnStyle}>{v.charge}</td> */}
                                                                     {/* <td style={columnStyle}>{v.full_name}</td> */}
                                                                     <td style={columnStyle}>{
                                                                         v.status===0?
@@ -260,7 +260,7 @@ class DepositReport extends Component{
                                                 )
                                             }
                                             </tbody>
-                                        ) : <Preloader/>
+                                        ) : <tbody><tr><td colSpan="7"><Spinner/></td></tr></tbody>
                                     }
                                 </table>
 

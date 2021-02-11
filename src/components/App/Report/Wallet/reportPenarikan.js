@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Layout from "components/Layout";
 import connect from "react-redux/es/connect/connect";
-import Preloader from "Preloader";
+import Spinner from "Spinner";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import {rangeDate} from "helper";
 import Select from "react-select";
@@ -260,7 +260,7 @@ class PenarikanReport extends Component{
                                                 )
                                             }
                                             </tbody>
-                                        ) : <Preloader/>
+                                        ) : <tbody><tr><td colSpan="7"><Spinner/></td></tr></tbody>
                                     }
                                 </table>
 

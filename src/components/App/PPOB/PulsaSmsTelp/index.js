@@ -6,7 +6,7 @@ class PulsaSmsTelp extends Component{
         super(props);
     }
     render(){
-        return <TempPasca page={'Pemabayaran Pulsa SMS Telepon'}/>
+        return <TempPasca page={'Pembayaran Pulsa SMS Telepon'}/>
     }
 }
 

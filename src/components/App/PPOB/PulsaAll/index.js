@@ -6,7 +6,7 @@ class PulsaAll extends Component{
         super(props);
     }
     render(){
-        return <TempPasca page={'Pemabayaran Pulsa All Operator'}/>
+        return <TempPasca page={'Pembayaran Pulsa All Operator'}/>
     }
 }
 

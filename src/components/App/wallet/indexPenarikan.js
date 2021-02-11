@@ -365,7 +365,7 @@ class IndexPenarikan extends Component{
                                                             <div className="form-group mt-3">
                                                                 <label>Nominal</label>
                                                                 <input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>
-                                                                <small className="text-muted">Setiap penarikan akan dikenakan fee sebesar {this.state.wd_charge}%,-</small>
+                                                                <small className="text-muted">Setiap penarikan akan dikenakan fee sebesar {this.state.wd_charge}%</small>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">

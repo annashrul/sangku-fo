@@ -51,7 +51,7 @@ class IndexInvoice extends Component{
         }).then((result) => {
             if (result.value) {
                 this.props.dispatch(cancelDeposit(
-                    {status:2}
+                    {status:2},this.props.match.params.kdtrx
                 ));
             }
 

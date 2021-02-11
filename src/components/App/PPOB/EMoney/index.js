@@ -6,7 +6,7 @@ class EMoney extends Component{
         super(props);
     }
     render(){
-        return <TempPasca page={'Pemabayaran E-Money'}/>
+        return <TempPasca page={'GANTI'}/>
     }
 }
 

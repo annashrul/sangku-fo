@@ -21,6 +21,8 @@ import socketIOClient from "socket.io-client";
 import {HEADERS} from 'redux/actions/_constants'
 import Cookies from 'js-cookie'
 import { NOTIF_ALERT } from '../../redux/actions/_constants';
+import { putNotif } from '../../redux/actions/site.action';
+import { deleteCart } from '../../redux/actions/product/cart.action';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
     extraHeaders: {
@@ -34,24 +36,26 @@ class Header extends Component {
         this.handleEcaps=this.handleEcaps.bind(this)
         this.handleMobileEcaps=this.handleMobileEcaps.bind(this)
         this.handleToggleMobileNav=this.handleToggleMobileNav.bind(this)
+        this.handleNotif=this.handleNotif.bind(this)
         this.state = {
             totCart:0,
             toggleMobileNav:false,
             isShowNotif:false,
-            isDay:7,
-            tanggal_tempo:"",
-            server_price:"",
-            acc_name:"",
-            acc_number:"",
             list_notif:[],
             list_cart:[],
             pending_trx:[],
         }
         socket.on('refresh_notif',(data)=>{
-            this.refreshData(atob(Cookies.get('sangqu_exp')));
+            const my_id = atob(Cookies.get('sangqu_exp'));
+            const update_id=data.id;
+            console.log("UPDATE ID",data);
+            if(my_id===update_id){
+            console.log("MASUK", data);
+
+                this.refreshData(update_id);
+            }
         })
         socket.on("set_notif", (data) => {
-            console.log('set_notif',data);
             this.setState({
                 list_notif:data.list_notif,
                 list_cart:data.list_cart,
@@ -61,6 +65,18 @@ class Header extends Component {
     }
     refreshData(id){
         socket.emit('get_notif', {id_member:id})
+    }
+    rmCart(e,data){
+        e.preventDefault();
+        // if(parseInt(data.status,10)===0){
+            this.props.deleteCart(data.id)
+        // }
+    }
+    handleNotif(e,data){
+        e.preventDefault();
+        if(parseInt(data.status,10)===0){
+            this.props.putNotif({'id':data.id})
+        }
     }
     handleLogout = () => {
         this.props.logoutUser();
@@ -129,7 +145,10 @@ class Header extends Component {
                         <UncontrolledButtonDropdown>
                                     <DropdownToggle className="nohover">
                                         <i className="fa fa-bell text-warning" aria-hidden="true" style={{fontSize:"20px"}}/>
-                                        <span className="active-status"></span>
+                                        {
+                                            this.state.list_notif.length>0?
+                                                <span className="active-status"></span>:''
+                                        }
                                     </DropdownToggle>
                                 <DropdownMenu right>
                                 <div className="top-notifications-area">
@@ -226,7 +245,10 @@ class Header extends Component {
                         <UncontrolledButtonDropdown>
                                     <DropdownToggle className="nohover">
                                         <i className="fa fa-bell text-warning" aria-hidden="true" style={{fontSize:"20px"}}/>
-                                        <span className="active-status"></span>
+                                        {
+                                            this.state.list_notif.length>0?
+                                                <span className="active-status"></span>:''
+                                        }
                                     </DropdownToggle>
                                 <DropdownMenu right>
                                 <div className="top-notifications-area">
@@ -260,7 +282,7 @@ class Header extends Component {
                                             typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
                                                 this.state.list_notif.map((v, i) => {
                                                     return (
-                                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-success" /><span>{v.title}<br/><small className="text-muted">{v.msg}</small></span></a>
+                                                        <a href={()=> false} className="dropdown-item cursor-pointer" onClick={(e)=>this.handleNotif(e,v)}><i className="zmdi zmdi-notifications-active bg-success" /><span>{v.title}<br/><small className="text-muted">{v.msg}</small></span></a>
                                                     );
                                                 }
                                             )
@@ -299,7 +321,11 @@ class Header extends Component {
                                                             <img className="img-fluid mr-2" src={HEADERS.URL+'images/'+v.foto} style={{height:'40px'}} alt={v.title}/>
                                                             <div className="d-flex justify-content-between align-items-center w-100">
                                                                 <span>{v.title}<br/><small className="text-muted">{toRp(v.harga)}</small></span>
-                                                                <span><small>QTY</small> : {v.qty}x</span>
+                                                                <div className="d-flex">
+                                                                    <span><small>QTY</small> : {v.qty}x</span>
+                                                                    <button type="button" className="btn btn-outline-danger btn-sm ml-3 mr-0 border-none" style={{color:'#dc3545'}} onClick={(e)=>this.rmCart(e,v)}><i className="fa fa-trash"></i></button>
+                                                                </div>
+
                                                             </div>
                                                         </a>
                                                     );
@@ -429,6 +455,8 @@ class Header extends Component {
 
 Header.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  putNotif: PropTypes.func.isRequired,
+  deleteCart: PropTypes.func.isRequired,
   setEcaps: PropTypes.func.isRequired,
   setMobileEcaps: PropTypes.func.isRequired,
   auth: PropTypes.object,
@@ -445,4 +473,4 @@ const mapStateToProps = ({auth,siteReducer,cartReducer}) =>{
         triggerMobileEcaps: siteReducer.triggerMobileEcaps
      }
 }
-export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps})(Header));
+export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps,putNotif,deleteCart})(Header));

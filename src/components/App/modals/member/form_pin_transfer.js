@@ -84,7 +84,7 @@ class FormPinTransfer extends Component{
             parse['pin_transfer'] = this.state.pin_data.kode
             parse['uid'] = this.state.member_data.referral_code
             if(num.length===6){
-                this.props.dispatch(pinTransfer(parse));
+                this.props.dispatch(pinTransfer(parse, this.state.pin_data.type===1?'ro':'aktivasi'));
                 this.setState({
                     code:0
                 });

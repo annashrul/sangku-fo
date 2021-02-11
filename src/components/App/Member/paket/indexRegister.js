@@ -71,7 +71,6 @@ class IndexRegister extends Component{
     }
 
     render(){
-        console.log(localStorage.productType);
 
         const {
             data

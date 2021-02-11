@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class Charts extends Component {
     render(){
         return(
-             <div className="card box-margin">
+             <div className="card h-100">
                 <div className="card-body">
                     <h5 className="card-title">Berita Terbaru</h5>
                     <div className="row" style={{overflowX:'auto', height:'300px'}}>

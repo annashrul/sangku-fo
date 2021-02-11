@@ -10,6 +10,13 @@ export function setLoading(load) {
     }
 }
 
+export function setLoadingData(load) {
+    return {
+        type: BANK.LOADING_DATA,
+        load
+    }
+}
+
 export function setLoadingDetail(load) {
     return {
         type: BANK.LOADING_DETAIL,
@@ -32,6 +39,13 @@ export function setIsError(load) {
 export function setData(data = []) {
     return {
         type: BANK.SUCCESS,
+        data
+    }
+}
+
+export function setDataBank(data = []) {
+    return {
+        type: BANK.SUCCESS_DATA,
         data
     }
 }
@@ -66,6 +80,29 @@ export const getBank = (where) => {
             })
             .catch(function (error) {
                 dispatch(setLoading(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+            })
+
+    }
+};
+export const getBankData = () => {
+    return (dispatch) => {
+        dispatch(setLoadingData(true));
+        let url = 'bank/data';
+        axios.get(HEADERS.URL + `${url}`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setDataBank(data));
+                dispatch(setLoadingData(false));
+            })
+            .catch(function (error) {
+                dispatch(setLoadingData(false));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

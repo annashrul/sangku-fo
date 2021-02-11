@@ -173,22 +173,6 @@ class TempPasca extends Component{
         }
 
         return true;
-        // if(isNaN(data['amount'])){
-        //     ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
-        //     return false;
-        // }
-        // else if(data['id_penerima']===""||data['id_penerima']==="0"||data['id_penerima']===undefined){
-        //     ToastQ.fire({icon:'error',title:`silahkan masukan penerima`});
-        //     return false;
-        // }
-        // else{
-        //     if(this.state.currentStep===1){
-        //         this.props.dispatch(postTransfer(data));
-        //         return true;
-        //     } else {
-        //         return true
-        //     }
-        // }
     }
     handleSaveOtp(num){
         const {currentStep } = this.state;
@@ -200,12 +184,6 @@ class TempPasca extends Component{
                 localStorage.setItem("isPin","true");
                 this.props.dispatch(ModalType("modalPin"));
             }
-
-
-            // this.setState({
-            //     currentStep: currentStep + 1,
-            // });
-            // this.berhasilRefs.current.scrollIntoView();
         }
 
     }

@@ -5,7 +5,7 @@ class Overview extends Component {
     render(){
         return(
             <div>
-                <div className="card">
+                <div className="card h-100 box-margin">
                     {/* <div className="card-header bg-transparent border-bottom-0 h3">Overview</div> */}
                     <div className="card-body" style={{padding:'2.2rem'}}>
                         <div className="justify-content-between">
@@ -19,8 +19,7 @@ class Overview extends Component {
                                     <div style={{fontSize:'.8em',marginTop:'5px'}}>{this.props.uid}</div>
                                 </div>
                             </div>
-                            <a href={() => false} className="btn btn-primary btn-sm text-light m-3 p-2" style={{cursor:'pointer',width:'90%',marginTop:"10px"}} onClick={(e)=>this.handleModal(e)}><i class="fa fa-user"></i> Lihat Profil</a>
-
+                            <a href='/profile' className="btn btn-primary btn-sm text-light m-3 p-2" style={{cursor:'pointer',width:'90%',marginTop:"10px"}}><i class="fa fa-user"></i> Lihat Profil</a>
                         </div>
                         <div className="row justify-content-between">
                                     <div className="col-md-6" style={{borderRight:'2px solid gray'}}>
@@ -50,7 +49,7 @@ class Overview extends Component {
                             </div>
                         </div>
                 </div>
-                <div className="card" style={{marginTop:'10px'}}>
+                <div className="card h-100">
                     <div id="overlay"></div>
                     <div className="card-body" style={{padding: '22px',filter: 'blur(5px)', cursor: 'no-drop', userSelect: 'none'}}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}

@@ -5,6 +5,7 @@ import {
 import axios from "axios"
 import {destroy} from "components/model/app.model";
 import * as Swal from "sweetalert2";
+import {ToastQ} from "helper";
 
 export const setEcaps = (bool) => dispatch => {
     dispatch(setEcaps_(bool));
@@ -28,6 +29,12 @@ export function setMobileEcaps_(bool) {
 export function setLoading(load) {
     return {
         type: SITE.LOADING,
+        load
+    }
+}
+export function setLoadingPut(load) {
+    return {
+        type: SITE.LOADING_PUT,
         load
     }
 }
@@ -107,5 +114,45 @@ export const FetchWalletConfig = () => {
                 dispatch(setLoadingWalletConfig(false));
             })
 
+    }
+}
+
+export const putNotif = (data) => {
+    return (dispatch) => {
+        dispatch(setLoadingPut(true));
+        const url = HEADERS.URL + `site/notif`;
+        axios.put(url,data)
+            .then(function (response) {
+                const data = (response.data);
+                if (data.status === 'success') {
+                    ToastQ.fire({icon:'success',title:`Dibaca!`});
+                } else {
+                    ToastQ.fire({icon:'danger',title:data.msg});
+                }
+                dispatch(setLoadingPut(false));
+
+            })
+            .catch(function (error) {
+                dispatch(setLoadingPut(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+
+            })
     }
 }

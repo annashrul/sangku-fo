@@ -131,7 +131,7 @@ class IndexTransfer extends Component{
             let data={};
             data['id_penerima'] = this.state.member_data.id;
             data['pin_member'] = num;
-            data['amount'] = rmComma(this.state.amount)+this.state.tf_charge;
+            data['amount'] = rmComma(this.state.amount);
             this.props.dispatch(postTransfer(data));
             this.props.dispatch(ModalToggle(false));
             this.setState({
@@ -210,13 +210,14 @@ class IndexTransfer extends Component{
                                                             <div className="form-group mt-3">
                                                                 <label>Nominal</label>
                                                                 <input type="text" className={"form-control"} name={"amount"} value={toCurrency(this.state.amount)} onChange={this.handleChange}/>
+                                                                <small className="text-muted">Biaya transfer akan dikenakan fee sebesar {this.state.tf_charge}%</small>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
                                                             <div className="form-group">
                                                                 <label>ID Penerima</label>
                                                                 <input type="text" className={"form-control"} name={"id_penerima"} value={this.state.id_penerima} onChange={this.handleChange}/>
-                                                                <small className="text-muted">ID Penerima bisa dilihat melalui profil penerima itu sendiri</small>
+                                                                <small className="text-muted">ID Penerima bisa dilihat melalui profil penerima yang akan di transfer</small>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -253,7 +254,7 @@ class IndexTransfer extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.amount}</span>
+                                                        <span className="font-14">{toRp(rmComma(this.state.amount))}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -265,7 +266,7 @@ class IndexTransfer extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toRp(this.state.tf_charge)}</span>
+                                                        <span className="font-14">{toRp(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.tf_charge,10)/100)))}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -277,7 +278,7 @@ class IndexTransfer extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toRp(rmComma(this.state.amount)+this.state.tf_charge)}</span>
+                                                        <span className="font-14">{toRp(rmComma(this.state.amount)+(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.tf_charge,10)/100))))}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -305,9 +306,10 @@ class IndexTransfer extends Component{
                                                             }
                                                         </div>
                                                         <h5 className="mt-15">Transfer {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'Gagal':'Berhasil'}</h5>
-                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toRp(rmComma(this.state.amount)+this.state.tf_charge)} yang ditujukan kepada Yth. Sdr/i {this.state.member_data!=={}&&this.state.member_data!==undefined?this.state.member_data.full_name:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
+                                                        <p className="mt-15 font-15 text-dark">Transaksi dengan nominal Rp. {toRp(rmComma(this.state.amount)+(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.tf_charge,10)/100))))} yang ditujukan kepada Yth. Sdr/i {this.state.member_data!=={}&&this.state.member_data!==undefined?this.state.member_data.full_name:''} {this.props.isLoadingPost?'sedang diproses':!this.props.isError?'gagal diproses':'telah selesai'}.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
+                                                        <br/>
                                                         <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
                                                     </div>
                                                 </div>

@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 class Charts extends Component {
     render(){
         return(
-             <div className="col-md-12 box-margin">
+             <div className="col-md-12">
                 <div className="card text-center">
                     <div className="card-body">
                         <h4 className="card-title">{this.props.title}</h4>
