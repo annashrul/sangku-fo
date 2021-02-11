@@ -49,6 +49,7 @@ class Header extends Component {
             list_notif:[],
             list_cart:[],
             pending_trx:[],
+            pending_tagihan:[],
         }
         socket.on('refresh_notif',(data)=>{
             this.refreshData(atob(Cookies.get('sangqu_exp')));
@@ -59,6 +60,7 @@ class Header extends Component {
                 list_notif:data.list_notif,
                 list_cart:data.list_cart,
                 pending_trx:data.pending_trx,
+                pending_tagihan:data.pending_tagihan,
             })
         })
     }
@@ -150,7 +152,7 @@ class Header extends Component {
                                 <DropdownMenu right>
                                 <div className="top-notifications-area">
                                     {/* Heading */}
-                                    <div className="notifications-heading">
+                                    <div className="notifications-heading bg-warning">
                                         <div className="heading-title">
                                         <h6>Notifikasi</h6>
                                         </div>
@@ -158,23 +160,44 @@ class Header extends Component {
                                     </div>
                                     <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
                                         <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
-                                        <small className="text-muted m-3">Transaksi Tertunda</small>
-                                        {
-                                            typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
-                                                this.state.pending_trx.map((v, i) => {
-                                                    return (
-                                                        <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-info" /><span>{toRp(v.amount)}<br/><small className="text-muted">{v.kd_trx}</small></span></Link>
-                                                    );
-                                                }
-                                            )
-                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                        {typeof this.state.pending_tagihan === 'object' ? this.state.pending_tagihan.length > 0 ?
+                                            <>
+                                            <small className="text-muted m-3">Tagihan Tertunda</small>
+                                            {
+                                                typeof this.state.pending_tagihan === 'object' ? this.state.pending_tagihan.length > 0 ?
+                                                    this.state.pending_tagihan.map((v, i) => {
+                                                        return (
+                                                            <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="zmdi zmdi-card-sim bg-danger text-light" /><span>{v.kategori}<br/><small className="text-muted">{v.note} | {v.produk} | {toRp(v.harga)}</small></span></Link>
+                                                        );
+                                                    }
+                                                )
+                                                : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                            }
+                                            </>
+                                            :'':''
+                                        }
+                                        {typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
+                                            <>
+                                            <small className="text-muted m-3">Transaksi Tertunda</small>
+                                            {
+                                                typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
+                                                    this.state.pending_trx.map((v, i) => {
+                                                        return (
+                                                            <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="fa fa-shopping-basket bg-info text-light" /><span>{toRp(v.amount)}<br/><small className="text-muted">{v.kd_trx}</small></span></Link>
+                                                        );
+                                                    }
+                                                )
+                                                : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                            }
+                                            </>
+                                            :'':''
                                         }
                                         <small className="text-muted m-3">Semua Pemberitahuan</small>
                                         {
                                             typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
                                                 this.state.list_notif.map((v, i) => {
                                                     return (
-                                                        <a href={()=> false} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-success" /><span>{v.title}<br/><small className="text-muted">{v.msg}</small></span></a>
+                                                        <a href={()=> false} className="dropdown-item cursor-pointer" onClick={(e)=>this.handleNotif(e,v)}><i className="zmdi zmdi-notifications-active bg-success text-light" /><span>{v.title}<br/><small className="text-muted">{v.msg}</small></span></a>
                                                     );
                                                 }
                                             )
@@ -190,13 +213,13 @@ class Header extends Component {
                         parseInt(localStorage.totCart,10)>0?(
                             <li className="nav-item dropdown" style={{listStyleType:'none', whiteSpace:'nowrap'}}>
                                 <Link to={"/cart"}>
-                                    <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                                    <i className="fa fa-shopping-cart text-secondary" aria-hidden="true" style={{fontSize:"30px"}}/>
                                     <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
                                 </Link>
                             </li>
                         ):(
                             <li className="nav-item dropdown" style={{listStyleType:'none', whiteSpace:'nowrap'}} onClick={this.infoCart.bind(this)}>
-                                <i className="fa fa-shopping-cart" aria-hidden="true" style={{fontSize:"30px"}}/>
+                                <i className="fa fa-shopping-cart text-secondary" aria-hidden="true" style={{fontSize:"30px"}}/>
                                 <label className="badge badge-success" id={"lblCartCount"} style={{marginLeft:"1px",verticalAlign:"top",padding:"1 5px",fontSize:"10px"}}>{localStorage.totCart}</label>
                             </li>
                         )
@@ -255,6 +278,22 @@ class Header extends Component {
                                     </div>
                                     <div className="slimScrollDiv" style={{position: 'relative', overflow: 'hidden', width: 'auto', height: 260}}>
                                         <div className="notifications-box" id="notificationsBox" style={{overflow: 'auto', width: 'auto', height: 260}}>
+                                        {typeof this.state.pending_tagihan === 'object' ? this.state.pending_tagihan.length > 0 ?
+                                            <>
+                                            <small className="text-muted m-3">Tagihan Tertunda</small>
+                                            {
+                                                typeof this.state.pending_tagihan === 'object' ? this.state.pending_tagihan.length > 0 ?
+                                                    this.state.pending_tagihan.map((v, i) => {
+                                                        return (
+                                                            <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="zmdi zmdi-card-sim bg-danger" /><span>{v.kategori}<br/><small className="text-muted">{v.note} | {v.produk} | {toRp(v.harga)}</small></span></Link>
+                                                        );
+                                                    }
+                                                )
+                                                : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" /> : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+                                            }
+                                            </>
+                                            :'':''
+                                        }
                                         {typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
                                             <>
                                             <small className="text-muted m-3">Transaksi Tertunda</small>
@@ -262,7 +301,7 @@ class Header extends Component {
                                                 typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
                                                     this.state.pending_trx.map((v, i) => {
                                                         return (
-                                                            <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="zmdi zmdi-notifications-active bg-info" /><span>{toRp(v.amount)}<br/><small className="text-muted">{v.kd_trx}</small></span></Link>
+                                                            <Link to={`/invoice/${btoa(v.kd_trx)}`} className="dropdown-item"><i className="fa fa-shopping-basket bg-info" /><span>{toRp(v.amount)}<br/><small className="text-muted">{v.kd_trx}</small></span></Link>
                                                         );
                                                     }
                                                 )

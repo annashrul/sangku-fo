@@ -323,7 +323,8 @@ class PembelianReport extends Component{
         });
         let data={
             "id_paket":id,
-            "qty":1
+            "qty":1,
+            "type":"plus",
         };
         this.props.dispatch(postCart(data,type));
 

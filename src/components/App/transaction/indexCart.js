@@ -69,7 +69,8 @@ class IndexCart extends Component{
         if(value>0){
             let data={
                 "id_paket":res_cart[i].id_paket,
-                "qty":res_cart[i].qty
+                "qty":1,
+                "type":param==='qtyMin'?'min':'plus'
             };
             this.props.dispatch(postCart(data,''));
         }

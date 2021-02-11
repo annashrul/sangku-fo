@@ -23,6 +23,8 @@ class FormReaktivasi extends Component{
             pin:'',
             pin_regist:'',
             isModal:'',
+            list_paket:[],
+            paket:{},
             code:0,
             step:1,
             error:{
@@ -35,6 +37,9 @@ class FormReaktivasi extends Component{
     componentDidUpdate(prevState){
         if(prevState.directPin!==this.props.directPin){
             this.setState({pin_regist:this.props.directPin.kode})
+        }
+        if(prevState.listPaket!==this.props.listPaket){
+            this.setState({list_paket:this.props.listPaket})
         }
     }
     // componentWillReceiveProps(nextProps){
@@ -150,9 +155,13 @@ class FormReaktivasi extends Component{
         if(this.props.availPin.total_pin>=val.jumlah){
             let err = this.state.error;
             err = Object.assign({}, err, {pin_regist:""});
+            // if(String(val.title).toLowerCase)
+            
+            let paket = this.state.list_paket.find((element) => { return String(element.title).split(" ")[1].toLowerCase() === String(val.title).toLowerCase();})
             this.setState({
                 pin_regist: val,
-                error: err
+                error: err,
+                paket: paket
             })
         } else {
             this.setState({
@@ -162,6 +171,8 @@ class FormReaktivasi extends Component{
         }
     };
     render(){
+        console.log("this.state.list_paket",this.state.list_paket);
+        console.log("this.state.paket",this.state.paket);
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasi"} size={'lg'}>
@@ -211,22 +222,24 @@ class FormReaktivasi extends Component{
                         <>
                             <div className="row">
                             <div className="col-md-6 offset-md-3">
+                                {this.state.paket==={}&&this.state.paket===undefined?'':
                                 <div className="single-ticket-pricing-table text-center">
                                     <h6 className="ticket-plan">{this.state.pin_regist.title!==undefined?this.state.pin_regist.title:''}</h6>
                                     {/* Ticket Icon */}
                                     <div className="ticket-icon"  style={{width:'100px',height:'100px'}}>
                                         <img className="img-fluid" src={this.state.pin_regist.badge!==undefined?this.state.pin_regist.badge:''} alt="sangqu"/>
                                     </div>
-                                    <h5 className="ticket-price font-24">Keuntungan Yang Akan Didapatkan</h5>
+                                    <h5 className="ticket-price font-24">Keuntungan Yang Akan Didapatkan Dalam {this.state.paket.title}</h5>
                                     {/* Ticket Pricing Table Details */}
                                     <div className="ticket-pricing-table-details">
-                                    <p><i className="zmdi zmdi-check" /> Eu nostrud qui eiusmod excepteur aute.</p>
+                                        <ul dangerouslySetInnerHTML={{__html: this.state.paket.deskripsi}} className="text-left"/>
+                                    {/* <p><i className="zmdi zmdi-check" /> Eu nostrud qui eiusmod excepteur aute.</p>
                                     <p><i className="zmdi zmdi-check" /> Ex adipisicing occaecat ut.</p>
                                     <p><i className="zmdi zmdi-check" /> Reprehenderit occaecat Lorem.</p>
                                     <p><i className="zmdi zmdi-check" /> Aliquip voluptate sunt magna.</p>
-                                    <p><i className="zmdi zmdi-check" /> Occaecat enim qui laborum.</p>
+                                    <p><i className="zmdi zmdi-check" /> Occaecat enim qui laborum.</p> */}
                                     </div>
-                                </div>
+                                </div>}
                             </div>
                             </div>
                             <div class="alert alert-danger bg-white text-danger text-center" role="alert">

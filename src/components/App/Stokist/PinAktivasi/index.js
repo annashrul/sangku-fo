@@ -12,6 +12,7 @@ import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import Select from 'react-select';
 import {setMemberAvail } from '../../../../redux/actions/member/member.action';
+import { FetchSitePaket } from '../../../../redux/actions/site.action';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -251,6 +252,7 @@ class Pin extends Component{
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormReaktivasi"));
+        this.props.dispatch(FetchSitePaket())
     }
     handleTransfer(e,v){
         this.setState({pin_data:v})
@@ -391,7 +393,7 @@ class Pin extends Component{
                         </div>
                     </div>
                 </div>
-                <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
+                <FormReaktivasi availPin={this.props.getPin} directPin={undefined} listPaket={this.props.listPaket}/>
                 <FormPinTransfer data={this.state.pin_data} member={this.props.memberAvail}/>
             </Layout>
             );
@@ -406,6 +408,7 @@ const mapStateToProps = (state) => {
         memberAvail:state.memberReducer.data_avail,
         getPin:state.pinReducer.data_available,
         isLoading:state.pinReducer.isLoading,
+        listPaket:state.siteReducer.data_paket,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
     }

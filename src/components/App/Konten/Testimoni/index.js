@@ -9,6 +9,13 @@ import { getTestimoni, getTestimoniDetail, getTestimoniKategori } from '../../..
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
+
+import Fade from 'react-reveal/Fade';
+import HeadShake from 'react-reveal/HeadShake';
+import Slider from "react-slick";
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 class Testimoni extends Component{
     constructor(props){
         super(props);
@@ -245,15 +252,85 @@ class Testimoni extends Component{
         localStorage.setItem('status_testimoni', st.value);
     }
     render(){
+        require('./src/testiStyle.css')
+        require('./src/owl.carousel.min.css')
         const {
             per_page,
             last_page,
             current_page,
             data
         } = this.props.testimoniTestimoni;
+
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 3000,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: false,
+            pauseOnHover: true
+
+        };
         return (
             <Layout page="Testimoni">
-                <div className="row">
+                <div className="row m-2 card p-3 d-none">
+                    <div className="col-md-12" style={{zoom:"100%"}}>
+                        <div className="row">
+                            <div className="col-6 col-xs-6 col-md-4">
+                                <div className="form-group">
+                                    <label>Cari</label>
+                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                </div>
+                            </div>
+                            <div className="col-6 col-xs-6 col-md-2">
+                                <div className="form-group">
+                                    <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
+                                        <i className="fa fa-search"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="testimonial2 py-5 card m-2">
+                    <div className="container">
+                        <div className="heading"></div>
+                        <div className="owl-carousel owl-theme testi2 mt-4">
+                            <Slider {...settings}>
+                                {
+                                    data!==undefined?
+                                        data.map((item,index)=>{
+                                            return (
+                                                <div id="testimonial-slider" className="item" key={index}>
+                                                    <div className="row position-relative">
+                                                        <div className="col-lg-6 col-md-6 align-self-center">
+                                                            {/* <button className="btn rounded-circle btn-danger btn-md"><i className="fa fa-video" /></button> */}
+                                                            {item.video==='-'?'': <a href={item.video} className="btn rounded-circle btn-danger btn-md"><i class="fa fa-play" aria-hidden="true"></i>&nbsp;</a>}
+                                                            <h4 className="my-3">Apa Kata Mereka?</h4>
+                                                            <div dangerouslySetInnerHTML={{__html: item.caption}} />
+                                                            <h5 className="mt-4">{item.writer}</h5>
+                                                            <h6 className="subtitle font-weight-normal">{item.title}</h6>
+                                                        </div>
+                                                        <div className="col-lg-6 col-md-6 image-thumb d-none d-md-block">
+                                                            <img src={item.picture} alt={item.writer} className="rounded-circle img-fluid" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    :''
+                                }
+                            </Slider>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-100 position-sticky fixed-bottom" style={{bottom:'100px'}}>
+                    <button type="button" className="btn btn-info btn-lg btn-circle float-right shadow"><i className="fa fa-plus"></i></button>
+                </div>
+
+                <div className="row d-none">
                     <div className="col-md-8">
                         <div className="card">
                             <div className="card-body">
