@@ -13,7 +13,6 @@ class Home extends Component{
     }
 
     render(){
-        console.log('social_mediat',this.props.social_media);
         return(
             <section id="home">
                 <div className="overlay" />

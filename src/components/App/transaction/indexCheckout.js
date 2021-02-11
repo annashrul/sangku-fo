@@ -328,7 +328,7 @@ class IndexCheckout extends Component{
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-3 col-xs-3 col-md-3 text-right" style={{zoom:"80%",padding:'0'}}>
+                                            <div className="col-3 col-xs-3 col-md-3 text-right" style={{zoom:"80%",padding:'0',paddingRight:'10px'}}>
                                                 <Select
                                                     options={this.state.dataAlamat} placeholder="Alamat Lain"
                                                     onChange={this.handleChangeAlamat}
@@ -439,7 +439,7 @@ class IndexCheckout extends Component{
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
-                                            <label>Metode Pembyaran</label>
+                                            <label>Metode Pembayaran</label>
                                         </div>
                                     </div>
                                     {
@@ -528,7 +528,7 @@ class IndexCheckout extends Component{
 
                                 <button className="btn btn-primary bgGreen" style={{borderRadius:"10px",width:"100%",padding:"10px",fontSize:"20px"}} disabled={
                                     this.props.resCart.length<1||this.state.kurir===''||this.state.layanan===''
-                                }>
+                                } onClick={e=>this.handleSubmit(e)}>
                                     Bayar
                                 </button>
 

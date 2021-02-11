@@ -15,7 +15,7 @@ class About extends Component{
             <div className="row about-how">
                 <h1 className="intro-header" style={{margin:'0 auto'}}>{this.props.data===undefined?'':this.props.data.title}</h1>   
                  <Fade top>
-                    <p className="mt-3" style={{paddingLeft:'150px',paddingRight:'150px', textAlign:'center'}} dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.deskripsi }} >
+                    <p className="lead mt-3 howit" dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.deskripsi }} >
                     </p>
                 </Fade>        
                     <Fade top>

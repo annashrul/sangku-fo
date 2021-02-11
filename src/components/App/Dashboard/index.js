@@ -97,9 +97,7 @@ class Index extends Component {
         socket.on('refresh_dashboard',(data)=>{
             this.refreshData(atob(Cookies.get('sangqu_exp')));
         })
-        // socket.on("set_notif", (data) => {
-        //     console.log('set_notif',data);
-        // })
+       
         socket.on("set_dashboard", (data) => {
            this.setState({
                load_socket:false,

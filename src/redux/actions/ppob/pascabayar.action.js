@@ -54,20 +54,20 @@ export const postPascabayar = (data,param) => {
                 const data = (response.data);
                 if (data.status === 'success') {
                     dispatch(setData(data));
-                    dispatch(setIsError(true));
+                    dispatch(setIsError(false));
                 } else {
                     Swal.fire({
                         title: 'failed',
                         icon: 'error',
                         text: "terjadi kesalahan",
                     });
-                    dispatch(setIsError(false));
+                    dispatch(setIsError(true));
                 }
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
                 dispatch(setLoadingPost(false));
-                dispatch(setIsError(false));
+                dispatch(setIsError(true));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

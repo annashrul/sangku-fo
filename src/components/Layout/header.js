@@ -41,21 +41,22 @@ class Header extends Component {
             totCart:0,
             toggleMobileNav:false,
             isShowNotif:false,
-            isDay:7,
-            tanggal_tempo:"",
-            server_price:"",
-            acc_name:"",
-            acc_number:"",
             list_notif:[],
             list_cart:[],
             pending_trx:[],
             pending_tagihan:[],
         }
         socket.on('refresh_notif',(data)=>{
-            this.refreshData(atob(Cookies.get('sangqu_exp')));
+            const my_id = atob(Cookies.get('sangqu_exp'));
+            const update_id=data.id;
+            console.log("UPDATE ID",data);
+            if(my_id===update_id){
+            console.log("MASUK", data);
+
+                this.refreshData(update_id);
+            }
         })
         socket.on("set_notif", (data) => {
-            console.log('set_notif',data);
             this.setState({
                 list_notif:data.list_notif,
                 list_cart:data.list_cart,
@@ -116,7 +117,6 @@ class Header extends Component {
         })
     }
     render() {
-        console.log("aaaaaaaaaaaaaaaaaaaaaa",this.state.list_notif);
         return (
         // <!-- Top Header Area -->
         <header className="top-header-area d-flex align-items-center justify-content-between" style={{backgroundColor:(!isMobile?'':'#242939')}} >
@@ -147,7 +147,10 @@ class Header extends Component {
                         <UncontrolledButtonDropdown>
                                     <DropdownToggle className="nohover">
                                         <i className="fa fa-bell text-warning" aria-hidden="true" style={{fontSize:"20px"}}/>
-                                        <span className="active-status"></span>
+                                        {
+                                            this.state.list_notif.length>0?
+                                                <span className="active-status"></span>:''
+                                        }
                                     </DropdownToggle>
                                 <DropdownMenu right>
                                 <div className="top-notifications-area">
@@ -265,7 +268,10 @@ class Header extends Component {
                         <UncontrolledButtonDropdown>
                                     <DropdownToggle className="nohover">
                                         <i className="fa fa-bell text-warning" aria-hidden="true" style={{fontSize:"20px"}}/>
-                                        <span className="active-status"></span>
+                                        {
+                                            this.state.list_notif.length>0?
+                                                <span className="active-status"></span>:''
+                                        }
                                     </DropdownToggle>
                                 <DropdownMenu right>
                                 <div className="top-notifications-area">

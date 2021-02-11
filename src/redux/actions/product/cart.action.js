@@ -124,8 +124,8 @@ export const postCart = (data,param="") => {
 
 export const deleteCart = (id) => async dispatch =>{
     Swal.fire({
-        title: 'Please Wait.',
-        html: NOTIF_ALERT.CHECKING,
+        title: 'Silahkan tunggu..',
+        html: 'Memproses permintaan anda.',
         onBeforeOpen: () => {
             Swal.showLoading()
         },
@@ -139,17 +139,10 @@ export const deleteCart = (id) => async dispatch =>{
                     Swal.close() ;
                     const data = (response.data);
                     if (data.status === 'success') {
-                        Swal.fire({
-                            title: 'Success',
-                            icon: 'success',
-                            text: NOTIF_ALERT.SUCCESS,
-                        });
+                        ToastQ.fire({icon:'success',title:`Produk telah dihapus.`});
+
                     } else {
-                        Swal.fire({
-                            title: 'failed',
-                            icon: 'error',
-                            text: NOTIF_ALERT.FAILED,
-                        });
+                        ToastQ.fire({icon:'danger',title:`Produk gagal dihapus.`});
                     }
                     dispatch(setLoading(false));
                     dispatch(getCart());

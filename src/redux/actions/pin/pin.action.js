@@ -2,6 +2,7 @@ import {PIN, HEADERS} from "../_constants";
 import axios from 'axios'
 import Swal from "sweetalert2";
 import {ModalToggle} from "redux/actions/modal.action";
+import Cookies from 'js-cookie'
 
 export function setLoading(load){
     return {type : PIN.LOADING,load}
@@ -24,7 +25,7 @@ export function setPinDetail(data=[]){
 export function setPinFailed(data=[]){
     return {type:PIN.FAILED,data}
 }
-export const FetchPin = (page=1,id='',where='',perpage='',type='')=>{
+export const FetchPin = (page=1,id='',where='',perpage=9,type='')=>{
     return (dispatch) => {
         dispatch(setLoading(true));
         let url = '';
@@ -98,19 +99,23 @@ export const pinReaktivasi = (data) => {
         axios.post(url, data)
             .then(function (response) {
                 Swal.close()
+                const data = response.data;
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Informasi.',
+                        type: 'info',
+                        text: 'Transfer sukses!',
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Informasi.',
+                        type: 'danger',
+                        text: 'Transfer gagal. Silahkan ulangi beberapa saat lagi.',
+                    })
+                }
                 dispatch(ModalToggle(false));
-                Swal.fire({
-                    allowOutsideClick:false,
-                    title: 'Informasi.',
-                    type: 'info',
-                    text: 'Reaktivasi sukses!',
-                    showCancelButton: false,
-                    showConfirmButton: true
-                }).then((result) => {
-                    if(result){
-                        window.location.reload();
-                    }
-                })
+                dispatch(FetchPin(1, atob(Cookies.get('sangqu_exp')), '', 'aktivasi'))
+                dispatch(setLoading(false));
             })
             .catch(function (error) {
                 // dispatch(setLoading(false));
@@ -125,7 +130,7 @@ export const pinReaktivasi = (data) => {
     }
 }
 
-export const pinTransfer = (data) => {
+export const pinTransfer = (data, type) => {
     return (dispatch) => {
         Swal.fire({
             allowOutsideClick:false,
@@ -140,22 +145,26 @@ export const pinTransfer = (data) => {
         axios.post(url, data)
             .then(function (response) {
                 Swal.close()
+                const data = response.data;
+                if(data.status==='success'){
+                    Swal.fire({
+                        title: 'Informasi.',
+                        type: 'info',
+                        text: 'Transfer sukses!',
+                    })
+                }else{
+                    Swal.fire({
+                        title: 'Informasi.',
+                        type: 'danger',
+                        text: 'Transfer gagal. Silahkan ulangi beberapa saat lagi.',
+                    })
+                }
                 dispatch(ModalToggle(false));
-                Swal.fire({
-                    allowOutsideClick:false,
-                    title: 'Informasi.',
-                    type: 'info',
-                    text: 'Transfer sukses!',
-                    showCancelButton: false,
-                    showConfirmButton: true
-                }).then((result) => {
-                    if(result){
-                        window.location.reload();
-                    }
-                })
+                dispatch(FetchPin(1, atob(Cookies.get('sangqu_exp')), '', type))
+                dispatch(setLoading(false));
             })
             .catch(function (error) {
-                // dispatch(setLoading(false));
+                dispatch(setLoading(false));
                 Swal.fire({
                     title: 'failed',
                     type: 'error',
@@ -182,19 +191,23 @@ export const pinRoAktivasi = (data) => {
         axios.post(url, data)
             .then(function (response) {
                 Swal.close()
+                const data = response.data;
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Informasi.',
+                        type: 'info',
+                        text: 'Transfer sukses!',
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Informasi.',
+                        type: 'danger',
+                        text: 'Transfer gagal. Silahkan ulangi beberapa saat lagi.',
+                    })
+                }
                 dispatch(ModalToggle(false));
-                Swal.fire({
-                    allowOutsideClick:false,
-                    title: 'Informasi.',
-                    type: 'info',
-                    text: 'Aktivasi sukses!',
-                    showCancelButton: false,
-                    showConfirmButton: true
-                }).then((result) => {
-                    if(result){
-                        window.location.reload();
-                    }
-                })
+                dispatch(FetchPin(1, atob(Cookies.get('sangqu_exp')), '', 'ro'))
+                dispatch(setLoading(false));
             })
             .catch(function (error) {
                 // dispatch(setLoading(false));

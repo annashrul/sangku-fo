@@ -8,6 +8,7 @@ import WrapperModal from "./_wrapper.modal";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import {postRedeem} from "../../../redux/actions/product/redeem.action";
+import Keamanan from 'assets/keamanan.png'
 
 class ModalPin extends Component{
     constructor(props){
@@ -38,10 +39,10 @@ class ModalPin extends Component{
                 <ModalBody style={{backgroundColor:"black"}}>
                     <div className="row">
                         <div className="col-md-6">
-                            <img src="https://www.gbb.co.in/wp-content/uploads/2017/02/Firewall-companies-in-hyderabad.png" alt=""/>
+                            <img src={Keamanan} alt="Keamanan"/>
                         </div>
                         <div className="col-md-6" style={{margin:"auto"}}>
-                            <p className={"text-white"} style={{textAlign:"center"}}>masukan PIN demi keamanan bertransaksi anda di sistem ini !</p>
+                            <p className={"text-white"} style={{textAlign:"center"}}>Masukan PIN demi keamanan anda saat bertransaksi pada aplikasi sangQu!</p>
                             <OTPInput
                                 value={this.props.code}
                                 onChange={this.props.save}
@@ -58,7 +59,7 @@ class ModalPin extends Component{
                                     <div className="col-md-12">
                                         <div className="d-flex align-items-center">
                                             <div className="spinner-border text-primary ml-10" role="status" aria-hidden="true"/>
-                                            <strong className={"text-black text-center"} style={{position:"absolute",marginLeft:"10px",marginTop:"5px",verticalAlign:"middle"}}>Tunggu sebentar    ...</strong>
+                                            <strong className={"text-black text-center"} style={{position:"absolute",marginLeft:"10px",marginTop:"5px",verticalAlign:"middle"}}>Tunggu sebentar..</strong>
                                         </div>
                                     </div>
                                 ):null

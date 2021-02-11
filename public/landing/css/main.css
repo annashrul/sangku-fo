@@ -1331,8 +1331,7 @@ h1.intro-header::before {
 @media only screen and (max-width: 768px) {
   .header-logo a {
     width: 88px;
-    height: 20px;
-    background-size: 88px 20px;
+    height: 30px;
   }
   #header-nav-wrap {
     display: none;
@@ -3161,3 +3160,31 @@ footer ul a:visited {
    padding-top: 10rem;
    overflow: hidden;
  }
+.howit {
+  padding-left: 150px;
+  padding-right: 150px;
+  text-align: center;
+}
+.owl-carousel {
+  min-width: 910px
+}
+
+@media only screen and (max-width: 600px) {
+  /* For tablets: */
+  .howit {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .table2{
+    margin-bottom:10px;
+  }
+  .table2.recommended{
+    margin-left:10px;
+    margin-right:10px
+  }
+
+  .owl-carousel{
+    min-width:310px
+  }
+}

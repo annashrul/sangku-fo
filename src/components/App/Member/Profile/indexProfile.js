@@ -488,6 +488,9 @@ class IndexProfile extends Component{
                                                                                             <div className="input-group-append">
                                                                                                 <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e)}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
                                                                                             </div>
+                                                                                            <small id="passwordHelpBlock" class="form-text text-muted">
+                                                                                                Kosongkan jika tidak akan di update.
+                                                                                            </small>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>

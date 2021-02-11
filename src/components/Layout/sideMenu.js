@@ -28,22 +28,6 @@ class SideMenu extends Component {
 
     changeMenu(e,param,sub_param){
         e.preventDefault();
-        // if(param === 'isNetwork'){
-        //     this.setState({
-        //         isNetwork : !this.state.isNetwork,
-        //         isWallet : false,
-        //     });
-        // }
-        // if(param === 'isWallet'){
-        //     this.setState({
-        //         isNetwork : false,
-        //         isWallet : !this.state.isWallet,
-        //     });
-        // }
-
-
-        // this.forceUpdate();
-
         let module = {
             isNetwork : false,
             isWallet : false,
@@ -83,11 +67,7 @@ class SideMenu extends Component {
             }
         }
     }
-    // componentDidUpdate(prevState){
-    //     if(this.props.auth.user.akses!==prevState.auth.user.akses){
-    //         this.getProps(prevState);
-    //     }
-    // }
+ 
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
@@ -104,8 +84,8 @@ class SideMenu extends Component {
                 isStokist:true,
             })
         }else if(
-            path==='/transaksi/riwayat'
-            || path==='/transaksi/ppob'
+            path==='/report/riwayat'
+            || path==='/report/ppob'
             || path==='/report/wallet/deposit'
             || path==='/report/wallet/penarikan'){
             this.setState({
@@ -167,12 +147,7 @@ class SideMenu extends Component {
     };
     render() {
         const path = this.props.location.pathname;
-        // const {
-            //modul only
-            // md_network,
-            //single only
-            // new_member
-        // } = this.state;
+    
         return (
             <nav>
                 <ul className="sidebar-menu" data-widget="tree">
@@ -220,48 +195,7 @@ class SideMenu extends Component {
                     </li>
                     {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
-                    <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> PPOB</span></Link></li>
-
-                    {/*<li className={"treeview" +(this.state.isPpob===true*/}
-                        {/*|| path==='/ppob/pulsa-all-operator'*/}
-                        {/*|| path==='/ppob/paket-data'*/}
-                        {/*|| path==='/ppob/pulsa-sms-telpon'*/}
-                        {/*|| path==='/ppob/pulsa-transfer'*/}
-                        {/*|| path==='/ppob/e-toll'*/}
-                        {/*|| path==='/ppob/voucher-wifiid'*/}
-                        {/*|| path==='/ppob/e-money'*/}
-                        {/*|| path==='/ppob/pembayaran-pln'*/}
-                        {/*|| path==='/ppob/pembayaran-tv'*/}
-                        {/*|| path==='/ppob/pembayaran-pdam'*/}
-                        {/*|| path==='/ppob/pembayaran-telpon-kabel'*/}
-                        {/*|| path==='/ppob/pembayaran-telpon-pascabayar'*/}
-                        {/*|| path==='/ppob/pembayaran-bpjs'*/}
-                        {/*|| path==='/ppob/pembayaran-asuransi'*/}
-                        {/*|| path==='/ppob/pembayaran-multifinance'*/}
-                        {/*|| path==='/ppob/pembayaran-kereta-api'*/}
-                        {/*|| path==='/ppob/pembayaran-zakat'*/}
-                        {/*?" active menu-open" : "")}>*/}
-                        {/*<a href="!#" onClick={(e) => this.changeMenu(e,'isPpob')}><i className="zmdi zmdi-receipt" /> <span>PPOB</span> <i className="fa fa-angle-right" /></a>*/}
-                        {/*<ul className={"treeview-menu"} style={{display:this.state.isPpob===true?"block":"none"}}>*/}
-                            {/*<li className={path==='/ppob/pulsa-all-operator'?"active":''}><Link to="/ppob/pulsa-all-operator" style={{width:'fit-content'}}> Pulsa All Operator</Link></li>*/}
-                            {/*<li className={path==='/ppob/paket-data'?"active":''}><Link to="/ppob/paket-data" style={{width:'fit-content'}}> Paket Data</Link></li>*/}
-                            {/*<li className={path==='/ppob/pulsa-sms-telpon'?"active":''}><Link to="/ppob/pulsa-sms-telpon" style={{width:'fit-content'}}> Pulsa Sms Telpon</Link></li>*/}
-                            {/*<li className={path==='/ppob/pulsa-transfer'?"active":''}><Link to="/ppob/pulsa-transfer" style={{width:'fit-content'}}> Pulsa Transfer</Link></li>*/}
-                            {/*<li className={path==='/ppob/e-toll'?"active":''}><Link to="/ppob/e-toll" style={{width:'fit-content'}}> E-Toll</Link></li>*/}
-                            {/*<li className={path==='/ppob/voucher-wifiid'?"active":''}><Link to="/ppob/voucher-wifiid" style={{width:'fit-content'}}> Voucher WIFI.ID</Link></li>*/}
-                            {/*<li className={path==='/ppob/e-money'?"active":''}><Link to="/ppob/e-money" style={{width:'fit-content'}}> E-Money</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-pln'?"active":''}><Link to="/ppob/pembayaran-pln" style={{width:'fit-content'}}> Pembayaran PLN</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-tv'?"active":''}><Link to="/ppob/pembayaran-tv" style={{width:'fit-content'}}> Pembayaran TV</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-pdam'?"active":''}><Link to="/ppob/pembayaran-pdam" style={{width:'fit-content'}}> Pembayaran PDAM</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-telpon-kabel'?"active":''}><Link to="/ppob/pembayaran-telpon-kabel" style={{width:'fit-content'}}> Pembayaran Telpon Kabel</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-telpon-pascabayar'?"active":''}><Link to="/ppob/pembayaran-telpon-pascabayar" style={{width:'fit-content'}}> Pembayaran Telpon Pascabayar</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-bpjs'?"active":''}><Link to="/ppob/pembayaran-bpjs" style={{width:'fit-content'}}> Pembayaran BPJS</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-asuransi'?"active":''}><Link to="/ppob/pembayaran-asuransi" style={{width:'fit-content'}}> Pembayaran Asuransi</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-multifinance'?"active":''}><Link to="/ppob/pembayaran-multifinance" style={{width:'fit-content'}}> Pembayaran Multifinance</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-kereta-api'?"active":''}><Link to="/ppob/pembayaran-kereta-api" style={{width:'fit-content'}}> Pembayaran Kereta API</Link></li>*/}
-                            {/*<li className={path==='/ppob/pembayaran-zakat'?"active":''}><Link to="/ppob/pembayaran-zakat" style={{width:'fit-content'}}> Zakat</Link></li>*/}
-                        {/*</ul>*/}
-                    {/*</li>*/}
+                    <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> Top Up & Tagihan</span></Link></li>
                     {/* PPOB MODUL END */}
                     {/* WALLET MODUL START */}
                     <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
@@ -275,13 +209,13 @@ class SideMenu extends Component {
                     {/* WALLET MODUL END */}
 
                     {/* REPORT MODUL START */}
-                    <li className={"treeview" +(this.state.isReport===true || path==='/transaksi/riwayat' ?" active menu-open" : "")}>
+                    <li className={"treeview" +(this.state.isReport===true || path==='/report/riwayat' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isReport')}><i className="fa fa-file-text" /> <span>Laporan</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isReport===true?"block":"none"}}>
 
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
-                            <li className={path==='/transaksi/ppob'?"active":''}><Link to="/transaksi/ppob" style={{width:'fit-content'}}> PPOB</Link></li>
-                            <li className={path==='/transaksi/riwayat'?"active":''}><Link to="/transaksi/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
+                            <li className={path==='/report/ppob'?"active":''}><Link to="/report/ppob" style={{width:'fit-content'}}> Top Up & Tagihan</Link></li>
+                            <li className={path==='/report/riwayat'?"active":''}><Link to="/report/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                             <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
 

@@ -22,7 +22,7 @@ class Testimoni extends Component{
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 2000,
+            autoplaySpeed: 5000,
             arrows: false,
 
         };
@@ -40,14 +40,11 @@ class Testimoni extends Component{
                                 return (
                                     <div id="testimonial-slider" >
                                         <div className = "row owl-wrap" >
-                                            <div className="owl-carousel" style={{minWidth: '901px'}}>
-                                                <Fade top>
+                                            <div className="owl-carousel">
                                                     <p style={{paddingTop:'30px',paddingBottom:'20px'}}>
                                                         {item.caption.replace(/<[^>]*>?/gm, '')}
                                                     </p> 
                                                     {item.video==='-'?'': <a href={item.video} className="button stroke"><i class="fa fa-play" aria-hidden="true"></i>&nbsp;</a>}
-                                                </Fade>
-                                                <HeadShake>
                                                     <div className="testimonial-author">
                                                         <img src={item.picture} alt={item.writer} />
                                                         <div className="author-info">
@@ -55,7 +52,6 @@ class Testimoni extends Component{
                                                         <span className="position">{item.jobs}</span>
                                                         </div>
                                                     </div>                 
-                                                </HeadShake>
                                             </div>
                                         </div>
                                     </div>

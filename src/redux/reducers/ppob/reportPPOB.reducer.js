@@ -3,7 +3,7 @@
 import {REPORT_PPOB} from "../../actions/_constants";
 
 const initialState = {
-    isLoading: true, status: "", msg: "", data: [],
+    isLoading: true, status: "", msg: "", data: [], detail:[], isLoadingDetail:false
 }
 
 export const reportPPOBReducer = (state = initialState, action) => {
@@ -17,6 +17,14 @@ export const reportPPOBReducer = (state = initialState, action) => {
         case REPORT_PPOB.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case REPORT_PPOB.DETAIL:
+            return Object.assign({}, state, {
+                detail: action.data.result,
+            });
+        case REPORT_PPOB.LOAD_DETAIL:
+            return Object.assign({}, state, {
+                isLoadingDetail: action.load
             });
 
         default:

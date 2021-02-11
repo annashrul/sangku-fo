@@ -5,7 +5,6 @@ import {
 const initialState = {
     isLoading: false,
     isLoadingPut: false,
-    data: [],
     isLoadingWalletConfig: false,
     data: [],
     isLoadingSitePaket: false,

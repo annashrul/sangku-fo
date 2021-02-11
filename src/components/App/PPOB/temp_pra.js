@@ -6,7 +6,7 @@ import {FetchPulsaAll} from '../../../redux/actions/ppob/pulsa_all/pulsa_all.act
 import Skeleton from 'react-loading-skeleton';
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
 import {Link} from "react-router-dom";
-import {dataPPOB, toCurrency} from "../../../helper";
+import {dataPPOB, toCurrency, ToastQ} from "../../../helper";
 import {getSubKategoriPPOB} from "../../../redux/actions/ppob/kategoriPPOB.action";
 import StickyBox from "react-sticky-box/dist/esnext/index";
 
@@ -121,13 +121,18 @@ class TempPra extends Component{
             if(param!==''){
                 this.props.history.push({pathname: `/ppob/checkout/${this.state.path[3].toLowerCase()}`});
             }
+        }else{
+            ToastQ.fire({
+                icon: 'error',
+                title: `Nomor masih kosong.`
+            });
         }
     }
     handleOtherCard(e,kategori,id){
         e.preventDefault();
         this.setState({idOperator:id});
         if(id!==this.state.idOperator){
-            this.props.dispatch(FetchPulsaAll(`kategori=${kategori}&perpage=100`));
+            this.props.dispatch(FetchPulsaAll(`operator=${kategori}&perpage=100`));
         }
     }
 
@@ -142,102 +147,106 @@ class TempPra extends Component{
                 <div className="row">
                     {
                         path[3]==='e-money'||path[3]==='e-toll'||path[3]==='voucher-wifi-id'?(
-                            <div className="col-md-12">
-                                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                                    <StickyBox offsetTop={100} offsetBottom={20} style={{width:"40%",marginRight:"10px"}}>
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <div className="form-group">
-                                                    <label>Nomor Telepon</label>
-                                                    <IntlTelInput
-                                                        preferredCountries={['id']}
-                                                        containerClassName="intl-tel-input"
-                                                        inputClassName="form-control telInput"
-                                                        onPhoneNumberChange={(status, value, countryData, number, id) => {
-                                                            this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
-                                                        }}
-                                                        onPhoneNumberBlur={(status, value, countryData, number, id) => {
-                                                            this.validatePhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
-                                                        }}
-                                                        autoFocus={true}
-                                                        separateDialCode={true}
-                                                        format={true}
-                                                        formatOnInit={true}
-                                                        value={this.state.number}
-                                                    />
-                                                    <small>{this.state.errorMsg}</small>
-                                                    <img src={this.state.provider.icon} alt="" style={{height:'30px',float:"right",position:"relative",marginRight:"10px",marginTop:"-53px"}}/>
-                                                </div>
+                            <div className="col-md-12 col-sm-12 col-log-12">
+                                {/* <div style={{ display: 'flex', alignItems: 'flex-start' }}> */}
+                                <div className='row'>
+                                    <div className="col-md-4 col-sm-12 col-lg-4">
+                                        <StickyBox offsetTop={100} offsetBottom={20}  style={{marginRight:"10px"}}>
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <div className="form-group">
+                                                        <label>Nomor Telepon</label>
+                                                        <IntlTelInput
+                                                            preferredCountries={['id']}
+                                                            containerClassName="intl-tel-input"
+                                                            inputClassName="form-control telInput"
+                                                            onPhoneNumberChange={(status, value, countryData, number, id) => {
+                                                                this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
+                                                            }}
+                                                            onPhoneNumberBlur={(status, value, countryData, number, id) => {
+                                                                this.validatePhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
+                                                            }}
+                                                            autoFocus={true}
+                                                            separateDialCode={true}
+                                                            format={true}
+                                                            formatOnInit={true}
+                                                            value={this.state.number}
+                                                        />
+                                                        <small>{this.state.errorMsg}</small>
+                                                        <img src={this.state.provider.icon} alt="" style={{height:'30px',float:"right",position:"relative",marginRight:"10px",marginTop:"-53px"}}/>
+                                                    </div>
 
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div class="outer">
-                                                            <div class="inner" style={{display:'flex',flexWrap:'wrap'}}>
-                                                                {
-                                                                    !this.props.isLoadingSub?typeof this.props.dataSub.data==='object'?this.props.dataSub.data.length>0?this.props.dataSub.data.map((v,i)=>{
-                                                                        return(
-                                                                            <div onClick={(e)=>this.handleOtherCard(e,v.kategori,v.id)} style={{cursor:"pointer",backgroundColor:v.id===this.state.idOperator?"#00838d":"",flex:"auto",marginRight:'5px',paddingBottom:"5px"}} class="cards card1">
-                                                                                <p style={{padding:'0',color:v.id===this.state.idOperator?"white":""}}>
-                                                                                    <img style={{float:"left",height:"20px",marginRight:"5px"}} src={v.logo} alt=""/> {v.title}
-                                                                                </p>
-                                                                            </div>
-                                                                        );
-                                                                    }):"":"":""
-                                                                }
+                                                    <div className="row">
+                                                        <div className="col-md-12">
+                                                            <div class="outer">
+                                                                <div class="inner" style={{display:'flex',flexWrap:'wrap'}}>
+                                                                    {
+                                                                        !this.props.isLoadingSub?typeof this.props.dataSub.data==='object'?this.props.dataSub.data.length>0?this.props.dataSub.data.map((v,i)=>{
+                                                                            return(
+                                                                                <div onClick={(e)=>this.handleOtherCard(e,v.op_id,v.id)} style={{cursor:"pointer",backgroundColor:v.id===this.state.idOperator?"#00838d":"",flex:"auto",marginRight:'5px',paddingBottom:"5px"}} class="cards card1">
+                                                                                    <p style={{padding:'0',color:v.id===this.state.idOperator?"white":""}}>
+                                                                                        <img style={{float:"left",height:"20px",marginRight:"5px"}} src={v.logo} alt=""/> {v.title}
+                                                                                    </p>
+                                                                                </div>
+                                                                            );
+                                                                        }):"":"":""
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </StickyBox>
-                                    <div className="box-margin" style={{width:"60%"}}>
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <table className="table table-hover table-bordered">
-                                                    <thead className="bg-info">
-                                                    <tr>
-                                                        <th>NO</th>
-                                                        <th>OPERATOR</th>
-                                                        <th>NOTE</th>
-                                                        <th>#</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    {
-                                                        this.state.idOperator!==''?!this.props.isLoading?typeof data==='object'?data.length>0?data.map((v,i)=>{
-                                                            return(
-                                                                <tr key={i}>
-                                                                    <td>{i+1}</td>
-                                                                    <td>{v.provider}</td>
-                                                                    <td>{v.note}</td>
-                                                                    <td>
-                                                                        <button onClick={event => this.handleNext(i,'-')} className="btn btn-primary">
-                                                                            Beli
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            );
-                                                        }):"":"":(()=>{
-                                                            let container =[];
-                                                            for(let i=0; i<5; i++){
-                                                                container.push(
+                                        </StickyBox>
+                                    </div>
+                                    <div className="col-md-8 col-sm-12 col-lg-8">
+                                        <div className="box-margin" >
+                                            <div className="card">
+                                                <div className="card-body table-responsive" style={{overflowY:'auto !important'}}>
+                                                    <table className="table table-hover table-bordered">
+                                                        <thead className="bg-info">
+                                                        <tr>
+                                                            <th>OPERATOR</th>
+                                                            <th>NOTE</th>
+                                                            <th>#</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {
+                                                            this.state.idOperator!==''?!this.props.isLoading?typeof data==='object'?data.length>0?data.map((v,i)=>{
+                                                                return(
                                                                     <tr key={i}>
-                                                                        <td><Skeleton/></td>
-                                                                        <td><Skeleton/></td>
-                                                                        <td><Skeleton/></td>
-                                                                        <td><Skeleton/></td>
+                                                                        <td>{v.provider}</td>
+                                                                        <td>{v.note}</td>
+                                                                        <td>
+                                                                            <button onClick={event => this.handleNext(i,'-')} className="btn btn-primary">
+                                                                                Beli
+                                                                            </button>
+                                                                        </td>
                                                                     </tr>
-                                                                )
-                                                            }
-                                                            return container;
-                                                        })():""
-                                                    }
-                                                    </tbody>
-                                                </table>
+                                                                );
+                                                            }):"":"":(()=>{
+                                                                let container =[];
+                                                                for(let i=0; i<5; i++){
+                                                                    container.push(
+                                                                        <tr key={i}>
+                                                                            <td><Skeleton/></td>
+                                                                            <td><Skeleton/></td>
+                                                                            <td><Skeleton/></td>
+                                                                        </tr>
+                                                                    )
+                                                                }
+                                                                return container;
+                                                            })():""
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
+
+                                    {/* </div> */}
                                     </div>
 
                                 </div>
@@ -287,10 +296,10 @@ class TempPra extends Component{
                                                                 <div onClick={event => this.handleNext(i,'')} key={i} className="ribbon-vwrapper-reverse card imgWrapper" style={{cursor:"pointer",borderRadius:'3px',marginRight:"10px",marginBottom:"10px"}}>
                                                                     <div className={`ribbon ${this.state.idx===i?'ribbon-success':''} ribbon-vertical-r`}><i className={`fa ${this.state.idx===i?'fa-check':''}`}/></div>
                                                                     <div className="row">
-                                                                        <div className="col-md-4" style={{verticalAlign:"middle"}}>
+                                                                        <div className="col-md-4 col-sm-4 col-lg-4" style={{verticalAlign:"middle"}}>
                                                                             <img src={v.logo} alt=""/>
                                                                         </div>
-                                                                        <div className="col-md-8">
+                                                                        <div className="col-md-8 col-sm-8 col-lg-8">
                                                                             <p className="ribbon-content bold txtRed">
                                                                                 Rp {toCurrency(v.price)} .-<br/>
                                                                                 <span style={{color:"grey"}}>{v.note}</span>

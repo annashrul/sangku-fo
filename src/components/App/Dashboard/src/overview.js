@@ -19,8 +19,7 @@ class Overview extends Component {
                                     <div style={{fontSize:'.8em',marginTop:'5px'}}>{this.props.uid}</div>
                                 </div>
                             </div>
-                            <a href={() => false} className="btn btn-primary btn-sm text-light m-3 p-2" style={{cursor:'pointer',width:'90%',marginTop:"10px"}} onClick={(e)=>this.handleModal(e)}><i class="fa fa-user"></i> Lihat Profil</a>
-
+                            <a href='/profile' className="btn btn-primary btn-sm text-light m-3 p-2" style={{cursor:'pointer',width:'90%',marginTop:"10px"}}><i class="fa fa-user"></i> Lihat Profil</a>
                         </div>
                         <div className="row justify-content-between">
                                     <div className="col-md-6" style={{borderRight:'2px solid gray'}}>
@@ -51,18 +50,19 @@ class Overview extends Component {
                         </div>
                 </div>
                 <div className="card h-100">
-                    <div className="card-body" style={{padding: '22px',filter: 'blur(2px)', cursor: 'no-drop', userSelect: 'none'}}>
+                    <div id="overlay"></div>
+                    <div className="card-body" style={{padding: '22px',filter: 'blur(5px)', cursor: 'no-drop', userSelect: 'none'}}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}
                         <div className="row">
-                            <div className="col-md-4">
-                                <img src={this.props.reward.gambar}/>
+                            <div className="col-md-4" style={{height:'100px'}}>
+                                <img style={{width:'100%',height:'100%',objectFit:'contain'}} src={this.props.reward.gambar}/>
                             </div>
                             <div className="col-md-8">
                                 <h5>
                                     {this.props.reward.title}
                                 </h5>
                                 <p className="title-widget-team mb-0">{this.props.reward.caption}</p>
-                                <a href="!#" className='badge badge-info'>Klaim Hadiah</a>
+                                <a href="!#" className='badge badge-info' onClick={(e)=>{e.preventDefault();return false;}}>Klaim Hadiah</a>
                             </div>
                         </div>
                     </div>

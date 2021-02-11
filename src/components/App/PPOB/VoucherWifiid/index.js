@@ -6,7 +6,7 @@ class VoucherWifiid extends Component{
         super(props);
     }
     render(){
-        return <TempPasca page={'Pemabayaran Voucher Wifi ID'}/>
+        return <TempPasca page={'Pembayaran Voucher Wifi ID'}/>
     }
 }
 
