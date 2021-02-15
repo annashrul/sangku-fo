@@ -20,30 +20,14 @@ import { toRp } from '../../../helper';
 const { Option } = components;
 const IconOption = props => (
 <Option {...props}>
-    {/* <img className="mr-2"
-    src={props.data.icon}
-    style={{ width: 36 }}
-    alt={props.data.label}
-    />
-    {props.data.label} */}
-    {/* <br/>
-    <img className="mr-2"
-    src={props.data.icon}
-    style={{ width: 36, visibility:'hidden' }}
-    alt={props.data.label}
-    />
-    {props.data.chipLabel} */}
-    {/* <div className="card mb-1 p-0"> */}
-    {/* <div className="card-body"> */}
+    
     <div className="client-media-content d-flex align-items-center p-1">
-    <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} />
-    <div className="user--media-body">
-        <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
-        <span className="font-13 text-dark">{props.data.childLabel}</span>
+        <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} />
+        <div className="user--media-body">
+            <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
+            <span className="font-13 text-dark">{props.data.childLabel}</span>
+        </div>
     </div>
-    </div>
-    {/* </div> */}
-    {/* </div> */}
 
 </Option>
 );
@@ -325,18 +309,18 @@ class IndexDeposit extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.label:''}</span>
+                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
                                                     <div className="row align-items-center">
                                                         <div className="col">
                                                         <h6 className="font-14 mb-0">
-                                                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Pemilik Bank</small>
+                                                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Atas Nama</small>
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''}</span>
+                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.label:''}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />

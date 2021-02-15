@@ -21,39 +21,16 @@ import { putMember } from '../../../redux/actions/member/member.action';
 import { FetchWalletConfig } from '../../../redux/actions/site.action';
 import { toRp } from '../../../helper';
 
-const options = [
-    { value: "AXIS", label: "AXIS", chipLabel:"TEST", icon: "https://tripay.co.id/assets/images/provider/axis.png" },
-    { value: "INDOSAT", label: "INDOSAT", chipLabel:"TEST", icon: "https://tripay.co.id/assets/images/provider/indosat.png" }
-];
 
 const { Option } = components;
 const IconOption = props => (
 <Option {...props}>
-    {/* <img className="mr-2"
-    src={props.data.icon}
-    style={{ width: 36 }}
-    alt={props.data.label}
-    />
-    {props.data.label} */}
-    {/* <br/>
-    <img className="mr-2"
-    src={props.data.icon}
-    style={{ width: 36, visibility:'hidden' }}
-    alt={props.data.label}
-    />
-    {props.data.chipLabel} */}
-    {/* <div className="card mb-1 p-0"> */}
-    {/* <div className="card-body"> */}
     <div className="client-media-content d-flex align-items-center p-1">
-    {/* <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} /> */}
     <div className="user--media-body">
         <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
         <span className="font-13 text-dark">{props.data.childLabel}</span>
     </div>
     </div>
-    {/* </div> */}
-    {/* </div> */}
-
 </Option>
 );
 
@@ -259,36 +236,12 @@ class IndexPenarikan extends Component{
             userSelect:'none'
         }
 
-        console.log(this.props.auth.user.have_id);
         return(
             <Layout page={"Penarikan"} subpage="Wallet">
                 <div className="row">
                     {!this.state.is_have_ktp?
                     <div className="col-12 box-margin">
                         <div className="row">
-                            {/* <div className="col-md-3 d-flex">
-                                <div className="card h-100">
-                                    <img className="img-fluid" src={this.state.picture} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
-                                    <div className="card-body">
-                                        <div className="row mb-30">
-                                            <div className="col-12">
-                                                <div className="form-group">
-                                                    <File64
-                                                        multiple={ false }
-                                                        maxSize={2048} //in kb
-                                                        fileType='png, jpg' //pisahkan dengan koma
-                                                        className="form-control-file"
-                                                        onDone={ this.handleChangeImage }
-                                                        showPreview={false}
-                                                        lang='id'
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p className="font-11">Besar file: maksimum 2.000.000 bytes (2 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="col-md-12">
                                 <div className="jumbotron text-center">
                                     <div className="card-body">
@@ -347,20 +300,6 @@ class IndexPenarikan extends Component{
                                                             </div>
                                                             </div>
                                                         </div>
-                                                        {/* {
-                                                            this.state.arrAmount.map((v,i)=>{
-                                                                return (
-                                                                    <div className="col-6 col-xs-6 col-md-6" key={i} style={{padding:'1px'}}>
-                                                                        <button
-                                                                            onClick={(event)=>this.handleClickPrice(event,i)}
-                                                                            className={`btn btn${this.state.amount===v.amount?'-success':'-outline-success'} btn-block btn-sm p-3`}
-                                                                            >
-                                                                            {v.amount}
-                                                                        </button>
-                                                                    </div>
-                                                                );
-                                                            })
-                                                        } */}
                                                         <div className="col-md-12">
                                                             <div className="form-group mt-3">
                                                                 <label>Nominal</label>
@@ -369,10 +308,6 @@ class IndexPenarikan extends Component{
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
-                                                            {/* <div className="form-group">
-                                                                <label>Penerima</label>
-                                                                <input type="text" className={"form-control"} name={"id_bank"} value={this.state.id_bank} onChange={this.handleChange}/>
-                                                            </div> */}
                                                             {this.state.bank_data.length>0?
                                                             <div className="form-group">
                                                                 <label>Pilih Rekening Bank</label>
@@ -402,11 +337,6 @@ class IndexPenarikan extends Component{
                                                     <div className="text-center mb-30">
                                                         <h5>Konfirmasi Penarikan</h5>
                                                     </div>
-                                                    {/* <div className="profile-thumb-contact text-center mb-4">
-                                                        <div className="profile--tumb">
-                                                            <img src={this.state.member_data!=={}&&this.state.member_data!==undefined?this.state.member_data.picture:noUser} alt="sangqu" />
-                                                        </div>
-                                                    </div> */}
                                                     <div className="row align-items-center">
                                                         <div className="col">
                                                         <h6 className="font-14 mb-0">
@@ -414,18 +344,18 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.label:''}</span>
+                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
                                                     <div className="row align-items-center">
                                                         <div className="col">
                                                         <h6 className="font-14 mb-0">
-                                                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Pemilik Bank</small>
+                                                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Atas Nama</small>
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.childLabel:''}</span>
+                                                        <span className="font-14">{this.state.bank!=={}&&this.state.bank!==undefined?this.state.bank.label:''}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -464,13 +394,6 @@ class IndexPenarikan extends Component{
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {/* <div className="card-footer bg-transparent border-0 pb-4">
-                                                    <hr className="my-3" />
-                                                    <div className="form-group m-0">
-                                                        <label>PIN</label>
-                                                            <input type="password" className="form-control" name="pin" value={this.state.pin} maxLength="6" onChange={this.handleChange}/>
-                                                    </div>
-                                                </div> */}
                                             </div>
                                         </div>
                                         <div className="col-md-4 d-flex">
