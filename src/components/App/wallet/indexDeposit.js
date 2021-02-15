@@ -97,8 +97,8 @@ class IndexDeposit extends Component{
         if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.dp_min!==undefined){
             this.setState({
                 dp_min:nextProps.resWalletConfig.dp_min,
-                trx_dp:'-',
-                // trx_dp:nextProps.resWalletConfig.trx_dp,
+                // trx_dp:'-',
+                trx_dp:nextProps.resWalletConfig.trx_dp,
             })
         }
         if(nextProps.resBank!==undefined&&nextProps.resBank.data!==undefined){

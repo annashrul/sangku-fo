@@ -181,7 +181,7 @@ class Header extends Component {
                                         }
                                         {typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
                                             <>
-                                            <small className="text-muted m-3">Transaksi Tertunda</small>
+                                            <div className="text-muted m-0 p-0 bg-white" style={{position: 'sticky', bottom: '17px'}}><small className="ml-3">Transaksi Tertunda</small></div>
                                             {
                                                 typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
                                                     this.state.pending_trx.map((v, i) => {
@@ -195,7 +195,7 @@ class Header extends Component {
                                             </>
                                             :'':''
                                         }
-                                        <small className="text-muted m-3">Semua Pemberitahuan</small>
+                                        <div className="text-muted m-0 p-0 bg-white" style={{position: 'sticky', bottom: '-1px'}}><small className="ml-3">Semua Pemberitahuan</small></div>
                                         {
                                             typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
                                                 this.state.list_notif.map((v, i) => {
@@ -302,7 +302,7 @@ class Header extends Component {
                                         }
                                         {typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
                                             <>
-                                            <small className="text-muted m-3">Transaksi Tertunda</small>
+                                            <div className="text-muted m-0 p-0 bg-white" style={{position: 'sticky', bottom: '17px'}}><small className="ml-3">Transaksi Tertunda</small></div>
                                             {
                                                 typeof this.state.pending_trx === 'object' ? this.state.pending_trx.length > 0 ?
                                                     this.state.pending_trx.map((v, i) => {
@@ -316,7 +316,7 @@ class Header extends Component {
                                             </>
                                             :'':''
                                         }
-                                        <small className="text-muted m-3">Semua Pemberitahuan</small>
+                                        <div className="text-muted m-0 p-0 bg-white" style={{position: 'sticky', bottom: '-1px'}}><small className="ml-3">Semua Pemberitahuan</small></div>
                                         {
                                             typeof this.state.list_notif === 'object' ? this.state.list_notif.length > 0 ?
                                                 this.state.list_notif.map((v, i) => {

@@ -404,7 +404,7 @@ class IndexProfile extends Component{
                                                                 <File64
                                                                     multiple={ false }
                                                                     maxSize={2048} //in kb
-                                                                    fileType='.png, .jpg' //pisahkan dengan koma
+                                                                    fileType='png,jpg' //pisahkan dengan koma
                                                                     className="form-control-file"
                                                                     onDone={ this.handleChangeImage }
                                                                     showPreview={false}

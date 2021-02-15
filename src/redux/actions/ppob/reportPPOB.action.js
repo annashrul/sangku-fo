@@ -31,14 +31,14 @@ export function setLoadingDetail(load) {
 }
 
 
-export const getReportPPOB = (where='')=>{
+export const getReportPPOB = (page=1,where='',perpage=10)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url=`transaction/ppob/report`;
+        let url=`transaction/ppob/report?page=${page}`;
         if(where!==''){
-            url+=`?${where}`
+            url+=`${where}`
         }
-        axios.get(HEADERS.URL+url)
+        axios.get(HEADERS.URL+url+'&perpage='+perpage)
             .then(function (response) {
                 const data = response.data;
                 dispatch(setData(data));

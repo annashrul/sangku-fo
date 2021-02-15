@@ -9,6 +9,12 @@ export function setLoading(load) {
         load
     }
 }
+export function setLoadingReport(load) {
+    return {
+        type: REDEEM.LOADING_REPORT,
+        load
+    }
+}
 
 export function setLoadingDetail(load) {
     return {
@@ -32,6 +38,13 @@ export function setIsError(load) {
 export function setData(data = []) {
     return {
         type: REDEEM.SUCCESS,
+        data
+    }
+}
+
+export function setDataReport(data = []) {
+    return {
+        type: REDEEM.SUCCESS_REPORT,
         data
     }
 }
@@ -149,3 +162,32 @@ export const postRedeem = (data) => {
             })
     }
 }
+
+export const getRedeemReport = (page=1,where,perpage=10) => {
+    return (dispatch) => {
+        dispatch(setLoadingReport(true));
+        let url = `transaction/redeem/report?page=${page}`;
+        if(where){
+            url+=`${where}`;
+        }
+
+        axios.get(HEADERS.URL + `${url}&perpage=${perpage}`)
+            .then(function (response) {
+                const data = response.data;
+                console.log(data);
+                dispatch(setDataReport(data));
+                dispatch(setLoadingReport(false));
+            })
+            .catch(function (error) {
+                dispatch(setLoadingReport(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+            })
+
+    }
+};

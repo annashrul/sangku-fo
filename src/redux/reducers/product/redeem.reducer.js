@@ -6,10 +6,12 @@ const initialState = {
     isLoading: true,
     isLoadingDetail: true,
     isLoadingPost: false,
+    isLoadingReport: false,
     isError: false,
     status: "",
     msg: "",
     data: [],
+    data_report: [],
     edit:[],
     detail:[]
 }
@@ -21,6 +23,12 @@ export const redeemReducer = (state = initialState, action) => {
                 status: action.data.status,
                 msg: action.data.msg,
                 data: action.data.result,
+            });
+        case REDEEM.SUCCESS_REPORT:
+            return Object.assign({}, state, {
+                status: action.data.status,
+                msg: action.data.msg,
+                data_report: action.data.result,
             });
 
         case REDEEM.DETAIL:
@@ -36,6 +44,10 @@ export const redeemReducer = (state = initialState, action) => {
         case REDEEM.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case REDEEM.LOADING_REPORT:
+            return Object.assign({}, state, {
+                isLoadingReport: action.load
             });
         case REDEEM.LOADING_DETAIL:
             return Object.assign({}, state, {
