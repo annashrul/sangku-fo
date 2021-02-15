@@ -44,6 +44,12 @@ export function setLoadingWalletConfig(load) {
         load
     }
 }
+export function setLoadingSitePaket(load) {
+    return {
+        type: SITE.LOADING_SITE_PAKET,
+        load
+    }
+}
 export function setSite(data = []) {
     return {
         type: SITE.SUCCESS,
@@ -53,6 +59,12 @@ export function setSite(data = []) {
 export function setWalletConfig(data = []) {
     return {
         type: SITE.SUCCESS_WALLET_CONFIG,
+        data
+    }
+}
+export function setSitePaket(data = []) {
+    return {
+        type: SITE.SUCCESS_SITE_PAKET,
         data
     }
 }
@@ -95,6 +107,24 @@ export const FetchSite = () => {
             .catch(function (error) {
                 // handle error
                 dispatch(setLoading(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
             })
 
     }
@@ -112,6 +142,59 @@ export const FetchWalletConfig = () => {
             .catch(function (error) {
                 // handle error
                 dispatch(setLoadingWalletConfig(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+            })
+
+    }
+}
+
+export const FetchSitePaket = () => {
+    return (dispatch) => {
+        dispatch(setLoadingSitePaket(true));
+        axios.get(HEADERS.URL + `site/paket`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setSitePaket(data));
+                dispatch(setLoadingSitePaket(false));
+            })
+            .catch(function (error) {
+                // handle error
+                dispatch(setLoadingSitePaket(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
             })
 
     }

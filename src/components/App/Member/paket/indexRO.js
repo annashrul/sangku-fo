@@ -33,7 +33,8 @@ class IndexRO extends Component{
         });
         let data={
             "id_paket":this.props.resPaket.data[i].id,
-            "qty":1
+            "qty":1,
+            "type":"plus",
         };
         if(localStorage.productType===undefined){
             this.props.dispatch(postCart(data,'b'));

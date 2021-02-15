@@ -7,6 +7,8 @@ const initialState = {
     isLoadingPut: false,
     isLoadingWalletConfig: false,
     data: [],
+    isLoadingSitePaket: false,
+    data_paket: [],
     datum: [],
     data_folder: [],
     data_tables: [],
@@ -23,6 +25,14 @@ export const siteReducer = (state = initialState, action) => {
         case SITE.SUCCESS:
             return Object.assign({}, state,{
                 data: action.data.result
+            });
+        case SITE.TRIGGER_ECAPS:
+            return Object.assign({}, state, {
+                triggerEcaps: action.data
+            });
+        case SITE.TRIGGER_MOBILE_ECAPS:
+            return Object.assign({}, state, {
+                triggerMobileEcaps: action.data
             });
         case SITE.LOADING:
             return Object.assign({}, state, {
@@ -41,6 +51,16 @@ export const siteReducer = (state = initialState, action) => {
         case SITE.LOADING_WALLET_CONFIG:
             return Object.assign({}, state, {
                 isLoadingWalletConfig: action.load
+            });
+        case SITE.SUCCESS_SITE_PAKET:
+            return Object.assign({}, state,{
+                msg: action.data.msg,
+                status: action.data.status,
+                data_paket: action.data.result
+            });
+        case SITE.LOADING_SITE_PAKET:
+            return Object.assign({}, state, {
+                isLoadingSitePaket: action.load
             });
         case SITE.SUCCESS_LIST:
             return Object.assign({}, state,{
