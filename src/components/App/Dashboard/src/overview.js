@@ -1,8 +1,35 @@
 import React, {Component} from 'react'
 import {noImage} from "helper";
+import DashboardReward from '../../modals/dashboard/dashboard_redeem';
+import { ModalToggle, ModalType } from '../../../../redux/actions/modal.action';
+import { withRouter } from 'react-router-dom';
+import connect from 'react-redux/es/connect/connect';
 
 class Overview extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            detail:"",
+        };
+        this.toggleReward   = this.toggleReward.bind(this);
+    }
+    toggleReward(e,id){
+        // e.preventDefault()
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("dashboardReward"));
+        this.setState({
+            detail:{id:id}
+        })
+    }
     render(){
+        const blur = {
+            WebkitFilter: 'blur(5px)',
+            cursor:'no-drop',
+            userSelect:'none'
+        }
+        let rewardBool = false
+        rewardBool = this.props.reward.is_claimed||this.props.reward_kanan===this.props.reward_kiri
         return(
             <div>
                 <div className="card h-100 box-margin">
@@ -51,9 +78,10 @@ class Overview extends Component {
                 </div>
                 <div className="card h-100">
                     <div id="overlay"></div>
-                    <div className="card-body" style={{padding: '22px',filter: 'blur(5px)', cursor: 'no-drop', userSelect: 'none'}}>
+                    <div className="card-body" style={rewardBool?null:blur}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}
                         <div className="row">
+                        <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:rewardBool?'none':''}}/>
                             <div className="col-md-4" style={{height:'100px'}}>
                                 <img style={{width:'100%',height:'100%',objectFit:'contain'}} src={this.props.reward.gambar}/>
                             </div>
@@ -62,14 +90,24 @@ class Overview extends Component {
                                     {this.props.reward.title}
                                 </h5>
                                 <p className="title-widget-team mb-0">{this.props.reward.caption}</p>
-                                <a href="!#" className='badge badge-info' onClick={(e)=>{e.preventDefault();return false;}}>Klaim Hadiah</a>
+                                <button type="button" className='badge badge-info cursor-pointer text-white' onClick={(e)=>this.toggleReward(e,this.props.reward.id)}>Klaim Hadiah</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {
+                    this.props.isOpen?<DashboardReward dashboard={this.state.detail}/>:null
+                }
             </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth,
+        isOpen: state.modalReducer,
+    }
+}
 
-export default Overview;
+
+export default withRouter(connect(mapStateToProps)(Overview));

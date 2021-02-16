@@ -4,24 +4,23 @@ import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import { getTestimoni, getTestimoniDetail, getTestimoniKategori } from '../../../../redux/actions/konten/testimoni.action';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
-
-import Fade from 'react-reveal/Fade';
-import HeadShake from 'react-reveal/HeadShake';
 import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import VideoTesti from '../../modals/testimoni/video_testi';
+import FormAddTestimoni from '../../modals/testimoni/form_add_testimoni';
+import Default from '../../../../assets/default.png'
 class Testimoni extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
+        this.toggleAdd = this.toggleAdd.bind(this);
         this.toggleVideo = this.toggleVideo.bind(this);
+        this.toggleFoto = this.toggleFoto.bind(this);
         this.HandleChangeLokasi = this.HandleChangeLokasi.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
@@ -32,6 +31,7 @@ class Testimoni extends Component{
         this.state={
             where_data:"",
             video_testi:"",
+            foto:"",
             any:"",
             location:"",
             location_data:[],
@@ -92,6 +92,16 @@ class Testimoni extends Component{
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("VideoTesti"));
+    };
+    toggleFoto(e,url){
+        e.preventDefault();
+        this.setState({foto:url})
+    };
+    toggleAdd(e){
+        e.preventDefault();
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("FormAddTestimoni"));
     };
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
@@ -337,7 +347,7 @@ class Testimoni extends Component{
                     </div>
                 </div>
                 <div className="w-100 position-sticky fixed-bottom d-none" style={{bottom:'100px'}}>
-                    <button type="button" className="btn btn-info btn-lg btn-circle float-right shadow"><i className="fa fa-plus"></i></button>
+                    <button type="button" className="btn btn-info btn-lg btn-circle float-right shadow" onClick={(e)=>this.toggleAdd(e)}><i className="fa fa-plus"></i></button>
                 </div>
 
                 <div className="row">
@@ -360,6 +370,13 @@ class Testimoni extends Component{
                                                     </button>
                                                 </div>
                                             </div>
+                                            <div className="col-6 col-xs-6 col-md-2 offset-md-4">
+                                                <div className="form-group">
+                                                    <button className="btn btn-primary mt-4 float-right" onClick={this.toggleAdd}>
+                                                        TAMBAH
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -377,7 +394,7 @@ class Testimoni extends Component{
                                                                 // </div>
                                                                 <div className="col-md-4" style={{marginBottom:'70px'}}>
                                                                     <div className="card m-2 h-100" ref={(node) => {if (node) {  node.style.setProperty("margin-top", "40px", "important");}}}>
-                                                                        <div className="text-center w-100" style={{marginTop:'-40px'}}><img className="border rounded-circle img-thumbnail w-25 shadow" src={v.picture} alt="sangqu" /></div>
+                                                                        <div className="text-center w-100" style={{marginTop:'-40px'}}><img className="border rounded-circle img-thumbnail shadow" src={v.foto} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" style={{width:'100px',height:'100px'}} /></div>
                                                                         <div className="card-body d-flex align-items-center">
                                                                             <div className="text-center w-100">
                                                                                 <i className="fa fa-quote-left text-warning"></i>
@@ -387,14 +404,17 @@ class Testimoni extends Component{
                                                                                     <div><span className="text-warning font-20"><i className="fa fa-user"/>&nbsp;{v.writer}</span></div>
                                                                                 </div>
                                                                                 <div className="d-flex align-items-center justify-content-between">
-                                                                                    <p className="font-11"><i className="zmdi zmdi-group-work">&nbsp;{v.title}</i></p>
+                                                                                    <p className="font-11"><i className="zmdi zmdi-group-work">&nbsp;{v.jobs}</i></p>
                                                                                     <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD')}</p>
                                                                                 </div>
-                                                                                {v.video!=='-'&&v.video!==''&&v.video!==undefined?
                                                                                 <div className="text-center w-100 mt-2">
-                                                                                    <div><button type="button" className="btn btn-outline-danger btn-circle" onClick={(e)=>this.toggleVideo(e,v.video)} ><i className="fa fa-play"/></button></div>
+                                                                                    {v.video!=='-'&&v.video!==''&&v.video!==undefined?
+                                                                                        <div><button type="button" className="btn btn-outline-danger btn-circle" onClick={(e)=>this.toggleVideo(e,v.video)} ><i className="fa fa-play"/></button></div>
+                                                                                    :''}
+                                                                                    {String(v.picture).toLowerCase().search('default')!=='-1'?
+                                                                                    <div><button type="button" className="btn btn-outline-info btn-circle" onClick={(e)=>this.toggleFoto(e,v.picture)} ><i className="fa fa-file-image-o"/></button></div>
+                                                                                    :''}
                                                                                 </div>
-                                                                                :''}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -484,7 +504,21 @@ class Testimoni extends Component{
                         </div>
                     </div>
                 </div>
+
+                <div id="lightboxOverlay" className="lightboxOverlay" style={{zIndex: 99999, width: '100%', height: '100%', display: this.state.foto===''?'none':'block', position: 'fixed'}} />
+
+                <div id="lightbox" classname="lightbox" onClick={(e)=>this.toggleFoto(e,'')} style={{display: this.state.foto===''?'none':'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', top: 0, textAlign: 'center', left: 0, zIndex: 9999999, position: 'fixed', minHeight: '100%', minWidth: '100%'}}>
+                    <div className="lb-outerContainer" style={{width: '500px', height: 'auto'}}>
+                        <div className="lb-container">
+                            <img className="lb-image" src={this.state.foto} alt ="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{display: 'block', width: '500px', height: 'auto'}} />
+                        </div>
+                    </div>
+                </div>
+
+
+
                 {this.state.video_testi!==''&&this.state.video_testi!==undefined?<VideoTesti videoTesti={this.state.video_testi}/>:''}
+                <FormAddTestimoni/>
             </Layout>
             );
     }

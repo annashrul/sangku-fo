@@ -312,12 +312,13 @@ class PinRo extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className="pt-3">
                                         {/* <div className="form-group">
                                             <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
                                                 <i className="fa fa-check"/>&nbsp;Reaktivasi
                                             </button>
                                         </div> */}
+                                        <h5>PIN Yang Anda Miliki : {this.props.getPin.total_pin} PIN</h5>
                                     </div>
                                 </div>
                                 <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>

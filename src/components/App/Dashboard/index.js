@@ -99,6 +99,7 @@ class Index extends Component {
         })
        
         socket.on("set_dashboard", (data) => {
+            console.log("object data dashboard",data);
            this.setState({
                load_socket:false,
                bonus:data.bonus,

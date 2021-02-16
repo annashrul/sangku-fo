@@ -358,7 +358,7 @@ class Berita extends Component{
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card">
+                        <div className="card" style={{position:'sticky', top:'100px'}}>
                             <div className="card-header bg-primary"><h5 className="text-light">Kategori</h5></div>
                             <div className="card-body p-1" style={{height:'300px', overflowX:'auto'}}>
                             {

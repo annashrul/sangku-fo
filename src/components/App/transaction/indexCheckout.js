@@ -19,6 +19,7 @@ import StickyBox from "react-sticky-box/dist/esnext/index";
 import ModalPin from "../modals/modal_pin";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import Skeleton from 'react-loading-skeleton';
+import { Link } from 'react-router-dom';
 
 class IndexCheckout extends Component{
     constructor(props){
@@ -40,6 +41,8 @@ class IndexCheckout extends Component{
             dataLayanan:[],
             dataBank:[],
             isAlamat:false,
+            isVoucher:false,
+            voucher:'',
             isLoadingLayanan:false,
             code:0,
         };
@@ -293,6 +296,7 @@ class IndexCheckout extends Component{
             "alamat"                : this.state.valAlamat.id,
             "metode_pembayaran"     : this.state.metode_pembayaran,
             "id_bank_destination"   : this.state.idBank,
+            "voucher"               : this.state.isVoucher?this.state.voucher:'',
             pin_member:num
         };
         if(num.length===6){
@@ -300,7 +304,12 @@ class IndexCheckout extends Component{
 
         }
     }
-
+    toggleVoucher = () => {
+        this.setState({
+          isVoucher: !this.state.isVoucher,
+          voucher: '',
+        });
+      }
     render(){
         let {totOngkir,totBelanja,valAlamat,idBank} = this.state;
         return(
@@ -311,6 +320,7 @@ class IndexCheckout extends Component{
                             <div className="card-body">
                                 {
                                     !this.props.isLoadingAlamat?(
+                                        valAlamat.penerima!==undefined?
                                         <div className="row">
                                             <div className="col-9 col-xs-9 col-md-9">
                                                 <div className="single-contact-area d-flex">
@@ -336,6 +346,11 @@ class IndexCheckout extends Component{
                                                 />
                                             </div>
                                         </div>
+                                        :
+                                        <div className="alert alert-danger bg-white text-danger text-center" role="alert">
+                                            Alamat anda masih kosong atau belum tersedia, tambahkan alamat pada halaman <Link to={`/profile`}>Profile <i className="zmdi zmdi-open-in-new"/></Link> anda terlebih dahulu jika hendak akan melanjutkan proses Checkout!
+                                        </div>
+
                                     ):(
                                         <div className="row">
                                             <div className="col-md-12">
@@ -525,6 +540,17 @@ class IndexCheckout extends Component{
                                         </ul>
                                     )
                                 }
+
+                                <div className="form-group">
+                                <div className="checkbox checkbox-primary d-inline">
+                                    <input type="checkbox" name="checkbox-p-1" id="checkbox-p-1" defaultChecked={this.state.isVoucher} onChange={this.toggleVoucher} />
+                                    <label htmlFor="checkbox-p-1" className="cr">Punya Voucher?</label>
+                                </div>
+                                </div>
+                                {this.state.isVoucher?
+                                <div className="form-group">
+                                    <input type="text" className="form-control" name="voucher" value={this.state.voucher} onChange={this.handleChange} />
+                                </div>:''}
 
                                 <button className="btn btn-primary bgGreen" style={{borderRadius:"10px",width:"100%",padding:"10px",fontSize:"20px"}} disabled={
                                     this.props.resCart.length<1||this.state.kurir===''||this.state.layanan===''

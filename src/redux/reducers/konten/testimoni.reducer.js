@@ -5,6 +5,7 @@ const initialState = {
     isLoadingTestimoni:true,
     isLoadingTestimoniKategori:true,
     isLoadingTestimoniDetail:true,
+    isLoadingPost:true,
     status:"",msg:"",
     data_testimoni:[],
     data_testimoni_kategori:[],
@@ -34,6 +35,10 @@ export const testimoniReducer = (state=initialState,action) => {
         case TESTIMONI.LOADING_TESTIMONI:
             return Object.assign({}, state, {
                 isLoadingTestimoni: action.load
+            });
+        case TESTIMONI.LOADING_POST:
+            return Object.assign({}, state, {
+                isLoadingPost: action.load
             });
         case TESTIMONI.LOADING_TESTIMONI_KATEGORI:
             return Object.assign({}, state, {
