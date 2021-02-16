@@ -87,6 +87,7 @@ class SideMenu extends Component {
             path==='/report/riwayat'
             || path==='/report/ppob'
             || path==='/report/wallet/deposit'
+            || path==='/report/redeem'
             || path==='/report/wallet/penarikan'){
             this.setState({
                 isReport:true,
@@ -218,6 +219,7 @@ class SideMenu extends Component {
                             <li className={path==='/report/riwayat'?"active":''}><Link to="/report/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                             <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
+                            <li className={path==='/report/redeem'?"active":''}><Link to="/report/redeem" style={{width:'fit-content'}}> Redeem</Link></li>
 
                         </ul>
                     </li>

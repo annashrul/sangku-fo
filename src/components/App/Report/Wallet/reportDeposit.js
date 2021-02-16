@@ -18,15 +18,15 @@ class DepositReport extends Component{
         this.handleSearch       = this.handleSearch.bind(this);
         this.handleEvent        = this.handleEvent.bind(this);
         this.handleChange       = this.handleChange.bind(this);
-        this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
+        this.HandleChangeSearchby = this.HandleChangeSearchby.bind(this);
         this.state={
             where_data:"",
             detail          :{},
             startDate       :moment(new Date()).format("yyyy-MM-DD"),
             endDate         :moment(new Date()).format("yyyy-MM-DD"),
             any_deposit_report:'',
-            status:"",
-            status_data:[],
+            searchby:"",
+            searchby_data:[],
         }
     }
     componentWillMount(){
@@ -49,8 +49,8 @@ class DepositReport extends Component{
                 endDate: localStorage.date_to_deposit_report
             })
         }
-        if (localStorage.status_deposit_report !== undefined && localStorage.status_deposit_report !== null) {
-            this.setState({status: localStorage.status_deposit_report})
+        if (localStorage.searchby_deposit_report !== undefined && localStorage.searchby_deposit_report !== null) {
+            this.setState({searchby: localStorage.searchby_deposit_report})
         }
     }
     componentWillReceiveProps(nextProps){
@@ -68,26 +68,37 @@ class DepositReport extends Component{
             });
             return null;
         });
-
+        let searchby = [
+            {kode:"kd_trx",value: "Kode TRX"},
+            {kode:"bank_name",value: "Bank"},
+        ];
+        let data_searchby=[];
+        searchby.map((i) => {
+            data_searchby.push({
+                value: i.kode,
+                label: i.value
+            });
+            return null;
+        });
         this.setState({
-            status_data: data_status,
+            searchby_data: data_searchby,
         });
     
-        localStorage.setItem('status_deposit_report',this.state.status===''||this.state.status===undefined?status[0].kode:localStorage.status_deposit_report)
+        localStorage.setItem('searchby_deposit_report',this.state.searchby===''||this.state.searchby===undefined?searchby[0].kode:localStorage.searchby_deposit_report)
     }
     checkingParameter(pageNumber){
         let where='';
         let dateFrom=localStorage.getItem("date_from_deposit_report");
         let dateTo=localStorage.getItem("date_to_deposit_report");
         let any=localStorage.getItem("any_deposit_report");
-        let status=localStorage.status_deposit_report;
+        let searchby=localStorage.searchby_deposit_report;
         if(dateFrom!==null&&dateTo!==null){
             if(where!==''){where+='&'}where+=`datefrom=${dateFrom}&dateto=${dateTo}`
         }else{
             if(where!==''){where+='&'}where+=`datefrom=${this.state.startDate}&dateto=${this.state.endDate}`
         }
-        if(status!==undefined&&status!==null&&status!==''){
-            if(where!==''){where+='&'}where+=`status=${status}`;
+        if(searchby!==undefined&&searchby!==null&&searchby!==''){
+            if(where!==''){where+='&'}where+=`searchby=${searchby}`;
         }
         if(any!==undefined&&any!==null&&any!==''){
             if(where!==''){where+='&'}where+=`q=${any}`
@@ -106,6 +117,12 @@ class DepositReport extends Component{
             status: st.value,
         });
         localStorage.setItem('status_deposit_report', st.value);
+    }
+    HandleChangeSearchby(sb) {
+        this.setState({
+            searchby: sb.value,
+        });
+        localStorage.setItem('searchby_deposit_report', sb.value);
     }
 
     handleEvent = (event, picker) => {
@@ -154,10 +171,10 @@ class DepositReport extends Component{
                 <div className="col-12 box-margin">
                     <div className="card">
                         <div className="card-body">
-                            <div className="row" style={{zoom:"70%"}}>
+                            <div className="row" style={{zoom:"100%"}}>
                                <div className="col-md-10">
                                    <div className="row">
-                                       <div className="col-6 col-xs-6 col-md-2">
+                                       <div className="col-6 col-xs-6 col-md-3">
                                            <div className="form-group">
                                                <label htmlFor=""> Periode </label>
                                                    <DateRangePicker
@@ -171,23 +188,23 @@ class DepositReport extends Component{
                                                    </DateRangePicker>
                                            </div>
                                        </div>
-                                        <div className="col-6 col-xs-6 col-md-2">
+                                        <div className="col-6 col-xs-6 col-md-3">
                                             <div className="form-group">
                                                 <label className="control-label font-12">
-                                                    Status
+                                                    Cari Berdasarkan
                                                 </label>
                                                 <Select
-                                                    options={this.state.status_data}
-                                                    placeholder="Pilih Status"
-                                                    onChange={this.HandleChangeStatus}
+                                                    options={this.state.searchby_data}
+                                                    // placeholder="Pilih Status"
+                                                    onChange={this.HandleChangeSearchby}
                                                     value={
-                                                        this.state.status_data.find(op => {
-                                                        return op.value === this.state.status
+                                                        this.state.searchby_data.find(op => {
+                                                        return op.value === this.state.searchby
                                                     })}
                                                 />
                                             </div>
                                         </div>
-                                       <div className="col-12 col-xs-12 col-md-1">
+                                       <div className="col-12 col-xs-12 col-md-3">
                                            <div className="form-group">
                                                <label htmlFor="">Cari</label>
                                                <input type="text" name="any_deposit_report" className="form-control" style={{width:"100%"}} value={this.state.any_deposit_report}  onChange={(e)=>this.handleChange(e)}/>

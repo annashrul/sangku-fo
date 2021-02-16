@@ -16,10 +16,12 @@ import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import VideoTesti from '../../modals/testimoni/video_testi';
 class Testimoni extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
+        this.toggleVideo = this.toggleVideo.bind(this);
         this.HandleChangeLokasi = this.HandleChangeLokasi.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
@@ -29,6 +31,7 @@ class Testimoni extends Component{
         this.handleLoadMore = this.handleLoadMore.bind(this);
         this.state={
             where_data:"",
+            video_testi:"",
             any:"",
             location:"",
             location_data:[],
@@ -71,7 +74,7 @@ class Testimoni extends Component{
     }
     handlePageChange(pageNumber){
         localStorage.setItem("page_testimoni",pageNumber);
-        this.props.dispatch(getTestimoni(pageNumber))
+        this.props.dispatch(getTestimoni(pageNumber,this.state.where_data,9))
     }
     toggle(e,code,barcode,name){
         e.preventDefault();
@@ -82,6 +85,13 @@ class Testimoni extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("testimoniDetail"));
         this.props.dispatch(getTestimoniDetail(code))
+    };
+    toggleVideo(e,url){
+        e.preventDefault();
+        this.setState({video_testi:url})
+        const bool = !this.props.isOpen;
+        this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType("VideoTesti"));
     };
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
@@ -151,7 +161,7 @@ class Testimoni extends Component{
         this.setState({
             where_data:where
         })
-        this.props.dispatch(getTestimoni(pageNumber,where))
+        this.props.dispatch(getTestimoni(pageNumber,where,9))
         this.props.dispatch(getTestimoniKategori(1))
         // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
@@ -294,7 +304,7 @@ class Testimoni extends Component{
                         </div>
                     </div>
                 </div>
-                <div className="testimonial2 py-5 card m-2">
+                <div className="testimonial2 py-5 card m-2  d-none">
                     <div className="container">
                         <div className="heading"></div>
                         <div className="owl-carousel owl-theme testi2 mt-4">
@@ -326,12 +336,12 @@ class Testimoni extends Component{
                         </div>
                     </div>
                 </div>
-                <div className="w-100 position-sticky fixed-bottom" style={{bottom:'100px'}}>
+                <div className="w-100 position-sticky fixed-bottom d-none" style={{bottom:'100px'}}>
                     <button type="button" className="btn btn-info btn-lg btn-circle float-right shadow"><i className="fa fa-plus"></i></button>
                 </div>
 
-                <div className="row d-none">
-                    <div className="col-md-8">
+                <div className="row">
+                    <div className="col-md-12">
                         <div className="card">
                             <div className="card-body">
                                 <div className="row">
@@ -353,8 +363,7 @@ class Testimoni extends Component{
                                         </div>
                                     </div>
                                 </div>
-                                <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 1, 900: 2}}>
-                                    <Masonry>
+                                <div className="row justify-content-center d-flex" style={{paddingBottom:'40px'}}>
                                         {
                                             !this.props.isLoadingTestimoni?(
                                                 (
@@ -366,22 +375,27 @@ class Testimoni extends Component{
                                                                 //         <img src={`https://picsum.photos/${Math.floor(Math.random() * 500) + 400}/${Math.floor(Math.random() * 400) + 300}`} alt="img"/>
                                                                 //     </div>
                                                                 // </div>
-                                                                <div className="card m-2">
-                                                                    <img className="img-fluid" src={v.picture} alt="sangqu" />
-                                                                    <div className="card-body">
-                                                                        <Link to={`/konten/testimoni/${v.id}`}><h5 className="font-24 mb-0">{v.title}</h5></Link>
-                                                                        <div className="d-flex align-items-center justify-content-between">
-                                                                            <p></p>
-                                                                            <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD HH:mm')}</p>
-                                                                        </div>
-                                                                        <div dangerouslySetInnerHTML={{__html: String(v.caption).substr(0,50)}} />
-                                                                        <div className="row">
-                                                                        <div className="col-6">
-                                                                            {/* <a href={() => false} className="btn btn-primary text-uppercase btn-block">friend</a> */}
-                                                                        </div>
-                                                                        <div className="col-6">
-                                                                            <Link to={`/konten/testimoni/${v.id}`} className="btn text-uppercase border btn-block btn-outline-secondary">Baca</Link>
-                                                                        </div>
+                                                                <div className="col-md-4" style={{marginBottom:'70px'}}>
+                                                                    <div className="card m-2 h-100" ref={(node) => {if (node) {  node.style.setProperty("margin-top", "40px", "important");}}}>
+                                                                        <div className="text-center w-100" style={{marginTop:'-40px'}}><img className="border rounded-circle img-thumbnail w-25 shadow" src={v.picture} alt="sangqu" /></div>
+                                                                        <div className="card-body d-flex align-items-center">
+                                                                            <div className="text-center w-100">
+                                                                                <i className="fa fa-quote-left text-warning"></i>
+                                                                                    <div dangerouslySetInnerHTML={{__html: v.caption}} />
+                                                                                <i className="fa fa-quote-right text-warning"></i>
+                                                                                <div className="text-center w-100 mt-2">
+                                                                                    <div><span className="text-warning font-20"><i className="fa fa-user"/>&nbsp;{v.writer}</span></div>
+                                                                                </div>
+                                                                                <div className="d-flex align-items-center justify-content-between">
+                                                                                    <p className="font-11"><i className="zmdi zmdi-group-work">&nbsp;{v.title}</i></p>
+                                                                                    <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD')}</p>
+                                                                                </div>
+                                                                                {v.video!=='-'&&v.video!==''&&v.video!==undefined?
+                                                                                <div className="text-center w-100 mt-2">
+                                                                                    <div><button type="button" className="btn btn-outline-danger btn-circle" onClick={(e)=>this.toggleVideo(e,v.video)} ><i className="fa fa-play"/></button></div>
+                                                                                </div>
+                                                                                :''}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -391,24 +405,25 @@ class Testimoni extends Component{
                                                 )
                                             ):(() => {
                                                 const rows = [];
-                                                for (let i = 0; i < 10; i++) {
+                                                for (let i = 0; i < 9; i++) {
                                                     rows.push(
-                                                        <div className="card m-2">
-                                                            <Skeleton className="img-fluid" style={{height:'200px'}}/>
-                                                            <div className="card-body">
-                                                                <Skeleton width={100} height={20}/>
-                                                                <div className="d-flex align-items-center justify-content-between">
-                                                                    <p className="font-11"></p>
-                                                                    <p className="font-11"><i className="fa fa-calendar"/>&nbsp;<Skeleton width={70}/></p>
-                                                                </div>
-                                                                <Skeleton style={{width:'100%'}}/>
-                                                                <div className="row">
-                                                                <div className="col-6">
-                                                                    {/* <a href={() => false} className="btn btn-primary text-uppercase btn-block">friend</a> */}
-                                                                </div>
-                                                                <div className="col-6">
-                                                                    <Skeleton width={100} height={20} />
-                                                                </div>
+                                                        <div className="col-md-4" style={{marginBottom:'70px'}}>
+                                                            <div className="card m-2 h-100" ref={(node) => {if (node) {  node.style.setProperty("margin-top", "40px", "important");}}}>
+                                                            <div className="text-center w-100" style={{marginTop:'-40px'}}><Skeleton circle={true} width={70} height={70} /></div>
+                                                                <div className="card-body d-flex align-items-center">
+                                                                    <div className="text-center w-100">
+                                                                        <i className="fa fa-quote-left text-warning"></i>
+                                                                            {/* <div dangerouslySetInnerHTML={{__html: v.caption}} /> */}
+                                                                            <Skeleton count={5} style={{width:'85%'}}/>
+                                                                        <i className="fa fa-quote-right text-warning"></i>
+                                                                        <div className="text-center w-100 mt-2">
+                                                                            <div><span className="text-warning font-20"><i className="fa fa-user"/>&nbsp;<Skeleton width={80}/></span></div>
+                                                                        </div>
+                                                                        <div className="d-flex align-items-center justify-content-between">
+                                                                            <p className="font-11"><i className="zmdi zmdi-group-work">&nbsp;<Skeleton width={70}/></i></p>
+                                                                            <p className="font-11"><i className="fa fa-calendar"/>&nbsp;<Skeleton width={70}/></p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -417,8 +432,7 @@ class Testimoni extends Component{
                                                 return rows;
                                             })()
                                         }
-                                    </Masonry>
-                                </ResponsiveMasonry>
+                                    </div>
                                 <div style={{"marginTop":"20px","float":"right"}}>
                                     <Paginationq
                                         current_page={current_page}
@@ -430,7 +444,7 @@ class Testimoni extends Component{
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 d-none">
                         <div className="card">
                             <div className="card-header bg-primary"><h5 className="text-light">Kategori</h5></div>
                             <div className="card-body p-1" style={{height:'300px', overflowX:'auto'}}>
@@ -470,6 +484,7 @@ class Testimoni extends Component{
                         </div>
                     </div>
                 </div>
+                {this.state.video_testi!==''&&this.state.video_testi!==undefined?<VideoTesti videoTesti={this.state.video_testi}/>:''}
             </Layout>
             );
     }
