@@ -56,7 +56,10 @@ class Cards extends Component {
                                         </div>
                                         <div className="col-md-2" style={{verticalAlign:"left",borderRight:"1px solid rgba(0,0,0,.1)"}}>
                                             <p className={"black"}>Total Belanja<br/>
-                                                <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(v.grand_total)} .-</span>
+                                                <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(v.grand_total)} .-</span><br/>
+                                                <div className={"bold"} style={{fontSize:'.7em'}}>Diskon: Rp {toCurrency(v.disc)} .-</div>
+                                                <div className={"bold"} style={{fontSize:'.7em'}}>PPN: Rp {toCurrency(v.tax)} .-</div>
+
                                             </p>
                                         </div>
                                         <div className="col-md-5" style={{verticalAlign:"left"}}>
@@ -112,7 +115,7 @@ class Cards extends Component {
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-md-3">
-                                                                    <p style={{float:"left"}} className={"black"}>Total Harga<br/>
+                                                                    <p style={{float:"left"}} className={"black"}>Subtotal<br/>
                                                                         <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(parseInt(v.detail[val].price)*parseInt(v.detail[val].qty))} .-</span>
                                                                     </p>
                                                                 </div>

@@ -84,6 +84,9 @@ class PembelianDetail extends Component{
                 type: list.type,
                 updated_at: list.updated_at,
                 valid_resi: list.valid_resi,
+                disc: list.disc,
+                tax: list.tax,
+                voucher_code: list.voucher_code,
             })
 
 
@@ -159,6 +162,8 @@ class PembelianDetail extends Component{
                                                 <br/>
                                                 {data.main_address}
                                             </p>
+                                            <p>Voucher <br/> <span className="bold txtGreen">{data.voucher_code}</span></p>
+
                                         </div>
                                     </div>
                                     <hr/>
@@ -242,12 +247,16 @@ class PembelianDetail extends Component{
                                                 <div className="col-md-4">
                                                     <p>Total Harga ({typeof data.detail==='object'?data.detail.length>0?data.detail.length:0:0} item)</p>
                                                     <p>Total Ongkos Kirim</p>
+                                                    <p>Total Diskon</p>
+                                                    <p>Total PPN</p>
                                                     <p>Total Bayar</p>
                                                     <p>Metode Pembayaran</p>
                                                 </div>
                                                 <div className="col-md-8" style={{textAlign:"right"}}>
                                                     <p><span className="bold txtRed">Rp {toCurrency(data.subtotal)} .-</span></p>
                                                     <p><span className="bold txtRed">Rp {toCurrency(data.ongkir)} .-</span></p>
+                                                    <p><span className="bold txtRed">Rp {toCurrency(data.disc)} .-</span></p>
+                                                    <p><span className="bold txtRed">Rp {toCurrency(data.tax)} .-</span></p>
                                                     <p><span className="bold txtRed">Rp {toCurrency(data.grand_total)} .-</span></p>
                                                     <p><span className="bold txtGreen">{data.metode_pembayaran===undefined?'':data.metode_pembayaran.toUpperCase()}</span></p>
                                                 </div>
