@@ -90,7 +90,7 @@ class Overview extends Component {
                                     {this.props.reward.title}
                                 </h5>
                                 <p className="title-widget-team mb-0">{this.props.reward.caption}</p>
-                                <button type="button" className='badge badge-info cursor-pointer text-white' onClick={(e)=>this.toggleReward(e,this.props.reward.id)}>Klaim Hadiah</button>
+                                <a href={() => {return null}} className='badge badge-info cursor-pointer text-white' onClick={(e)=>this.toggleReward(e,this.props.reward.id)}>Klaim Hadiah</a>
                             </div>
                         </div>
                     </div>

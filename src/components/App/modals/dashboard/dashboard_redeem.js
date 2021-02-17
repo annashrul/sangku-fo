@@ -81,7 +81,7 @@ class DashboardRedeem extends Component{
         const {idx} = this.state;
         return (
             <div>
-                <WrapperModal isOpen={this.props.isOpen && this.props.type === "dashboardRedeem"} size="lg">
+                <WrapperModal isOpen={this.props.isOpen && this.props.type === "dashboardReward"} size="lg">
                     <ModalHeader toggle={this.toggle}>ALAMAT PENERIMA REWARD</ModalHeader>
                     <ModalBody>
                         {
@@ -132,7 +132,7 @@ class DashboardRedeem extends Component{
                     </ModalFooter>
                 </WrapperModal>
                 {
-                    this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'dashboardRedeem'}/>:null
+                    this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'dashboardReward'}/>:null
                 }
 
             </div>

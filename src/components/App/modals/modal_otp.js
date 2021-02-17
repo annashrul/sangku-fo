@@ -23,13 +23,16 @@ class ModalOtp extends Component{
     }
 
 
-    toggle = (e) => {
+    toggle(e){
+        console.log("klik",e);
         e.preventDefault();
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
+        this.props.dispatch(ModalType('modalOtp'));
     };
 
     render(){
+        console.log("this.props.isOpen",this.props.isOpen);
         return (
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "modalOtp"} size="lg">
                 <ModalHeader toggle={this.toggle}>KEAMANAN</ModalHeader>

@@ -57,9 +57,15 @@ class TempPasca extends Component{
         localStorage.setItem("isPin","-");
         this.props.dispatch(FetchPulsaAll(`kategori=${atob(this.state.code)}`))
     }
+    // componentDidUpdate(prevState){
+    //     if (prevState.auth.isErrorNo === true && localStorage.isPin==="false") {
+    //         this.props.dispatch(ModalToggle(true));
+    //         this.props.dispatch(ModalType("modalOtp"));
+    //     }
+    // }
     componentWillReceiveProps(nextProps){
         const {currentStep } = this.state;
-        if (nextProps.auth.isErrorNo === true && localStorage.isPin==="false") {
+        if (nextProps.auth.isErrorNo === true && localStorage.isPin==="false" && this.props.ModalToggle) {
             this.props.dispatch(ModalToggle(true));
             this.props.dispatch(ModalType("modalOtp"));
         }
