@@ -103,6 +103,12 @@ class Header extends Component {
             this.setState({totCart:nextProps.resCart.data.length});
         }
     }
+    componentDidUpdate(prevState){
+        if(prevState.triggerMobileEcaps&&this.props.triggerMobileEcaps){
+            // const bool = !this.props.triggerMobileEcaps;
+            this.props.setMobileEcaps(false);
+        }
+    }
 
     componentWillMount(){
         this.refreshData(atob(Cookies.get('sangqu_exp')));

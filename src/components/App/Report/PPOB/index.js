@@ -188,86 +188,84 @@ class IndexReportPPOB extends Component{
         } = this.props.data;
         return (
             <Layout page="Riwayat Top Up & Tagihan">
-                <div className="col-12 box-margin">
-                    <div className="card" style={{marginBottom:"10px"}}>
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-md-10" style={{zoom:"100%"}}>
-                                    <div className="row">
-                                        <div className="col-6 col-xs-6 col-md-3">
-                                            <div className="form-group">
-                                                <label htmlFor=""> Periode </label>
-                                                <DateRangePicker
-                                                    autoUpdateInput={true} showDropdowns={true} style={{display:'unset'}} ranges={rangeDate} alwaysShowCalendars={true} onApply={this.handleEvent}>
-                                                    <input type="text" readOnly={true} className="form-control" value={`${this.state.dateFrom} to ${this.state.dateTo}`}/>
-                                                </DateRangePicker>
+                <div className="card box-margin">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-md-10" style={{zoom:"100%"}}>
+                                <div className="row">
+                                    <div className="col-6 col-xs-6 col-md-3">
+                                        <div className="form-group">
+                                            <label htmlFor=""> Periode </label>
+                                            <DateRangePicker
+                                                autoUpdateInput={true} showDropdowns={true} style={{display:'unset'}} ranges={rangeDate} alwaysShowCalendars={true} onApply={this.handleEvent}>
+                                                <input type="text" readOnly={true} className="form-control" value={`${this.state.dateFrom} to ${this.state.dateTo}`}/>
+                                            </DateRangePicker>
 
-                                            </div>
                                         </div>
-                                        <div className="col-6 col-xs-6 col-md-3">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Cari Berdasarkan
-                                                </label>
-                                                <Select
-                                                    options={this.state.searchby_data}
-                                                    // placeholder="Pilih Status"
-                                                    onChange={this.HandleChangeSearchby}
-                                                    value={
-                                                        this.state.searchby_data.find(op => {
-                                                        return op.value === this.state.searchby
-                                                    })}
-                                                />
-                                            </div>
+                                    </div>
+                                    <div className="col-6 col-xs-6 col-md-3">
+                                        <div className="form-group">
+                                            <label className="control-label font-12">
+                                                Cari Berdasarkan
+                                            </label>
+                                            <Select
+                                                options={this.state.searchby_data}
+                                                // placeholder="Pilih Status"
+                                                onChange={this.HandleChangeSearchby}
+                                                value={
+                                                    this.state.searchby_data.find(op => {
+                                                    return op.value === this.state.searchby
+                                                })}
+                                            />
                                         </div>
-                                        <div className="col-6 col-xs-6 col-md-3">
-                                            <div className="form-group">
-                                                <label>Cari</label>
-                                                <input className="form-control" type="text" name="any_ppob_report" value={this.state.any_ppob_report} onChange={(e) => this.handleChange(e)}/>
-                                            </div>
+                                    </div>
+                                    <div className="col-6 col-xs-6 col-md-3">
+                                        <div className="form-group">
+                                            <label>Cari</label>
+                                            <input className="form-control" type="text" name="any_ppob_report" value={this.state.any_ppob_report} onChange={(e) => this.handleChange(e)}/>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                    <i className="fa fa-search"/>
-                                                </button>
-                                                {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>*/}
-                                                    {/*<i className="fa fa-print"></i> Export*/}
-                                                {/*</button>*/}
-                                            </div>
+                            </div>
+                            <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
+                                                <i className="fa fa-search"/>
+                                            </button>
+                                            {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>*/}
+                                                {/*<i className="fa fa-print"></i> Export*/}
+                                            {/*</button>*/}
                                         </div>
                                     </div>
-
                                 </div>
 
                             </div>
 
                         </div>
+
                     </div>
-                        {
+                </div>
+                    {
 
-                            !this.props.isLoading?this.state.data.length>0?
-                            <Cards 
-                                data={this.state.data}
-                                handleOnClick={this.toggleDetail}
-                            />:
-                            <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></div>:<Skeleton/>
+                        !this.props.isLoading?this.state.data.length>0?
+                        <Cards 
+                            data={this.state.data}
+                            handleOnClick={this.toggleDetail}
+                        />:
+                        <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></div>:<Skeleton/>
 
-                        }
-                    <div className="card">
-                        <div className="card-body">
-                            <div style={{"marginTop":"20px","float":"right"}}>
-                                <Paginationq
-                                    current_page={current_page}
-                                    per_page={per_page}
-                                    total={parseInt((per_page*last_page),10)}
-                                    callback={this.handlePageChange.bind(this)}
-                                />
-                            </div>
+                    }
+                <div className="card">
+                    <div className="card-body">
+                        <div style={{"marginTop":"20px","float":"right"}}>
+                            <Paginationq
+                                current_page={current_page}
+                                per_page={per_page}
+                                total={parseInt((per_page*last_page),10)}
+                                callback={this.handlePageChange.bind(this)}
+                            />
                         </div>
                     </div>
                 </div>

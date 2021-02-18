@@ -183,20 +183,18 @@ class Sponsor extends Component{
        require("../../Member/Binary/treedev.css"); // here
        return (
             <Layout page="Sponsor">
-                <div className="col-12">
-                    <div className="card">
-                        <div className="card-body">
+               <div className="card">
+                  <div className="card-body">
 
-                            {/* ========================================================= */}
-                            {
-                              !this.props.isLoading?
-                              <SponsorNode dataList={this.props.list}/>
-                              :<Spinner/>
-                           }
-                            {/* ====================================================== */}
-                        </div>
-                    </div>
-                </div>
+                        {/* ========================================================= */}
+                        {
+                        !this.props.isLoading?
+                        <SponsorNode dataList={this.props.list}/>
+                        :<Spinner/>
+                     }
+                        {/* ====================================================== */}
+                  </div>
+               </div>
             </Layout>
         );
     }

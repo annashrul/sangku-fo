@@ -272,213 +272,211 @@ class RedeemReport extends Component{
         } = this.props.redeemReport;
         return (
             <Layout page="Laporan Redeem">
-                <div className="col-12 box-margin">
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-md-10" style={{zoom:"100%"}}>
-                                    <div className="row">
-                                        <div className="col-6 col-xs-6 col-md-3">
-                                            <div className="form-group">
-                                                <label htmlFor=""> Periode </label>
-                                                <DateRangePicker
-                                                    style={{display:'unset'}}
-                                                    ranges={rangeDate}
-                                                    alwaysShowCalendars={true}
-                                                    onEvent={this.handleEvent}
-                                                >
-                                                    <input type="text" className="form-control" value={`${this.state.startDate} to ${this.state.endDate}`} style={{padding: '10px',fontWeight:'bolder'}}/>
-                                                </DateRangePicker>
-                                            </div>
+                <div className="card box-margin">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-md-10" style={{zoom:"100%"}}>
+                                <div className="row">
+                                    <div className="col-6 col-xs-6 col-md-3">
+                                        <div className="form-group">
+                                            <label htmlFor=""> Periode </label>
+                                            <DateRangePicker
+                                                style={{display:'unset'}}
+                                                ranges={rangeDate}
+                                                alwaysShowCalendars={true}
+                                                onEvent={this.handleEvent}
+                                            >
+                                                <input type="text" className="form-control" value={`${this.state.startDate} to ${this.state.endDate}`} style={{padding: '10px',fontWeight:'bolder'}}/>
+                                            </DateRangePicker>
                                         </div>
-                                        <div className="col-6 col-xs-6 col-md-3">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Cari Berdasarkan
-                                                </label>
-                                                <Select
-                                                    options={this.state.searchby_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeSearchby}
-                                                    value={
-                                                        this.state.searchby_data.find(op => {
-                                                            return op.value === this.state.searchby
-                                                        })
-                                                    }
-                                                />
-                                            </div>
+                                    </div>
+                                    <div className="col-6 col-xs-6 col-md-3">
+                                        <div className="form-group">
+                                            <label className="control-label font-12">
+                                                Cari Berdasarkan
+                                            </label>
+                                            <Select
+                                                options={this.state.searchby_data}
+                                                // placeholder="Pilih Tipe Kas"
+                                                onChange={this.HandleChangeSearchby}
+                                                value={
+                                                    this.state.searchby_data.find(op => {
+                                                        return op.value === this.state.searchby
+                                                    })
+                                                }
+                                            />
                                         </div>
-                                        <div className="col-6 col-xs-6 col-md-3">
-                                            <div className="form-group">
-                                                <label>Cari</label>
-                                                <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                            </div>
+                                    </div>
+                                    <div className="col-6 col-xs-6 col-md-3">
+                                        <div className="form-group">
+                                            <label>Cari</label>
+                                            <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                    <i className="fa fa-search"/>
-                                                </button>
-                                                {/* <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
-                                                    <i className="fa fa-print"></i> Export
-                                                </button> */}
-                                            </div>
+                            </div>
+                            <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
+                                                <i className="fa fa-search"/>
+                                            </button>
+                                            {/* <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
+                                                <i className="fa fa-print"></i> Export
+                                            </button> */}
                                         </div>
                                     </div>
-
                                 </div>
 
                             </div>
-                            <div>
-                                {/* <table className="table table-hover table-bordered">
-                                    <thead className="bg-primary">
-                                    <tr>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">No</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Kode TRX</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Subtotal</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Layanan Pengiriman</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Title</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Gambar</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Status</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Alamat</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Penerima</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Resi</th>
-                                        <th className="text-black" style={columnStyle} rowSpan="2">Tanggal</th>
-                                    </tr>
-                                    </thead> */}
-                                    {
-                                        !this.props.isLoading?(
-                                            <>
-                                            {
-                                                (
-                                                    typeof data === 'object' ? data.length>0?
-                                                        data.map((v,i)=>{
-                                                            let status='';
-                                                            if(v.status===0){
-                                                                status=<span style={{color:'#ff9800',fontWeight:'800'}}>Dikemas</span>;
-                                                            }else if(v.status===1){
-                                                                status=<span style={{color:'black',fontWeight:'800'}}>Dikirim</span>;
-                                                            }else if(v.status===2){
-                                                                status=<span style={{color:'#f44336',fontWeight:'800'}}>Diterima</span>;
-                                                            }
-                                                            return(
-                                                                <div key={i} className="card" style={{borderRadius:"10px",marginBottom:"10px"}} >
-                                                                    <div className="card-body">
-                                                                        <div className="row">
-                                                                            <div className="col-md-6">
-                                                                                <span className={"black"} style={{fontWeight:"normal"}}>{moment(v.created_at).format('DD MMM YYYY HH:mm')}</span>
-                                                                            </div>
-                                                                            <div className="col-md-6 text-right">
-                                                                                <span className={"black"} style={{fontWeight:"normal"}}>Resi : {v.resi}</span>
-                                                                            </div>
+
+                        </div>
+                        <div>
+                            {/* <table className="table table-hover table-bordered">
+                                <thead className="bg-primary">
+                                <tr>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">No</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Kode TRX</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Subtotal</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Layanan Pengiriman</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Title</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Gambar</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Status</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Alamat</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Penerima</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Resi</th>
+                                    <th className="text-black" style={columnStyle} rowSpan="2">Tanggal</th>
+                                </tr>
+                                </thead> */}
+                                {
+                                    !this.props.isLoading?(
+                                        <>
+                                        {
+                                            (
+                                                typeof data === 'object' ? data.length>0?
+                                                    data.map((v,i)=>{
+                                                        let status='';
+                                                        if(v.status===0){
+                                                            status=<span style={{color:'#ff9800',fontWeight:'800'}}>Dikemas</span>;
+                                                        }else if(v.status===1){
+                                                            status=<span style={{color:'black',fontWeight:'800'}}>Dikirim</span>;
+                                                        }else if(v.status===2){
+                                                            status=<span style={{color:'#f44336',fontWeight:'800'}}>Diterima</span>;
+                                                        }
+                                                        return(
+                                                            <div key={i} className="card" style={{borderRadius:"10px",marginBottom:"10px"}} >
+                                                                <div className="card-body">
+                                                                    <div className="row">
+                                                                        <div className="col-md-6">
+                                                                            <span className={"black"} style={{fontWeight:"normal"}}>{moment(v.created_at).format('DD MMM YYYY HH:mm')}</span>
                                                                         </div>
-                                                                        <hr/>
-                                                                        <div className="row">
-                                                                            <div className="col-md-9" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
-                                                                                <p style={{color:"rgb(66, 181, 73)",fontWeight:"900"}}>
-                                                                                    <span className={"black"} style={{fontWeight:"bolder"}}>{v.title}</span><br/>
-                                                                                    ( {v.kd_trx} )
-                                                                                </p>
-                                                                            </div>
-                                                                            <div className="col-md-3" style={{verticalAlign:"left"}}>
-                                                                                <p className={"black"}>
-                                                                                    <br/>
-                                                                                    Total Pembayaran <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(v.subtotal)} .-</span>
-                                                                                    {/* Lihat Detail Transaksi */}
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <hr/>
-                                                                        <div className="row">
-                                                                            <div className="col-md-5" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
-                                                                                <div className="media">
-                                                                                    <div style={{height:'70px',width:'70px',marginRight:'20px'}}>
-                                                                                        <img src={v.gambar} className="mr-3 media-thumb" style={{width: '100%', height: '100%', objectFit: 'contain'}} alt="Provider"/>
-                                                                                    </div>
-                                                                                    <div className="media-body">
-                                                                                        <h5 style={{color:"rgb(66, 181, 73)"}} className="mt-0 font-17 bold">Status</h5>
-                                                                                        <span style={{color:"rgb(250, 89, 29)",fontWeight:"bold"}}>{status}</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="col-md-7">
-                                                                                <div className="media">
-                                                                                    <div className="media-body">
-                                                                                        <h5 className="mt-0 font-17 bold text-info">{v.penerima}</h5>
-                                                                                        <span style={{color:"#000000",fontWeight:"bold"}}>{v.main_address}</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            {/* <div className="col-md-4">
-                                                                                <div className="media">
-                                                                                    <div className="media-body">
-                                                                                        <Link to='/ppob' style={{marginTop:'20px',float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)"}} className={"btn btn-primary"}>
-                                                                                            Beli Lagi
-                                                                                        </Link>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div> */}
+                                                                        <div className="col-md-6 text-right">
+                                                                            <span className={"black"} style={{fontWeight:"normal"}}>Resi : {v.resi}</span>
                                                                         </div>
                                                                     </div>
+                                                                    <hr/>
+                                                                    <div className="row">
+                                                                        <div className="col-md-9" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                                            <p style={{color:"rgb(66, 181, 73)",fontWeight:"900"}}>
+                                                                                <span className={"black"} style={{fontWeight:"bolder"}}>{v.title}</span><br/>
+                                                                                ( {v.kd_trx} )
+                                                                            </p>
+                                                                        </div>
+                                                                        <div className="col-md-3" style={{verticalAlign:"left"}}>
+                                                                            <p className={"black"}>
+                                                                                <br/>
+                                                                                Total Pembayaran <span className={"bold"} style={{color:"rgb(250, 89, 29)"}}>Rp {toCurrency(v.subtotal)} .-</span>
+                                                                                {/* Lihat Detail Transaksi */}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr/>
+                                                                    <div className="row">
+                                                                        <div className="col-md-5" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
+                                                                            <div className="media">
+                                                                                <div style={{height:'70px',width:'70px',marginRight:'20px'}}>
+                                                                                    <img src={v.gambar} className="mr-3 media-thumb" style={{width: '100%', height: '100%', objectFit: 'contain'}} alt="Provider"/>
+                                                                                </div>
+                                                                                <div className="media-body">
+                                                                                    <h5 style={{color:"rgb(66, 181, 73)"}} className="mt-0 font-17 bold">Status</h5>
+                                                                                    <span style={{color:"rgb(250, 89, 29)",fontWeight:"bold"}}>{status}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="col-md-7">
+                                                                            <div className="media">
+                                                                                <div className="media-body">
+                                                                                    <h5 className="mt-0 font-17 bold text-info">{v.penerima}</h5>
+                                                                                    <span style={{color:"#000000",fontWeight:"bold"}}>{v.main_address}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {/* <div className="col-md-4">
+                                                                            <div className="media">
+                                                                                <div className="media-body">
+                                                                                    <Link to='/ppob' style={{marginTop:'20px',float:"right",borderRadius:"10px",backgroundColor:"rgb(66, 181, 73)"}} className={"btn btn-primary"}>
+                                                                                        Beli Lagi
+                                                                                    </Link>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> */}
+                                                                    </div>
                                                                 </div>
-                                                                // <tr key={i}>
-                                                                //     <td style={columnStyle}> {i+1 + (10 * (parseInt(current_page,10)-1))}</td>
-                                                                //     {/* <td style={columnStyle}>
-                                                                //         <div className="btn-group">
-                                                                //             <UncontrolledButtonDropdown>
-                                                                //                 <DropdownToggle caret>
-                                                                //                     Aksi
-                                                                //                 </DropdownToggle>
-                                                                //                 <DropdownMenu>
-                                                                //                     <DropdownItem onClick={(e)=>this.toggle(e,v.no_faktur_mutasi,'','')}>Detail</DropdownItem>
-                                                                //                     {v.status==='0'?<Link to={`../edit/alokasi/${btoa(v.no_faktur_mutasi)}`}><DropdownItem>Edit</DropdownItem></Link>:''}
-                                                                //                     <Link to={`../alokasi3ply/${v.no_faktur_mutasi}`} target="_blank"><DropdownItem>3ply</DropdownItem></Link>
-                                                                //                     <DropdownItem onClick={(e)=>this.handleRePrint(e,v.no_faktur_mutasi)}>Print Faktur</DropdownItem>
-                                                                //                 </DropdownMenu>
-                                                                //                 </UncontrolledButtonDropdown>
-                                                                //         </div>
-                                                                //     </td> */}
-                                                                //     <td style={columnStyle}>{v.kd_trx}</td>
-                                                                //     <td style={columnStyle}>{v.subtotal}</td>
-                                                                //     <td style={columnStyle}>{v.layanan_pengiriman}</td>
-                                                                //     <td style={columnStyle}>{v.title}</td>
-                                                                //     <td style={columnStyle}>{v.gambar}</td>
-                                                                //     <td style={columnStyle}>{
-                                                                //         v.status==='0'?statusQ('info','Pending'):(v.status==='1'?statusQ('success','Success'):"Void")
-                                                                //         // v.status===0?statusQ('danger','proses'):(v.status===1?statusQ('warning','packing')?(v.status===2?statusQ('info','dikirim'):statusQ('info','diterima')):""):""
-                                                                //     }</td>
-                                                                //     <td style={columnStyle}>{v.main_address}</td>
-                                                                //     <td style={columnStyle}>{v.penerima}</td>
-                                                                //     <td style={columnStyle}>{v.resi}</td>
-                                                                //     <td style={columnStyle}>{moment(v.created_at).format("DD-MM-YYYY")}</td>
+                                                            </div>
+                                                            // <tr key={i}>
+                                                            //     <td style={columnStyle}> {i+1 + (10 * (parseInt(current_page,10)-1))}</td>
+                                                            //     {/* <td style={columnStyle}>
+                                                            //         <div className="btn-group">
+                                                            //             <UncontrolledButtonDropdown>
+                                                            //                 <DropdownToggle caret>
+                                                            //                     Aksi
+                                                            //                 </DropdownToggle>
+                                                            //                 <DropdownMenu>
+                                                            //                     <DropdownItem onClick={(e)=>this.toggle(e,v.no_faktur_mutasi,'','')}>Detail</DropdownItem>
+                                                            //                     {v.status==='0'?<Link to={`../edit/alokasi/${btoa(v.no_faktur_mutasi)}`}><DropdownItem>Edit</DropdownItem></Link>:''}
+                                                            //                     <Link to={`../alokasi3ply/${v.no_faktur_mutasi}`} target="_blank"><DropdownItem>3ply</DropdownItem></Link>
+                                                            //                     <DropdownItem onClick={(e)=>this.handleRePrint(e,v.no_faktur_mutasi)}>Print Faktur</DropdownItem>
+                                                            //                 </DropdownMenu>
+                                                            //                 </UncontrolledButtonDropdown>
+                                                            //         </div>
+                                                            //     </td> */}
+                                                            //     <td style={columnStyle}>{v.kd_trx}</td>
+                                                            //     <td style={columnStyle}>{v.subtotal}</td>
+                                                            //     <td style={columnStyle}>{v.layanan_pengiriman}</td>
+                                                            //     <td style={columnStyle}>{v.title}</td>
+                                                            //     <td style={columnStyle}>{v.gambar}</td>
+                                                            //     <td style={columnStyle}>{
+                                                            //         v.status==='0'?statusQ('info','Pending'):(v.status==='1'?statusQ('success','Success'):"Void")
+                                                            //         // v.status===0?statusQ('danger','proses'):(v.status===1?statusQ('warning','packing')?(v.status===2?statusQ('info','dikirim'):statusQ('info','diterima')):""):""
+                                                            //     }</td>
+                                                            //     <td style={columnStyle}>{v.main_address}</td>
+                                                            //     <td style={columnStyle}>{v.penerima}</td>
+                                                            //     <td style={columnStyle}>{v.resi}</td>
+                                                            //     <td style={columnStyle}>{moment(v.created_at).format("DD-MM-YYYY")}</td>
 
-                                                                // </tr>
-                                                            )
-                                                        })
-                                                        : "No data." : "No data."
-                                                )
-                                            }
-                                            </>
-                                        ):<div className="text-center w-100"><Spinner/></div>
-                                    }
-                                {/* </table> */}
+                                                            // </tr>
+                                                        )
+                                                    })
+                                                    : "No data." : "No data."
+                                            )
+                                        }
+                                        </>
+                                    ):<div className="text-center w-100"><Spinner/></div>
+                                }
+                            {/* </table> */}
 
-                            </div>
-                            <div style={{"marginTop":"20px","float":"right"}}>
-                                <Paginationq
-                                    current_page={current_page}
-                                    per_page={per_page}
-                                    total={parseInt((per_page*last_page),10)}
-                                    callback={this.handlePageChange.bind(this)}
-                                />
-                            </div>
-                            {/* <DetailRedeem redeemDetail={this.props.redeemDetail}/>
-                            <RedeemReportExcel startDate={this.state.startDate} endDate={this.state.endDate} /> */}
                         </div>
+                        <div style={{"marginTop":"20px","float":"right"}}>
+                            <Paginationq
+                                current_page={current_page}
+                                per_page={per_page}
+                                total={parseInt((per_page*last_page),10)}
+                                callback={this.handlePageChange.bind(this)}
+                            />
+                        </div>
+                        {/* <DetailRedeem redeemDetail={this.props.redeemDetail}/>
+                        <RedeemReportExcel startDate={this.state.startDate} endDate={this.state.endDate} /> */}
                     </div>
                 </div>
             </Layout>

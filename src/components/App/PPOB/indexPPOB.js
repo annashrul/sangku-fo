@@ -37,7 +37,7 @@ class IndexPPOB extends Component{
                                                 </div>
                                                 {
                                                     this.props.data[val.index]!==undefined?this.props.data[val.index].map((v,i)=>{
-                                                        let kategori = v.title.replaceAll(" ","-").replaceAll(".","-");
+                                                        let kategori = v.title===undefined?null:v.title.replaceAll(" ","-").replaceAll(".","-");
                                                         return(
                                                             <div className="col-md-3" key={i}>
                                                                 <div className="wrapperCard" style={{textAlign:"center"}}>

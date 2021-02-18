@@ -477,7 +477,7 @@ span.circle {
 .card1 {
     display: block;
     position: relative;
-    max-width: 262px;
+    /* max-width: 262px; */
     background-color: #f2f8f9;
     border-radius: 4px;
     padding: 24px 24px;
