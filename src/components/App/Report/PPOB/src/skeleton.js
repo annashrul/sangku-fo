@@ -2,13 +2,8 @@ import React,{Component} from 'react'
 import Skeleton from 'react-loading-skeleton';
 
 class Cards extends Component {
-
-    constructor(props) {
-        super(props)
-    }
-
     render(){
-        let dataID = [];
+        // let dataID = [];
         return(
             <div>
                  {

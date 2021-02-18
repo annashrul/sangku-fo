@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
-import {noImage, toRp} from "helper";
 import {deleteCart, getCart, postCart} from "redux/actions/product/cart.action";
 import Swal from "sweetalert2";
 import { Link } from 'react-router-dom';

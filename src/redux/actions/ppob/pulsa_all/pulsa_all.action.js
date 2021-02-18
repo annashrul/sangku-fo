@@ -1,7 +1,7 @@
 import {PULSA_ALL, HEADERS} from "../../_constants";
 import axios from 'axios'
 import * as Swal from "sweetalert2";
-import {ModalToggle, ModalType} from "../../modal.action";
+// import {ModalToggle, ModalType} from "../../modal.action";
 
 export function setLoading(load){
     return {type : PULSA_ALL.LOADING,load}

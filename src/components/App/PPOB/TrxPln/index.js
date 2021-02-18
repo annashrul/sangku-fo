@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
 import Layout from 'components/Layout';
-import {rmComma, ToastQ, toCurrency} from "helper";
-import {postTransfer} from "redux/actions/member/transfer.action";
+import {ToastQ, toCurrency} from "helper";
 import Stepper from 'react-stepper-horizontal';
 import noUser from '../../../../assets/no-user.png'
 import imgCancel from '../../../../assets/cancel.gif'
@@ -154,7 +153,7 @@ class TrxPln extends Component{
             number:num,
             errorMsg:err,
         });
-        let prov=null;
+        // let prov=null;
         if(number.length>=4){
             // dataPPOB().forEach((v,i)=>{
             //     if(v.code===number.substr(0,5)||v.code===number.substr(0,4)){

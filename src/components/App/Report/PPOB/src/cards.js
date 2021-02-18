@@ -1,16 +1,11 @@
 import React,{Component} from 'react'
-import {statusQ, toRp, noImage, toCurrency} from "helper";
+import {toCurrency} from "helper";
 import moment from "moment";
 import {Link} from "react-router-dom"
 
 class Cards extends Component {
-
-    constructor(props) {
-        super(props)
-    }
-
     render(){
-        let dataID = [];
+        // let dataID = [];
         return(
             <div>
                 {

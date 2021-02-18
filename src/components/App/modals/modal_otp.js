@@ -2,12 +2,11 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {
     ModalHeader,
-    ModalBody, ModalFooter,
+    ModalBody
 } from 'reactstrap';
 import WrapperModal from "./_wrapper.modal";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
-import OTPInput, { ResendOTP } from "otp-input-react";
-import {postRedeem} from "../../../redux/actions/product/redeem.action";
+import OTPInput from "otp-input-react";
 
 class ModalOtp extends Component{
     constructor(props){
@@ -15,20 +14,20 @@ class ModalOtp extends Component{
         this.toggle = this.toggle.bind(this);
     }
 
-    componentWillMount(){
-        setTimeout(function () {
-            // const fcs=document.querySelector("input[data-testid='input']");
-            // fcs.focus();
-        }.bind(this), 500)
-    }
+    // componentWillMount(){
+    //     setTimeout(function () {
+    //         // const fcs=document.querySelector("input[data-testid='input']");
+    //         // fcs.focus();
+    //     }.bind(this), 500)
+    // }
 
 
     toggle(e){
-        console.log("klik",e);
         e.preventDefault();
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType('modalOtp'));
+        localStorage.setItem("isPin","-");
     };
 
     render(){

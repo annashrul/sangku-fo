@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
 import ModalPin from "../modals/modal_pin";
-import ModalSuccessScreenPPOB from "../modals/modal_success_screen_ppob";
+// import ModalSuccessScreenPPOB from "../modals/modal_success_screen_ppob";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import {toCurrency} from "../../../helper";
 import {postCheckoutPPOB} from "../../../redux/actions/ppob/pulsa_all/pulsa_all.action";

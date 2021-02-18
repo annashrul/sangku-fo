@@ -11,7 +11,7 @@ import imgExcel from 'assets/xls.png';
 import imgPdf from 'assets/pdf.png';
 import "jspdf-autotable";
 import {getReportPembelianExcel} from "../../../../../redux/actions/transaction/pembelian.action";
-import { renderToString } from 'react-dom/server';
+// import { renderToString } from 'react-dom/server';
 
 class PembelianReportExcel extends Component{
     constructor(props){

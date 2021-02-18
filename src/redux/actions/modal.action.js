@@ -1,8 +1,6 @@
 import { MODALS } from "./_constants"
 
 export function ModalToggle(bool) {
-  console.log('from action',bool);
-
   return {
     type: MODALS.IS_MODAL_OPEN,
     isOpen: bool

@@ -112,6 +112,7 @@ class IndexReportPPOB extends Component{
                         tipe:v.tipe,
                         created_at:v.created_at,
                     })
+                    return null;
                 })
             }
             else{
@@ -254,7 +255,7 @@ class IndexReportPPOB extends Component{
                                 data={this.state.data}
                                 handleOnClick={this.toggleDetail}
                             />:
-                            <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA}/></div>:<Skeleton/>
+                            <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></div>:<Skeleton/>
 
                         }
                     <div className="card">

@@ -6,7 +6,7 @@ import {FetchPulsaAll} from '../../../redux/actions/ppob/pulsa_all/pulsa_all.act
 import Skeleton from 'react-loading-skeleton';
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
 import {Link} from "react-router-dom";
-import {dataPPOB, toCurrency, ToastQ} from "../../../helper";
+import {toCurrency, ToastQ} from "../../../helper";
 import {getSubKategoriPPOB} from "../../../redux/actions/ppob/kategoriPPOB.action";
 import StickyBox from "react-sticky-box/dist/esnext/index";
 
@@ -91,7 +91,7 @@ class TempPra extends Component{
                             }
                         })
                     }
-
+                    return null;
                 });
             }
             this.HandleChangeProvider(prov);

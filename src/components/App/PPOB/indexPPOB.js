@@ -1,9 +1,6 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
-import iPulsa from "../../../assets/icon/revisi/pulsa.svg"
-import iWifiId from "../../../assets/icon/revisi/Icon_PPOB_VOUCHER_WIFI_ID.svg"
-import iEtoll from "../../../assets/icon/revisi/Icon_PPOB_E _TOLL.svg"
 import {Link} from "react-router-dom";
 import {getKategoriPPOB} from "../../../redux/actions/ppob/kategoriPPOB.action";
 import Skeleton from 'react-loading-skeleton';

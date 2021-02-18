@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
-import Iphone from './iphone.png'
-import HeadShake from 'react-reveal/HeadShake';
-import Flip from 'react-reveal/Flip';
+// import Iphone from './iphone.png'
+// import HeadShake from 'react-reveal/HeadShake';
+// import Flip from 'react-reveal/Flip';
 
 
 class Home extends Component{

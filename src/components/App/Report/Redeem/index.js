@@ -1,19 +1,13 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
 import Paginationq from "helper";
-// import {FetchRedeem,FetchRedeemExcel, FetchRedeemData,rePrintFaktur} from "redux/actions/inventory/redeem.action";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
-// import DetailRedeem from "components/App/modals/report/inventory/redeem_report/detail_redeem";
-// import RedeemReportExcel from "components/App/modals/report/inventory/redeem_report/form_redeem_excel";
 import Select from 'react-select';
 import moment from "moment";
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import {rangeDate} from "helper";
 import Spinner from "Spinner";
-import {statusQ} from "helper";
-import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { getRedeemReport } from '../../../../redux/actions/product/redeem.action';
 import { toCurrency } from '../../../../helper';
 class RedeemReport extends Component{
@@ -108,9 +102,9 @@ class RedeemReport extends Component{
         let dateTo=localStorage.date_to_redeem_report;
         // let lokasi = localStorage.location_redeem_report;
         let any = localStorage.any_redeem_report;
-        let sort=localStorage.sort_redeem_report;
-        let filter=localStorage.filter_redeem_report;
-        let status=localStorage.status_redeem_report;
+        // let sort=localStorage.sort_redeem_report;
+        // let filter=localStorage.filter_redeem_report;
+        // let status=localStorage.status_redeem_report;
         let searchby=localStorage.searchby_redeem_report;
         let where='';
         if(dateFrom!==undefined&&dateFrom!==null){
@@ -266,7 +260,7 @@ class RedeemReport extends Component{
 
 
     render(){
-        const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
+        // const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
         const {
             per_page,
             last_page,

@@ -66,10 +66,6 @@ export const siteReducer = (state = initialState, action) => {
             return Object.assign({}, state,{
                 datum: action.data.result
             });
-        case SITE.TRIGGER_MOBILE_ECAPS:
-            return Object.assign({}, state, {
-                triggerMobileEcaps: action.data
-            });
         default:
             return state
     }

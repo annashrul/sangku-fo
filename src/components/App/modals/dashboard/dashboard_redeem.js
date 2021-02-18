@@ -11,7 +11,7 @@ import Skeleton from 'react-loading-skeleton';
 import {ModalType} from "../../../../redux/actions/modal.action";
 import ModalPin from '../modal_pin'
 import {postReward} from "../../../../redux/actions/product/redeem.action";
-import * as Swal from "sweetalert2";
+// import * as Swal from "sweetalert2";
 class DashboardRedeem extends Component{
     constructor(props){
         super(props);

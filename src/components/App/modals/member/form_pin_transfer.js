@@ -10,7 +10,7 @@ import { pinTransfer } from '../../../../redux/actions/pin/pin.action';
 import ModalPin from '../../modals/modal_pin'
 import { FetchAvailableMember } from '../../../../redux/actions/member/member.action';
 import Spinner from 'Spinner'
-import noUser from 'assets/no-user.png';
+// import noUser from 'assets/no-user.png';
 import Default from 'assets/default.png'
 
 class FormPinTransfer extends Component{

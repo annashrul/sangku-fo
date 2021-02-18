@@ -376,6 +376,8 @@ class Header extends Component {
                                         <div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} />
                                     </div>
                                     <div className="notifications-heading bg-transparent pb-2" style={{display:'inline-table'}}>
+                                        <Link to={`/cart`} className="mt-1 mb-1">Lihat keranjang <i className="fa fa-cart"/></Link>
+                                        <br/>
                                         <h6 style={{whiteSpace:'no-wrap'}}>Total : {this.state.list_cart.length > 0 ? toRp(this.state.list_cart.reduce((a, b) => ({harga: (parseInt(a.harga,10)*parseInt(a.qty,10)) + (parseInt(b.harga,10)*parseInt(b.qty,10))})).harga) :0}</h6>
                                         <div className="d-flex justify-content-between align-items-center w-100">
                                             <Link
@@ -399,7 +401,7 @@ class Header extends Component {
                                                         Belanja Lagi
                                             </Link>
                                             <Link
-                                                to={'/cart'}
+                                                to={'/checkout'}
                                                 className="btn btn-primary m-0 pb-2"
                                                 style={{
                                                     backgroundColor:'rgb(66, 181, 73)',

@@ -5,9 +5,6 @@ import {
     ModalBody, ModalFooter,
 } from 'reactstrap';
 import WrapperModal from "./_wrapper.modal";
-import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
-import OTPInput, { ResendOTP } from "otp-input-react";
-import {postRedeem} from "../../../redux/actions/product/redeem.action";
 
 class ModalSuccessScreenPPOB extends Component{
     constructor(props){

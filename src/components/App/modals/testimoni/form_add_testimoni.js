@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {ModalToggle, ModalType} from "redux/actions/modal.action";
+import {ModalToggle} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 import File64 from "components/common/File64";
 import {ToastQ} from "helper";
@@ -16,6 +16,7 @@ class FormAddTestimoni extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             foto:"",
+            atas_nama:'',
             title:'',
             caption:'',
             video:'-',
@@ -24,8 +25,12 @@ class FormAddTestimoni extends Component{
                 caption:'',
                 video:'',
                 foto:'',
+                atas_nama:'',
             }
         };
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({atas_nama:nextProps.auth.user.full_name})
     }
     toggle = (e) => {
         e.preventDefault();
@@ -59,12 +64,12 @@ class FormAddTestimoni extends Component{
         //     let err = Object.assign({}, this.state.error, {'video': txtErr});
         //     this.setState({error: err});
         // }
-        else if(this.state.foto===''||this.state.foto===undefined){
-            let txtErr = 'Foto masih kosong!'
-            ToastQ.fire({icon:'error',title:txtErr});
-            let err = Object.assign({}, this.state.error, {'foto': txtErr});
-            this.setState({error: err});
-        }
+        // else if(this.state.foto===''||this.state.foto===undefined){
+        //     let txtErr = 'Foto masih kosong!'
+        //     ToastQ.fire({icon:'error',title:txtErr});
+        //     let err = Object.assign({}, this.state.error, {'foto': txtErr});
+        //     this.setState({error: err});
+        // }
         else {
             this.props.dispatch(postTestimoni(parse));
         }
@@ -88,8 +93,14 @@ class FormAddTestimoni extends Component{
                 <>
                 <form>
                     <div className="form-group">
+                        <label>Atas Nama</label>
+                        <div className="input-group">
+                            <input className={`form-control ${this.state.error.atas_nama!==""?'is-invalid':''}`} type="text" name="atas_nama" value={this.state.atas_nama} onChange={(e) => {return false}} readOnly/>
+                        </div>
+                    </div>
+                    <div className="form-group">
                         <label>Pekerjaan</label>
-                        <div class="input-group">
+                        <div className="input-group">
                             <input className={`form-control ${this.state.error.title!==""?'is-invalid':''}`} type="text" name="title" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
                         </div>
                     </div>
@@ -106,7 +117,7 @@ class FormAddTestimoni extends Component{
                         <label>Video</label>
                         <div class="input-group">
                             <input className={`form-control ${this.state.error.video!==""?'is-invalid':''}`} type="text" name="video" value={this.state.video} onChange={(e) => this.handleChange(e)}/>
-                            <small className="text-muted">Isi dengan URL video, apabila URL tersebut diambil dari YouTube, pastikan URL tersebut merupakan <a href="https://support.google.com/youtube/answer/171780?hl=id" target="_blank">embed-URL <i className="zmdi zmdi-open-in-new"/></a></small>
+                            <small className="text-muted">Isi dengan URL video, apabila URL tersebut diambil dari YouTube, pastikan URL tersebut merupakan <a href="https://support.google.com/youtube/answer/171780?hl=id" target="_blank" rel="noopener noreferrer">embed-URL <i className="zmdi zmdi-open-in-new"/></a></small>
                             <small className="text-danger">Biarkan kosong atau isi dengan tanda (-) jika tidak akan mengikutsertakan video</small>
                         </div>
                     </div>

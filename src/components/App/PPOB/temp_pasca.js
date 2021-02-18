@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import Layout from 'components/Layout';
 import { ToastQ, toCurrency} from "helper";
 import Stepper from 'react-stepper-horizontal';
-import noUser from '../../../assets/no-user.png'
-import imgCancel from '../../../assets/cancel.gif'
+// import noUser from '../../../assets/no-user.png'
+// import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
-import {dataPascabayar, validatePhoneNumber} from "../../../helper";
+import {validatePhoneNumber} from "../../../helper";
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
 import ModalPin from "../modals/modal_pin";
 import ModalOtp from "../modals/modal_otp";
@@ -17,7 +17,7 @@ import {postPascabayar} from "../../../redux/actions/ppob/pascabayar.action";
 import {sendOtp} from "../../../redux/actions/authActions";
 import Link from "react-router-dom/es/Link";
 
-const dataKategori=dataPascabayar();
+// const dataKategori=dataPascabayar();
 
 class TempPasca extends Component{
     constructor(props){
@@ -58,14 +58,14 @@ class TempPasca extends Component{
         this.props.dispatch(FetchPulsaAll(`kategori=${atob(this.state.code)}`))
     }
     // componentDidUpdate(prevState){
-    //     if (prevState.auth.isErrorNo === true && localStorage.isPin==="false") {
+    //     if (prevState.auth.isErrorNo === true && (prevState.isOpen !== this.props.isOpen)) {
     //         this.props.dispatch(ModalToggle(true));
     //         this.props.dispatch(ModalType("modalOtp"));
     //     }
     // }
     componentWillReceiveProps(nextProps){
         const {currentStep } = this.state;
-        if (nextProps.auth.isErrorNo === true && localStorage.isPin==="false" && this.props.ModalToggle) {
+        if (nextProps.auth.isErrorNo === true && localStorage.isPin==="false") {
             this.props.dispatch(ModalToggle(true));
             this.props.dispatch(ModalType("modalOtp"));
         }
@@ -181,7 +181,7 @@ class TempPasca extends Component{
         return true;
     }
     handleSaveOtp(num){
-        const {currentStep } = this.state;
+        // const {currentStep } = this.state;
         this.setState({
             otp:num
         });
@@ -194,7 +194,7 @@ class TempPasca extends Component{
 
     }
     handleSavePin(num){
-        const {currentStep } = this.state;
+        // const {currentStep } = this.state;
         this.setState({
             pin:num
         });

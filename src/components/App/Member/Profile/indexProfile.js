@@ -64,7 +64,7 @@ class IndexProfile extends Component{
     }
     componentDidUpdate(prevState){
         if(prevState.auth.user.id!==this.props.auth.user.id){
-            let page=localStorage.page_pin;
+            // let page=localStorage.page_pin;
             this.props.dispatch(FetchDetailMember(this.props.auth.user.id));
         }
     }
@@ -373,7 +373,7 @@ class IndexProfile extends Component{
                                             {this.state.editFoto===false?
                                             <div className="card box-margin">
                                                 <div className="text-center p-4" >
-                                                    <img className="img-fluid rounded-circle shadow mb-3 w-100" src={this.state.picture!==''?this.state.picture:this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
+                                                    <img className="img-fluid rounded-circle shadow mb-3 w-100" alt="sangqu" src={this.state.picture!==''?this.state.picture:this.props.auth.user.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
                                                     <button type="button" className="btn btn-outline-secondary btn-sm btn-rounded font-11 mb-2" onClick={(e)=>this.toggleEditFoto(e)}><i className="fa fa-pencil" /> Ubah Foto</button>
                                                 </div>
                                                 <div className="card-body">

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import Fade from 'react-reveal/Fade';
-import HeadShake from 'react-reveal/HeadShake';
+// import Fade from 'react-reveal/Fade';
+// import HeadShake from 'react-reveal/HeadShake';
 import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";

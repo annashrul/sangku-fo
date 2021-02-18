@@ -84,7 +84,7 @@ class IndexRegister extends Component{
                             return (
                                     <div className="col-md-12">
                                         <div className="row p-2 bg-white border rounded">
-                                            <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={v.foto} style={{width:"100%",height:"150px",objectFit:'contain'}}/></div>
+                                            <div className="col-md-3 mt-1"><img className="img-fluid img-responsive rounded product-image" src={v.foto} alt="sangqu" style={{width:"100%",height:"150px",objectFit:'contain'}}/></div>
                                             <div className="col-md-6 mt-1">
                                                 <h5 className={"txtGreen bold"}>{v.title}</h5>
                                                 <div className="d-flex flex-row align-items-center">

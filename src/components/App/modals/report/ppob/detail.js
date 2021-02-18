@@ -3,7 +3,7 @@ import {ModalBody, ModalHeader} from "reactstrap";
 import connect from "react-redux/es/connect/connect";
 import WrapperModal from "../../_wrapper.modal";
 import {ModalToggle} from "redux/actions/modal.action";
-import {noImage, statusQ, toCurrency, toRp} from '../../../../../helper';
+import {toCurrency} from '../../../../../helper';
 import moment from 'moment'
 import {Link} from "react-router-dom"
 

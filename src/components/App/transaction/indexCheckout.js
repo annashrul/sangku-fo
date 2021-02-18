@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
 import {noImage, toRp} from "helper";
 import {getCart} from "redux/actions/product/cart.action";
@@ -12,9 +11,6 @@ import Select from 'react-select'
 import {postOngkir} from "redux/actions/product/ongkir.action";
 import {getBank} from "redux/actions/member/bank.action";
 import {toCurrency} from "../../../helper";
-import Preloader from "../../../Preloader";
-import {isLoading} from "../../../redux/actions/isLoading.actions";
-import {NOTIF_ALERT} from "../../../redux/actions/_constants";
 import StickyBox from "react-sticky-box/dist/esnext/index";
 import ModalPin from "../modals/modal_pin";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
@@ -123,7 +119,7 @@ class IndexCheckout extends Component{
             this.setState({dataCart:cart,berat:totBerat});
         }
         if(typeof nextProps.resAlamat.data === 'object'){
-            let valAlamat={};
+            // let valAlamat={};
             let addr= nextProps.resAlamat.data[0];
             this.handleChangeAlamat({
                 value:`${addr.id}|${addr.title}|${addr.penerima}|${addr.main_address}|${addr.kd_prov}|${addr.kd_kota}|${addr.kd_kec}|${addr.no_hp}|${addr.ismain}`,
@@ -207,14 +203,14 @@ class IndexCheckout extends Component{
         if(nextProps.resVoucher.status !== undefined){
             console.log("nextProps.resVoucher",nextProps.resVoucher);
             let data = {}
-            if(nextProps.resVoucher.status===1){
+            if(nextProps.resVoucher.status===0){
                 data['msg'] = 'Voucher sudah terpakai.'
-                data['status'] = 'warning'
+                data['status'] = 'danger'
                 data['disc'] = 0
-            } else if(nextProps.resVoucher.status===0){
-                let dateNow = moment(new Date()).add(1,'d').format('YYYY-MM-DD')
-                let periodeEndValid = moment(dateNow).isSameOrBefore(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD'));
-                let periodeStartValid = moment(dateNow).isSameOrAfter(moment(nextProps.resVoucher.periode_start).format('YYYY-MM-DD'));
+            } else if(nextProps.resVoucher.status===1){
+                let dateNow = moment(new Date()).add(1,'d').format('YYYY-MM-DD HH:mm:ss')
+                let periodeEndValid = moment(dateNow).isSameOrBefore(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD HH:mm:ss'));
+                let periodeStartValid = moment(dateNow).isSameOrAfter(moment(nextProps.resVoucher.periode_start).format('YYYY-MM-DD HH:mm:ss'));
                 console.log("dNow",dateNow);
                 console.log("pEnd",periodeEndValid);
                 console.log("pStart",periodeStartValid);
@@ -225,7 +221,7 @@ class IndexCheckout extends Component{
                 }
                 else if(!periodeStartValid){
                     data['msg'] = 'Voucher belum dapat dipakai.'
-                    data['status'] = 'warning'
+                    data['status'] = 'danger'
                     data['disc'] = 0
                 }
                 else if(!periodeEndValid){
@@ -644,8 +640,8 @@ class IndexCheckout extends Component{
                                     {this.state.dataVoucher.status!==undefined?
                                     <>
                                     <small className={`text-${this.state.dataVoucher.status}`}>{this.state.dataVoucher.msg}</small>
-                                    <br/>
-                                    <small className={`text-${this.state.dataVoucher.status}`}>Diskon didapatkan : Rp {toRp(Math.round((totBelanja+totOngkir)*(this.state.dataVoucher.disc/100)))}</small>
+                                    {/* <br/>
+                                    <small className={`text-${this.state.dataVoucher.status}`}>Diskon didapatkan : Rp {toRp(Math.round((totBelanja+totOngkir)*(this.state.dataVoucher.disc/100)))}</small> */}
                                     </>
                                     :''}
                                 </div>

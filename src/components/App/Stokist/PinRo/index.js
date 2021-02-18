@@ -337,7 +337,7 @@ class PinRo extends Component{
                                                                                 <i className={`fa fa-circle text-success font-11 mr-2`}/>&nbsp;<p className="mb-0">{v.status}</p>
                                                                             </div>
                                                                         </div>
-                                                                        <h6 className="mb-0 text-success"></h6>
+                                                                        {/* <h6 className="mb-0 text-success">&nbsp;</h6> */}
                                                                         {/* <h6 className="mb-0 text-success">PV : {v.point_volume}</h6> */}
                                                                     </div>
                                                                     <div className="progress h-5">

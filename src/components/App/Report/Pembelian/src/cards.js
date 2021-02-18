@@ -1,13 +1,8 @@
 import React,{Component} from 'react'
-import {statusQ, toRp, noImage, toCurrency} from "helper";
+import {noImage, toCurrency} from "helper";
 import moment from "moment";
 
 class Cards extends Component {
-
-    constructor(props) {
-        super(props)
-    }
-
     render(){
         let dataID = [];
         return(
@@ -65,7 +60,7 @@ class Cards extends Component {
                                         <div className="col-md-5" style={{verticalAlign:"left"}}>
                                             <div className="row">
                                                 <div className="col-md-2" style={{display:'flex',justifyContent:'center'}} >
-                                                    <img src={v.kurir} onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} style={{height:"50px",objectFit:'contain'}}/>
+                                                    <img src={v.kurir} alt="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${noImage()}`}} style={{height:"50px",objectFit:'contain'}}/>
                                                 </div>
                                                 <div className="col-md-4">
                                                     <p className={"black"}>Layanan<br/>
