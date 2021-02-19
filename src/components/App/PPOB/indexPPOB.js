@@ -1,9 +1,6 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
-import iPulsa from "../../../assets/icon/revisi/pulsa.svg"
-import iWifiId from "../../../assets/icon/revisi/Icon_PPOB_VOUCHER_WIFI_ID.svg"
-import iEtoll from "../../../assets/icon/revisi/Icon_PPOB_E _TOLL.svg"
 import {Link} from "react-router-dom";
 import {getKategoriPPOB} from "../../../redux/actions/ppob/kategoriPPOB.action";
 import Skeleton from 'react-loading-skeleton';
@@ -40,7 +37,7 @@ class IndexPPOB extends Component{
                                                 </div>
                                                 {
                                                     this.props.data[val.index]!==undefined?this.props.data[val.index].map((v,i)=>{
-                                                        let kategori = v.title.replaceAll(" ","-").replaceAll(".","-");
+                                                        let kategori = v.title===undefined?null:v.title.replaceAll(" ","-").replaceAll(".","-");
                                                         return(
                                                             <div className="col-md-3" key={i}>
                                                                 <div className="wrapperCard" style={{textAlign:"center"}}>

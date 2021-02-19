@@ -80,11 +80,12 @@ class Layout extends Component {
                     <div className="main-content">
                         <div className="container-fluid">
                             {/* content */}
-                                <div className="row align-items-center">
+                                {/* DESKTOP VERSION START */}
+                                <div className="row align-items-center d-none d-md-flex box-margin">
                                     <div className="col-6">
-                                        <div className="dashboard-header-title mb-3 ml-2">
+                                        <div className="dashboard-header-title">
                                             <h5 className="mb-0 font-weight-bold">{ this.props.page==='Invoice' ?'':this.props.page}</h5>
-                                            <ol class="breadcrumb">
+                                            <ol class="breadcrumb bg-transparent pl-0">
                                                 {
                                                     this.props.page==='Dashboard' || this.props.page==='Invoice' ? "":
                                                     <li><Link  to="/dashboard">Dashboard</Link></li>
@@ -109,7 +110,7 @@ class Layout extends Component {
                                         </div>
                                     </div>
                                     <div className="col-6">
-                                        <div className="dashboard-infor-mation d-flex flex-wrap align-items-center mb-3">
+                                        <div className="dashboard-infor-mation d-flex flex-wrap align-items-center">
                                             <div className="dashboard-clock">
                                                 <div id="dashboardDate">{moment().format("dddd, Do MMM YYYY")}</div>
                                                 <Clock/>
@@ -117,6 +118,49 @@ class Layout extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                {/* DESKTOP VERSION END */}
+
+                                {/* MOBILE VERSION START */}
+                                <div className="row d-flex d-md-none">
+                                    <div className="col-6 d-flex align-items-center">
+                                        <div className="dashboard-header-title">
+                                            <h5 className="font-weight-bold">{ this.props.page==='Invoice' ?'':this.props.page}</h5>
+                                        </div>
+                                    </div>
+                                    <div className="col-6">
+                                        <div className="dashboard-infor-mation d-flex flex-wrap align-items-center">
+                                            <div className="dashboard-clock">
+                                                <div id="dashboardDate">{moment().format("dddd, Do MMM YYYY")}</div>
+                                                <Clock/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 box-margin">
+                                        <ol class="breadcrumb bg-transparent pl-0 mt-0 pt-0">
+                                            {
+                                                this.props.page==='Dashboard' || this.props.page==='Invoice' ? "":
+                                                <li><Link  to="/dashboard">Dashboard</Link></li>
+                                            }
+                                            {
+                                                this.props.page==='Dashboard' || this.props.page==='Invoice'?"":this.props.subpage!==undefined?
+                                                    (
+                                                        this.props.link!==undefined?(
+                                                            <li><Link  to={this.props.link}>{this.props.subpage}</Link></li>
+                                                        ):(
+                                                            <li>{this.props.subpage}</li>
+                                                        )
+
+                                                    ):""
+                                            }
+                                            {
+                                                this.props.page==='Dashboard' || this.props.page==='Invoice'?"":(
+                                                    <li class="active">{this.props.page}</li>
+                                                )
+                                            }
+                                        </ol>
+                                    </div>
+                                </div>
+                                {/* MOBILE VERSION END */}
                             {
                                 this.props.children
                             }

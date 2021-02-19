@@ -1,6 +1,6 @@
 import axios from "axios"
 import Swal from "sweetalert2";
-import {CART, HEADERS, NOTIF_ALERT} from "../_constants";
+import {CART, HEADERS} from "../_constants";
 import {ToastQ} from "helper";
 
 export function setLoading(load) {

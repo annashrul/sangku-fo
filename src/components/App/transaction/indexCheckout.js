@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
 import {noImage, toRp} from "helper";
 import {getCart} from "redux/actions/product/cart.action";
@@ -12,14 +11,13 @@ import Select from 'react-select'
 import {postOngkir} from "redux/actions/product/ongkir.action";
 import {getBank} from "redux/actions/member/bank.action";
 import {toCurrency} from "../../../helper";
-import Preloader from "../../../Preloader";
-import {isLoading} from "../../../redux/actions/isLoading.actions";
-import {NOTIF_ALERT} from "../../../redux/actions/_constants";
 import StickyBox from "react-sticky-box/dist/esnext/index";
 import ModalPin from "../modals/modal_pin";
 import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
+import { voucherValidate } from '../../../redux/actions/product/voucher.action';
+import moment from 'moment'
 
 class IndexCheckout extends Component{
     constructor(props){
@@ -41,6 +39,7 @@ class IndexCheckout extends Component{
             dataLayanan:[],
             dataBank:[],
             isAlamat:false,
+            dataVoucher:{},
             isVoucher:false,
             voucher:'',
             isLoadingLayanan:false,
@@ -120,7 +119,7 @@ class IndexCheckout extends Component{
             this.setState({dataCart:cart,berat:totBerat});
         }
         if(typeof nextProps.resAlamat.data === 'object'){
-            let valAlamat={};
+            // let valAlamat={};
             let addr= nextProps.resAlamat.data[0];
             this.handleChangeAlamat({
                 value:`${addr.id}|${addr.title}|${addr.penerima}|${addr.main_address}|${addr.kd_prov}|${addr.kd_kota}|${addr.kd_kec}|${addr.no_hp}|${addr.ismain}`,
@@ -200,6 +199,48 @@ class IndexCheckout extends Component{
 
             this.setState({dataBank:bank});
         }
+        console.log("nextProps.resVoucher.status !== undefined",nextProps.resVoucher.status !== undefined);
+        if(nextProps.resVoucher.status !== undefined){
+            console.log("nextProps.resVoucher",nextProps.resVoucher);
+            let data = {}
+            if(nextProps.resVoucher.status===0){
+                data['msg'] = 'Voucher sudah terpakai.'
+                data['status'] = 'danger'
+                data['disc'] = 0
+            } else if(nextProps.resVoucher.status===1){
+                let dateNow = moment(new Date()).add(1,'d').format('YYYY-MM-DD HH:mm:ss')
+                let periodeEndValid = moment(dateNow).isSameOrBefore(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD HH:mm:ss'));
+                let periodeStartValid = moment(dateNow).isSameOrAfter(moment(nextProps.resVoucher.periode_start).format('YYYY-MM-DD HH:mm:ss'));
+                console.log("dNow",dateNow);
+                console.log("pEnd",periodeEndValid);
+                console.log("pStart",periodeStartValid);
+                if(periodeStartValid&&periodeEndValid){
+                    data['msg'] = 'Voucher digunakan.'
+                    data['status'] = 'success'
+                    data['disc'] = nextProps.resVoucher.disc
+                }
+                else if(!periodeStartValid){
+                    data['msg'] = 'Voucher belum dapat dipakai.'
+                    data['status'] = 'danger'
+                    data['disc'] = 0
+                }
+                else if(!periodeEndValid){
+                    data['msg'] = 'Voucher sudah kadaluarsa.'
+                    data['status'] = 'danger'
+                    data['disc'] = 0
+                }
+                // if(moment().diff(moment(nextProps.resVoucher.periode_end))){
+                //     console.log('tstdiff',moment(moment(new Date()).format('YYYY-MM-DD')).diff(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD')));
+                //     console.log('issameorafter',moment(moment(new Date()).format('YYYY-MM-DD')).isSameOrBefore(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD')));
+                //     console.log('moment now',moment(new Date()).format());
+                //     console.log('moment pend',moment(nextProps.resVoucher.periode_end).format());
+                // } else {
+                //     console.log('tstdifffalse',moment(nextProps.resVoucher.periode_end));
+                // }
+            }
+            console.log('msg data',data);
+            this.setState({dataVoucher:data})
+        }
     }
     handleChecked(event){
         let column=event.target.name;
@@ -214,9 +255,11 @@ class IndexCheckout extends Component{
     handleChange(event){
         let col = event.target.name;
         let val = event.target.value;
-
-        this.setState({[col]: val});
-
+        if(col==='voucher'){
+            this.setState({[col]: String(val).toUpperCase()});
+        } else {
+            this.setState({[col]: val});
+        }
     }
     handleChangeAlamat(val){
         let alamat      = val.value.split("|");
@@ -249,8 +292,6 @@ class IndexCheckout extends Component{
             "berat" :this.state.berat,
             "kurir" :val.kurir
         }));
-
-
     }
     handleChangeLayanan(val){
         this.setState({
@@ -296,56 +337,74 @@ class IndexCheckout extends Component{
             "alamat"                : this.state.valAlamat.id,
             "metode_pembayaran"     : this.state.metode_pembayaran,
             "id_bank_destination"   : this.state.idBank,
-            "voucher"               : this.state.isVoucher?this.state.voucher:'',
+            "voucher"               : this.state.isVoucher?this.state.voucher:'-',
             pin_member:num
         };
         if(num.length===6){
+            if(!this.state.isVoucher){
+                delete data.voucher
+            }
             this.props.dispatch(postCheckout(data));
 
         }
     }
     toggleVoucher = () => {
         this.setState({
-          isVoucher: !this.state.isVoucher,
-          voucher: '',
+            isVoucher: !this.state.isVoucher,
+            voucher: '',
+            dataVoucher: {},
         });
-      }
+    }
+    checkVoucher(e){
+        e.preventDefault();
+        if(this.state.voucher!==''){
+            this.props.dispatch(voucherValidate(this.state.voucher));
+        } else {
+            
+        }
+    }
     render(){
         let {totOngkir,totBelanja,valAlamat,idBank} = this.state;
         return(
             <Layout page="Checkout">
-                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                    <div className="box-margin" style={{width:"70%"}}>
-                        <div className="card" style={{marginBottom:"10px"}}>
+                <div className="row">
+                    <div className="col-md-8 box-margin" >
+                        <div className="card box-margin">
                             <div className="card-body">
                                 {
                                     !this.props.isLoadingAlamat?(
                                         valAlamat.penerima!==undefined?
+                                        <>
                                         <div className="row">
-                                            <div className="col-9 col-xs-9 col-md-9">
+                                            <div className="col-6 col-md-8">
                                                 <div className="single-contact-area d-flex">
                                                     <div>
                                                         <h4 className="mb-1 font-18">{valAlamat.penerima}</h4>
                                                         <p className="text-dark font-weight-bold font-12 text-primary">
                                                             <button className={"btn btn-success btn-sm"}>{valAlamat.title}</button>
                                                         </p>
-                                                        <div className="contact-address">
-                                                            <p className="mb-2 font-weight-bold">
-                                                                {valAlamat.main_address}
-                                                            </p>
-                                                            <p className="mb-0 font-weight-bold">{valAlamat.no_hp}</p>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-3 col-xs-3 col-md-3 text-right" style={{zoom:"80%",padding:'0',paddingRight:'10px'}}>
+                                            <div className="col-6 col-md-4">
                                                 <Select
                                                     options={this.state.dataAlamat} placeholder="Alamat Lain"
                                                     onChange={this.handleChangeAlamat}
                                                     value={this.state.dataAlamat.find(op => {return op.value === this.state.alamat})}
-                                                />
+                                                    />
                                             </div>
                                         </div>
+                                        <div className="row">
+                                            <div className="col-auto">
+                                                <div className="contact-address">
+                                                    <p className="mb-2 font-weight-bold">
+                                                        {valAlamat.main_address}
+                                                    </p>
+                                                    <p className="mb-0 font-weight-bold">{valAlamat.no_hp}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </>
                                         :
                                         <div className="alert alert-danger bg-white text-danger text-center" role="alert">
                                             Alamat anda masih kosong atau belum tersedia, tambahkan alamat pada halaman <Link to={`/profile`}>Profile <i className="zmdi zmdi-open-in-new"/></Link> anda terlebih dahulu jika hendak akan melanjutkan proses Checkout!
@@ -355,10 +414,7 @@ class IndexCheckout extends Component{
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <p>
-                                                    <Skeleton/>
-                                                    <Skeleton/>
-                                                    <Skeleton/>
-                                                    <Skeleton/>
+                                                    <Skeleton count={4}/>
                                                 </p>
                                             </div>
                                         </div>
@@ -366,12 +422,12 @@ class IndexCheckout extends Component{
                                 }
                             </div>
                         </div>
-                        <div className="row" style={{marginBottom:"10px"}}>
-                            <div className="col-md-5" style={{paddingRight:"0px"}}>
-                                <div className="card">
+                        <div className="row d-flex">
+                            <div className="col-md-5 box-margin" >
+                                <div className="card h-100">
                                     <div className="card-body">
                                         <h4 className="txtGreen bold">PILIH KURIR {this.props.isLoadingKurir?'loading ..':''}</h4>
-                                        <div className="row" style={{height:"300px",overflow:"auto"}}>
+                                        <div className="row">
                                             <div className="col-md-12">
                                                 <div class="outer">
                                                     <div class="inner" style={{display:'flex',flexWrap:'wrap'}}>
@@ -391,14 +447,14 @@ class IndexCheckout extends Component{
                                                                     </div>
                                                                 );
                                                             }):"No Data.":(
-                                                                <div className="row">
+                                                                <div className="row w-100 pl-3">
                                                                     {
                                                                         (() => {
                                                                             const rows = [];
                                                                             for (let i = 0; i < 9; i++) {
                                                                                 rows.push(
-                                                                                    <div className="col-md-4">
-                                                                                        <Skeleton width={100} height={80}/>
+                                                                                    <div className="col-md-4 p-0 pr-1">
+                                                                                        <Skeleton height={60} style={{width:'100%'}}/>
                                                                                     </div>
                                                                                 );
                                                                             }
@@ -416,11 +472,11 @@ class IndexCheckout extends Component{
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-7" style={{paddingLeft:"10px"}}>
-                                <div className="card">
+                            <div className="col-md-7 box-margin">
+                                <div className="card h-100">
                                     <div className="card-body">
                                         <h4 className="txtGreen bold">PILIH LAYANAN </h4>
-                                        <div style={{height:'300px',overflow:'auto'}}>
+                                        <div>
                                             {
                                                 !this.props.isLoadingOngkir?this.state.dataLayanan.length>0?this.state.dataLayanan.map((v,i)=>{
                                                     return(
@@ -485,7 +541,8 @@ class IndexCheckout extends Component{
                             </div>
                         </div>
                     </div>
-                    <StickyBox offsetTop={100} offsetBottom={20} style={{width:"30%",marginLeft:"10px"}}>
+                    <div className="col-md-4">
+                    <StickyBox offsetTop={100} >
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="d-flex justify-content-between align-items-center mb-3">
@@ -526,10 +583,25 @@ class IndexCheckout extends Component{
                                                 <span className="font-weight-bold text-dark text-left">TOTAL ONGKOS KIRIM</span>
                                                 <span className="font-weight-bold txtRed text-right">Rp {toRp(totOngkir)} .-</span>
                                             </li>
+                                            {this.state.dataVoucher.status!==undefined&&this.state.dataVoucher.status==='success'?
+                                            <>
+                                            <li className="list-group-item d-flex justify-content-between lh-condensed">
+                                                <span className="font-weight-bold text-dark text-left">DISKON VOUCHER</span>
+                                                <span className="font-weight-bold txtRed text-right">Rp {toRp(Math.round((totBelanja+totOngkir)*(this.state.dataVoucher.disc/100)))} .-</span>
+                                            </li>
+                                            <li className="list-group-item d-flex justify-content-between lh-condensed">
+                                                <span className="font-weight-bold text-dark text-left">YANG HARUS DIBAYAR</span>
+                                                <span className="font-weight-bold txtRed text-right">Rp {toRp(totBelanja+totOngkir-(Math.round((totBelanja+totOngkir)*(this.state.dataVoucher.disc/100))))} .-</span>
+                                            </li>
+                                            </>
+                                            :
+                                            <>
                                             <li className="list-group-item d-flex justify-content-between lh-condensed">
                                                 <span className="font-weight-bold text-dark text-left">YANG HARUS DIBAYAR</span>
                                                 <span className="font-weight-bold txtRed text-right">Rp {toRp(totBelanja+totOngkir)} .-</span>
                                             </li>
+                                            </>
+                                            }
 
                                         </ul>
                                     ):(
@@ -549,11 +621,35 @@ class IndexCheckout extends Component{
                                 </div>
                                 {this.state.isVoucher?
                                 <div className="form-group">
+                                {/* //     <input type="text" className="form-control" name="voucher" value={this.state.voucher} onChange={this.handleChange} />
+                                // </div> */}
+                                <div className="input-group">
                                     <input type="text" className="form-control" name="voucher" value={this.state.voucher} onChange={this.handleChange} />
-                                </div>:''}
+                                    <div className="input-group-append">
+                                        <button className="btn btn-primary" type="button" onClick={(e)=>this.checkVoucher(e)} disabled={this.props.isLoadingVoucher}>
+                                            {this.props.isLoadingVoucher?
+                                                <>
+                                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                <span className="sr-only">Loading...</span>
+                                                </>
+                                                :
+                                                'Pakai'}
+                                        </button>
+                                    </div>
+                                </div>
+                                    {this.state.dataVoucher.status!==undefined?
+                                    <>
+                                    <small className={`text-${this.state.dataVoucher.status}`}>{this.state.dataVoucher.msg}</small>
+                                    {/* <br/>
+                                    <small className={`text-${this.state.dataVoucher.status}`}>Diskon didapatkan : Rp {toRp(Math.round((totBelanja+totOngkir)*(this.state.dataVoucher.disc/100)))}</small> */}
+                                    </>
+                                    :''}
+                                </div>
+
+                                :''}
 
                                 <button className="btn btn-primary bgGreen" style={{borderRadius:"10px",width:"100%",padding:"10px",fontSize:"20px"}} disabled={
-                                    this.props.resCart.length<1||this.state.kurir===''||this.state.layanan===''
+                                    this.props.resCart.length<1||this.state.kurir===''||this.state.layanan===''||(this.state.isVoucher===false?false:!(this.state.isVoucher&&this.state.dataVoucher.status==='success'))
                                 } onClick={e=>this.handleSubmit(e)}>
                                     Bayar
                                 </button>
@@ -563,6 +659,7 @@ class IndexCheckout extends Component{
                             </div>
                         </div>
                     </StickyBox>
+                </div>
                 </div>
                 <ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={''}/>
             </Layout>
@@ -580,6 +677,8 @@ const mapStateToProps = (state) => {
         isLoadingPost:state.checkoutReducer.isLoadingPost,
         isLoadingOngkir:state.ongkirReducer.isLoading,
         isLoadingBank:state.bankReducer.isLoading,
+        isLoadingVoucher:state.voucherReducer.isLoadingVoucher,
+        resVoucher:state.voucherReducer.data,
         isError: state.checkoutReducer.isError,
         resAlamat:state.alamatReducer.data,
         isLoadingAlamat:state.alamatReducer.isLoading,

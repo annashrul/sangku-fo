@@ -44,48 +44,48 @@ class PenarikanReportExcel extends Component{
     };
     printDocument = (e) => {
         e.preventDefault();
-        let stringHtml = '';
-        stringHtml+=
-        '<div style="text-align:center>'+
-        '<h3 align="center"><center>PERIODE : '+this.props.startDate + ' - ' + this.props.endDate+'</center></h3>'+
-        '<h3 align="center"><center>&nbsp;</center></h3>'+
-        '<h3 style="text-align:center"><center>LAPORAN RECEIVE</center></h3>'+
-        '</div>';
+        // let stringHtml = '';
+        // stringHtml+=
+        // '<div style="text-align:center>'+
+        // '<h3 align="center"><center>PERIODE : '+this.props.startDate + ' - ' + this.props.endDate+'</center></h3>'+
+        // '<h3 align="center"><center>&nbsp;</center></h3>'+
+        // '<h3 style="text-align:center"><center>LAPORAN RECEIVE</center></h3>'+
+        // '</div>';
         
-        const headers = [[
-            "No Faktur",
-            "Tanggal",
-            "Penerima",
-            "Tipe",
-            "Pelunasan",
-            "Diskon",
-            "PPN",
-            "Supplier",
-            "Operator",
-            "Lokasi",
-            "Serial",
-            "Kontrabon",
-            "Jumlah Kontabon",
-            "Qty Beli",
-            "Total Beli",
-        ]];
-        let data = typeof this.props.penarikanReportExcel.data === 'object'?this.props.penarikanReportExcel.data.map(v=> [
-           v.no_faktur_beli,
-           moment(v.tgl_beli).format("YYYY-MM-DD"),
-           v.nama_penerima,
-           v.type,
-           v.pelunasan,
-           v.disc,
-           v.ppn,
-           v.supplier,
-           v.operator,
-           v.lokasi,
-           v.serial,
-           v.kontabon,
-           v.jumlah_kontrabon,
-           v.qty_beli,
-           v.total_beli,
-        ]):'';
+        // const headers = [[
+        //     "No Faktur",
+        //     "Tanggal",
+        //     "Penerima",
+        //     "Tipe",
+        //     "Pelunasan",
+        //     "Diskon",
+        //     "PPN",
+        //     "Supplier",
+        //     "Operator",
+        //     "Lokasi",
+        //     "Serial",
+        //     "Kontrabon",
+        //     "Jumlah Kontabon",
+        //     "Qty Beli",
+        //     "Total Beli",
+        // ]];
+        // let data = typeof this.props.penarikanReportExcel.data === 'object'?this.props.penarikanReportExcel.data.map(v=> [
+        //    v.no_faktur_beli,
+        //    moment(v.tgl_beli).format("YYYY-MM-DD"),
+        //    v.nama_penerima,
+        //    v.type,
+        //    v.pelunasan,
+        //    v.disc,
+        //    v.ppn,
+        //    v.supplier,
+        //    v.operator,
+        //    v.lokasi,
+        //    v.serial,
+        //    v.kontabon,
+        //    v.jumlah_kontrabon,
+        //    v.qty_beli,
+        //    v.total_beli,
+        // ]):'';
         // data +=["TOTAL","","","","","","","","",tprice];
         // to_pdf(
         //     "penarikan_",

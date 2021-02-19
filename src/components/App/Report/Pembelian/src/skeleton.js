@@ -2,11 +2,6 @@ import Skeleton from 'react-loading-skeleton';
 import React,{Component} from 'react'
 
 class Skeletons extends Component {
-
-    constructor(props) {
-        super(props)
-    }
-
     render(){
         return(
             

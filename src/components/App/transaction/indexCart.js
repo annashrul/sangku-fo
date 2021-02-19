@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
-import {noImage, toRp} from "helper";
 import {deleteCart, getCart, postCart} from "redux/actions/product/cart.action";
 import Swal from "sweetalert2";
 import { Link } from 'react-router-dom';
@@ -108,7 +107,8 @@ class IndexCart extends Component{
                         <div className="row">
                             {
                                 localStorage.totCart>"0"?<div className="col-12">
-                                    <div className="table-responsive cart-area">
+                                    {/* DESKTOP VERSION */}
+                                    <div className="table-responsive cart-area d-none d-md-block">
                                         <table className="table table-borderless table-centered mb-0">
                                             <thead className="thead-dark">
                                             <tr>
@@ -176,6 +176,54 @@ class IndexCart extends Component{
                                             </tfoot>
                                         </table>
                                     </div>
+                                    {/* DESKTOP VERSION */}
+
+                                    {/* MOBILE VERSION */}
+                                    <div className="d-md-none d-block">
+                                        {
+                                            this.state.res_cart.map((v,i)=>{
+                                                let isError='';
+                                                return (
+                                                    <div className="card shadow-none mb-2">
+                                                        <div className="card-body pb-2 p-0 bg-transparent border-bottom">
+                                                            <div className="row">
+                                                                <div className="col-4">
+                                                                    <img src={v.foto} alt="sangqu" title="sangqu" className="round mr-3 product-thumb w-100" />
+                                                                </div>
+                                                                <div className="col-8">
+                                                                    <h5>{v.title}</h5>
+                                                                    <h6 className="text-muted">{v.kategori}</h6>
+                                                                    <h6 className="text-success">Rp {toCurrency(v.harga)} .-</h6>
+                                                                    <div className="d-flex justify-content-between align-items-end">
+                                                                        <div>
+                                                                            <div className="input-group justify-content-center">
+                                                                                <div className="input-group-prepend">
+                                                                                    <button type="button" className="btn btn-outline-dark btn-sm" id="qtyMin" onClick={(e) => this.HandleChangeInputValue(e, i, v.qty, 'qtyMin')}><i className="fa fa-minus"></i></button>
+                                                                                </div>
+                                                                                {/* <input type="number" name={"qty"} min="1" value={v.qty} className="form-control" placeholder="Qty" style={{width:" 90px"}} onChange={(e) => this.HandleChangeInputValue(e, i)} readOnly/> */}
+                                                                                <span className="border p-2 text-dark" ref={(node) => { if (node) { node.style.setProperty("border-color", "#343a40", "important"); }}}>{v.qty}</span>
+                                                                                <div className="input-group-append">
+                                                                                    <button type="button" className="btn btn-outline-dark btn-sm rounded-right" id="qtyPlus" onClick={(e) => this.HandleChangeInputValue(e, i, v.qty, 'qtyPlus')}><i className="fa fa-plus"></i></button>
+                                                                                </div>
+                                                                                    <button type="button" className="btn btn-danger btn-sm ml-2" id="qtyPlus" onClick={(event)=>this.handleDelete(event,v.id)}><i className="fa fa-trash"></i></button>
+                                                                            </div>
+                                                                            <small style={{color:'res'}}>{isError}</small>
+                                                                        </div>
+                                                                        <small className="text-success">Berat : {toCurrency(parseInt(v.berat,10)*parseInt(v.qty,10))}</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })
+                                        }
+                                        <div className="d-flex justify-content-between align-items-center">
+                                        <h5>Total Belanja</h5>
+                                        <h5 className="text-success">Rp {toCurrency(totalCart)} .-</h5>
+                                        </div>
+                                    </div>
+                                    {/* MOBILE VERSION */}
                                     <div className="row mt-4">
                                         <div className="col-sm-6">
                                             <Link to={"/product"} className="btn border d-none d-sm-inline-block btn-link">

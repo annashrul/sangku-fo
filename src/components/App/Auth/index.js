@@ -9,7 +9,7 @@ import OTPInput, { ResendOTP } from "otp-input-react";
 import {sendOtp} from "redux/actions/authActions";
 import bycrypt from 'bcryptjs';
 import Swal from 'sweetalert2'
-import {loginUser, setLoggedin} from 'redux/actions/authActions';
+import {loginUser} from 'redux/actions/authActions';
 import { Link } from 'react-router-dom';
 
 
@@ -217,7 +217,7 @@ class Auth extends Component{
                                         <div className="wrap-login100">
                                         <form className="login100-form validate-form">
                                             <div className="login100-form-title p-b-43">
-                                                <img src="/logo.png" width="150px"/>
+                                                <img src="/logo.png" alt="sangqu" width="150px"/>
                                                 <div style={{marginTop:'12px'}}>Member Area</div>
                                             </div>
                                             <div style={{display: this.state.isOtp?"none":"block"}}>
@@ -261,10 +261,10 @@ class Auth extends Component{
                                                     </button>
 
                                                     <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
-                                                        <a href="#" onClick={function(event){
+                                                        <a href={() => {return false}} onClick={(event)=>{
                                                             event.preventDefault();
                                                             window.location.reload();
-                                                        }.bind(this)}> Ubah no. handphone</a>
+                                                        }}> Ubah no. handphone</a>
                                                     </div>
 
                                             </div>

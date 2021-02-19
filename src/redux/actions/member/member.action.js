@@ -1,7 +1,6 @@
 import axios from "axios"
 import Swal from "sweetalert2";
 import { update } from "../../../components/model/app.model";
-import { logoutUser } from "../authActions";
 import {MEMBER, HEADERS, NOTIF_ALERT} from "../_constants";
 
 

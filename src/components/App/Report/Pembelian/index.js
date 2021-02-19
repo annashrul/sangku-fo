@@ -10,7 +10,7 @@ import moment from "moment";
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import {rangeDate} from "helper";
 import { getReportPembelian} from '../../../../redux/actions/transaction/pembelian.action';
-import { cekResi, trxDone } from 'redux/actions/product/kurir.action';
+import { trxDone } from 'redux/actions/product/kurir.action';
 import Swal from 'sweetalert2';
 import Skeleton from './src/skeleton';
 import Cards from './src/cards';
@@ -379,8 +379,8 @@ class PembelianReport extends Component{
                         idDetail={this.state.idDetail}
                         isShowDetail={this.state.isShowDetail}
                     />: 
-                    <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA}/></div>: 
-                    <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA}/></div>:
+                    <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></div>: 
+                    <div style={{textAlign:'center'}}><img src={NOTIF_ALERT.NO_DATA} alt="sangqu"/></div>:
                     <Skeleton/>
                 }
 

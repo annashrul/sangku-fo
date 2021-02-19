@@ -52,7 +52,7 @@ class Header extends Component{
 
                     }
                 </nav>
-                <a className="header-menu-toggle" href="#" onClick={(e)=>this.onClickMenu(e)}><span>Menu</span></a>    	
+                <a className="header-menu-toggle cursor-pointer" href={()=>{return false}} onClick={(e)=>this.onClickMenu(e)}><span>Menu</span></a>    	
             </header> 
         );
     }

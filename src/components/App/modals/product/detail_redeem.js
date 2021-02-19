@@ -6,15 +6,11 @@ import {
 } from 'reactstrap';
 import {ModalToggle} from "redux/actions/modal.action";
 import WrapperModal from "../_wrapper.modal";
-import {getDetailPaket} from "redux/actions/product/paket.action";
-import {noImage, toCurrency} from "helper";
-import {NOTIF_ALERT} from "redux/actions/_constants";
 import {getAlamat} from "../../../../redux/actions/member/alamat.action";
 import Skeleton from 'react-loading-skeleton';
 import {ModalType} from "../../../../redux/actions/modal.action";
 import ModalPin from '../modal_pin'
 import {postRedeem} from "../../../../redux/actions/product/redeem.action";
-import * as Swal from "sweetalert2";
 class DetailRedeem extends Component{
     constructor(props){
         super(props);
@@ -81,11 +77,7 @@ class DetailRedeem extends Component{
 
     render(){
         const {
-            per_page,
-            last_page,
-            current_page,
             data,
-            saldo
         } = this.props.data;
         const {idx} = this.state;
         return (

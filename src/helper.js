@@ -19,7 +19,7 @@ import truck from 'assets/status/truck_y_non.svg'
 import confirmY from 'assets/status/confirmation.svg'
 import confirmWhite from 'assets/status/confirmation_white.svg'
 import confirm from 'assets/status/confirmation_non.svg'
-import { renderToString } from 'react-dom/server';
+// import { renderToString } from 'react-dom/server';
 
 
 
@@ -89,7 +89,7 @@ export const stringifyFormData = (fd) => {
 }
 export const to_pdf = (filename,title='',header=[],body=[],footer=[])=>{
     const doc = jsPDF('portrait', 'pt', 'A4');
-    const marginLeft = 40;
+    // const marginLeft = 40;
     doc.setFontSize(15);
     let content = {
         headStyles:{backgroundColor:[0,0,0,0]},

@@ -39,15 +39,13 @@ class Binary extends Component{
         require("./treedev.css"); // here
         return (
             <Layout page="Genealogy Binary" subpage="Jaringan">
-                <div className="col-12">
-                    <div className="card">
-                        <div className="card-body">
-                            {
-                                !this.props.isLoading?
-                                <BinaryNetwork dataList={this.props.list}/>
-                                :<Spinner/>
-                            }
-                        </div>
+                <div className="card">
+                    <div className="card-body">
+                        {
+                            !this.props.isLoading?
+                            <BinaryNetwork dataList={this.props.list}/>
+                            :<Spinner/>
+                        }
                     </div>
                 </div>
             </Layout>

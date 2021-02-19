@@ -6,7 +6,6 @@ import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchAvailablePin, FetchPin} from '../../../../redux/actions/pin/pin.action'
-import {toRp} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
@@ -331,7 +330,7 @@ class Pin extends Component{
                                                                                 <i className={`fa fa-circle text-success font-11 mr-2`}/>&nbsp;<p className="mb-0">{v.status}</p>
                                                                             </div>
                                                                         </div>
-                                                                        <h6 className="mb-0 text-success"></h6>
+                                                                        <h6 className="mb-0 text-success">&nbsp;</h6>
                                                                         {/* <h6 className="mb-0 text-success">PV : {v.point_volume}</h6> */}
                                                                     </div>
                                                                     <div className="progress h-5">
@@ -360,7 +359,7 @@ class Pin extends Component{
                                                                     <h6><Skeleton width="90px"/></h6>
                                                                     <p className="mb-0"><Skeleton width="90px"/></p>
                                                                     </div>
-                                                                    <h6 className="mb-0 text-success"></h6>
+                                                                    <h6 className="mb-0 text-success">&nbsp;</h6>
                                                                 </div>
                                                                 <div className="progress h-5">
                                                                     <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />

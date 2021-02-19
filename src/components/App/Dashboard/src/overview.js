@@ -52,7 +52,7 @@ class Overview extends Component {
                                     <div className="col-md-6" style={{borderRight:'2px solid gray'}}>
                                         <div className="row mr-2">
                                             <div className="col-md-5" style={{paddingRight:0}}>
-                                            <img src={this.props.membership_badge} width="100%"/>
+                                            <img src={this.props.membership_badge} alt="sangqu" width="100%"/>
                                             </div>
                                             <div className="col-md-7 pl-2 pr-0">
                                                 <div style={{marginTop:'5px'}}>{this.props.membership}</div>
@@ -64,7 +64,7 @@ class Overview extends Component {
                                     <div className="col-md-6">
                                         <div className="row mr-2">
                                             <div className="col-md-5" style={{paddingRight:0}}>
-                                            <img src={this.props.jenjang_karir_badge} width="100%"/>
+                                            <img src={this.props.jenjang_karir_badge} alt="sangqu" width="100%"/>
                                             </div>
                                             <div className="col-md-7 pl-2 pr-0">
                                                 <div style={{marginTop:'5px'}}>{this.props.jenjang_karir}</div>
@@ -83,14 +83,14 @@ class Overview extends Component {
                         <div className="row">
                         <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:rewardBool?'none':''}}/>
                             <div className="col-md-4" style={{height:'100px'}}>
-                                <img style={{width:'100%',height:'100%',objectFit:'contain'}} src={this.props.reward.gambar}/>
+                                <img style={{width:'100%',height:'100%',objectFit:'contain'}} alt="sangqu" src={this.props.reward.gambar}/>
                             </div>
                             <div className="col-md-8">
                                 <h5>
                                     {this.props.reward.title}
                                 </h5>
                                 <p className="title-widget-team mb-0">{this.props.reward.caption}</p>
-                                <button type="button" className='badge badge-info cursor-pointer text-white' onClick={(e)=>this.toggleReward(e,this.props.reward.id)}>Klaim Hadiah</button>
+                                <a href={() => {return null}} className='badge badge-info cursor-pointer text-white' onClick={(e)=>this.toggleReward(e,this.props.reward.id)}>Klaim Hadiah</a>
                             </div>
                         </div>
                     </div>

@@ -3,11 +3,8 @@ import {ModalBody, ModalHeader} from "reactstrap";
 import connect from "react-redux/es/connect/connect";
 import WrapperModal from "../../_wrapper.modal";
 import {ModalToggle} from "redux/actions/modal.action";
-// import { statusQ, toRp } from '../../../../../helper';
-// import moment from 'moment'
 import {cekResi} from "../../../../../redux/actions/product/kurir.action";
 import Skeleton from 'react-loading-skeleton';
-import moment from "moment";
 
 class PembelianCekResi extends Component{
     constructor(props){

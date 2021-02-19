@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import How from './howitworks'
+// import How from './howitworks'
 import Fade from 'react-reveal/Fade';
 
 class Content extends Component{

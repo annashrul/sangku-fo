@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Card, CardBody, CardHeader} from "reactstrap";
+import {Card, CardBody} from "reactstrap";
 import Layout from 'components/Layout';
-import {noImage, toCurrency} from "../../../../helper";
+import {toCurrency} from "../../../../helper";
 import {getRedeem} from "../../../../redux/actions/product/redeem.action";
 import Skeleton from 'react-loading-skeleton';
 import {NOTIF_ALERT} from "../../../../redux/actions/_constants";
 import {ModalToggle, ModalType} from "../../../../redux/actions/modal.action";
 import DetailRedeem from "../../modals/product/detail_redeem";
-import OTPInput, { ResendOTP } from "otp-input-react";
-import IntlTelInput from 'react-intl-tel-input';
-// import 'react-intl-tel-input/dist/libphonenumber.css';
 import 'react-intl-tel-input/dist/main.css';
 
 class IndexRedeem extends Component{
@@ -46,9 +43,6 @@ class IndexRedeem extends Component{
     }
     render(){
         const {
-            per_page,
-            last_page,
-            current_page,
             data,
             saldo
         } = this.props.data;

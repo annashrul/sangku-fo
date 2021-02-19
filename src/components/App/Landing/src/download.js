@@ -23,7 +23,7 @@ class Download extends Component{
                         <HeadShake>
                             <ul className="download-badges">
                                 {/* <li><a href={() => false} title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li> */}
-                                <li><a href={this.props.data===undefined?'':this.props.data.link} target="_blank" title className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
+                                <li><a href={this.props.data===undefined?()=>{return false}:this.props.data.link} target="_blank" rel="noopener noreferrer" title="sangqu" className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
                             </ul>
                         </HeadShake>
                     </div>

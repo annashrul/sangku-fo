@@ -11,7 +11,7 @@ import Footer from './src/footer'
 import {HEADERS} from 'redux/actions/_constants'
 import {FetchSite} from 'redux/actions/site.action'
 import Preloader from 'Preloader'
-import {isMobile} from 'react-device-detect';
+// import {isMobile} from 'react-device-detect';
 // import Swal from "sweetalert2";
 
 class Landing extends Component{

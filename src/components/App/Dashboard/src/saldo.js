@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {noImage,toRp} from "helper";
+import {toRp} from "helper";
 import {HEADERS} from 'redux/actions/_constants'
 import {connect} from "react-redux";
 import { withRouter } from 'react-router-dom';

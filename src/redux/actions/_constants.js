@@ -232,6 +232,13 @@ export const ONGKIR = {
     IS_ERROR: 'SET_ONGKIR_IS_ERROR',
     SUCCESS: 'SUCCESS_ONGKIR',
 }
+/****************
+ VOUCHER
+ *****************/
+export const VOUCHER = {
+    SUCCESS: 'SUCCESS_VOUCHER',
+    LOADING_VOUCHER: 'SET_VOUCHER_LOADING',
+}
 
 /****************
  PROVINSI

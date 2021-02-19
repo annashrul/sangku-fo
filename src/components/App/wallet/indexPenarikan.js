@@ -50,7 +50,6 @@ class IndexPenarikan extends Component{
             code:"0",
             pin:"",
             member_data:{},
-            bank:"",
             arrAmount:[
                 {id:0,amount:'100,000'},
                 {id:1,amount:'200,000'},

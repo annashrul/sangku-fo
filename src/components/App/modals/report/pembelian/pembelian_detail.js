@@ -3,7 +3,7 @@ import {ModalBody, ModalHeader} from "reactstrap";
 import connect from "react-redux/es/connect/connect";
 import WrapperModal from "../../_wrapper.modal";
 import {ModalToggle} from "redux/actions/modal.action";
-import {noImage, statusQ, toCurrency, toRp} from '../../../../../helper';
+import {toCurrency} from '../../../../../helper';
 import moment from 'moment'
 import {getReportPembelianDetail} from "../../../../../redux/actions/transaction/pembelian.action";
 
@@ -40,6 +40,7 @@ class PembelianDetail extends Component{
                         type: val.type,
                         updated_at: val.updated_at,
                     })
+                    return null;
                 });
 
                 detail.push({
@@ -58,6 +59,7 @@ class PembelianDetail extends Component{
                     qty: v.qty,
                     updated_at: v.updated_at,
                 });
+                return null;
             });
             Object.assign(data,{
                 alamat: list.alamat,
@@ -107,15 +109,15 @@ class PembelianDetail extends Component{
     };
     getListPin(e,data,id){
         e.preventDefault();
-        console.log(data);
-        this.state.data.detail[id].isShow=!this.state.data.detail[id].isShow;
+        // console.log(data);
+        // this.state.data.detail[id].isShow=!this.state.data.detail[id].isShow;
         // Object.assign(data,{isShow:false});
         // console.log(data);
         this.setState({list_pin:data});
     }
 
     render(){
-        let totalItem=0;
+        // let totalItem=0;
         // const data = this.props.pembelianDetail===undefined?{}:this.props.pembelianDetail;
         const {data}=this.state;
 

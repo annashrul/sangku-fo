@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-// import { Link } from 'react-router-dom';
-import Preloader from 'Preloader'
 import moment from 'moment'
 import { HEADERS } from '../../../../../redux/actions/_constants';
 import noUser from 'assets/no-user.png';

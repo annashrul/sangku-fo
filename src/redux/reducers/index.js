@@ -15,6 +15,7 @@ import {kotaReducer} from "./member/kota.reducer";
 import {kecamatanReducer} from "./member/kecamatan.reducer";
 import {kurirReducer} from "./member/kurir.reducer";
 import {ongkirReducer} from "./product/ongkir.reducer";
+import {voucherReducer} from "./product/voucher.reducer";
 import {bankReducer} from "./member/bank.reducer";
 import {memberReducer} from "./member/member.reducer";
 import {networkReducer} from "./member/network.reducer";
@@ -69,6 +70,7 @@ export default combineReducers({
     memberReducer,
     rekapitulasiReducer,
     reportPPOBReducer,
+    voucherReducer,
 
     auth: authReducer,
     errors : errorsReducer

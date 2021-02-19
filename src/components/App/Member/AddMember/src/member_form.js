@@ -585,41 +585,46 @@ class MemberForm extends Component{
                                     <div className="col-md-6  offset-md-3">
                                         <Card>
                                             <CardBody> */}
-                                                <div className="col-md-10 offset-md-1 d-flex align-items-center justify-content-between">
-                                                    <div className="form-group">
-                                                        <label>Sponsor</label>
-                                                        {/* 
-                                                        <input type="text" className="form-control form-control-lg" name="sponsor" value={this.state.sponsor} onChange={this.handleChange} readOnly />
-                                                        <div className="invalid-feedback" style={this.state.error.sponsor!==""?{display:'block'}:{display:'none'}}>
-                                                            {this.state.error.sponsor}
-                                                        </div> */}
-                                                        <div className="member-content-area">
-                                                            <div className="member-contact-content d-flex align-items-center mb-4">
-                                                                <div className="contact-thumb">
-                                                                    <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
-                                                                </div>
-                                                                <div className="member-contact-info">
-                                                                    <h5>{this.state.sponsor_name}</h5>
-                                                                    <span className="badge badge-success badge-pill">{this.state.sponsor}</span>
+                                                <div className="col-md-10 offset-md-1">
+                                                    <div className="row">
+                                                        <div className="col-12 col-md-6">
+                                                            <div className="form-group">
+                                                                <label>Sponsor</label>
+                                                                {/* 
+                                                                <input type="text" className="form-control form-control-lg" name="sponsor" value={this.state.sponsor} onChange={this.handleChange} readOnly />
+                                                                <div className="invalid-feedback" style={this.state.error.sponsor!==""?{display:'block'}:{display:'none'}}>
+                                                                    {this.state.error.sponsor}
+                                                                </div> */}
+                                                                <div className="member-content-area">
+                                                                    <div className="member-contact-content d-flex align-items-center mb-4">
+                                                                        <div className="contact-thumb">
+                                                                            <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
+                                                                        </div>
+                                                                        <div className="member-contact-info">
+                                                                            <h5>{this.state.sponsor_name}</h5>
+                                                                            <span className="badge badge-success badge-pill">{this.state.sponsor}</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div className="form-group">
-                                                        <label>Upline</label>
-                                                        {/* <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
-                                                        <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
-                                                            {this.state.error.upline}
-                                                        </div> */}
-                                                        <div className="member-content-area">
-                                                            <div className="member-contact-content d-flex align-items-center mb-4">
-                                                                <div className="contact-thumb">
-                                                                    <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
-                                                                </div>
-                                                                <div className="member-contact-info">
-                                                                    <h5>{this.state.upline_name}</h5>
-                                                                    <span className="badge badge-success badge-pill">{this.state.upline}</span>
+                                                        <div className="col-12 col-md-6">
+                                                            <div className="form-group">
+                                                                <label>Upline</label>
+                                                                {/* <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
+                                                                <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
+                                                                    {this.state.error.upline}
+                                                                </div> */}
+                                                                <div className="member-content-area">
+                                                                    <div className="member-contact-content d-flex align-items-center mb-4">
+                                                                        <div className="contact-thumb">
+                                                                            <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
+                                                                        </div>
+                                                                        <div className="member-contact-info">
+                                                                            <h5>{this.state.upline_name}</h5>
+                                                                            <span className="badge badge-success badge-pill">{this.state.upline}</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -640,9 +645,14 @@ class MemberForm extends Component{
                                                     </div>
                                                 </div> */}
                                                 <div className="form-group" style={{display:this.state.isOtp?'':'none'}}>
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <label>Membership</label>
+                                                    <div className="d-md-flex justify-content-between align-items-center d-none">
+                                                        <label>Pilih Membership</label>
                                                         <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label>
+                                                    </div>
+                                                    <div className="text-left d-block d-md-none">
+                                                        <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label>
+                                                        <br/>
+                                                        <label>Pilih Membership</label>
                                                     </div>
                                                     <Tabs>
                                                         <div className="row">
@@ -655,7 +665,7 @@ class MemberForm extends Component{
                                                                             typeof this.props.availPin.data === 'object' ?
                                                                                 this.props.availPin.data.map((v,i)=>{
                                                                                     return(
-                                                                                        <Tab key={i} className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
                                                                                             <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                                                             <br/>
                                                                                             <a href={() => false} className="font-24">{`${v.title}`}</a>
