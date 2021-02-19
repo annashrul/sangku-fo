@@ -29,8 +29,7 @@ class About extends Component{
                                                 <div className="card-body">
                                                     <img src={item.image} className="avatar avatar-small mb-3" alt={item.title} />
                                                     <h4 className="title">{item.title}</h4>
-                                                    <p className="text-muted para">
-                                                    {item.deskripsi} </p>
+                                                    <p className="text-muted para" dangerouslySetInnerHTML={{ __html: item.deskripsi }}></p>
                                                     <ul className="list-unstyled d-flex justify-content-between mb-0 mt-2">
                                                     <li className="step h1 mb-0 font-weight-bold">Step 0{index+1}.</li>
                                                     <li className="step-icon"><i className="mdi mdi-chevron-double-right mdi-36px" /></li>
