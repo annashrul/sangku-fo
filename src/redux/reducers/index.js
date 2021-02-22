@@ -30,6 +30,7 @@ import {testimoniReducer} from './konten/testimoni.reducer';
 import {pulsa_allReducer} from './ppob/pulsa_all/pulsa_all.reducer';
 import {rekapitulasiReducer} from './member/rekapitulasi.reducer';
 import {redeemReducer} from "./product/redeem.reducer";
+import {rewardReducer} from "./product/reward.reducer";
 import {kategoriPPOBReducer} from "./ppob/kategoriPPOB.reducer";
 import {pascabayarReducer} from "./ppob/pascabayar.reducer";
 import {prabayarReducer} from "./ppob/prabayar.reducer";
@@ -52,6 +53,7 @@ export default combineReducers({
     kurirReducer,
     ongkirReducer,
     redeemReducer,
+    rewardReducer,
     provinsiReducer,
     kotaReducer,
     kecamatanReducer,

@@ -55,6 +55,7 @@ import PagesSpace from '../App/Landing/pages';
 import PenarikanReport from '../App/Report/Wallet/reportPenarikan';
 import DepositReport from '../App/Report/Wallet/reportDeposit';
 import ReportRedeem from '../App/Report/Redeem';
+import ReportReward from '../App/Report/Reward';
 
 const Routes = (
     <div>
@@ -116,6 +117,7 @@ const Routes = (
             <PrivateRoute path="/report/wallet/penarikan" exact strict component={PenarikanReport} />
             <PrivateRoute path="/report/wallet/transfer" exact strict component={IndexTransfer} />
             <PrivateRoute path="/report/redeem" exact strict component={ReportRedeem} />
+            <PrivateRoute path="/report/reward" exact strict component={ReportReward} />
             {/* REPORT WALLET SECTION END */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
             <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
