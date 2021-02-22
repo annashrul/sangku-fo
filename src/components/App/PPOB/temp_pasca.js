@@ -77,34 +77,42 @@ class TempPasca extends Component{
                 dataUser:{name:nextProps.auth.user.full_name,nohp:nextProps.auth.user.mobile_no}
             })
         }
-        if(this.props.isLoadingCheckout){
-            if(!nextProps.isErrorCheckout){
-                localStorage.setItem("isPin","-");
-                this.setState({
-                    currentStep: currentStep + 1,
-                });
-                this.konfirmRefs.current.scrollIntoView({ block: 'start',  behavior: 'smooth' })
+        // if(this.props.isLoadingCheckout){
+            // if(!nextProps.isErrorCheckout){
+                
+            //     this.setState({
+            //         currentStep: currentStep + 1,
+            //     });
+                // this.konfirmRefs.current.scrollIntoView({ block: 'start',  behavior: 'smooth' })
 
-            }
-        }
+            // }
+        // }
         if(this.props.isLoadingCekTagihan){
-            console.log('nextProps.isErrorCekTagihan', nextProps.isErrorCekTagihan);
-            if(!nextProps.isErrorCekTagihan){
-                console.log(!nextProps.isErrorCekTagihan);
-                this.setState({
-                    currentStep:  !nextProps.isErrorCheckout?currentStep + 1 : 1,
-                    dataStep2:{
-                        admin: nextProps.dataTagihan.admin,
-                        kd_trx: nextProps.dataTagihan.kd_trx,
-                        nama_palanggan: nextProps.dataTagihan.nama_palanggan,
-                        periode:nextProps.dataTagihan.periode,
-                        tagihan: nextProps.dataTagihan.tagihan,
-                        target: nextProps.dataTagihan.target,
-                        total_bayar: nextProps.dataTagihan.total_bayar,
-                        no_pelanggan: nextProps.dataTagihan.no_pelanggan,
-                        produk: nextProps.dataTagihan.produk,
-                    }
-                });
+            if (nextProps.dataTagihan !== undefined && typeof nextProps.dataTagihan === 'object') {
+                console.log('nextProps.dataTagihan', currentStep);
+                var size = Object.keys(nextProps.dataTagihan).length;
+
+                if (size>2) {
+                    this.setState({
+                        currentStep:  1,
+                        dataStep2:{
+                            admin: nextProps.dataTagihan.admin,
+                            kd_trx: nextProps.dataTagihan.kd_trx,
+                            nama_palanggan: nextProps.dataTagihan.nama_palanggan,
+                            periode:nextProps.dataTagihan.periode,
+                            tagihan: nextProps.dataTagihan.tagihan,
+                            target: nextProps.dataTagihan.target,
+                            total_bayar: nextProps.dataTagihan.total_bayar,
+                            no_pelanggan: nextProps.dataTagihan.no_pelanggan,
+                            produk: nextProps.dataTagihan.produk,
+                        }
+                    });
+                }else if(currentStep===1){
+                    localStorage.setItem("isPin", "-");
+                    this.setState({
+                        currentStep: 2
+                    })
+                }
                 this.konfirmRefs.current.scrollIntoView({ block: 'start',  behavior: 'smooth' })
             }
         }
@@ -158,13 +166,13 @@ class TempPasca extends Component{
     submit(){
         let data={};
         data['code'] = this.state.jenis;
-        data['mtr_pln'] = this.state.id_pelanggan;
+        data['nopel'] = this.state.id_pelanggan;
         data['nohp'] = this.state.no_telp;
         if(data['code']===""){
             ToastQ.fire({icon:'error',title:`silahkan pilih jenis tagihan`});
             return false;
         }
-        if(data['mtr_pln']===""){
+        if(data['nopel']===""){
             ToastQ.fire({icon:'error',title:`silahkan masukan ID Pelanggan/No Rekening anda`});
             return false;
         }
@@ -240,6 +248,7 @@ class TempPasca extends Component{
     }
     render(){
         const { steps, currentStep,jenis } = this.state;
+        console.log(currentStep);
         const blur = {
             WebkitFilter: 'blur(5px)',
             cursor:'no-drop',
