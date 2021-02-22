@@ -191,9 +191,9 @@ class IndexReportPPOB extends Component{
                 <div className="card box-margin">
                     <div className="card-body">
                         <div className="row">
-                            <div className="col-md-10" style={{zoom:"100%"}}>
+                            <div className="col-md-10">
                                 <div className="row">
-                                    <div className="col-6 col-xs-6 col-md-3">
+                                    <div className="col-12 col-xs-4 col-md-3">
                                         <div className="form-group">
                                             <label htmlFor=""> Periode </label>
                                             <DateRangePicker
@@ -203,7 +203,7 @@ class IndexReportPPOB extends Component{
 
                                         </div>
                                     </div>
-                                    <div className="col-6 col-xs-6 col-md-3">
+                                    <div className="col-12 col-xs-4 col-md-3">
                                         <div className="form-group">
                                             <label className="control-label font-12">
                                                 Cari Berdasarkan
@@ -219,32 +219,22 @@ class IndexReportPPOB extends Component{
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-6 col-xs-6 col-md-3">
+                                    <div className="col-12 col-xs-4 col-md-3">
                                         <div className="form-group">
                                             <label>Cari</label>
-                                            <input className="form-control" type="text" name="any_ppob_report" value={this.state.any_ppob_report} onChange={(e) => this.handleChange(e)}/>
+                                            <div className="input-group">
+                                                <input className="form-control" type="text" name="any_ppob_report" value={this.state.any_ppob_report} onChange={(e) => this.handleChange(e)}/>
+                                                <div className="input-group-prepend">
+                                                    <button className="btn btn-primary" onClick={this.handleSearch}>
+                                                        <i className="fa fa-search"/>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-6 col-xs-6 col-md-2" style={{zoom:"85%",textAlign:"right"}}>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group">
-                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                <i className="fa fa-search"/>
-                                            </button>
-                                            {/*<button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>*/}
-                                                {/*<i className="fa fa-print"></i> Export*/}
-                                            {/*</button>*/}
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
                         </div>
-
                     </div>
                 </div>
                     {

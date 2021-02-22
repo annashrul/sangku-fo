@@ -7,6 +7,7 @@ const initialState = {
     isLoadingDetail: true,
     isLoadingPost: false,
     isError: false,
+    isErrorCheckout: true,
     status: "",
     msg: "",
     data: [],
@@ -48,6 +49,10 @@ export const pascabayarReducer = (state = initialState, action) => {
         case PASCABAYAR.IS_ERROR:
             return Object.assign({}, state, {
                 isError: action.load
+            });
+        case PASCABAYAR.IS_ERROR_CHECKOUT:
+            return Object.assign({}, state, {
+                isErrorCheckout: action.load
             });
         default:
             return state

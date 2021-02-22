@@ -65,10 +65,10 @@ class TempPasca extends Component{
     // }
     componentWillReceiveProps(nextProps){
         const {currentStep } = this.state;
-        if (nextProps.auth.isErrorNo === true && localStorage.isPin==="false") {
-            this.props.dispatch(ModalToggle(true));
-            this.props.dispatch(ModalType("modalOtp"));
-        }
+        // if (nextProps.auth.isErrorNo === true && localStorage.isPin==="false") {
+        //     this.props.dispatch(ModalToggle(true));
+        //     this.props.dispatch(ModalType("modalOtp"));
+        // }
         if (localStorage.isPin==="true") {
             this.props.dispatch(ModalType("modalPin"));
         }
@@ -92,7 +92,7 @@ class TempPasca extends Component{
             if(!nextProps.isErrorCekTagihan){
                 console.log(!nextProps.isErrorCekTagihan);
                 this.setState({
-                    currentStep:  1,
+                    currentStep:  !nextProps.isErrorCheckout?currentStep + 1 : 1,
                     dataStep2:{
                         admin: nextProps.dataTagihan.admin,
                         kd_trx: nextProps.dataTagihan.kd_trx,
@@ -123,13 +123,16 @@ class TempPasca extends Component{
 
         }
         else if(currentStep===1){
-            localStorage.setItem("isPin","false");
-            this.props.dispatch(sendOtp({
-                type: '-',
-                nomor: this.state.dataUser.nohp,
-                islogin: true,
-                nama:this.state.dataUser.name,
-            }));
+            localStorage.setItem("isPin","true");
+            // localStorage.setItem("isPin","false");
+            // this.props.dispatch(sendOtp({
+            //     type: '-',
+            //     nomor: this.state.dataUser.nohp,
+            //     islogin: true,
+            //     nama:this.state.dataUser.name,
+            // }));
+            this.props.dispatch(ModalToggle(true));
+            this.props.dispatch(ModalType("modalPin"));
         }
     }
     onClickPrev() {
@@ -456,6 +459,7 @@ const mapStateToProps = (state) => {
         isLoading:state.pulsa_allReducer.isLoading,
         isLoadingCekTagihan:state.pascabayarReducer.isLoadingPost,
         isErrorCekTagihan:state.pascabayarReducer.isError,
+        isErrorCheckout:state.pascabayarReducer.isErrorCheckout,
         isLoadingCheckout:state.pascabayarReducer.isLoadingPost,
         isErrorCheckout:state.pascabayarReducer.isError,
         dataTagihan:state.pascabayarReducer.data
