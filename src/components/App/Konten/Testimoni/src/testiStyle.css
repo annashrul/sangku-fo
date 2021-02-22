@@ -137,7 +137,7 @@ html.lb-disable-scrolling {
     height: 250px;
     margin: 0 auto;
     border-radius: 4px;
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 .lb-loader,
 .lb-nav {

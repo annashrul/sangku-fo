@@ -49,24 +49,24 @@ class Overview extends Component {
                             <a href='/profile' className="btn btn-primary btn-sm text-light m-3 p-2" style={{cursor:'pointer',width:'90%',marginTop:"10px"}}><i class="fa fa-user"></i> Lihat Profil</a>
                         </div>
                         <div className="row justify-content-between">
-                                    <div className="col-md-6" style={{borderRight:'2px solid gray'}}>
+                                    <div className="col-md-6 col-6" style={{borderRight:'2px solid gray'}}>
                                         <div className="row mr-2">
-                                            <div className="col-md-5" style={{paddingRight:0}}>
+                                            <div className="col-md-5 col-5" style={{paddingRight:0}}>
                                             <img src={this.props.membership_badge} alt="sangqu" width="100%"/>
                                             </div>
-                                            <div className="col-md-7 pl-2 pr-0">
+                                            <div className="col-md-7 col-7 pl-2 pr-0">
                                                 <div style={{marginTop:'5px'}}>{this.props.membership}</div>
                                                 <div style={{fontSize:'.7em',color:'gray',fontWeight:'bold'}}>Status Terkini.</div>
                                                 <a href={() => false} className="badge badge-primary badge-sm text-light" style={{cursor:'pointer',padding:'4px',fontSize:'.8em'}} onClick={(e)=>this.props.handleModal(e)}><i class="fa fa-refresh fa-spin"></i> Re-aktivasi</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-md-6 col-6">
                                         <div className="row mr-2">
-                                            <div className="col-md-5" style={{paddingRight:0}}>
+                                            <div className="col-md-5 col-5" style={{paddingRight:0}}>
                                             <img src={this.props.jenjang_karir_badge} alt="sangqu" width="100%"/>
                                             </div>
-                                            <div className="col-md-7 pl-2 pr-0">
+                                            <div className="col-md-7 col-7 pl-2 pr-0">
                                                 <div style={{marginTop:'5px'}}>{this.props.jenjang_karir}</div>
                                                 <div style={{fontSize:'.7em',color:'gray',fontWeight:'bold'}}>Karir terkini.</div>
                                                 <div style={{fontSize:'.8em',color:'black',fontWeight:'light'}}>Poin : {this.props.reward_kiri} | {this.props.reward_kanan}</div>
@@ -82,10 +82,10 @@ class Overview extends Component {
                     {/* <div className="card-body" style={{padding:'22px'}}> */}
                         <div className="row">
                         <div className="w-100 h-100 bg-transparent" style={{position:'absolute',top:'0',left:'0',zIndex:'1', display:rewardBool?'none':''}}/>
-                            <div className="col-md-4" style={{height:'100px'}}>
+                            <div className="col-md-4 col-4" style={{height:'100px'}}>
                                 <img style={{width:'100%',height:'100%',objectFit:'contain'}} alt="sangqu" src={this.props.reward.gambar}/>
                             </div>
-                            <div className="col-md-8">
+                            <div className="col-md-8 col-8">
                                 <h5>
                                     {this.props.reward.title}
                                 </h5>

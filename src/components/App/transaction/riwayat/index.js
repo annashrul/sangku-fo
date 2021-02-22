@@ -10,6 +10,7 @@ import {getRiwayat} from "redux/actions/transaction/riwayat.action";
 import {NOTIF_ALERT} from "redux/actions/_constants";
 import {DateRangePicker} from "react-bootstrap-daterangepicker";
 import moment from 'moment';
+import CardMobile from './src/card-mobile';
 
 class IndexCart extends Component{
     constructor(props){
@@ -86,8 +87,8 @@ class IndexCart extends Component{
         console.log(this.props.data);
         return(
             <Layout page="Riwayat Transaksi">
-               <div className="row" style={{padding:'0 20px'}}>
-                   <div className="col-6 col-xs-6 col-md-3">
+               <div className="row">
+                   <div className="col-12 col-xs-6 col-md-3">
                         <div className="form-group">
                             <label>Periode </label>
                             <DateRangePicker
@@ -100,20 +101,24 @@ class IndexCart extends Component{
                     <div className="col-12 col-xs-12 col-md-3">
                         <div className="form-group">
                             <label>Cari</label>
-                            <input type="text" className="form-control" value={this.state.any} onChange={this.handleChange} onKeyPress={event=>{if(event.key==='Enter'){this.handleSearch(event);}}}  name="cari" placeholder="Cari dengan kd trx/keterangan" />
+                            <div className="input-group">
+                                <input type="text" className="form-control" value={this.state.any} onChange={this.handleChange} onKeyPress={event=>{if(event.key==='Enter'){this.handleSearch(event);}}}  name="cari" placeholder="Cari dengan kd trx/keterangan" />
+                                <div className="input-group-append">
+                                    <button type="button" className="btn btn-primary" onClick={(e)=>this.handleSearch(e)}>
+                                        <i className="fa fa-search" />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-2 col-xs-2 col-md-4">
+                    {/* <div className="col-2 col-xs-2 col-md-4">
                         <div className="form-group">
-                            <button type="button" className="btn btn-primary" style={{marginTop: '30px'}} onClick={(e)=>this.handleSearch(e)}>
-                                <i className="fa fa-search" />
-                            </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                        
-                <div className="row" style={{padding:'20px'}}>
+                <div className="row d-none d-md-flex" style={{padding:'20px'}}>
                     {
                         this.props.isLoading?
                             (() => {
@@ -138,7 +143,32 @@ class IndexCart extends Component{
                                     <img src={NOTIF_ALERT.NO_DATA} style={{verticalAlign:"middle"}} alt=""/>
                                 </div>
                     }
-                   
+                </div>
+                <div className="box-margin d-block d-md-none">
+                    {
+                        this.props.isLoading?
+                            (() => {
+                            const list=[]
+                                for (let x = 0; x < 10; x++) {
+                                        list.push(<CardMobile isLoading={true}/>)
+                                }
+                                return list
+                            })()
+                        :
+                            this.props.data.length>0?
+                                this.props.data.map((item,key)=>{
+                                    return <CardMobile
+                                        created_at={item.created_at}
+                                        note={item.note}
+                                        kd_trx={item.kd_trx}
+                                        amount_in = {toRp(parseInt(item.trx_in),true)}
+                                        amount_out={toRp(parseInt(item.trx_out),true)}
+                                        isLoading={false}
+                                    />
+                            }):<div className={"col-md-12 text-center"}>
+                                    <img src={NOTIF_ALERT.NO_DATA} style={{verticalAlign:"middle"}} alt=""/>
+                                </div>
+                    }
                 </div>
                 <div style={{padding:'20px',"marginTop":"20px","marginBottom":"20px","float":"left"}}>
                     <h5>Ringkasan</h5>

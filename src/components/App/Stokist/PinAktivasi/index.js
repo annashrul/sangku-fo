@@ -306,10 +306,17 @@ class Pin extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className="d-none d-md-block">
                                         <div className="form-group">
                                             <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
-                                                <i className="fa fa-check"/>&nbsp;Reaktivasi
+                                                <i className="fa fa-refresh fa-spin"/>&nbsp;Reaktivasi
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="d-block d-md-none fixed-bottom text-right mr-4" style={{bottom:'45px'}}>
+                                        <div className="form-group mb-4">
+                                            <button className="btn btn-primary btn-circle btn-lg shadow" onClick={(e)=>this.handleModal(e)}>
+                                                <i className="fa fa-refresh fa-spin"/>
                                             </button>
                                         </div>
                                     </div>

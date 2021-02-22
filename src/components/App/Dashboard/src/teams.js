@@ -32,7 +32,7 @@ class Overview extends Component {
                     </div> */}
                     <div className="content-widget-dashboard" style={{paddingTop:0}}>
                         <div className="row">
-                            <div className='col-md-6'>
+                            <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
@@ -44,7 +44,7 @@ class Overview extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-md-6'>
+                            <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
@@ -58,7 +58,7 @@ class Overview extends Component {
                             </div>
                         </div>
                         <div className="row mt-3 mb-4">
-                            <div className='col-md-6'>
+                            <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
@@ -70,7 +70,7 @@ class Overview extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-md-6'>
+                            <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">

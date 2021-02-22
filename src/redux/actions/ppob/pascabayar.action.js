@@ -4,6 +4,7 @@ import {
 } from "../_constants"
 import axios from "axios"
 import * as Swal from "sweetalert2";
+import { stubFalse } from "lodash";
 
 export function setLoading(load) {
     return {
@@ -30,6 +31,12 @@ export function setIsError(load) {
         load
     }
 }
+export function setIsErrorCheckout(load) {
+    return {
+        type: PASCABAYAR.IS_ERROR_CHECKOUT,
+        load
+    }
+}
 
 export function setData(data = []) {
     return {
@@ -48,6 +55,7 @@ export const postPascabayar = (data,param) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
+        // dispatch(setIsErrorCheckout(true));
         const url = HEADERS.URL + `transaction/pascabayar/${param}`;
         axios.post(url,data)
             .then(function (response) {
@@ -55,6 +63,9 @@ export const postPascabayar = (data,param) => {
                 if (data.status === 'success') {
                     dispatch(setData(data));
                     dispatch(setIsError(false));
+                    if(param==='checkout'){
+                        dispatch(setIsErrorCheckout(false));
+                    }
                 } else {
                     Swal.fire({
                         title: 'failed',
@@ -68,6 +79,7 @@ export const postPascabayar = (data,param) => {
             .catch(function (error) {
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(true));
+                dispatch(setIsErrorCheckout(true));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

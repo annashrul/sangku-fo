@@ -190,13 +190,13 @@ class FormReaktivasi extends Component{
                                     <div className="col-md-12">
                                         <TabList>
                                             <div className="row m-1 justify-content-center">
-                                                <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
+                                                <Tab className="col-12 col-md-5 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                 {
                                                     (
                                                         this.props.availPin!==undefined ? typeof this.props.availPin.data === 'object' ?
                                                             this.props.availPin.data.map((v,i)=>{
                                                                 return(
-                                                                    <Tab key={i} className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                    <Tab key={i} className="col-12 col-md-5 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
                                                                         <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                                         <br/>
                                                                         <a href={() => false} className="font-24">{`${v.title}`}</a>

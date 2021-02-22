@@ -11,6 +11,7 @@ import Paginationq from "helper";
 import {toRp} from "helper";
 import { FetchReport, FetchReportExcel } from '../../../../redux/actions/member/deposit.action';
 import FormDepositExcel from '../../modals/report/wallet/form_deposit_excel';
+import Skeleton from 'react-loading-skeleton';
 
 class DepositReport extends Component{
     constructor(props){
@@ -173,7 +174,7 @@ class DepositReport extends Component{
                         <div className="row" style={{zoom:"100%"}}>
                             <div className="col-md-10">
                                 <div className="row">
-                                    <div className="col-6 col-xs-6 col-md-3">
+                                    <div className="col-12 col-xs-4 col-md-4">
                                         <div className="form-group">
                                             <label htmlFor=""> Periode </label>
                                                 <DateRangePicker
@@ -187,7 +188,7 @@ class DepositReport extends Component{
                                                 </DateRangePicker>
                                         </div>
                                     </div>
-                                    <div className="col-6 col-xs-6 col-md-3">
+                                    <div className="col-12 col-xs-4 col-md-3">
                                         <div className="form-group">
                                             <label className="control-label font-12">
                                                 Cari Berdasarkan
@@ -203,84 +204,125 @@ class DepositReport extends Component{
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-12 col-xs-12 col-md-3">
+                                    <div className="col-12 col-xs-4 col-md-5">
                                         <div className="form-group">
                                             <label htmlFor="">Cari</label>
-                                            <input type="text" name="any_deposit_report" className="form-control" style={{width:"100%"}} value={this.state.any_deposit_report}  onChange={(e)=>this.handleChange(e)}/>
+                                            <div className="input-group">
+                                                <input type="text" name="any_deposit_report" className="form-control" value={this.state.any_deposit_report}  onChange={(e)=>this.handleChange(e)}/>
+                                                <div className="input-group-append">
+                                                    <button className="btn btn-primary" onClick={this.handleSearch}>
+                                                        <i className="fa fa-search"/>
+                                                    </button>
+                                                </div>
+                                                    <button className=" ml-2 btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
+                                                        <i className="fa fa-print"></i> Export
+                                                    </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-2">
-                                <div className="col-12 col-xs-12 col-md-12">
-                                    <div className="form-group text-right">
-                                        <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                            <i className="fa fa-search"/>
-                                        </button>
-                                        <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e => this.toggleModal(e,(last_page*per_page),per_page))}>
-                                            <i className="fa fa-print"></i> Export
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-
 
                         </div>
-                        <div style={{overflowX: "auto",zoom:"80%"}}>
-                            <table className="table table-hover table-bordered">
-                                <thead className="bg-info">
-                                <tr>
-                                    <th className="text-light" style={columnStyle}>No</th>
-                                    <th className="text-light" style={columnStyle}>No Faktur</th>
-                                    <th className="text-light" style={columnStyle}>Tanggal</th>
-                                    {/* <th className="text-light" style={columnStyle}>Nama Pemilik Bank</th> */}
-                                    <th className="text-light" style={columnStyle}>Bank</th>
-                                    {/* <th className="text-light" style={columnStyle}>No. Akun</th> */}
-                                    <th className="text-light" style={columnStyle}>Amount</th>
-                                    {/* <th className="text-light" style={columnStyle}>Potongan</th> */}
-                                    {/* <th className="text-light" style={columnStyle}>Nama</th> */}
-                                    <th className="text-light" style={columnStyle}>Status</th>
-                                </tr>
-                                </thead>
-                                {
-                                    !this.props.isLoadingReport ? (
-                                        <tbody>
-                                        {
-                                            (
-                                                typeof data === 'object' ? data.length>0?
-                                                    data.map((v,i)=>{
-                                                        return(
-                                                            <tr key={i}>
-                                                                <td style={columnStyle}> {i+1 + (10 * (parseInt(current_page,10)-1))}</td>
-                                                                <td style={columnStyle}>{v.kd_trx}</td>
-                                                                <td style={columnStyle}>{moment(v.created_at).format("YYYY-MM-DD")}</td>
-                                                                {/* <td style={columnStyle}>{v.acc_name}</td> */}
-                                                                <td style={columnStyle}>{v.bank_name}</td>
-                                                                {/* <td style={columnStyle}>{v.acc_no}</td> */}
-                                                                <td style={columnStyle}>{toRp(v.amount===null?0:v.amount)}</td>
-                                                                {/* <td style={columnStyle}>{v.charge}</td> */}
-                                                                {/* <td style={columnStyle}>{v.full_name}</td> */}
-                                                                <td style={columnStyle}>{
+                        <div className="d-none d-md-block">
+                            <div style={{overflowX: "auto",zoom:"80%"}}>
+                                <table className="table table-hover table-bordered">
+                                    <thead className="bg-info">
+                                    <tr>
+                                        <th className="text-light" style={columnStyle}>No</th>
+                                        <th className="text-light" style={columnStyle}>No Faktur</th>
+                                        <th className="text-light" style={columnStyle}>Tanggal</th>
+                                        {/* <th className="text-light" style={columnStyle}>Nama Pemilik Bank</th> */}
+                                        <th className="text-light" style={columnStyle}>Bank</th>
+                                        {/* <th className="text-light" style={columnStyle}>No. Akun</th> */}
+                                        <th className="text-light" style={columnStyle}>Amount</th>
+                                        {/* <th className="text-light" style={columnStyle}>Potongan</th> */}
+                                        {/* <th className="text-light" style={columnStyle}>Nama</th> */}
+                                        <th className="text-light" style={columnStyle}>Status</th>
+                                    </tr>
+                                    </thead>
+                                    {
+                                        !this.props.isLoadingReport ? (
+                                            <tbody>
+                                            {
+                                                (
+                                                    typeof data === 'object' ? data.length>0?
+                                                        data.map((v,i)=>{
+                                                            return(
+                                                                <tr key={i}>
+                                                                    <td style={columnStyle}> {i+1 + (10 * (parseInt(current_page,10)-1))}</td>
+                                                                    <td style={columnStyle}>{v.kd_trx}</td>
+                                                                    <td style={columnStyle}>{moment(v.created_at).format("YYYY-MM-DD")}</td>
+                                                                    {/* <td style={columnStyle}>{v.acc_name}</td> */}
+                                                                    <td style={columnStyle}>{v.bank_name}</td>
+                                                                    {/* <td style={columnStyle}>{v.acc_no}</td> */}
+                                                                    <td style={columnStyle}>{toRp(v.amount===null?0:v.amount)}</td>
+                                                                    {/* <td style={columnStyle}>{v.charge}</td> */}
+                                                                    {/* <td style={columnStyle}>{v.full_name}</td> */}
+                                                                    <td style={columnStyle}>{
+                                                                        v.status===0?
+                                                                        <span className="btn-info p-2 text-white rounded">Pending</span>:
+                                                                        v.status===1?
+                                                                        <span className="btn-success p-2 text-white rounded">Selesai</span>:
+                                                                        v.status===2?
+                                                                        <span className="btn-danger p-2 text-white rounded">Batal</span>:''
+                                                                    }</td>
+                                                                </tr>
+                                                            )
+                                                        })
+                                                        : "No data.":"No data."
+                                                )
+                                            }
+                                            </tbody>
+                                        ) : <tbody><tr><td colSpan="7"><Spinner/></td></tr></tbody>
+                                    }
+                                </table>
+
+                            </div>
+                        </div>
+                        <div className="d-block d-md-none">
+                        {
+                            !this.props.isLoadingReport ? 
+                                    (
+                                        typeof data === 'object' ? data.length>0?
+                                            data.map((v,i)=>{
+                                                return(
+                                                    <div className="card bg-white shadow-sm border-bottom mb-2 mt-4 ml-3">
+                                                    <span className="btn btn-primary btn-circle mt-n3 mb-n3 ml-n3">{i+1 + (10 * (parseInt(current_page,10)-1))}</span>
+                                                        <div className="card-body p-2 mt-3">
+                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                <h6 className="mb-1 text-black">{this.props.isLoadingReport?<Skeleton width='200px'/>:v.kd_trx}</h6>
+                                                                <div className="d-flex align-items-end">{
                                                                     v.status===0?
                                                                     <span className="btn-info p-2 text-white rounded">Pending</span>:
                                                                     v.status===1?
                                                                     <span className="btn-success p-2 text-white rounded">Selesai</span>:
                                                                     v.status===2?
                                                                     <span className="btn-danger p-2 text-white rounded">Batal</span>:''
-                                                                }</td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                    : "No data.":"No data."
-                                            )
-                                        }
-                                        </tbody>
-                                    ) : <tbody><tr><td colSpan="7"><Spinner/></td></tr></tbody>
-                                }
-                            </table>
-
+                                                                }</div>
+                                                            </div>
+                                                            <hr className="mb-1 mt-2"/>
+                                                            <div className="d-flex justify-content-between">
+                                                                <div className="text-left w-100 d-flex align-items-center">
+                                                                    <p className="mb-0 text-mute">{this.props.isLoadingReport?<Skeleton width='350px'/>:'Deposit dari '+v.bank_name}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="d-flex justify-content-between mt-2">
+                                                                <div className="text-left w-auto d-flex align-items-center">
+                                                                </div>
+                                                                <div className="text-left ml-1 w-100 text-right">
+                                                                    <h6 className="text-success">{this.props.isLoadingReport?<Skeleton width='100px'/>:'Rp.'+toRp(v.amount===null?0:v.amount)}</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                            : "No data.":"No data."
+                            ) : <div className="w-100 text-center"><Spinner/></div>
+                        }
                         </div>
+
                         <div style={{"marginTop":"20px","float":"right"}}>
                             <Paginationq
                                 current_page={parseInt(current_page,10)}

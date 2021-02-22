@@ -355,26 +355,22 @@ class Testimoni extends Component{
                         <div className="card">
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-md-12" style={{zoom:"100%"}}>
+                                    <div className="col-md-12">
                                         <div className="row">
-                                            <div className="col-6 col-xs-6 col-md-4">
+                                            <div className="col-12 col-xs-6 col-md-4">
                                                 <div className="form-group">
                                                     <label>Cari</label>
-                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-xs-6 col-md-2">
-                                                <div className="form-group">
-                                                    <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                        <i className="fa fa-search"/>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-xs-6 col-md-2 offset-md-4">
-                                                <div className="form-group">
-                                                    <button className="btn btn-primary mt-4 float-right" onClick={this.toggleAdd}>
-                                                        TAMBAH
-                                                    </button>
+                                                    <div className="input-group">
+                                                        <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-primary" onClick={this.handleSearch}>
+                                                                <i className="fa fa-search"/>
+                                                            </button>
+                                                        </div>
+                                                        <button className="btn btn-primary ml-2" onClick={this.toggleAdd}>
+                                                            TAMBAH
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -508,9 +504,9 @@ class Testimoni extends Component{
                 <div id="lightboxOverlay" className="lightboxOverlay" style={{zIndex: 99999, width: '100%', height: '100%', display: this.state.foto===''?'none':'block', position: 'fixed'}} />
 
                 <div id="lightbox" classname="lightbox" onClick={(e)=>this.toggleFoto(e,'')} style={{display: this.state.foto===''?'none':'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', top: 0, textAlign: 'center', left: 0, zIndex: 9999999, position: 'fixed', minHeight: '100%', minWidth: '100%'}}>
-                    <div className="lb-outerContainer" style={{width: '500px', height: 'auto'}}>
+                    <div className="lb-outerContainer" style={{maxWidth: '75%', height: 'auto'}}>
                         <div className="lb-container">
-                            <img className="lb-image" src={this.state.foto} alt ="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{display: 'block', width: '500px', height: 'auto'}} />
+                            <img className="lb-image" src={this.state.foto} alt ="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{maxWidth: '75%', height: 'auto'}} />
                         </div>
                     </div>
                 </div>
