@@ -109,7 +109,60 @@ class FormAlamat extends Component{
         e.preventDefault();
         let column = e.target.name;
         let value = e.target.value;
-        this.setState({[column]:value});
+        if(column==='main_address'){
+            let split = String(value).split(',')
+            console.log("object ................",split.length);
+            console.log("splits ................",split);
+            // console.log("testtt ................",value.match(/,/g).length);
+            if(split.length===2&&String(split[1]).length<1){
+                if(value.match(/,/g).length<2){
+                    ToastQ.fire({icon:'success',title:`Nama jalan diisi.`});
+                }
+            }
+            else if(split.length===3&&String(split[2]).length<1){
+                if(String(split[1]).replace(' ','').match(/^[0-9]+$/)){
+                    ToastQ.fire({icon:'success',title:`No RT diisi.`});
+                } else {
+                    ToastQ.fire({icon:'error',title:`RT harus diisi dengan angka.`});
+                }
+                }
+            else if(split.length===4&&String(split[3]).length<1){
+                if(String(split[2]).replace(' ','').match(/^[0-9]+$/)){
+                    ToastQ.fire({icon:'success',title:`No RW diisi.`});
+                } else {
+                    ToastQ.fire({icon:'error',title:`RW harus diisi dengan angka.`});
+                }
+            }
+            else if(split.length===5&&String(split[4]).length<1){
+                ToastQ.fire({icon:'success',title:`Desa/Kelurahan diisi.`});
+            }
+            else if(split.length===6&&String(split[5]).length<1){
+                ToastQ.fire({icon:'success',title:`Kecamatan diisi.`});
+            }
+            else if(split.length===7&&String(split[6]).length<1){
+                ToastQ.fire({icon:'success',title:`Kabupaten/Kota diisi.`});
+            }
+            else if(split.length===8&&String(split[7]).length<1){
+                ToastQ.fire({icon:'success',title:`Provinsi diisi.`});
+            }
+            else if(split.length===9){
+                if(String(split[7]).replace(' ','').match(/^[0-9]+$/)){
+                    if(String(split[8]).length>=0){
+                        ToastQ.fire({icon:'error',title:`Error, anda telah mengisi no rumah!`});
+                    } else {
+                        ToastQ.fire({icon:'success',title:`No Rumah diisi.`});
+                    }
+                } else {
+                    ToastQ.fire({icon:'error',title:`No rumah harus diisi dengan angka.`});
+                }
+            }
+            else if(split.length>9){
+                ToastQ.fire({icon:'error',title:`Error, anda telah melebihi ketentuan penulisan!`});
+            }
+            this.setState({[column]:value});
+        } else {
+            this.setState({[column]:value});
+        }
     }
 
     handleChangeProvinsi(val){
@@ -251,6 +304,7 @@ class FormAlamat extends Component{
                             <div className="form-group">
                                 <label>Detail Alamat <small style={{color:"green",fontWeight:"bold"}}>( contoh : nama jalan, rt, rw, kelurahan, kecamatan, kota, provinsi, no rumah )</small></label>
                                 <textarea name="main_address" className="form-control" cols="30" rows="10" value={this.state.main_address} onChange={this.handleChange} placeholder={"masukan detail alamat selengkap mungkin, karena alamat ini akan digunakan ketika pengiriman anda"}/>
+                                <small className="text-danger">Pisahan setiap bagian alamat dengan tanda koma (,) seperti contoh di atas!</small>
                             </div>
                         </div>
                     </div>

@@ -146,7 +146,7 @@ class TempPra extends Component{
             <Layout page={`${path[3].toUpperCase().replace("-"," ")}`} subpage="PPOB" link={"/ppob"}>
                 <div className="row">
                     {
-                        path[3]==='e-money'||path[3]==='e-toll'||path[3]==='voucher-wifi-id'?(
+                        path[3]==='e-money'||path[3]==='e-toll'||path[3]==='voucher-wifi-id'||path[3]==='voucher-game'?(
                             <div className="col-md-12 col-sm-12 col-log-12">
                                 {/* <div style={{ display: 'flex', alignItems: 'flex-start' }}> */}
                                 <div className='row'>
