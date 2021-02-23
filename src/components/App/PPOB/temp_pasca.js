@@ -14,7 +14,7 @@ import {ModalToggle, ModalType} from "../../../redux/actions/modal.action";
 import {FetchPulsaAll} from "../../../redux/actions/ppob/pulsa_all/pulsa_all.action";
 import Skeleton from 'react-loading-skeleton';
 import {postPascabayar} from "../../../redux/actions/ppob/pascabayar.action";
-import {sendOtp} from "../../../redux/actions/authActions";
+// import {sendOtp} from "../../../redux/actions/authActions";
 import Link from "react-router-dom/es/Link";
 
 // const dataKategori=dataPascabayar();
@@ -258,7 +258,7 @@ class TempPasca extends Component{
             data
         } = this.props.pulsa_allPulsaAll;
         return(
-            <Layout page={this.state.path[3].replaceAll("-"," ").toUpperCase()} subpage="PPOB" link={"/ppob"}>
+            <Layout page={this.state.path[3].replace(/-/g," ").toUpperCase()} subpage="PPOB" link={"/ppob"}>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
                         <div className="dashboard-header-title mb-3 d-flex justify-content-center">
@@ -420,7 +420,7 @@ class TempPasca extends Component{
                                                             }
                                                         </div>
                                                         <h5 className="mt-15">Transaksi Berhasil</h5>
-                                                        <p className="mt-15 font-15 text-dark">Terimakasih telah melakukan transaksi {this.state.path[3].replaceAll("-"," ")} disini.</p>
+                                                        <p className="mt-15 font-15 text-dark">Terimakasih telah melakukan transaksi {this.state.path[3].replace(/-/g," ")} disini.</p>
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                     </div>
@@ -470,7 +470,7 @@ const mapStateToProps = (state) => {
         isErrorCekTagihan:state.pascabayarReducer.isError,
         isErrorCheckout:state.pascabayarReducer.isErrorCheckout,
         isLoadingCheckout:state.pascabayarReducer.isLoadingPost,
-        isErrorCheckout:state.pascabayarReducer.isError,
+        isError:state.pascabayarReducer.isError,
         dataTagihan:state.pascabayarReducer.data
     }
 }

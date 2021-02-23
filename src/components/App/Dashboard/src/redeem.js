@@ -15,13 +15,13 @@ class Charts extends Component {
                                 <table className="table table-hover table-bordered">
                                     <thead className="bg-light">
                                     <tr>
-                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="0">NO</th>
-                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="0">TANGGAL</th>
+                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="3">NO</th>
+                                        <th className="text-black bg-secondary" style={columnStyle} rowSpan="3">TANGGAL</th>
                                         <th className="text-light bg-danger" style={columnStyle} rowSpan="1" colSpan="2">PERTUMBUHAN</th>
                                         <th className="text-black bg-warning" style={columnStyle} rowSpan="1" colSpan="2">TABUNGAN</th>
                                         <th className="text-light bg-primary" style={columnStyle} rowSpan="1" colSpan="2">BALANCE</th>
-                                        <th className="text-light bg-info" style={columnStyle} rowSpan="0">TERPASANG (T)</th>
-                                        <th className="text-light bg-info" style={columnStyle} rowSpan="0">BONUS<br/>(T x {this.props.list!==undefined&&this.props.list.length>0?toRp(this.props.list[0].pairing_bonus):0})</th>
+                                        <th className="text-light bg-info" style={columnStyle} rowSpan="3">TERPASANG (T)</th>
+                                        <th className="text-light bg-info" style={columnStyle} rowSpan="3">BONUS<br/>(T x {this.props.list!==undefined&&this.props.list.length>0?toRp(this.props.list[0].pairing_bonus):0})</th>
                                     </tr>
                                     <tr>
                                         {/* <th className="text-black" style={columnStyle} rowSpan="2">No</th> */}

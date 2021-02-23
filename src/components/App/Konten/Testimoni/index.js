@@ -503,7 +503,7 @@ class Testimoni extends Component{
 
                 <div id="lightboxOverlay" className="lightboxOverlay" style={{zIndex: 99999, width: '100%', height: '100%', display: this.state.foto===''?'none':'block', position: 'fixed'}} />
 
-                <div id="lightbox" classname="lightbox" onClick={(e)=>this.toggleFoto(e,'')} style={{display: this.state.foto===''?'none':'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', top: 0, textAlign: 'center', left: 0, zIndex: 9999999, position: 'fixed', minHeight: '100%', minWidth: '100%'}}>
+                <div id="lightbox" className="lightbox" onClick={(e)=>this.toggleFoto(e,'')} style={{display: this.state.foto===''?'none':'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', top: 0, textAlign: 'center', left: 0, zIndex: 9999999, position: 'fixed', minHeight: '100%', minWidth: '100%'}}>
                     <div className="lb-outerContainer" style={{maxWidth: '75%', height: 'auto'}}>
                         <div className="lb-container">
                             <img className="lb-image" src={this.state.foto} alt ="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{maxWidth: '75%', height: 'auto'}} />

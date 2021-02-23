@@ -250,7 +250,7 @@ class Header extends Component {
                                             </div>
                                         </div>
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
-                                        <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
+                                        <i className="fa fa-user profile-icon bg-primary text-white" aria-hidden="true"/> Profile
                                         </DropdownItem>
                                         {/* <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                         <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
@@ -259,7 +259,7 @@ class Header extends Component {
                                         <i className="fa fa-bank profile-icon bg-info" aria-hidden="true"/> Data Bank
                                         </DropdownItem> */}
                                         <DropdownItem  onClick={this.handleLogout}>
-                                        <i className="fa fa-chain-broken profile-icon bg-warning" aria-hidden="true"/> Sign-out
+                                        <i className="fa fa-chain-broken profile-icon bg-warning text-white" aria-hidden="true"/> Sign-out
                                         </DropdownItem>
                                     </div>
                                 </DropdownMenu>

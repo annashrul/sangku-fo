@@ -9,6 +9,7 @@ import { logoutUser } from "redux/actions/authActions";
 import PropTypes from "prop-types";
 import {noImage} from "helper";
 import moment from "moment"
+import 'moment/locale/id';
 import Clock from 'components/common/clock'
 
 class Layout extends Component {

@@ -6,7 +6,8 @@ import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import PembelianCekResi from "components/App/modals/report/pembelian/pembelian_cek_resi";
 import moment from "moment";
 import Spinner from "Spinner";
-import { getRewardReport } from '../../../../redux/actions/product/reward.action';
+import { getRewardReport, postRewardDone } from '../../../../redux/actions/product/reward.action';
+import Swal from 'sweetalert2';
 class RewardReport extends Component{
     constructor(props){
         super(props);
@@ -19,6 +20,7 @@ class RewardReport extends Component{
         this.HandleChangeSearchby = this.HandleChangeSearchby.bind(this);
         this.handleRePrint = this.handleRePrint.bind(this);
         this.toggleResi = this.toggleResi.bind(this);
+        this.handleDone = this.handleDone.bind(this);
         this.state={
             where_data:"",
             any:"",
@@ -269,6 +271,26 @@ class RewardReport extends Component{
         }
     };
 
+    handleDone(e,status,id){
+        e.preventDefault();
+        // this.props.dispatch(rePrintFaktur(id));
+        if(String(status)==='1'){
+            Swal.fire({
+                title: 'Perhatian !!!',
+                text: `Anda yakin akan menyelesaikan proses Reward?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: `Selesaikan`,
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.value) {
+                    this.props.dispatch(postRewardDone(id));
+                }
+            })
+        }
+    }
 
     render(){
         // const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
@@ -282,7 +304,7 @@ class RewardReport extends Component{
             // total
         } = this.props.rewardReport;
         return (
-            <Layout page="Laporan Reward">
+            <Layout page="Laporan Klaim Reward">
                 <div className="card box-margin">
                     <div className="card-body">
                         <div className="row">
@@ -344,14 +366,16 @@ class RewardReport extends Component{
                                                     data.map((v,i)=>{
                                                         let status='';
                                                         if(v.status===0){
-                                                            status=<span style={{color:'#ff9800',fontWeight:'800'}}>Pending</span>;
+                                                            status=<span style={{color:'#ff9800',fontWeight:'800'}}>Dalam antrian</span>;
                                                         }else if(v.status===1){
-                                                            status=<span style={{color:'black',fontWeight:'800'}}>Diterima</span>;
-                                                        }else if(v.status===2){
-                                                            status=<span style={{color:'#f44336',fontWeight:'800'}}>Ditolak</span>;
+                                                            status=<span style={{color:'green',fontWeight:'800'}}>Diterima</span>;
+                                                        }else if(v.status===2){ 
+                                                            status=<span style={{color:'#f44336',fontWeight:'800'}}>Selesai</span>;
+                                                        }else if(v.status===3){
+                                                            status=<span style={{color:'#red',fontWeight:'800'}}>Ditolak</span>;
                                                         }
                                                         return(
-                                                            <div key={i} className="card" style={{borderRadius:"10px",marginBottom:"10px"}} >
+                                                            <div key={i} className="card zoom-hover" style={{borderRadius:"10px",marginBottom:"10px"}} >
                                                                 <div className="card-body">
                                                                     <div className="row">
                                                                         <div className="col-md-6">
@@ -387,9 +411,15 @@ class RewardReport extends Component{
                                                                                 <div className="media-body d-flex justify-content-between align-items-center">
                                                                                     <div>Status : {status}</div>
                                                                                     {/* <h5 className="mt-0 font-17 bold text-warning">Resi : {v.resi}</h5> */}
-                                                                                    <div onClick={(e)=>this.toggleResi(e,v.resi)} className="col-auto" style={v.resi==='-'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
-                                                                                    {cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
-                                                                                        <i className={"fa fa-random"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Lacak Resi
+                                                                                    <div className="d-flex justify-content-end">
+                                                                                        <div onClick={(e)=>this.handleDone(e,v.status,v.id)} className="col-auto img-thumbnail border-secondary" style={String(v.status)!=='1'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
+                                                                                        {cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                                                                            <i className={"fa fa-check"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Selesaikan
+                                                                                        </div>
+                                                                                        <div onClick={(e)=>this.toggleResi(e,v.resi)} className="col-auto d-none" style={v.resi==='-'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
+                                                                                        {cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                                                                            <i className={"fa fa-random"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Lacak Resi
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
