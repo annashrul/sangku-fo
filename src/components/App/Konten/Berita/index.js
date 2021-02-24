@@ -420,7 +420,7 @@ class Berita extends Component{
                                                             typeof this.props.beritaKategori.data === 'object' ? this.props.beritaKategori.data.length>0?
                                                                 this.props.beritaKategori.data.map((v,i)=>{
                                                                     return(
-                                                                        <div key={i} onClick={(e)=>this.handleKategori(e,v.title)} class="cards card1 bg-light mr-1 pb-1 cursor-pointer" style={{flex:'1 1 auto'}}>
+                                                                        <div key={i} onClick={(e)=>this.handleKategori(e,v.id)} class="cards card1 bg-light mr-1 pb-1 cursor-pointer" style={{flex:'1 1 auto'}}>
                                                                             <p className="font-20">
                                                                                 {v.title}
                                                                             </p>
@@ -468,7 +468,7 @@ class Berita extends Component{
                                                 typeof this.props.beritaKategori.data === 'object' ? this.props.beritaKategori.data.length>0?
                                                     this.props.beritaKategori.data.map((v,i)=>{
                                                         return(
-                                                            <div key={i} onClick={(e)=>this.handleKategori(e,v.title)} class="cards card1 bg-light mr-1 pb-1 cursor-pointer" style={{flex:'1 1 auto'}}>
+                                                            <div key={i} onClick={(e)=>this.handleKategori(e,v.id)} class="cards card1 bg-light mr-1 pb-1 cursor-pointer" style={{flex:'1 1 auto'}}>
                                                                 <p className="font-20">
                                                                     {v.title}
                                                                 </p>
