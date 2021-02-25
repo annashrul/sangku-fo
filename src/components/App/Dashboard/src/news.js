@@ -14,16 +14,16 @@ class Charts extends Component {
                                 this.props.list.data.map((v,i)=>{
                                 return(
                                     <div className="col-12">
-                                        <div className="single-widget-timeline mb-15">
+                                        <div className="single-widget-timeline mb-15  border-bottom zoom-hover">
                                             <Link to={`/konten/berita/${v.id}`}>
-                                                <div className="media">
-                                                    <div className="mr-3">
-                                                    <a href="#!"><img className="rounded-circle" style={{width: '40px', height:'40px'}} src={v.picture} alt="chat-user" /></a>
+                                                <div className="d-flex">
+                                                    <div className="mr-2 w-auto">
+                                                    <a href="#!"><img className="rounded" style={{width: '40px', height:'40px'}} src={v.picture} alt="chat-user" /></a>
                                                     </div>
-                                                    <div className="media-body">
+                                                    <div className="media-body w-75">
                                                     <h6 className="d-inline-block">{v.title}</h6>
                                                     {/* <p className="mb-0">Lorem Ipsum is simply…</p> */}
-                                                    <div dangerouslySetInnerHTML={{__html: String(v.caption).substr(0,50)}} style={{display:'table-caption', width:'300px'}} />
+                                                    <div dangerouslySetInnerHTML={{__html: String(v.caption).substr(0,50)}} />
                                                     </div>
                                                 </div>
                                             </Link>
@@ -33,6 +33,9 @@ class Charts extends Component {
                             })
                             : "No data." : "No data."
                         }
+                        <div className="col-12 text-center mt-2">
+                            <Link to={'/konten/berita'} className="btn btn-outline-primary border-none btn-block bg-transparent text-primary">SEMUA BERITA</Link>
+                        </div>
                     </div>
                 </div>
                 </div>

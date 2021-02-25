@@ -279,7 +279,7 @@ class PinRo extends Component{
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-body">
-                                <div className="d-flex align-items-content justify-content-between">
+                                <div className="d-md-flex align-items-content justify-content-between d-none">
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group">
@@ -319,6 +319,48 @@ class PinRo extends Component{
                                             </button>
                                         </div> */}
                                         <h5>PIN Yang Anda Miliki : {this.props.getPin.total_pin} PIN</h5>
+                                    </div>
+                                </div>
+                                <div className="d-block d-md-none">
+                                    <div className="pb-3">
+                                        {/* <div className="form-group">
+                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
+                                                <i className="fa fa-check"/>&nbsp;Reaktivasi
+                                            </button>
+                                        </div> */}
+                                        <h5>PIN Yang Anda Miliki : {this.props.getPin.total_pin} PIN</h5>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <div className="form-group">
+                                                <label className="control-label font-12">
+                                                    Status
+                                                </label>
+                                                <Select
+                                                    options={this.state.status_data}
+                                                    // placeholder="Pilih Tipe Kas"
+                                                    onChange={this.HandleChangeStatus}
+                                                    value={
+                                                        this.state.status_data.find(op => {
+                                                            return op.value === this.state.status
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group">
+                                                <label>Cari</label>
+                                                <div class="input-group">
+                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                                    <div class="input-group-append">
+                                                        <button className="btn btn-primary" onClick={this.handleSearch}>
+                                                            <i className="fa fa-search"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>

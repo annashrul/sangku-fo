@@ -31,7 +31,7 @@ class IndexRedeem extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("detailRedeem"));
         this.setState({
-            detail:{id:this.props.data.data[i].id}
+            detail:{id:this.props.data.data[i].id,data:this.props.data.data[i]}
         })
     }
     handleChangeLength(i){

@@ -69,7 +69,11 @@ class FormReaktivasi extends Component{
             if(this.state.step===2){
                 this.handlePin()
             } else {
-                if(this.state.pin_regist===""||this.state.pin_regist===undefined){
+                if(parseInt(this.props.availPin.total_pin,10)<=0){
+                    let txtErr = 'PIN yang anda miliki kosong!'
+                    ToastQ.fire({icon:'error',title:txtErr});
+                }
+                else if(this.state.pin_regist===""||this.state.pin_regist===undefined){
                     let txtErr = 'Anda belum memilih membership!'
                     ToastQ.fire({icon:'error',title:txtErr});
                     let err = Object.assign({}, this.state.error, {'pin_regist': txtErr});

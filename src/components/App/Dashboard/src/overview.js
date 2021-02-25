@@ -19,7 +19,7 @@ class Overview extends Component {
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("dashboardReward"));
         this.setState({
-            detail:{id:id}
+            detail:{id:id,reward:this.props.reward,jenjang_karir:this.props.jenjang_karir}
         })
     }
     render(){
