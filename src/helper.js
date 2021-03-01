@@ -19,6 +19,7 @@ import truck from 'assets/status/truck_y_non.svg'
 import confirmY from 'assets/status/confirmation.svg'
 import confirmWhite from 'assets/status/confirmation_white.svg'
 import confirm from 'assets/status/confirmation_non.svg'
+import { isMobileOnly } from "react-device-detect";
 // import { renderToString } from 'react-dom/server';
 
 
@@ -318,16 +319,16 @@ class Paginationq extends Component{
                 activePage={parseInt(this.props.current_page,10)}
                 itemsCountPerPage={parseInt(this.props.per_page,10)}
                 totalItemsCount={parseInt(this.props.total,10)}
-                pageRangeDisplayed={5}
+                pageRangeDisplayed={3}
                 onChange={this.props.callback}
                 itemClass="page-item"
                 linkClass="page-link"
                 activeClass="page-item active"
                 disabledClass="page-item disabled"
-                prevPageText='sebelumnya'
-                nextPageText='selanjutnya'
-                firstPageText='pertama'
-                lastPageText='terakhir'
+                prevPageText={!isMobileOnly?'Sebelumnya':'<'}
+                nextPageText={!isMobileOnly?'Selanjutnya':'>'}
+                firstPageText={!isMobileOnly?'Pertama':'<<'}
+                lastPageText={!isMobileOnly?'Terakhir':'>>'}
             />
         )
     }

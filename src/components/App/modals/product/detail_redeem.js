@@ -83,8 +83,24 @@ class DetailRedeem extends Component{
         return (
             <div>
                 <WrapperModal isOpen={this.props.isOpen && this.props.type === "detailRedeem"} size="lg">
-                    <ModalHeader toggle={this.toggle}>ALAMAT PENGIRIMAN</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>REDEEM POIN {String(this.props.detail.data.title).toUpperCase()}</ModalHeader>
                     <ModalBody>
+                        <small className="text-muted">Detail Redeem</small>
+                        <div className="card my-2">
+                            <div className="card-body">
+                                <div className=" d-flex justify-content-start align-items-end">
+                                    <div className="w-25 me-2">
+                                        <img src={this.props.detail.data.gambar} className="img-fluid" alt={this.props.detail.data.title}/>
+                                    </div>
+                                    <div className="w-75">
+                                        <h5 className="text-dark m-0">{this.props.detail.data.title}</h5>
+                                        <p className="text-secondary m-0">{this.props.detail.data.harga} POIN</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small className="text-muted">Pilih Alamat</small>
+                        <div className="my-2" style={{minHeight:'auto', maxHeight:'250px',overflow:'auto'}}>
                         {
                             !this.props.isLoading?typeof data==='object'?data.length>0?data.map((v,i)=>{
                                 return(
@@ -127,6 +143,7 @@ class DetailRedeem extends Component{
                                 return container;
                             })()
                         }
+                        </div>
                     </ModalBody>
                     <ModalFooter>
                         <button className={"btn btn-primary"} onClick={event => this.handleNext()}>LANJUT</button>

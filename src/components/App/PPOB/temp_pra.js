@@ -77,7 +77,7 @@ class TempPra extends Component{
         let prov=null;
 
         if(num.length>=3){
-            let rplcPrefix=number.replaceAll("62","0");
+            let rplcPrefix=number.replace(/62/g,"0");
             let prefix3=rplcPrefix.substr(0,3);
             let prefix4=rplcPrefix.substr(0,4);
             let prefix5=rplcPrefix.substr(0,5);

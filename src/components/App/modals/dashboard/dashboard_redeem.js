@@ -82,8 +82,24 @@ class DashboardRedeem extends Component{
         return (
             <div>
                 <WrapperModal isOpen={this.props.isOpen && this.props.type === "dashboardReward"} size="lg">
-                    <ModalHeader toggle={this.toggle}>ALAMAT PENERIMA REWARD</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>REWARD <span>{String(this.props.dashboard.jenjang_karir).toUpperCase()}</span></ModalHeader>
                     <ModalBody>
+                        <small className="text-muted">Detail Reward</small>
+                        <div className="card my-2">
+                            <div className="card-body">
+                                <div className=" d-flex justify-content-start align-items-end">
+                                    <div className="w-25 mr-2">
+                                        <img src={this.props.dashboard.reward.gambar} className="img-fluid" alt={this.props.dashboard.reward.title}/>
+                                    </div>
+                                    <div className="w-75">
+                                        <h5 className="text-dark m-0">{this.props.dashboard.reward.title}</h5>
+                                        <p className="text-secondary m-0">{this.props.dashboard.reward.caption}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small className="text-muted">Pilih Alamat</small>
+                        <div className="my-2" style={{minHeight:'auto', maxHeight:'250px',overflow:'auto'}}>
                         {
                             !this.props.isLoading?typeof data==='object'?data.length>0?data.map((v,i)=>{
                                 return(
@@ -126,6 +142,7 @@ class DashboardRedeem extends Component{
                                 return container;
                             })()
                         }
+                        </div>
                     </ModalBody>
                     <ModalFooter>
                         <button className={"btn btn-primary"} onClick={event => this.handleNext()}>LANJUT</button>

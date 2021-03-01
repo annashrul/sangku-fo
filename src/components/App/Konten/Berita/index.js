@@ -9,6 +9,8 @@ import { getBerita, getBeritaDetail, getBeritaKategori } from '../../../../redux
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
+import { Collapse } from 'reactstrap';
+import Spinner from 'Spinner'
 class Berita extends Component{
     constructor(props){
         super(props);
@@ -20,7 +22,13 @@ class Berita extends Component{
         this.HandleChangeFilter = this.HandleChangeFilter.bind(this);
         this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
+        this.handleKategori = this.handleKategori.bind(this);
+        this.toggleCollapse = this.toggleCollapse.bind(this);
+        this.kategoriInnerRef = React.createRef()
+        this.kategoriMobileInnerRef = React.createRef()
         this.state={
+            isOpen:false,
+            dataEnd:false,
             where_data:"",
             any:"",
             location:"",
@@ -62,6 +70,10 @@ class Berita extends Component{
             this.setState({status: localStorage.status_berita})
         }
     }
+    toggleCollapse(e){
+        e.preventDefault();
+        this.setState({isOpen:!this.state.isOpen})
+    }
     handlePageChange(pageNumber){
         localStorage.setItem("page_berita",pageNumber);
         this.props.dispatch(getBerita(pageNumber))
@@ -91,27 +103,56 @@ class Berita extends Component{
         localStorage.setItem("any_berita",this.state.any);
         this.handleParameter(1);
     }
-    handleLoadMore(){
+    handleLoadMore(e,param){
         // this.setState({
+            e.preventDefault()
         //     isScroll:true
         // });
 
-        let perpage = parseInt(this.props.beritaKategori.per_page,10);
-        let lengthBrg = parseInt(this.props.beritaKategori.total,10);
-        if(perpage===lengthBrg || perpage<lengthBrg){
-            let where = '';
-            if(perpage!==undefined&&perpage!==null&&perpage!==''){
-                where+=`&perpage=${perpage+10}`
+        // let perpage = parseInt(this.props.beritaKategori.per_page,10);
+        // let lengthBrg = parseInt(this.props.beritaKategori.total,10);
+        // if(perpage===lengthBrg || perpage<lengthBrg){
+        //     let where = '';
+        //     if(perpage!==undefined&&perpage!==null&&perpage!==''){
+        //         where+=`&perpage=${perpage+10}`
+        //     }
+        //     this.props.dispatch(getBeritaKategori(1, where));
+        //     // this.setState({scrollPage:this.state.scrollPage+5});
+        // }
+        // else{
+        //     Swal.fire({allowOutsideClick: false,
+        //         title: 'Perhatian',
+        //         icon: 'warning',
+        //         text: 'Tidak ada data.',
+        //     });
+        // }
+        let pick = param==='mobile'?this.kategoriMobileInnerRef.current:this.kategoriInnerRef.current
+        if (!this.state.dataEnd) {
+            if (pick) {
+                const { scrollTop, scrollHeight, clientHeight } = pick;
+                if (parseInt(scrollTop,10) + parseInt(clientHeight,10) === parseInt(scrollHeight,10)) {
+                // TO SOMETHING HERE
+                    console.log('Reached bottom')
+                    let perpage = parseInt(this.props.beritaKategori.per_page,10);
+                    let lengthBrg = parseInt(this.props.beritaKategori.total,10);
+                    if(perpage===lengthBrg || perpage<lengthBrg){
+                        let where = '';
+                        if(perpage!==undefined&&perpage!==null&&perpage!==''){
+                            where+=`&perpage=${perpage+10}`
+                        }
+                        this.props.dispatch(getBeritaKategori(1, where));
+                        // this.setState({scrollPage:this.state.scrollPage+5});
+                    }
+                    else{
+                        Swal.fire({allowOutsideClick: false,
+                            title: 'Perhatian',
+                            icon: 'warning',
+                            text: 'Tidak ada data.',
+                        });
+                        this.setState({dataEnd:true})
+                    }
+                }
             }
-            this.props.dispatch(getBeritaKategori(1, where));
-            // this.setState({scrollPage:this.state.scrollPage+5});
-        }
-        else{
-            Swal.fire({allowOutsideClick: false,
-                title: 'Perhatian',
-                icon: 'warning',
-                text: 'Tidak ada data.',
-            });
         }
     }
     handleParameter(pageNumber){
@@ -140,7 +181,7 @@ class Berita extends Component{
         //     }
         // }
         if(kategori!==undefined&&kategori!==null&&kategori!==''){
-            where+=`&q=${kategori}`
+            where+=`&kategori=${kategori}`
         }
         if(any!==undefined&&any!==null&&any!==''){
             where+=`&q=${any}`
@@ -151,6 +192,15 @@ class Berita extends Component{
         this.props.dispatch(getBerita(pageNumber,where))
         this.props.dispatch(getBeritaKategori(1))
         // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
+    }
+    handleKategori(e,val){
+        localStorage.setItem('kategori_berita', val);
+        let where='';
+        if(val!==undefined&&val!==null&&val!==''){
+            where+=`&kategori=${val}`
+        }
+        this.setState({isOpen:false})
+        this.props.dispatch(getBerita(1,where))
     }
     componentWillReceiveProps = (nextProps) => {
         let sort = [
@@ -257,24 +307,24 @@ class Berita extends Component{
         } = this.props.beritaBerita;
         return (
             <Layout page="Berita">
-                <div className="row">
+                <div className="row box-margin">
                     <div className="col-md-8">
                         <div className="card">
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-md-12" style={{zoom:"100%"}}>
+                                    <div className="col-md-12">
                                         <div className="row">
-                                            <div className="col-6 col-xs-6 col-md-4">
+                                            <div className="col-12 col-xs-6 col-md-4">
                                                 <div className="form-group">
                                                     <label>Cari</label>
-                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                                </div>
-                                            </div>
-                                            <div className="col-6 col-xs-6 col-md-2">
-                                                <div className="form-group">
-                                                    <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                                        <i className="fa fa-search"/>
-                                                    </button>
+                                                    <div className="input-group">
+                                                        <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                                        <div className="input-group-append">
+                                                            <button className="btn btn-primary" onClick={this.handleSearch}>
+                                                                <i className="fa fa-search"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -335,7 +385,7 @@ class Berita extends Component{
                                                                 </div>
                                                                 <div className="col-6">
                                                                     <Skeleton width={100} height={20} />
-                                                                </div>
+                                                                  </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -358,42 +408,89 @@ class Berita extends Component{
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card" style={{position:'sticky', top:'100px'}}>
-                            <div className="card-header bg-primary"><h5 className="text-light">Kategori</h5></div>
-                            <div className="card-body p-1" style={{height:'300px', overflowX:'auto'}}>
-                            {
-                                !this.props.isLoadingKategori?(
-                                    (
-                                        typeof this.props.beritaKategori.data === 'object' ? this.props.beritaKategori.data.length>0?
-                                            this.props.beritaKategori.data.map((v,i)=>{
-                                                return(
-                                                    <div className="card rounded mb-2" style={{borderLeft: '8px solid rgb(251, 67, 74)'}}>
-                                                        <div className="card-body p-1">
-                                                            <div className="media">
-                                                                <div className="media-body text-center mr-2" style={{maxWidth: 100, minWidth: 100}}>
-                                                                    <button type="button" onClick={(e)=>(this.handleParameter(e))} className="btn btn-link"><h6 className="mt-1" style={{whiteSpace:'nowrap'}}>{v.title}</h6></button>
+                        {/* DESKTOP VERSION START */}
+                        <div className="card d-none d-md-block" style={{position:'sticky', top:'100px'}}>
+                            <div className="card-header bg-transparent pb-2 border-none"><h5 className="text-dark">Kategori</h5></div>
+                            <div className="card-body pt-0" style={{minHeight:'auto',maxHeight:'300px', overflowX:'auto'}} onScroll={(e) => this.handleLoadMore(e,'desktop')} ref={this.kategoriInnerRef}>
+                                    {
+                                        !this.props.isLoadingKategori?(
+                                            <div class="outer">
+                                                <div class="inner" style={{display:'flex',flexWrap:'wrap'}}>
+                                                        {
+                                                            typeof this.props.beritaKategori.data === 'object' ? this.props.beritaKategori.data.length>0?
+                                                                this.props.beritaKategori.data.map((v,i)=>{
+                                                                    return(
+                                                                        <div key={i} onClick={(e)=>this.handleKategori(e,v.id)} class="cards card1 bg-light mr-1 pb-1 cursor-pointer" style={{flex:'1 1 auto'}}>
+                                                                            <p className="font-20">
+                                                                                {v.title}
+                                                                            </p>
+                                                                            <div className="go-corner bg-danger" href="#">
+                                                                                <div className="go-arrow bg-danger">
+                                                                                    <i className={`fa fa-search text-danger`}/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                }):"No Data.":"No Data."
+                                                        }
+                                                </div>
+                                            </div>
+                                        ):
+                                            <div className="row w-100 m-0">
+                                                {
+                                                    (() => {
+                                                        const rows = [];
+                                                        for (let i = 0; i < 9; i++) {
+                                                            rows.push(
+                                                                <div className="col-md-4 p-0 pr-1">
+                                                                    <Skeleton height={60} style={{width:'100%'}}/>
+                                                                </div>
+                                                            );
+                                                        }
+                                                        return rows;
+                                                    })()
+                                                }
+                                            </div>
+                                    }
+                                <div className="form-group mb-0 d-none">
+                                    <button className={"btn btn-primary"} style={{width:"100%"}} onClick={this.handleLoadMore}>{this.props.isLoadingKategori?'tunggu sebentar ...':'Tampilkan lebih banyak'}</button>
+                                </div>
+                            </div>
+                        </div>
+                        {/* DESKTOP VERSION END */}
+                        <div className="card fixed-bottom d-block d-md-none shadow-lg rounded-lg">
+                        <button type="button" className="btn btn-lg btn-block btn-outline-success rounded-lg rounded-top border-none mb-1 bg-transparent text-success" onClick={(e)=>this.toggleCollapse(e)}>KATEGORI&nbsp;<i className={`fa fa-angle-${!this.state.isOpen?'up':'down'}`}/></button>
+                        <Collapse isOpen={this.state.isOpen}>
+                            <div style={{overflow:'auto',minHeight:'auto', maxHeight:'300px'}} onScroll={(e) => this.handleLoadMore(e,'mobile')} ref={this.kategoriMobileInnerRef}>
+                                <div class="outer">
+                                    <div class="inner" style={{display:'flex',flexWrap:'wrap'}}>
+                                            {
+                                                typeof this.props.beritaKategori.data === 'object' ? this.props.beritaKategori.data.length>0?
+                                                    this.props.beritaKategori.data.map((v,i)=>{
+                                                        return(
+                                                            <div key={i} onClick={(e)=>this.handleKategori(e,v.id)} class="cards card1 bg-light mr-1 pb-1 cursor-pointer" style={{flex:'1 1 auto'}}>
+                                                                <p className="font-20">
+                                                                    {v.title}
+                                                                </p>
+                                                                <div className="go-corner bg-danger" href="#">
+                                                                    <div className="go-arrow bg-danger">
+                                                                        <i className={`fa fa-search text-danger`}/>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })
-                                            : "No data." : "No data."
-                                    )
-                                ):(() => {
-                                    const rows = [];
-                                    for (let i = 0; i < 10; i++) {
-                                        rows.push(
-                                                <Skeleton style={{width:'100%', height:'50px'}} />
-                                        );
-                                    }
-                                    return rows;
-                                })()
-                            }
-                            <div className="form-group mb-0">
+                                                        );
+                                                    }):"No Data.":"No Data."
+                                            }
+                                    </div>
+                                </div>
+                                {
+                                    this.props.isLoadingKategori?<Spinner/>:''
+                                }
+                            <div className="form-group mb-0 d-none">
                                 <button className={"btn btn-primary"} style={{width:"100%"}} onClick={this.handleLoadMore}>{this.props.isLoadingKategori?'tunggu sebentar ...':'Tampilkan lebih banyak'}</button>
                             </div>
-                            </div>
+                        </div>
+                        </Collapse>
                         </div>
                     </div>
                 </div>

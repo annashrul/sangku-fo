@@ -10,7 +10,7 @@ import {rangeDate} from "helper";
 import Spinner from "Spinner";
 import { getRedeemReport, postRedeemDone } from '../../../../redux/actions/product/redeem.action';
 import Swal from 'sweetalert2';
-// import { toCurrency } from '../../../../helper';
+import PembelianCekResi from "components/App/modals/report/pembelian/pembelian_cek_resi";
 class RedeemReport extends Component{
     constructor(props){
         super(props);
@@ -22,6 +22,7 @@ class RedeemReport extends Component{
         this.HandleChangeFilter = this.HandleChangeFilter.bind(this);
         this.HandleChangeSearchby = this.HandleChangeSearchby.bind(this);
         this.handleRePrint = this.handleRePrint.bind(this);
+        this.toggleResi = this.toggleResi.bind(this);
         this.handleDone = this.handleDone.bind(this);
         this.state={
             where_data:"",
@@ -38,6 +39,7 @@ class RedeemReport extends Component{
             status_data:[],
             searchby:"kd_trx",
             searchby_data:[],
+            detail:{},
         }
     }
     componentWillMount(){
@@ -72,7 +74,7 @@ class RedeemReport extends Component{
     }
     handlePageChange(pageNumber){
         localStorage.setItem("page_redeem_report",pageNumber);
-        // this.props.dispatch(FetchRedeem(pageNumber))
+        this.props.dispatch(getRedeemReport(pageNumber,this.state.where_data))
     }
     toggle(e,code,barcode,name){
         e.preventDefault();
@@ -259,10 +261,22 @@ class RedeemReport extends Component{
         e.preventDefault();
         // this.props.dispatch(rePrintFaktur(id));
     }
-    handleDone(e,id){
+    toggleResi(e,resi){
+        e.preventDefault();
+        // JP3738533084
+        if(resi!=='-'){
+            this.setState({
+                detail:{resi:resi,kurir:'jnt',kd_trx:''}
+            });
+            const bool = !this.props.isOpen;
+            this.props.dispatch(ModalToggle(bool));
+            this.props.dispatch(ModalType("pembelianCekResi"));
+        }
+    };
+    handleDone(e,status,id){
         e.preventDefault();
         // this.props.dispatch(rePrintFaktur(id));
-        if(id==='2'){
+        if(String(status)==='1'){
             Swal.fire({
                 title: 'Perhatian !!!',
                 text: `Anda yakin akan menyelesaikan proses Redeem?`,
@@ -293,7 +307,7 @@ class RedeemReport extends Component{
             // total
         } = this.props.redeemReport;
         return (
-            <Layout page="Laporan Redeem">
+            <Layout page="Laporan Redeem Poin">
                 <div className="card box-margin">
                     <div className="card-body">
                         <div className="row">
@@ -362,14 +376,15 @@ class RedeemReport extends Component{
                                                             status=<span style={{color:'#f44336',fontWeight:'800'}}>Diterima</span>;
                                                         }
                                                         return(
-                                                            <div key={i} className="card" style={{borderRadius:"10px",marginBottom:"10px"}} >
+                                                            <div key={i} className="card zoom-hover" style={{borderRadius:"10px",marginBottom:"10px"}} >
                                                                 <div className="card-body">
                                                                     <div className="row">
                                                                         <div className="col-md-6">
                                                                             <span className={"black"} style={{fontWeight:"normal"}}>{moment(v.created_at).format('DD MMM YYYY HH:mm')}</span>
                                                                         </div>
-                                                                        <div className="col-md-6 d-flex justify-content-end">
-                                                                            <div onClick={(e)=>this.handleDone(e,v.id)} className="col-auto" style={String(v.status)!=='2'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
+                                                                        {/* DESKTOP VERSION START */}
+                                                                        <div className="col-md-6 justify-content-end d-none d-md-flex">
+                                                                            <div onClick={(e)=>this.handleDone(e,v.status,v.id)} className="col-auto" style={String(v.status)!=='1'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
                                                                             {cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
                                                                                 <i className={"fa fa-check"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Selesaikan
                                                                             </div>
@@ -378,6 +393,20 @@ class RedeemReport extends Component{
                                                                                 <i className={"fa fa-random"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Lacak Resi
                                                                             </div>
                                                                         </div>
+                                                                        {/* DESKTOP VERSION END */}
+
+                                                                        {/* MOBILE VERSION START */}
+                                                                        <div className="col-md-6 d-flex justify-content-between mt-2 d-md-none">
+                                                                            <div onClick={(e)=>this.handleDone(e,v.status,v.id)} className="col-auto img-thumbnail border-secondary" style={String(v.status)!=='1'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
+                                                                            {cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                                                                <i className={"fa fa-check"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Selesaikan
+                                                                            </div>
+                                                                            <div onClick={(e)=>this.toggleResi(e,v.resi)} className="col-auto img-thumbnail border-secondary" style={v.resi==='-'?{cursor:"not-allowed",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}:
+                                                                            {cursor:"pointer",color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}>
+                                                                                <i className={"fa fa-random"} style={{color:'rgba(49, 53, 59, 0.68)',fontWeight:"bold"}}/> Lacak Resi
+                                                                            </div>
+                                                                        </div>
+                                                                        {/* MOBILE VERSION END */}
                                                                     </div>
                                                                     <hr/>
                                                                     <div className="row">
@@ -396,7 +425,7 @@ class RedeemReport extends Component{
                                                                     <hr/>
                                                                     <div className="row">
                                                                         <div className="col-md-5" style={{borderRight:"1px solid rgba(0,0,0,.1)"}}>
-                                                                            <small classname="text-muted">Info Redeem</small>
+                                                                            <small className="text-muted">Info Redeem</small>
                                                                             <div className="media">
                                                                                 <div style={{height:'70px',width:'70px',marginRight:'20px'}}>
                                                                                     <img src={v.gambar} className="mr-3 media-thumb" style={{width: '100%', height: '100%', objectFit: 'contain'}} alt="Provider"/>
@@ -439,6 +468,7 @@ class RedeemReport extends Component{
                         </div>
                     </div>
                 </div>
+                {this.state.detail.resi!==undefined?<PembelianCekResi detailResi={this.state.detail}/>:null}
             </Layout>
             );
     }

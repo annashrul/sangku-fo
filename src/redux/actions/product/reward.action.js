@@ -190,3 +190,72 @@ export const getRewardReport = (page=1,where,perpage=10) => {
 
     }
 };
+
+export const postRewardDone = (data) => {
+    return (dispatch) => {
+        dispatch(setLoadingPost(true));
+        dispatch(setIsError(false));
+
+        const url = HEADERS.URL + `transaction/done/${btoa(data)}`;
+        axios.put(url)
+            .then(function (response) {
+                const data = (response.data);
+                console.log(data.status);
+                if(data.status ==='success'){
+                    Swal.fire({
+                        title: 'Informasi',
+                        text: "Reward Diselesaikan",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        if (result.value) {
+                            dispatch(getRewardReport(1,'',''))
+                        }else{
+                            dispatch(getRewardReport(1,'',''))
+
+                        }
+                        // window.location.reload()
+
+                    })
+                    dispatch(setIsError(false));
+                }else{
+                    dispatch(setIsError(true));
+                    Swal.fire(
+                        'Terjadi Kesalahan!.',
+                        data.msg,
+                        'error'
+                    );
+                }
+                // ToastQ.fire({icon:'success',title:`redeem berhasil`});
+                dispatch(setLoadingPost(false));
+            })
+            .catch(function (error) {
+                console.log("ERROR",error);
+                dispatch(setLoadingPost(false));
+                dispatch(setIsError(true));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+
+                }
+
+            })
+    }
+}

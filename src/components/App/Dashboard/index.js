@@ -263,7 +263,7 @@ class Index extends Component {
                     <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" />
                 </div>
                 <div className="row d-flex box-margin">
-                     <div className="col-md-4 pr-0">
+                     <div className="col-md-4">
                          {this.props.beritaBerita.data!==undefined?<News list={this.props.beritaBerita}/>:''}
                     </div>
                      <div className="col-md-8">

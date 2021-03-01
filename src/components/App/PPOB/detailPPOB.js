@@ -56,7 +56,7 @@ class DetailPPOB extends Component{
         const {retrievedObject}=this.state;
         let data={
             "code":retrievedObject.kode,
-            "nohp":retrievedObject.nomor.replaceAll("-",""),
+            "nohp":retrievedObject.nomor.replace(/-/g,""),
             "mtr_pln":"-",
             "pin":num
         }
@@ -69,7 +69,7 @@ class DetailPPOB extends Component{
     render(){
         const path = this.props.location.pathname;
         const {retrievedObject}=this.state;
-        let page = path.split("/")[3].replaceAll('-',' ');
+        let page = path.split("/")[3].replace(/-/g," ");
         return (
             <Layout page={`Checkout ${page}`} subpage="PPOB" link={"/ppob"}>
                 <div className="row" style={{backgroundColor:"white",padding:"20px"}}>
@@ -96,7 +96,7 @@ class DetailPPOB extends Component{
                                     <tr>
                                         <th style={{paddingLeft:"0"}}><h5 style={{color:"grey"}}><i className="fa fa-dot-circle-o font-30 text-info"/> Nominal</h5></th>
                                         <th><h5 style={{color:"grey"}}>:</h5></th>
-                                        <th><h5 className="txtRed">Rp {toCurrency(parseInt(retrievedObject.keterangan.split(' ')[1].replaceAll(".","")))} .-</h5></th>
+                                        <th><h5 className="txtRed">Rp {toCurrency(parseInt(retrievedObject.keterangan.split(' ')[1].replace(/\./g,"")))} .-</h5></th>
                                     </tr>
                                 ):null
                             }

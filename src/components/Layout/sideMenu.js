@@ -229,8 +229,8 @@ class SideMenu extends Component {
                             <li className={path==='/report/ppob'?"active":''}><Link to="/report/ppob" style={{width:'fit-content'}}> Top Up & Tagihan</Link></li>
                             <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
-                            <li className={path==='/report/redeem'?"active":''}><Link to="/report/redeem" style={{width:'fit-content'}}> Redeem</Link></li>
-                            <li className={path==='/report/reward'?"active":''}><Link to="/report/reward" style={{width:'fit-content'}}> Reward</Link></li>
+                            <li className={path==='/report/redeem'?"active":''}><Link to="/report/redeem" style={{width:'fit-content'}}> Redeem Poin</Link></li>
+                            <li className={path==='/report/reward'?"active":''}><Link to="/report/reward" style={{width:'fit-content'}}> Klaim Reward</Link></li>
 
                         </ul>
                     </li>
