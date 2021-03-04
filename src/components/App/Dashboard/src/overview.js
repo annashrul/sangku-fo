@@ -25,11 +25,10 @@ class Overview extends Component {
     render(){
         const blur = {
             WebkitFilter: 'blur(5px)',
-            cursor:'no-drop',
+            cursor: 'not-allowed',
             userSelect:'none'
         }
-        let rewardBool = false
-        rewardBool = this.props.reward.is_claimed||this.props.reward_kanan===this.props.reward_kiri
+        let rewardBool = !this.props.reward.is_claimed && this.props.reward.id !== '-';
         return(
             <div>
                 <div className="card h-100 box-margin">
@@ -42,7 +41,7 @@ class Overview extends Component {
                                 </div>
                                 <div className="profile-text" style={{marginTop:'4px'}}>
                                     <div style={{fontSize:'1.5em'}}>{this.props.user}</div>
-                                    <div style={{fontSize:'.9em'}}>{this.props.jenjang_karir}</div>
+                                    {/* <div style={{fontSize:'.9em'}}>{this.props.jenjang_karir}</div> */}
                                     <div style={{fontSize:'.8em',marginTop:'5px'}}>{this.props.uid}</div>
                                 </div>
                             </div>

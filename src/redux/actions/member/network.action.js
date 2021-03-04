@@ -29,3 +29,32 @@ export const FetchNetwork = (uid,first,param)=>{
         })
     }
 }
+
+export const FetchNetworkWebview = (uid, first, param,token) => {
+    return (dispatch) => {
+        dispatch(setLoading(true));
+        let url = `member/${param}/`;
+        if (first) {
+            url += `${uid}?isfirst=true`
+        } else {
+            url += `${uid}`
+        }
+        axios.get(HEADERS.URL + url, {
+                headers: {
+                    Authorization: token,
+                    username: HEADERS.USERNAME,
+                    password: HEADERS.PASSWORD,
+                    myconnection: `apps`,
+                    'Content-Type': `application/x-www-form-urlencoded`
+                }
+            })
+            .then(function (response) {
+                const data = response.data;
+
+                dispatch(setNetwork(data));
+                dispatch(setLoading(false));
+            }).catch(function (error) {
+                dispatch(setLoading(false));
+            })
+    }
+}

@@ -56,6 +56,7 @@ import PenarikanReport from '../App/Report/Wallet/reportPenarikan';
 import DepositReport from '../App/Report/Wallet/reportDeposit';
 import ReportRedeem from '../App/Report/Redeem';
 import ReportReward from '../App/Report/Reward';
+import webviewBinary from '../App/webview/Binary';
 
 const Routes = (
     <div>
@@ -66,6 +67,7 @@ const Routes = (
             <Route path="/login" exact strict component={Login} />
             <Route path="/signup" exact strict component={Signup} />
             <Route path="/confirm" exact strict component={ConfirmPage} />
+            <Route path="/web_view/binary/:id" exact strict component={webviewBinary} />
 
             <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />
