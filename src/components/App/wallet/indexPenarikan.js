@@ -102,6 +102,22 @@ class IndexPenarikan extends Component{
             });
         }
         this.setState({bank_data:data_bank})
+
+        if (nextProps.location !== this.props.location) {
+            console.log("this.props.location",this.props.location);
+        }
+        console.log("this.props.location",this.props.location);
+        console.log("nextProp.location",nextProps.location);
+        console.log("this.props.history",this.props.history);
+        console.log("nextProp.history",nextProps.history);
+        // console.log("this.props.history.location.state.from.pathname",this.props.history.location.state.from.pathname);
+        // console.log("this.props.history.location.state",this.props.history.location.state);
+    }
+    componentDidMount(){
+        
+    //     const { location, history } = this.props
+    //     const previousPath = location.state.from.pathname
+    //     console.log(previousPath);
     }
     componentDidUpdate(prevState){
         if(prevState.isOpen===true&&this.state.currentStep===2){
@@ -440,10 +456,11 @@ class IndexPenarikan extends Component{
                         </div>
                     </div>
                     :
-                    <div className="alert alert-danger bg-white text-danger text-center p-30 m-4" role="alert">
-                        <img className="img-fluid w-40" src={sorry} alt="sangqu" />
+                    <div className="alert alert-danger bg-white text-danger text-center p-30 m-3" role="alert">
+                        <img className="img-fluid w-25 d-none d-md-inline" src={sorry} alt="sangqu" />
+                        <img className="img-fluid w-75 d-inline d-md-none" src={sorry} alt="sangqu" />
                         <br/>
-                        Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.
+                        <h3 className="text-danger">Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.</h3>
                     </div>
 
                 }

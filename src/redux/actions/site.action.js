@@ -32,6 +32,12 @@ export function setLoading(load) {
         load
     }
 }
+export function setLoadingConfig(load) {
+    return {
+        type: SITE.LOADING_CONFIG,
+        load
+    }
+}
 export function setLoadingPut(load) {
     return {
         type: SITE.LOADING_PUT,
@@ -53,6 +59,12 @@ export function setLoadingSitePaket(load) {
 export function setSite(data = []) {
     return {
         type: SITE.SUCCESS,
+        data
+    }
+}
+export function setSiteConfig(data = []) {
+    return {
+        type: SITE.SUCCESS_CONFIG,
         data
     }
 }
@@ -107,6 +119,40 @@ export const FetchSite = () => {
             .catch(function (error) {
                 // handle error
                 dispatch(setLoading(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+            })
+
+    }
+}
+export const FetchSiteConfig = () => {
+    return (dispatch) => {
+        dispatch(setLoadingConfig(true));
+        axios.get(HEADERS.URL + `auth/config`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setSiteConfig(data));
+                dispatch(setLoadingConfig(false));
+            })
+            .catch(function (error) {
+                // handle error
+                dispatch(setLoadingConfig(false));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

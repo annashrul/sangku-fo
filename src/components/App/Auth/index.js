@@ -11,6 +11,7 @@ import bycrypt from 'bcryptjs';
 import Swal from 'sweetalert2'
 import {loginUser} from 'redux/actions/authActions';
 import { Link } from 'react-router-dom';
+import { FetchSiteConfig } from '../../../redux/actions/site.action';
 
 
 class Auth extends Component{
@@ -26,7 +27,9 @@ class Auth extends Component{
             isOtp:false,
             debug_otp:'',
             verifyAccess:false,
-            type:'otp'
+            type:'otp',
+            otpType:'wa',
+            otpConfig:''
         }
         this.setPhone = this.setPhone.bind(this)
         this.setOtp = this.setOtp.bind(this)
@@ -34,9 +37,12 @@ class Auth extends Component{
         this.handleVerifyOtp = this.handleVerifyOtp.bind(this)
         this.verifyOtp = this.verifyOtp.bind(this);
         this.sendOtpLogin=this.sendOtpLogin.bind(this)
+        this.handleOtpType=this.handleOtpType.bind(this)
+        this.handleSelect=this.handleSelect.bind(this)
         
     }
     componentWillMount(){
+        this.props.dispatch(FetchSiteConfig())
     }
     setPhone(num, number) {
         this.setState({
@@ -87,6 +93,9 @@ class Auth extends Component{
                     errors: nextProps.errors
                 })
             }
+        }
+        if(nextProps.otp_config.type_otp!==this.props.otp_config.type_otp){
+            this.setState({otpConfig:nextProps.otp_config.type_otp});
         }
 
     }
@@ -149,10 +158,24 @@ class Auth extends Component{
         if (this.state.number !== "") {
             this.props.dispatch(sendOtp({
                 type: 'otp',
+                type_otp: this.state.otpConfig==='gabungan'?this.state.otpType:'-',
                 nomor: this.state.number,
                 islogin: true
             }));
         }
+    }
+
+    handleOtpType = (e) => {
+        // e.preventDefault();
+        this.setState({otpType:!this.state.otpType});
+    }
+
+    handleSelect(e){
+        e.preventDefault();
+        let column = e.target.name;
+        let value = e.target.value;
+
+        this.setState({[column]:value});
     }
 
     handleVerifyOtp (event) {
@@ -185,6 +208,8 @@ class Auth extends Component{
         // const renderButton = buttonProps => {
         //     return <button className="btn btn-warning" {...buttonProps}>Resend</button>;
         // };
+        console.log(this.state.otpConfig);
+        console.log(this.props.otp_config);
         const renderButton = buttonProps => {
                     return(
                         <div>
@@ -233,12 +258,31 @@ class Auth extends Component{
                                                     value={this.state.phone}
                                                     />
                                                 <div className="container-login100-form-btn">
+                                                    {this.state.otpConfig==='gabungan'?
+                                                        <div className="stacked-form-area w-100" >
+                                                            <label className="text-muted">Verifikasi melalui : </label>
+                                                            <select name="otpType" onChange={(e)=>{this.handleSelect(e)}} ref={(el) => el && el.style.setProperty('border-radius', '10px', "important")}>
+                                                                <option value="wa">WA</option>
+                                                                <option value="sms">SMS</option>
+                                                            </select>
+                                                            {/* <div className="new-checkbox mb-2">
+                                                                <p>Verifikasi Melalui : {this.state.otpType?'WA':'SMS'}</p>
+                                                                <div className="d-flex justify-content-start align-items-center" >
+                                                                    <label className="switch">
+                                                                        <input type="checkbox" checked={this.state.otpType} onChange={(e)=>this.handleOtpType(e)}/>
+                                                                        <span className="slider"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div> */}
+                                                        </div>
+                                                        :''
+                                                    }
                                                     <button className="login100-form-btn" onClick={this.handleLoginBtn}>
                                                         <span style={{marginRight:"7px",fontSize:'1.3em'}}>Masuk</span> <i className="fa fa-long-arrow-right" aria-hidden="true" />
                                                     </button>
                                                 </div>
 
-                                                 <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
+                                                <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
                                                     <Link to="/"> <i className="fa fa-long-arrow-left" aria-hidden="true" /> Kembali ke halaman utama</Link>
                                                 </div>
                                             </div>
@@ -266,10 +310,7 @@ class Auth extends Component{
                                                             window.location.reload();
                                                         }}> Ubah no. handphone</a>
                                                     </div>
-
                                             </div>
-                                           
-
                                         </form>
                                         <div className="login100-more" style={{backgroundImage: 'url("auth/bg-01.jpg")'}}>
                                         </div>
@@ -286,6 +327,7 @@ class Auth extends Component{
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        otp_config: state.siteReducer.data_config
     }
 }
 

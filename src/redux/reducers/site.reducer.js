@@ -4,11 +4,13 @@ import {
 
 const initialState = {
     isLoading: false,
+    isLoadingConfig: false,
     isLoadingPut: false,
     isLoadingWalletConfig: false,
     data: [],
     isLoadingSitePaket: false,
     data_paket: [],
+    data_config: [],
     datum: [],
     data_folder: [],
     data_tables: [],
@@ -26,6 +28,10 @@ export const siteReducer = (state = initialState, action) => {
             return Object.assign({}, state,{
                 data: action.data.result
             });
+        case SITE.SUCCESS_CONFIG:
+            return Object.assign({}, state,{
+                data_config: action.data.result
+            });
         case SITE.TRIGGER_ECAPS:
             return Object.assign({}, state, {
                 triggerEcaps: action.data
@@ -37,6 +43,10 @@ export const siteReducer = (state = initialState, action) => {
         case SITE.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case SITE.LOADING_CONFIG:
+            return Object.assign({}, state, {
+                isLoadingConfig: action.load
             });
         case SITE.LOADING_PUT:
             return Object.assign({}, state, {
