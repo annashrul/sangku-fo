@@ -595,8 +595,8 @@ a.page-link {
 }
 
 .btn-primary {
-    background-color: rgb(66, 181, 73) !important;
-    border: 1px solid rgb(66, 181, 73) !important;
+    background-color: #732044 !important;
+    border: 1px solid #732044 !important;
 
 }
 
@@ -621,4 +621,88 @@ a.page-link {
     z-index: 1;
     transition-duration: 0.15s;
     transition-timing-function: ease-out;
+}
+
+.sk-grid {
+  width: 70px;
+  height: 70px;
+   display: flex;                       /* establish flex container */
+  flex-wrap: wrap;                     /* enable flex items to wrap */
+  justify-content: space-around;
+  /* Cube positions
+   * 1 2 3
+   * 4 5 6
+   * 7 8 9
+   */ 
+ }
+ 
+.sk-grid-cube {
+    flex: 0 0 20%;                       /* don't grow, don't shrink, width */
+    height: 20%;
+    margin-bottom:7px;
+    margin-left:7px;
+    background-color: #732044;
+    animation: sk-grid 1s infinite cubic-bezier(0.7, 0, 0.3, 1);
+  ;
+}
+
+
+.sk-grid-cube:nth-child(1) { animation-delay: 0.1s; }
+.sk-grid-cube:nth-child(6) { animation-delay: 0.1s; }
+
+
+.sk-grid-cube:nth-child(3) { animation-delay: 0.3s; }
+.sk-grid-cube:nth-child(5) { animation-delay: 0.3s; }
+.sk-grid-cube:nth-child(7) { animation-delay: 0.3s; }
+
+.sk-grid-cube:nth-child(2) { animation-delay: 0.2s; }
+.sk-grid-cube:nth-child(4) { animation-delay: 0.2s; }
+
+.sk-grid-cube:nth-child(8) { animation-delay: 0.4s; }
+.sk-grid-cube:nth-child(9) { animation-delay: 0.4s; }
+
+@keyframes sk-grid {
+  0% {
+      opacity: 0.4;
+    }
+    
+    100% {
+      opacity: 1;
+  }
+}
+
+.floating {
+    position: fixed;
+    width: 50px;
+    height: 60px;
+    bottom: 45px;
+    left: 10px;
+    color: #FFF;
+    z-index: 99999;
+    text-align: center;
+}
+
+.ic-float {
+    margin-top: 22px;
+}
+
+#overlay {
+    position: fixed;
+    /* Sit on top of the page content */
+    display: block;
+    /* Hidden by default */
+    width: 100%;
+    /* Full width (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    z-index: 1;
+    /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer;
+    /* Add a pointer on hover */
 }

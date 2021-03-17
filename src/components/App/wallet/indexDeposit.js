@@ -172,7 +172,7 @@ class IndexDeposit extends Component{
         if(num.length===6&&this.valid){
             let data={};
             data['id_bank_destination'] = this.state.bank.value;
-            data['pin_member'] = num;
+            data['member_pin'] = num;
             data['amount'] = rmComma(this.state.amount);
             this.props.dispatch(postDeposit(data));
             this.props.dispatch(ModalToggle(false));
@@ -185,7 +185,7 @@ class IndexDeposit extends Component{
     valid(){
         let data={};
         data['id_bank'] = this.state.bank.value;
-        data['pin_member'] = this.state.pin;
+        data['member_pin'] = this.state.pin;
         data['amount'] = rmComma(this.state.amount);
         if(isNaN(data['amount'])){
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});

@@ -243,8 +243,6 @@ class MemberForm extends Component{
         parseData['pin_regist'] = this.state.pin_regist.id;
         let err = this.state.error;
         
-        console.log("dddddddddddddddd",parseData)
-
         if(parseData['full_name']===''||parseData['full_name']===undefined){
             err = Object.assign({}, err, {full_name:"Nama lengkap tidak boleh kosong"});
             this.setState({confirm:false, error: err});
@@ -545,20 +543,7 @@ class MemberForm extends Component{
                                                         {this.state.error.id_card}
                                                     </div>
                                                 </div> */}
-                                                {/* <div className="form-group">
-                                                    <label>PIN</label>
-                                                    <input
-                                                            type="text"
-                                                            pattern="\d*"
-                                                            maxLength="6"
-                                                            className="form-control form-control-lg"
-                                                            name="pin"
-                                                            value={this.state.pin}
-                                                            onChange={this.handleChange}  />
-                                                    <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.pin}
-                                                    </div>
-                                                </div> */}
+                                              
                                                 {/* <div className="form-group">
                                                     <label htmlFor="inputState" className="col-form-label">Foto {this.props.data_detail!==undefined?<small>(kosongkan apabila tidak ada perubahan.)</small>:""}</label><br/>
                                                     <File64
@@ -661,21 +646,21 @@ class MemberForm extends Component{
                                                                 <div className="row m-1 justify-content-center">
                                                                     <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                                     {
-                                                                        (
-                                                                            typeof this.props.availPin.data === 'object' ?
-                                                                                this.props.availPin.data.map((v,i)=>{
-                                                                                    return(
-                                                                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
-                                                                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
-                                                                                            <br/>
-                                                                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
-                                                                                            <br/>
-                                                                                            <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
-                                                                                        </Tab>
-                                                                                    )
-                                                                                })
-                                                                                : "No data."
-                                                                        )
+                        (
+                            typeof this.props.availPin.data === 'object' ?
+                                this.props.availPin.data.map((v,i)=>{
+                                    return(
+                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                            <br/>
+                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                            <br/>
+                                            <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
+                                        </Tab>
+                                    )
+                                })
+                                : "No data."
+                        )
                                                                     }
                                                                 </div>
                                                                 </TabList>
@@ -684,6 +669,21 @@ class MemberForm extends Component{
                                                     </Tabs>
                                                     <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.pin_regist}
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <label>PIN</label>
+                                                        <input
+                                                                type="text"
+                                                                pattern="\d*"
+                                                                maxLength="6"
+                                                                className="form-control form-control-lg"
+                                                                name="pin"
+                                                                value={this.state.pin}
+                                                                onChange={this.handleChange}  />
+                                                        <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.pin}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </CardBody>
