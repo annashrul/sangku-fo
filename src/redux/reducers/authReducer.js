@@ -5,7 +5,8 @@ const initialState = {
     user: [],
     isErrorNo:false,
     isLoading:false,
-    isRegistered:false
+    isRegistered:false,
+    isRegisterPin:false
 }
 
 export default function(state= initialState, action){
@@ -36,6 +37,10 @@ export default function(state= initialState, action){
         case AUTH.REGISTERED:
             return Object.assign({}, state, {
                 isRegistered: action.load
+            });
+        case AUTH.IS_REGISTERED:
+            return Object.assign({}, state, {
+                isRegisterPin: action.load
             });
         default:
             return state;

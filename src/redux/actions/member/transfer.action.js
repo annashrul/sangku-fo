@@ -82,12 +82,14 @@ export const postTransfer = (data) => {
                         text: NOTIF_ALERT.FAILED,
                     });
                     dispatch(setIsError(false));
+                    dispatch(setDataFailed(data));
                 }
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(false));
+                dispatch(setDataFailed(error.response.data));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

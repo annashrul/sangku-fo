@@ -12,6 +12,8 @@ import Swal from 'sweetalert2'
 import {loginUser} from 'redux/actions/authActions';
 import { Link } from 'react-router-dom';
 import { FetchSiteConfig } from '../../../redux/actions/site.action';
+import { putMember } from '../../../redux/actions/member/member.action';
+import Skeleton from 'react-loading-skeleton';
 
 
 class Auth extends Component{
@@ -25,16 +27,25 @@ class Auth extends Component{
             number:"",
             otp:0,
             isOtp:false,
+            pin:0,
+            pinNew:0,
+            pinNewRe:0,
+            isPin:false,
             debug_otp:'',
             verifyAccess:false,
-            type:'otp',
+            type:'',
             otpType:'wa',
             otpConfig:''
         }
         this.setPhone = this.setPhone.bind(this)
         this.setOtp = this.setOtp.bind(this)
+        this.setPin = this.setPin.bind(this)
+        this.setPinNew = this.setPinNew.bind(this)
+        this.setPinNewRe = this.setPinNewRe.bind(this)
         this.handleLoginBtn = this.handleLoginBtn.bind(this)
+        this.handleLoginBtnPin = this.handleLoginBtnPin.bind(this)
         this.handleVerifyOtp = this.handleVerifyOtp.bind(this)
+        this.handleVerifyPin = this.handleVerifyPin.bind(this)
         this.verifyOtp = this.verifyOtp.bind(this);
         this.sendOtpLogin=this.sendOtpLogin.bind(this)
         this.handleOtpType=this.handleOtpType.bind(this)
@@ -63,6 +74,28 @@ class Auth extends Component{
             })
             this.verifyOtp(num);
         }
+    }
+    setPin(num){
+        this.setState({
+            pin:num,
+            verifyAccess:false
+        })
+
+        if(num.length===6){
+            this.setState({
+                verifyAccess:true,
+            })
+        }
+    }
+    setPinNew(num){
+        this.setState({
+            pinNew:num,
+        })
+    }
+    setPinNewRe(num){
+        this.setState({
+            pinNewRe:num,
+        })
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -96,6 +129,9 @@ class Auth extends Component{
         }
         if(nextProps.otp_config.type_otp!==this.props.otp_config.type_otp){
             this.setState({otpConfig:nextProps.otp_config.type_otp});
+        }
+        if(nextProps.otp_config.type!==this.props.otp_config.type){
+            this.setState({type:nextProps.otp_config.type});
         }
 
     }
@@ -144,6 +180,8 @@ class Auth extends Component{
             number: "",
             otp: 0,
             isOtp: false,
+            pin: 0,
+            isPin: false,
             debug_otp: '',
             verifyAccess: false,
         })
@@ -153,11 +191,15 @@ class Auth extends Component{
         e.preventDefault();
         this.sendOtpLogin();
     }
+    handleLoginBtnPin(e){
+        e.preventDefault();
+        this.setState({isPin:true})
+    }
 
     sendOtpLogin(){
         if (this.state.number !== "") {
             this.props.dispatch(sendOtp({
-                type: 'otp',
+                type: this.state.type,
                 type_otp: this.state.otpConfig==='gabungan'?this.state.otpType:'-',
                 nomor: this.state.number,
                 islogin: true
@@ -181,6 +223,33 @@ class Auth extends Component{
     handleVerifyOtp (event) {
         event.preventDefault();
         if (this.state.verifyAccess) this.verifyOtp(this.state.otp);
+    }
+    handleVerifyPin (event) {
+        event.preventDefault();
+        if (this.state.verifyAccess){
+            this.props.dispatch(loginUser({
+                type: 'uid',
+                nohp: this.state.number,
+                pin: this.state.pin
+            }));
+        }
+    }
+    handlePin (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Informasi!',
+            text: "Pastikan PIN yang anda masukan mudah diingat dan sulit ditebak.",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Baik, Ubah PIN Saya',
+            cancelButtonText: 'Batal'
+        }).then(function(result){
+            if (result.value) {
+                this.props.dispatch(putMember({pin:this.state.pinNew},this.props.auth.user.id))
+            }
+        }.bind(this))
     }
 
     verifyOtp=async (num) => {
@@ -245,6 +314,8 @@ class Auth extends Component{
                                                 <img src="/logo.png" alt="sangqu" width="150px"/>
                                                 <div style={{marginTop:'12px'}}>Member Area</div>
                                             </div>
+                                            {this.state.type==='otp'?
+                                            <>
                                             <div style={{display: this.state.isOtp?"none":"block"}}>
                                                 <IntlTelInput
                                                     preferredCountries={['id']}
@@ -303,14 +374,100 @@ class Auth extends Component{
                                                     <button className="login100-form-btn" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyOtp}>
                                                         <span >Verifikasi</span>
                                                     </button>
-
-                                                    <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
-                                                        <a href={() => {return false}} onClick={(event)=>{
-                                                            event.preventDefault();
-                                                            window.location.reload();
-                                                        }}> Ubah no. handphone</a>
-                                                    </div>
                                             </div>
+                                            </>
+                                            :
+                                            this.state.type==='uid'?
+                                            <>
+                                            <div style={{display: this.state.isPin?"none":"block"}}>
+                                                <IntlTelInput
+                                                    preferredCountries={['id']}
+                                                    css={['intl-tel-input', 'form-control']}
+                                                    onPhoneNumberChange={(status, value, countryData, number, id) => {
+                                                        this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
+                                                    }}
+                                                    separateDialCode={true}
+                                                    format={true}
+                                                    formatOnInit={true}
+                                                    value={this.state.phone}
+                                                    />
+                                                <div className="container-login100-form-btn">
+                                                    <button className="login100-form-btn" onClick={this.handleLoginBtnPin}>
+                                                        <span style={{marginRight:"7px",fontSize:'1.3em'}}>Masuk</span> <i className="fa fa-long-arrow-right" aria-hidden="true" />
+                                                    </button>
+                                                </div>
+
+                                                <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
+                                                    <Link to="/"> <i className="fa fa-long-arrow-left" aria-hidden="true" /> Kembali ke halaman utama</Link>
+                                                </div>
+                                            </div>
+                                            {!this.props.auth.isRegisterPin?
+                                            <div style={{display:this.state.isPin?"block":"none"}}>
+                                                <label className="text-muted text-left mb-2">Masukan PIN Anda</label>
+                                                <OTPInput
+                                                    // maxTime={120}
+                                                    value={this.state.pin}
+                                                    onChange={this.setPin}
+                                                    autoFocus={true}
+                                                    OTPLength={6}
+                                                    otpType="number"
+                                                    disabled={false}
+                                                    style={{AlignItem:"center",justifyContent:"center"}}
+                                                />
+
+                                                    <button className="login100-form-btn" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyPin}>
+                                                        <span >Verifikasi</span>
+                                                    </button>
+                                            </div>
+                                            :
+                                            <div className="card text-center w-100 p-4 rounded-lg">
+                                                <p>INFOMASI KEAMANAN</p>
+                                                <small className="text-danger">Demi keamanan pada akun anda, silahkan ganti PIN default anda!</small>
+                                                <br/>
+                                                <div className="mb-3">
+                                                    <label className="text-muted text-left">PIN Baru</label>
+                                                    <OTPInput
+                                                        // maxTime={120}
+                                                        value={this.state.pinNew}
+                                                        onChange={this.setPinNew}
+                                                        autoFocus={true}
+                                                        OTPLength={6}
+                                                        secure={true}
+                                                        otpType="number"
+                                                        disabled={false}
+                                                        style={{AlignItem:"center",justifyContent:"center"}}
+                                                    />
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label className="text-muted text-left">Ulangi PIN Baru</label>
+                                                    <OTPInput
+                                                        // maxTime={120}
+                                                        value={this.state.pinNewRe}
+                                                        onChange={this.setPinNewRe}
+                                                        autoFocus={false}
+                                                        OTPLength={6}
+                                                        secure={true}
+                                                        otpType="number"
+                                                        disabled={false}
+                                                        style={{AlignItem:"center",justifyContent:"center"}}
+                                                    />
+                                                    {this.state.pinNew.length===6&&this.state.pinNewRe.length===6&&this.state.pinNew!==this.state.pinNewRe?
+                                                        <small className="text-danger mt-2">PIN tidak sesuai!</small>:''
+                                                    }
+                                                </div>
+                                                <div className="d-flex justify-content-end align-items-center">
+                                                    <button
+                                                        className="btn btn-primary btn-block"
+                                                        onClick={(e)=>this.handlePin(e)}
+                                                        disabled={this.state.pinNew.length===6&&this.state.pinNewRe.length===6&&this.state.pinNew===this.state.pinNewRe?false:true}
+                                                        >SIMPAN</button>
+                                                </div>
+                                            </div>
+                                            }
+                                            </>
+                                            :
+                                            <Skeleton style={{width:'100%', height:'100px'}}/>
+                                            }
                                         </form>
                                         <div className="login100-more" style={{backgroundImage: 'url("auth/bg-01.jpg")'}}>
                                         </div>
