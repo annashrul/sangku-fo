@@ -57,6 +57,7 @@ import DepositReport from '../App/Report/Wallet/reportDeposit';
 import ReportRedeem from '../App/Report/Redeem';
 import ReportReward from '../App/Report/Reward';
 import webviewBinary from '../App/webview/Binary';
+import webviewSponsor from '../App/webview/Sponsor';
 
 const Routes = (
     <div>
@@ -68,6 +69,7 @@ const Routes = (
             <Route path="/signup" exact strict component={Signup} />
             <Route path="/confirm" exact strict component={ConfirmPage} />
             <Route path="/web_view/binary/:id" exact strict component={webviewBinary} />
+            <Route path="/web_view/sponsor/:id" exact strict component={webviewSponsor} />
 
             <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />

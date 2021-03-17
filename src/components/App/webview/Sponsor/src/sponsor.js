@@ -4,6 +4,8 @@ import moment from 'moment'
 import { HEADERS } from '../../../../../redux/actions/_constants';
 import noUser from 'assets/no-user.png';
 import Default from 'assets/default.png'
+import Preloader from 'PreloaderWebview'
+
 class Sponsor extends Component{
     constructor(props){
         super(props);
@@ -16,6 +18,7 @@ class Sponsor extends Component{
             arrs:[],
         };
     }
+ 
     getCurrent = (node) => this.state.arrs.sort(function(a,b){if(a.position < b.position) { return -1 } if(a.position > b.position) { return 1 } return 0}).filter(cNode => cNode.parent_id === node).map(cNode => (
         <li id={`li_${cNode.id}`} key={`node_${cNode.id}`}>
             {cNode.detail===null?
@@ -26,22 +29,9 @@ class Sponsor extends Component{
                     <div className="usr-name"><i className="fa fa-plus"/>&nbsp;Member</div>
                 </div>
                 :
-                // <div className="eps-nc" nid={cNode.id}>
-                //     <div className="usr-pic">
-                //         <img src={cNode.picture}
-                //             className="img" /> </div>
-                //     <div className="usr-name">{cNode.name+' '+cNode.position}</div>
-                //     <div className="usr-popup">
-                //         <div className="popup-loader">
-                //             <div className="loader loader-bar" />
-                //         </div>
-                //     </div>
-                //     <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
-                // </div>
                 <div>
                 <div className={`binary-node-single-item eps-nc ${cNode.parent_id!==null?'eps-path':''} user-block user-${cNode.id}`}>
                     <div className="ribbon_wrapper images_wrapper" style={{height:'-webkit-fill-available'}}>
-                        {/* <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div> */}
                         <img className="profile-rounded-image-small h-100" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
                         <div className="alert alert-primary mt-2 font-12" style={{backgroundColor:'#7266ba',zIndex:1, padding:'3px',whiteSpace:'nowrap'}}>{String(cNode.name).replace(/ .*/,'')}</div>
                             <div className="pop-up-content">
@@ -50,35 +40,12 @@ class Sponsor extends Component{
                                     <div className="full-name">
                                         {cNode.name}
                                         {/* &nbsp; */}
-                                        {/* <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/> */}
                                         </div>
                                     <div className="username">
                                         <span className="text-label">UID : </span>
                                         <span className="text-value">{cNode.id}</span>
                                     </div>
-                                    {/* <div className="username">
-                                        <span className="text-label">Membership : </span>
-                                        <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/>
-                                    </div> */}
                                 </div>
-                                {/* <div className="tooltip_profile_detaile">
-                                    <div className="row mb-2">
-                                        <div className="col-md-6  text-center">
-                                            <span className="text-label">PV KIRI</span>
-                                        </div>
-                                        <div className="col-md-6  text-center">
-                                            <span className="text-label">PV KANAN</span>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6  text-center" style={{borderRight: 'solid darkgrey thin'}}>
-                                            <span className="text-value">{cNode.left_pv}</span>
-                                        </div>
-                                        <div className="col-md-6  text-center">
-                                            <span className="text-value">{cNode.right_pv}</span>
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <div className="tooltip-footer">
                                     <div className="text">
                                         <span className="text-label">Tanggal Bergabung : </span>
@@ -87,11 +54,11 @@ class Sponsor extends Component{
                                 </div>
                             </div>
                     </div>
-                {
-                    cNode.hasChild?
-                    <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
-                    :''
-                }
+                    {
+                        cNode.hasChild?
+                        <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
+                        :''
+                    }
             </div>
             }
             {cNode.hasChild?
@@ -110,31 +77,12 @@ class Sponsor extends Component{
             (data) => {
                 this.setState({loading:false});
                 if(data.status==='success'){
-                    // document.getElementById('li_'+id).innerHTML = '<ul id=wrapper_'+id+'></ul>';
                     if(data.result.length<=0){
-                        // let joined = this.state.arrs.concat(
-                        //     {"parent_id":id,"position":'left','hasChild':false,"detail":null},
-                        //     {"parent_id":id,"position":'right','hasChild':false,"detail":null},
-                        //     );
-                        // this.setState({
-                        //     arrs:joined
-                        // })
                         document.getElementById('btnAdd_'+id).style.display = 'none';
-                        // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
                     } else {
                         document.getElementById('btnAdd_'+id).style.display = 'none';
-                        // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
                         console.log("data.result.length",data.result.length)
                         if(data.result.length===1){
-                            // if(data.result[0].position==='left'){
-                            //     let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
-                            //     let joinedB = joinedA.concat(data.result);
-                            //     this.setState({arrs:joinedB})
-                            // } else {
-                            //     let joinedA = this.state.arrs.concat({"parent_id":id,"position":'left','hasChild':false,"detail":null},);
-                            //     let joinedB = joinedA.concat(data.result);
-                            //     this.setState({arrs:joinedB})
-                            // }
                         } else if(data.result.length>=2) {
                             let joined = this.state.arrs.concat(data.result);
                             this.setState({arrs:joined})
@@ -144,10 +92,6 @@ class Sponsor extends Component{
             },
             (error) => {
                 this.setState({loading:false});
-                // this.setState({
-                //     isLoaded: true,
-                //     error
-                // });
             }
         )
     }
@@ -158,7 +102,6 @@ class Sponsor extends Component{
     }
     addNew(e,data){
         e.preventDefault();
-        alert(JSON.stringify(data))
     }
     flatToTree(data,root){
         let r = [], o = {};
@@ -197,7 +140,6 @@ class Sponsor extends Component{
     getProps(props){
         this.flatToTree(this.state.arrs===[]?props.dataList:this.state.arrs,0)
         // console.log("myTree",myTree);
-        console.log("props.dataList",props.dataList);
         const findItemNested = (arr, itemId, nestingKey) => arr.reduce((a, c) => {
             return a.length
             ? a
@@ -214,14 +156,6 @@ class Sponsor extends Component{
             if(res[0].children === undefined){
                 if(elemA.hasChild){
                     document.getElementById('btnAdd_'+elemA.id).style.display = '';
-                    // document.getElementById('wrapper_'+elemA.id).remove();
-                    // document.getElementById('node-wrapper-'+elemA.id).classList.remove("node-item-root")
-                    // if(document.getElementById('line-left-'+elemA.id)!==null){
-                    //     document.getElementById('line-left-'+elemA.id).style.display = '';
-                    // }
-                    // if(document.getElementById('line-right-'+elemA.id)!==null){
-                    //     document.getElementById('line-right-'+elemA.id).style.display = '';
-                    // }
                 }
             } else {
                 console.log("res.children",res[0].children);
@@ -234,7 +168,6 @@ class Sponsor extends Component{
                         this.setState({arrs:joinedA})
                     }
                 }
-                console.log("nnnnnnnnnnnnnnn",true)
             }
         });
     }
@@ -294,32 +227,25 @@ class Sponsor extends Component{
         }
     }
     render(){
-        console.log("newwwwwwwww",this.state.arrs)
         return (
             <div id="block-system-main" className="block block-system clearfix">
-                <div className="binary-genealogy-tree binary_tree_extended">
-                    <div className="zoom-wrapper m-t-lg m-b-lg">
-                        <ul className="zoom-lists">
-                            <li><button className="btn btn-primary btn-circle m-1" onClick={(e)=>this.setSize(e,'zoom-in')}><i className="fa fa-search-plus"/></button></li>
-                            <li><button className="btn btn-primary btn-circle m-1" onClick={(e)=>this.setSize(e,'zoom-out')}><i className="fa fa-search-minus"/></button></li>
-                            <li><button className="btn btn-primary btn-circle m-1" onClick={(e)=>this.setSize(e,'default')}><i className="fa fa-refresh"/></button></li>
-                        </ul>
-                    </div>
+                
+                {this.state.loading?
+                <Preloader/>
+                 : <div className="binary-genealogy-tree binary_tree_extended">
                     <div className="sponsor-tree-wrapper">
-                        <div className="eps-sponsor-tree eps-tree" zoom={6}>
+                        <div className="eps-sponsor-tree eps-tree" zoom={6} style={{
+                                    position: 'static',
+                                    width: '100%',
+                                    height: '110vh'
+                                }}>
                             <ul>
                                 {this.getCurrent(null)}
                             </ul>
                         </div>
                     </div>
                 </div>
-                {this.state.loading?
-                <div className="pb-2 position-sticky fixed-bottom">
-                    <div className="progress h-8">
-                        <div className="progress-bar bg-primary progress-bar-animated progress-bar-striped" style={{width: '100%'}} role="progressbar"> <span className="sr-only">Memuat data...</span> </div>
-                    </div>
-                </div>
-                 : ''}
+                }
             </div>
         );
     }

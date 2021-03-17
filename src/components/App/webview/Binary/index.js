@@ -6,7 +6,6 @@ class Binary extends Component{
 
     getProps(props){
         const params = (atob(props.match.params.id)).split('|')
-        console.log(params);
         this.props.dispatch(FetchNetworkWebview(btoa(params[0]), true, 'network', params[1]))
     }
    

@@ -632,10 +632,10 @@ class MemberForm extends Component{
                                                 <div className="form-group" style={{display:this.state.isOtp?'':'none'}}>
                                                     <div className="d-md-flex justify-content-between align-items-center d-none">
                                                         <label>Pilih Membership</label>
-                                                        <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label>
+                                                        {/* <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label> */}
                                                     </div>
                                                     <div className="text-left d-block d-md-none">
-                                                        <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label>
+                                                        {/* <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label> */}
                                                         <br/>
                                                         <label>Pilih Membership</label>
                                                     </div>
