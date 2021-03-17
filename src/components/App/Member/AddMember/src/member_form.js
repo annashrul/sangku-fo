@@ -359,7 +359,7 @@ class MemberForm extends Component{
     };
     handleMembership(e,val) {
         e.preventDefault();
-        if(this.props.availPin.total_pin>=val.jumlah){
+        if(parseInt(val.jumlah,10)>0){
             let err = this.state.error;
             err = Object.assign({}, err, {pin_regist:""});
             this.setState({
@@ -647,15 +647,15 @@ class MemberForm extends Component{
                                                                     <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                                     {
                         (
-                            typeof this.props.availPin.data === 'object' ?
-                                this.props.availPin.data.map((v,i)=>{
+                            typeof this.props.availPin === 'object' ?
+                                this.props.availPin.map((v,i)=>{
                                     return(
                                         <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
                                             <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                             <br/>
                                             <a href={() => false} className="font-24">{`${v.title}`}</a>
                                             <br/>
-                                            <a href={() => false} className="font-11">Dibutuhkan sebanyak {`${v.jumlah}`} PIN</a>
+                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
                                         </Tab>
                                     )
                                 })
