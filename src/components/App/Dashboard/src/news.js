@@ -23,7 +23,7 @@ class Charts extends Component {
                                                     <div className="media-body w-75">
                                                     <h6 className="d-inline-block">{v.title}</h6>
                                                     {/* <p className="mb-0">Lorem Ipsum is simply…</p> */}
-                                                    <div dangerouslySetInnerHTML={{__html: String(v.caption).substr(0,50)}} />
+                                                    <div dangerouslySetInnerHTML={{__html: String(v.caption).replace(/(<([^>]+)>)/ig,'').substr(0,80)+' ...'}} />
                                                     </div>
                                                 </div>
                                             </Link>

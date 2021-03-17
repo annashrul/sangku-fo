@@ -24,6 +24,7 @@ class IndexTransfer extends Component{
             id_penerima:"",
             code:"0",
             pin:"",
+            pinError:false,
             member_data:{},
             arrAmount:[
                 {id:0,amount:'100,000'},
@@ -61,12 +62,27 @@ class IndexTransfer extends Component{
         if(prevState.memberAvail!==this.props.memberAvail){
             this.setState({member_data:this.props.memberAvail})
         }
-        if(prevState.isOpen===true&&this.state.currentStep===2){
+        if(prevState.isOpen===true&&this.state.currentStep===2&&this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'){
             this.setState({currentStep:this.state.currentStep-1});
         }
-        if(prevState.isOpen===false&&prevState.isError===false&&this.state.currentStep===1&&this.state.pin!==''){
-            this.setState({currentStep:2});
-        }
+        
+        // if(prevState.isOpen===false&&prevState.isError===false&&this.state.currentStep===1&&this.state.pin!==''){
+        //     if(this.state.pinError===false){
+        //         if(this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'){
+        //             this.setState({
+        //                 currentStep:this.state.currentStep-1,
+        //                 pinError:true,
+        //             });
+        //         } else {
+        //             this.setState({currentStep:2});
+        //         }
+        //     }
+        // }
+        console.log("prevState.pinError",prevState.pinError);
+        console.log("this.state.pinError",this.state.pinError);
+        console.log("this.props.tfReducer",this.props.tfReducer);
+        console.log("this.props.tfReducer.status==='failed'",this.props.tfReducer.status==='failed');
+        console.log("this.props.tfReducer.msg===''",this.props.tfReducer.msg==='PIN anda tidak sesuai.');
     }
     onClickNext() {
         const { 
@@ -84,10 +100,10 @@ class IndexTransfer extends Component{
         } 
         else if(currentStep===1){
             if(this.state.member_data!=={}&&this.state.member_data.id!==undefined){
-                this.setState({
-                    currentStep: currentStep + 1,
-                });
-                this.berhasilRefs.current.scrollIntoView()
+                // this.setState({
+                //     currentStep: currentStep + 1,
+                // });
+                // this.berhasilRefs.current.scrollIntoView()
                 this.setState({
                     isModal:true
                 });
@@ -130,7 +146,7 @@ class IndexTransfer extends Component{
         if(num.length===6&&this.valid){
             let data={};
             data['id_penerima'] = this.state.member_data.id;
-            data['pin_member'] = num;
+            data['member_pin'] = num;
             data['amount'] = rmComma(this.state.amount);
             this.props.dispatch(postTransfer(data));
             this.props.dispatch(ModalToggle(false));
@@ -143,7 +159,7 @@ class IndexTransfer extends Component{
     valid(){
         let data={};
         data['id_penerima'] = this.state.member_data.id;
-        data['pin_member'] = this.state.pin;
+        data['member_pin'] = this.state.pin;
         data['amount'] = rmComma(this.state.amount);
         if(isNaN(data['amount'])){
             ToastQ.fire({icon:'error',title:`silahkan masukan nominal anda`});
@@ -173,6 +189,7 @@ class IndexTransfer extends Component{
             cursor:'no-drop',
             userSelect:'none'
         }
+        console.log('currentStep',currentStep);
         return(
             <Layout page={"Transfer"}>
                 <div className="row">
@@ -344,12 +361,14 @@ class IndexTransfer extends Component{
     }
 }
 const mapStateToProps = (state) => {
+    console.log("state.transferReducer",state.transferReducer);
     return {
         auth: state.auth,
         resBank:state.bankReducer.data,
         isLoadingBank:state.bankReducer.isLoading,
         isLoadingPost:state.transferReducer.isLoadingPost,
         isError:state.transferReducer.isError,
+        tfReducer:state.transferReducer,
         isLoadingAvail:state.memberReducer.isLoadingAvail,
         memberAvail:state.memberReducer.data_avail,
         isOpen: state.modalReducer,

@@ -4,7 +4,7 @@ import Layout from 'components/Layout';
 import moment from 'moment';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
-import Charts from './src/charts'
+// import Charts from './src/charts'
 import FormReaktivasi from '../modals/member/form_reaktivasi';
 import { FetchAvailablePin } from 'redux/actions/pin/pin.action';
 import Overview from './src/overview'
@@ -19,6 +19,8 @@ import Preloader from 'Preloader'
 import { FetchRekapitulasi } from '../../../redux/actions/member/rekapitulasi.action';
 import {get, destroy} from "components/model/app.model";
 import { getBerita } from '../../../redux/actions/konten/berita.action';
+import {getRiwayat} from "../../../redux/actions/transaction/riwayat.action";
+import History from './src/history';
 const table = 'rekapitulasi';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
@@ -132,6 +134,7 @@ class Index extends Component {
     componentDidMount(){
         this.props.dispatch(FetchAvailablePin(1));
         this.props.dispatch(getBerita(1,'&perpage=5'))
+        this.props.dispatch(getRiwayat(1, null, null, null));
         this.getData()
     }
 
@@ -260,14 +263,17 @@ class Index extends Component {
 
                 </div>
                 <div className="row box-margin">
-                    <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" />
+                    {/* <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" /> */}
+                    <div className="col-md-12">
+                        <Redeem list={this.state.list}/>
+                    </div>
                 </div>
                 <div className="row d-flex box-margin">
-                     <div className="col-md-4">
+                     <div className="col-md-6">
                          {this.props.beritaBerita.data!==undefined?<News list={this.props.beritaBerita}/>:''}
                     </div>
-                     <div className="col-md-8">
-                        <Redeem list={this.state.list}/>
+                     <div className="col-md-6">
+                        <History list={this.props.dataRiwayat}/>
                     </div>
 
                 </div>
@@ -289,6 +295,7 @@ const mapStateToProps = (state) =>{
         rekapData:state.rekapitulasiReducer.data,
         isLoadingRekapitulasi:state.rekapitulasiReducer.isLoading,
         beritaBerita:state.beritaReducer.data_berita,
+        dataRiwayat:state.riwayatReducer.data,
         isLoadingBerita:state.beritaReducer.isLoadingBerita,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,

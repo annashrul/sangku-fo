@@ -113,37 +113,47 @@ export const loginUser = (userData) =>
                 Swal.close() 
                 dispatch(setIsError(false));
 
-                // save token to localStorage
-                const token = res.data.result.token;
-                store('sess', {
-                    id: res.data.result.id,
-                    full_name: res.data.result.full_name,
-                    mobile_no: res.data.result.mobile_no,
-                    membership: res.data.result.membership,
-                    referral_code: res.data.result.referral_code,
-                    status: res.data.result.status,
-                    picture: res.data.result.picture,
-                    have_pin: res.data.result.have_pin,
-                    have_ktp: res.data.result.have_ktp,
-                });
+                // if(res.data.result.is_register!==1){
+                    // save token to localStorage
+                    const token = res.data.result.token;
+                    store('sess', {
+                        id: res.data.result.id,
+                        full_name: res.data.result.full_name,
+                        mobile_no: res.data.result.mobile_no,
+                        membership: res.data.result.membership,
+                        referral_code: res.data.result.referral_code,
+                        status: res.data.result.status,
+                        picture: res.data.result.picture,
+                        have_pin: res.data.result.have_pin,
+                        have_ktp: res.data.result.have_ktp,
+                        is_register: res.data.result.is_register,
+                    });
 
-                Cookies.set('sangqu_datum', btoa(token), {
-                    expires: 1
-                });
-                Cookies.set('sangqu_exp', btoa(res.data.result.id), {
-                    expires: 1
-                });
+                
+                    // Set token to Auth Header 
+                    setAuthToken(token);
+                    // decode token to set user data
+                    dispatch(setCurrentUser(res.data.result));
+                    dispatch(getCart());
+                    if(res.data.result.is_register===1){
+                        Cookies.set('sangqu_datum', btoa(token), {
+                            expires: 1
+                        });
+                        Cookies.set('sangqu_exp', btoa(res.data.result.id), {
+                            expires: 1
+                        });
+                        dispatch(setLoggedin(true));
+                    } else {
+                        dispatch(setLoggedin(false));
+                        dispatch(setIsRegistered(true));
+                    }
+                    // if(res.data.result.otp===''&&res.data.result.otp===undefined){
+                    //     dispatch(setLoggedin(true));
+                    //     localStorage.setItem('sangku', btoa(token));
+                    // }
 
-            
-                // Set token to Auth Header 
-                setAuthToken(token);
-                // decode token to set user data
-                dispatch(setCurrentUser(res.data.result));
-                dispatch(setLoggedin(true));
-                dispatch(getCart());
-                // if(res.data.result.otp===''&&res.data.result.otp===undefined){
-                //     dispatch(setLoggedin(true));
-                //     localStorage.setItem('sangku', btoa(token));
+                // } else {
+                //     dispatch(setIsRegistered(true));
                 // }
             },800)
 
@@ -175,6 +185,9 @@ export function setLoading(load){
 
 export function setRegistered(load){
     return {type : AUTH.REGISTERED,load}
+}
+export function setIsRegistered(load){
+    return {type : AUTH.IS_REGISTERED,load}
 }
 
 export function setIsError(load) {

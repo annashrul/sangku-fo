@@ -18,8 +18,9 @@ export function setRiwayat(data = []) {
 }
 export const getRiwayat = (page = 1, search = null, datefrom, dateto) => {
     return (dispatch) => {
+        let date  = `&datefrom=${datefrom}&dateto=${dateto}`;
         dispatch(setLoading(true));
-        axios.get(HEADERS.URL + `transaction/history?page=${page}${search!==null?'&q='+search:""}&datefrom=${datefrom}&dateto=${dateto}`)
+        axios.get(HEADERS.URL + `transaction/history?page=${page}${search!==null?'&q='+search:""}${datefrom===null&&dateto===null?'':date}`)
             .then(function (response) {
                 const data = response.data;
                 dispatch(setRiwayat(data));
