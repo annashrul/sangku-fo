@@ -12,7 +12,7 @@ div {
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	color: #727272
+	color: #FFFFFF !important
 }
 
 .row {

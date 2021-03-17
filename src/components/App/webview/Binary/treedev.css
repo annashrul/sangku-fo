@@ -97,9 +97,10 @@
   .binary-node-single-item .pop-up-content .profile_tooltip_pick .full-name{margin-top:10px;text-align: center;color: #000;}
   .binary-node-single-item .pop-up-content .profile_tooltip_pick .username{margin-top:10px;text-align: center;}
   .binary-node-single-item .pop-up-content .profile_tooltip_pick .username .text-value{color: #000;}
+  .binary-node-single-item .pop-up-content .profile_tooltip_pick .username .text-label{color: #000;}
   .binary-node-single-item .pop-up-content .tooltip_profile_detaile{padding: 30px 16px;display: block;background-color: #f0f2f7;}
   .binary-node-single-item .pop-up-content .tooltip_profile_detaile .text{margin-bottom: 15px;display: block;}
   .binary-node-single-item .pop-up-content .tooltip_profile_detaile .text:last-child{margin-bottom: 0;}
-  .binary-node-single-item .pop-up-content .tooltip_profile_detaile .text .text-label{margin-right: 10px;width: 140px;display: inline-block;}
-  .binary-node-single-item .pop-up-content .tooltip_profile_detaile .text .text-value{display: inline-block;color: #000;}
+  .binary-node-single-item .pop-up-content .tooltip_profile_detaile .text-label{width: 140px;color: #000 !important; text-align: center;}
+  .binary-node-single-item .pop-up-content .tooltip_profile_detaile .text-value{display: inline-block;color: #000 !important;}
   .binary-node-single-item .pop-up-content .tooltip-footer{padding: 16px;text-align: left;font-size: 12px;color: #000;}
