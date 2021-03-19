@@ -43,20 +43,11 @@ class Pin extends Component{
             status_data:[],
         }
     }
-    componentWillMount(){
-        let page=localStorage.page_pin;
-        if(this.props.auth.user.id!==undefined){
-            this.handleParameter(page!==undefined&&page!==null?page:1);
-        }
-    }
-    componentDidUpdate(prevState){
-        if(prevState.auth.user.id!==this.props.auth.user.id){
-            let page=localStorage.page_pin;
-            this.handleParameter(page!==undefined&&page!==null?page:1);
-        }
-    }
+
     componentDidMount(){
-        this.props.dispatch(FetchAvailablePin(1));
+        this.props.dispatch(FetchAvailablePin());
+        this.props.dispatch(FetchSitePaket())
+
         if (localStorage.location_pin !== undefined && localStorage.location_pin !== '') {
             this.setState({location: localStorage.location_pin})
         }
@@ -100,30 +91,7 @@ class Pin extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormReaktivasi"));
     }
-    handleMembership(e,val) {
-        e.preventDefault();
-        if(parseInt(val.jumlah,10)>=0){
-            // let err = this.state.error;
-            // err = Object.assign({}, err, {pin_regist:""});
-            // // if(String(val.title).toLowerCase)
-            
-            // let paket = this.state.list_paket.find((element) => { return String(element.title).split(" ")[1].toLowerCase() === String(val.title).toLowerCase();})
-            // this.setState({
-            //     pin_regist: val,
-            //     error: err,
-            //     paket: paket
-            // })
-            let parse = {}
-            // parse['pin_member'] = this.state.pin
-            parse['pin_reaktivasi'] = val.id
-            this.props.dispatch(pinReaktivasi(parse));
-        } else {
-            this.setState({
-                pin_regist: {}
-            })
-            // ToastQ.fire({icon:'info',title:`Jumlah PIN yang anda miliki masih kurang!`});
-        }
-    };
+    
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
         const akhir = moment(picker.endDate._d).format('YYYY-MM-DD');
@@ -277,7 +245,6 @@ class Pin extends Component{
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormReaktivasi"));
-        this.props.dispatch(FetchSitePaket())
     }
     handleTransfer(e,v){
         this.setState({pin_data:v})
@@ -298,15 +265,13 @@ class Pin extends Component{
                 <Tabs>
                     <div className="row">
                         <div className="col-md-12">
-                            <TabList>
                             <div className="row m-1 justify-content-center">
-                                <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                 {
                                     (
                                         typeof this.props.getPin === 'object' ?
                                             this.props.getPin.map((v,i)=>{
                                                 return(
-                                                    <Tab key={i} className="col-md-3 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses">
+                                                    <div key={i} className="col-md-3 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses">
                                                         <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                         <br/>
                                                         <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -315,150 +280,20 @@ class Pin extends Component{
                                                         <br/>
                                                         <br/>
                                                         <div className="w-100 text-center">
-                                                            <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleMembership(e,v)}>REAKTIVASI</button>
+                                                            <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleMembership(e,v)}>Transfer</button>
+                                                            <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasi(e,v)}>REAKTIVASI</button>
                                                         </div>
-                                                    </Tab>
+                                                    </div>
                                                 )
                                             })
                                             : "No data."
                                     )
                                 }
                             </div>
-                            </TabList>
                         </div>
                     </div>
                 </Tabs>
-                <div className="row d-none">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="d-flex align-items-content justify-content-between">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Status
-                                                </label>
-                                                <Select
-                                                    options={this.state.status_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeStatus}
-                                                    value={
-                                                        this.state.status_data.find(op => {
-                                                            return op.value === this.state.status
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label>Cari</label>
-                                                <div class="input-group">
-                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                                    <div class="input-group-append">
-                                                        <button className="btn btn-primary" onClick={this.handleSearch}>
-                                                            <i className="fa fa-search"/>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="d-none d-md-block">
-                                        <div className="form-group">
-                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
-                                                <i className="fa fa-refresh fa-spin"/>&nbsp;Reaktivasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="d-block d-md-none fixed-bottom text-right mr-4" style={{bottom:'45px'}}>
-                                        <div className="form-group mb-4">
-                                            <button className="btn btn-primary btn-circle btn-lg shadow" onClick={(e)=>this.handleModal(e)}>
-                                                <i className="fa fa-refresh fa-spin"/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-                                    <Masonry>
-                                        {
-                                            !this.props.isLoading?(
-                                                (
-                                                    typeof data === 'object' ? data.length>0?
-                                                        data.map((v,i)=>{
-                                                            return(
-                                                                <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
-                                                                    <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
-                                                                        <div className="widget---content-text">
-                                                                        <h6 className="text-uppercase">{v.kode}</h6>
-                                                                            <div className="d-flex align-items-center justify-content-start">
-                                                                                <i className={`fa fa-circle text-success font-11 mr-2`}/>&nbsp;<p className="mb-0">{v.status}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <h6 className="mb-0 text-success">&nbsp;</h6>
-                                                                        {/* <h6 className="mb-0 text-success">PV : {v.point_volume}</h6> */}
-                                                                    </div>
-                                                                    <div className="progress h-5">
-                                                                        <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                                                                    </div>
-                                                                    <div className="d-flex align-items-center justify-content-between">
-                                                                        <div>
-                                                                            {/* {v.status===0?statusQ('info','Tidak Terdsedia'):(v.status===1?statusQ('success','Tersedia'):(v.status===3?statusQ('success','Selesai'):""))} */}
-                                                                            {/* &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleReaktivasi(e,v)}>Reaktivasi</button> */}
-                                                                            &nbsp;<button className="btn btn-primary btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleTransfer(e,v)}>Transfer</button>
-                                                                        </div>
-                                                                        <p className="mt-3 font-11">PIN AKTIVASI</p>
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        })
-                                                        : "No data." : "No data."
-                                                )
-                                            ):(() => {
-                                                    const rows = [];
-                                                    for (let i = 0; i < 9; i++) {
-                                                        rows.push(
-                                                            <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
-                                                                <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
-                                                                    <div className="widget---content-text">
-                                                                    <h6><Skeleton width="90px"/></h6>
-                                                                    <p className="mb-0"><Skeleton width="90px"/></p>
-                                                                    </div>
-                                                                    <h6 className="mb-0 text-success">&nbsp;</h6>
-                                                                </div>
-                                                                <div className="progress h-5">
-                                                                    <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                                                                </div>
-                                                                <div className="d-flex align-items-center justify-content-between pt-2">
-                                                                    <div>
-                                                                        {/* <Skeleton width="50px" height="25px"/>
-                                                                        &nbsp;<Skeleton width="50px" height="25px"/> */}
-                                                                        &nbsp;<Skeleton width="50px" height="25px"/>
-                                                                    </div>
-                                                                    <Skeleton width="80px"/>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }
-                                                    return rows;
-                                                })()
-                                        }
-                                    </Masonry>
-                                </ResponsiveMasonry>
-                                <div style={{"marginTop":"20px","float":"right"}}>
-                                    <Paginationq
-                                        current_page={current_page}
-                                        per_page={per_page}
-                                        total={parseInt((per_page*last_page),10)}
-                                        callback={this.handlePageChange.bind(this)}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <FormReaktivasi availPin={this.props.getPin} directPin={undefined} listPaket={this.props.listPaket}/>
+                <FormReaktivasi availPin={this.props.getPin} datum={this.state.pin_reaktivasi} listPaket={this.props.listPaket}/>
                 <FormPinTransfer data={this.state.pin_data} jenis={0}/>
             </Layout>
             );
