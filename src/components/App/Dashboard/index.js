@@ -5,7 +5,7 @@ import moment from 'moment';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 // import Charts from './src/charts'
-import FormReaktivasi from '../modals/member/form_reaktivasi';
+// import FormReaktivasi from '../modals/member/form_reaktivasi';
 import { FetchAvailablePin } from 'redux/actions/pin/pin.action';
 import Overview from './src/overview'
 import Saldo from './src/saldo'
@@ -21,6 +21,7 @@ import {get, destroy} from "components/model/app.model";
 import { getBerita } from '../../../redux/actions/konten/berita.action';
 import {getRiwayat} from "../../../redux/actions/transaction/riwayat.action";
 import History from './src/history';
+import FormReaktivasiCopy from '../modals/member/form_reaktivasi-copy';
 const table = 'rekapitulasi';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
@@ -216,7 +217,7 @@ class Index extends Component {
         e.preventDefault();
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("FormReaktivasi"));
+        this.props.dispatch(ModalType("FormReaktivasiCopy"));
     }
 
 
@@ -277,7 +278,7 @@ class Index extends Component {
                     </div>
 
                 </div>
-                <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
+                <FormReaktivasiCopy availPin={this.props.getPin} directPin={undefined}/>
         </Layout>
        
         );
@@ -288,6 +289,7 @@ class Index extends Component {
 // }
 
 const mapStateToProps = (state) =>{
+    console.log("state.pinReducer.data_available",state.pinReducer.data_available);
      return{
         auth: state.auth,
         stock: state.dashboardReducer.data,
