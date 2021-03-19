@@ -5,13 +5,15 @@ import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import {FetchAvailablePin, FetchPin} from '../../../../redux/actions/pin/pin.action'
+import {FetchAvailablePin, FetchPin, pinReaktivasi} from '../../../../redux/actions/pin/pin.action'
 import Skeleton from 'react-loading-skeleton';
 import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import Select from 'react-select';
 import {setMemberAvail } from '../../../../redux/actions/member/member.action';
 import { FetchSitePaket } from '../../../../redux/actions/site.action';
+// import { Tab } from 'bootstrap';
+import { TabList, Tabs, Tab } from 'react-tabs';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -98,6 +100,30 @@ class Pin extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormReaktivasi"));
     }
+    handleMembership(e,val) {
+        e.preventDefault();
+        if(parseInt(val.jumlah,10)>=0){
+            // let err = this.state.error;
+            // err = Object.assign({}, err, {pin_regist:""});
+            // // if(String(val.title).toLowerCase)
+            
+            // let paket = this.state.list_paket.find((element) => { return String(element.title).split(" ")[1].toLowerCase() === String(val.title).toLowerCase();})
+            // this.setState({
+            //     pin_regist: val,
+            //     error: err,
+            //     paket: paket
+            // })
+            let parse = {}
+            // parse['pin_member'] = this.state.pin
+            parse['pin_reaktivasi'] = val.id
+            this.props.dispatch(pinReaktivasi(parse));
+        } else {
+            this.setState({
+                pin_regist: {}
+            })
+            // ToastQ.fire({icon:'info',title:`Jumlah PIN yang anda miliki masih kurang!`});
+        }
+    };
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
         const akhir = moment(picker.endDate._d).format('YYYY-MM-DD');
@@ -269,7 +295,40 @@ class Pin extends Component{
         } = this.props.pinPin;
         return (
             <Layout page="PIN Aktivasi" subpage="Stokist">
-                <div className="row">
+                <Tabs>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <TabList>
+                            <div className="row m-1 justify-content-center">
+                                <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
+                                {
+                                    (
+                                        typeof this.props.getPin === 'object' ?
+                                            this.props.getPin.map((v,i)=>{
+                                                return(
+                                                    <Tab key={i} className="col-md-3 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses">
+                                                        <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                        <br/>
+                                                        <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                        <br/>
+                                                        <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
+                                                        <br/>
+                                                        <br/>
+                                                        <div className="w-100 text-center">
+                                                            <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleMembership(e,v)}>REAKTIVASI</button>
+                                                        </div>
+                                                    </Tab>
+                                                )
+                                            })
+                                            : "No data."
+                                    )
+                                }
+                            </div>
+                            </TabList>
+                        </div>
+                    </div>
+                </Tabs>
+                <div className="row d-none">
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-body">

@@ -75,6 +75,7 @@ export const postTransfer = (data) => {
                     // })
                     ToastQ.fire({icon:'success',title:`Transfer sukses.`});
                     dispatch(setIsError(true));
+                    dispatch(setData(data));
                 } else {
                     Swal.fire({
                         title: 'failed',

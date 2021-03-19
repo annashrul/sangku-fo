@@ -62,22 +62,35 @@ class IndexTransfer extends Component{
         if(prevState.memberAvail!==this.props.memberAvail){
             this.setState({member_data:this.props.memberAvail})
         }
-        if(prevState.isOpen===true&&this.state.currentStep===2&&this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'){
+        if(prevState.isOpen===true&&this.state.currentStep===2){
             this.setState({currentStep:this.state.currentStep-1});
         }
         
         // if(prevState.isOpen===false&&prevState.isError===false&&this.state.currentStep===1&&this.state.pin!==''){
-        //     if(this.state.pinError===false){
-        //         if(this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'){
-        //             this.setState({
-        //                 currentStep:this.state.currentStep-1,
-        //                 pinError:true,
-        //             });
-        //         } else {
-        //             this.setState({currentStep:2});
-        //         }
-        //     }
+        //     this.setState({
+        //         currentStep: 2,
+        //     });
+        //     this.berhasilRefs.current.scrollIntoView()
         // }
+        if(prevState.isOpen===false&&prevState.isError===false&&this.state.currentStep===1&&this.state.pin!==''){
+            if(this.state.pinError===false){
+                if(this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'){
+                    this.setState({
+                        currentStep:1,
+                        pinError:true,
+                    });
+                }
+            }
+        }
+        if(this.state.pinError===false){
+            if(this.props.tfReducer.status==='success'){
+                this.setState({
+                    currentStep:2,
+                    pinError:true,
+                });
+            }
+        }
+        console.log("this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'",this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.');
         console.log("prevState.pinError",prevState.pinError);
         console.log("this.state.pinError",this.state.pinError);
         console.log("this.props.tfReducer",this.props.tfReducer);
@@ -105,7 +118,8 @@ class IndexTransfer extends Component{
                 // });
                 // this.berhasilRefs.current.scrollIntoView()
                 this.setState({
-                    isModal:true
+                    isModal:true,
+                    pinError:false,
                 });
                 const bool = !this.props.isOpen;
                 this.props.dispatch(ModalToggle(bool));
