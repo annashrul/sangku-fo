@@ -7,7 +7,9 @@ class Charts extends Component {
         return(
              <div className="card h-100">
                 <div className="card-body">
-                    <h5 className="card-title">Berita Terbaru</h5>
+                    <h5 className="card-title">Berita Terbaru
+                    <Link to={'/konten/berita'} style={{float:'right',fontSize:'.9em'}}>Lihat Semua</Link>
+</h5>
                     <div className="row" style={{overflowX:'auto', height:'300px'}}>
                         {
                             typeof this.props.list.data === 'object' ? this.props.list.data.length>0?
@@ -31,11 +33,14 @@ class Charts extends Component {
                                     </div>
                                 )
                             })
-                            : "No data." : "No data."
+                            : <div className="col-12 text-center mt-2">
+                                    Belum ada berita.
+                                </div>
+                             : <div className="col-12 text-center mt-2">
+                                    Belum ada berita.
+                                </div>
+                            
                         }
-                        <div className="col-12 text-center mt-2">
-                            <Link to={'/konten/berita'} className="btn btn-outline-primary border-none btn-block bg-transparent text-primary">SEMUA BERITA</Link>
-                        </div>
                     </div>
                 </div>
                 </div>

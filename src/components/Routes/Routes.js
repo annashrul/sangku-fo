@@ -58,6 +58,7 @@ import ReportRedeem from '../App/Report/Redeem';
 import ReportReward from '../App/Report/Reward';
 import webviewBinary from '../App/webview/Binary';
 import webviewSponsor from '../App/webview/Sponsor';
+import webviewRegister from '../App/webview/AddMember';
 
 const Routes = (
     <div>
@@ -70,6 +71,7 @@ const Routes = (
             <Route path="/confirm" exact strict component={ConfirmPage} />
             <Route path="/web_view/binary/:id" exact strict component={webviewBinary} />
             <Route path="/web_view/sponsor/:id" exact strict component={webviewSponsor} />
+            <Route path="/web_view/regist/:id" exact strict component={webviewRegister} />
 
             <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />

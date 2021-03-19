@@ -400,7 +400,7 @@ class Pin extends Component{
                     </div>
                 </div>
                 <FormReaktivasi availPin={this.props.getPin} directPin={undefined} listPaket={this.props.listPaket}/>
-                <FormPinTransfer data={this.state.pin_data} member={this.props.memberAvail}/>
+                <FormPinTransfer data={this.state.pin_data} jenis={0}/>
             </Layout>
             );
     }

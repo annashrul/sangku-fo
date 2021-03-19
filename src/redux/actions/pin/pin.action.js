@@ -51,6 +51,55 @@ export const FetchPin = (page=1,id='',where='',perpage=9,type='')=>{
         })
     }
 }
+
+export const FetchDetailPinWebView = (id,token) => {
+    return (dispatch) => {
+        dispatch(setLoading(true));
+        let url = `pin/get/${id}`;
+
+        axios.get(HEADERS.URL + url, {
+            headers: {
+                Authorization: token,
+                username: HEADERS.USERNAME,
+                password: HEADERS.PASSWORD,
+                myconnection: `apps`,
+                'Content-Type': `application/x-www-form-urlencoded`
+            }
+        })
+            .then(function (response) {
+                const data = response.data;
+
+                dispatch(setPinDetail(data));
+                dispatch(setLoading(false));
+            }).catch(function (error) {
+
+            })
+    }
+}
+export const FetchAvailablePinWebView = (token) => {
+    return (dispatch) => {
+        dispatch(setLoadingAvail(true));
+        let url = 'transaction/pin_available';
+        axios.get(HEADERS.URL + url, {
+            headers: {
+                Authorization: token,
+                username: HEADERS.USERNAME,
+                password: HEADERS.PASSWORD,
+                myconnection: `apps`,
+                'Content-Type': `application/x-www-form-urlencoded`
+            }
+        })
+            .then(function (response) {
+                const data = response.data;
+
+                dispatch(setAvailablePin(data));
+                dispatch(setLoadingAvail(false));
+            }).catch(function (error) {
+
+            })
+    }
+}
+
 export const FetchDetailPin = (id)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
@@ -67,10 +116,10 @@ export const FetchDetailPin = (id)=>{
         })
     }
 }
-export const FetchAvailablePin = ()=>{
+export const FetchAvailablePin = (type='aktivasi')=>{
     return (dispatch) => {
         dispatch(setLoadingAvail(true));
-        let url = 'transaction/pin_available';
+        let url = 'transaction/pin_available?type='+type;
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;

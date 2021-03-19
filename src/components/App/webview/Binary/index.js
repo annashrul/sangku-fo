@@ -25,7 +25,7 @@ class Binary extends Component{
                 <div>
                     {
                         !this.props.isLoading?
-                        <BinaryNetwork dataList={this.props.list}/>
+                        <BinaryNetwork dataList={this.props.list} datum={this.props.match.params.id}/>
                         :''
                     }
                 </div>

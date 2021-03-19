@@ -270,7 +270,7 @@ class Index extends Component {
                 </div>
                 <div className="row d-flex box-margin">
                      <div className="col-md-6">
-                         {this.props.beritaBerita.data!==undefined?<News list={this.props.beritaBerita}/>:''}
+                         <News list={this.props.beritaBerita}/>
                     </div>
                      <div className="col-md-6">
                         <History list={this.props.dataRiwayat}/>

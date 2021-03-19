@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import { Link } from 'react-router-dom';
 import { HEADERS } from 'redux/actions/_constants';
 import noUser from 'assets/no-user.png';
 import Default from 'assets/default.png'
@@ -83,17 +82,22 @@ class Sponsor extends Component{
         })
     }
   
-    getCurrent = (node) => this.state.arrs.sort(function(a,b){if(a.position < b.position) { return -1 } if(a.position > b.position) { return 1 } return 0}).filter(cNode => cNode.parent_id === node).map(cNode => (
+    getCurrent = (node) => this.state.arrs.sort(function(a,b){
+            if(a.position < b.position) { return -1 } 
+            if(a.position > b.position) { return 1 } 
+            return 0
+        })
+        .filter(cNode => cNode.parent_id === node).map(cNode => (
         <li id={`li_${cNode.id}`} key={`node_${cNode.id}`}>
             {cNode.detail===null?
-                <Link to={{ pathname: "/downline/add", data: cNode }}>
+                <a href={'/web_view/regist/'+btoa(this.props.datum+'|'+JSON.stringify(cNode))}>
                     <div className={`eps-nc ${cNode.parent_id!==null?'eps-path':''}`} nid={cNode.parent_id}>
                         <div className="usr-pic">
                             <img src={noUser} alt="sangqu"
                                 className="img" /> </div>
                         <div className="usr-name"><i className="fa fa-plus"/>&nbsp;Member</div>
                     </div>
-                </Link>
+                </a>
                 :
                 <div>
                 <div className={`binary-node-single-item eps-nc ${cNode.parent_id!==null?'eps-path':''} user-block user-12`}>

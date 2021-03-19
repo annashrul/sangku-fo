@@ -71,7 +71,7 @@ class FormAktivasiRo extends Component{
             });
             let parse = {}
             parse['pin_member'] = num
-            parse['pin_aktivasi'] = this.state.pin_data.kode
+            parse['id_membership'] = this.state.pin_data.id
             if(num.length===6){
                 this.props.dispatch(pinRoAktivasi(parse));
                 this.setState({
@@ -96,43 +96,16 @@ class FormAktivasiRo extends Component{
         this.setState({error: err});
     };
     render(){
-        const {
-            // created_at,
-            // exp_date,
-            // point_volume,
-            // id,
-            // id_kategori,
-            // id_member,
-            // id_paket,
-            kode,
-            full_name,
-            status,
-            // totalrecords,
-            // type,
-            // updated_at,
-        } = this.state.pin_data
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormAktivasiRo"} size="md">
                 <ModalHeader toggle={this.toggle}>Aktivasi PIN RO</ModalHeader>
                 <ModalBody>
-                <label>Detail PIN</label>
-                <div className="widget---stats d-flex align-items-center justify-content-between mb-15 img-thumbnail p-3">
-                    <div className="widget---content-text">
-                    <h6 className="text-uppercase">{kode}</h6>
-                        <div className="d-flex align-items-center justify-content-start">
-                            <p className="mb-0">{full_name}</p>
-                        </div>
-                    </div>
-                    <h6 className="mb-0 text-success"><span className="text-muted">Status : </span><i className={`fa fa-circle ${status===0?'text-danger':'text-success'} font-11 mr-2`}/>&nbsp;{status===0?'Tidak Tersedia':'Tersedia'}</h6>
-                    {/* <h6 className="mb-0 text-success"></h6> */}
-                </div>
-
                 <div className="progress h-5 mb-2">
                     <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
                 </div>
-                <div class="alert alert-danger bg-white text-danger text-center" role="alert">
-                    Eu magna laborum reprehenderit quis culpa.
+                <div class="alert alert-info bg-white text-center text-dark" role="alert">
+                    Anda akan melakukan aktivasi PIN RO {this.state.pin_data.title}.
                 </div>
                 </ModalBody>
                 <ModalFooter>

@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import SponsorNode from './src/sponsor';
 import { FetchNetworkWebview } from 'redux/actions/member/network.action';

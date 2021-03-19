@@ -81,10 +81,10 @@ class FormPinTransfer extends Component{
             });
             let parse = {}
             parse['pin_member'] = num
-            parse['pin_transfer'] = this.state.pin_data.kode
+            parse['id_membership'] = this.state.pin_data.id
             parse['uid'] = this.state.member_data.referral_code
             if(num.length===6){
-                this.props.dispatch(pinTransfer(parse, this.state.pin_data.type===1?'ro':'aktivasi'));
+                this.props.dispatch(pinTransfer(parse, this.props.jenis));
                 this.setState({
                     code:0
                 });
@@ -108,21 +108,7 @@ class FormPinTransfer extends Component{
         this.setState({error: err});
     };
     render(){
-        const {
-            // created_at,
-            // exp_date,
-            // point_volume,
-            // id,
-            // id_kategori,
-            // id_member,
-            // id_paket,
-            kode,
-            full_name,
-            status,
-            // totalrecords,
-            // type,
-            // updated_at,
-        } = this.state.pin_data
+        console.log('this.props.type', this.props.type);
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormPinTransfer"} size="md">
@@ -133,13 +119,6 @@ class FormPinTransfer extends Component{
                 <>
                 <label>Perincian</label>
                 <div className="img-thumbnail p-3">
-                    {/* <div className="profile-thumb-contact text-center mb-4">
-                        <div className="ribbon_wrapper profile--tumb">
-                            <img src={this.state.member_data.picture} alt="sangqu" />
-                            <div className="ribbon ribbon-vertical-l" style={{lineHeight: 'unset', width: 70, transform: 'rotate(-45deg)', left: '-40px', top: '-15px'}}>
-                                <img src={this.state.member_data.badge} alt="user" className="thumb-xs mb-2 rounded-circle" /></div>
-                        </div>
-                    </div> */}
                     <div style={{position:'relative', left:'40%'}}>
                         <div className="ribbon_wrapper images_wrapper" style={{height:'-webkit-fill-available', width:'fit-content'}}>
                             <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}>
@@ -162,52 +141,17 @@ class FormPinTransfer extends Component{
                     <div className="row align-items-center">
                         <div className="col">
                         <h6 className="font-14 mb-0">
-                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Pemilik saat ini</small>
+                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Jenis PIN</small>
                         </h6>
                         </div>
                         <div className="col-auto">
-                        <span className="font-14">{full_name}</span>
-                        </div>
-                    </div>
-                    <hr className="my-3" />
-                    
-                    <div className="row align-items-center">
-                        <div className="col">
-                        <h6 className="font-14 mb-0">
-                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">PIN</small>
-                        </h6>
-                        </div>
-                        <div className="col-auto">
-                        <span className="font-14">{kode}</span>
-                        </div>
-                    </div>
-                    <hr className="my-3" />
-                    
-                    <div className="row align-items-center">
-                        <div className="col">
-                        <h6 className="font-14 mb-0">
-                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Status</small>
-                        </h6>
-                        </div>
-                        <div className="col-auto">
-                        <span className="font-14">{status}</span>
+                        <span className="font-14">{parseInt(this.props.jenis)===1?'RO':'Aktivasi'} - ({this.state.pin_data.title})</span>
                         </div>
                     </div>
                 </div>
                 </>
                 :
                 <>
-                <label>Detail PIN</label>
-                <div className="widget---stats d-flex align-items-center justify-content-between mb-15 img-thumbnail p-3">
-                    <div className="widget---content-text">
-                    <h6 className="text-uppercase">{kode}</h6>
-                        <div className="d-flex align-items-center justify-content-start">
-                            <p className="mb-0"><span className="text-muted">Pemilik : </span>{full_name}</p>
-                        </div>
-                    </div>
-                    <h6 className="mb-0 text-success"><i className={`fa fa-circle ${status===0?'text-danger':'text-success'} font-11 mr-2`}/>&nbsp;{status===0?'Tidak Tersedia':'Tersedia'}</h6>
-                    {/* <h6 className="mb-0 text-success"></h6> */}
-                </div>
                 <label>Penerima</label>
                 <div className="form-group">
                     <div class="input-group">
@@ -218,6 +162,7 @@ class FormPinTransfer extends Component{
                             </button>
                         </div> */}
                     </div>
+                    <div className='text-muted'>Masukan ID member penerima.</div>
                 </div>
                 </>}
 

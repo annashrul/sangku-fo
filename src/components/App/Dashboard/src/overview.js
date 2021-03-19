@@ -76,7 +76,6 @@ class Overview extends Component {
                         </div>
                 </div>
                 <div className="card h-100">
-                    <div id="overlay"></div>
                     <div className="card-body" style={rewardBool?null:blur}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}
                         <div className="row">

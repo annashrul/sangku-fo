@@ -1,14 +1,13 @@
 import React,{Component} from 'react';
 // import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
-import {stringifyFormData} from "helper";
 // import File64 from "components/common/File64";
 import { Card, CardBody, CardFooter, CardHeader, Table } from 'reactstrap';
 import { TabList, Tabs, Tab } from 'react-tabs';
-import { FetchDetailPin } from 'redux/actions/pin/pin.action';
+import { FetchDetailPinWebView } from 'redux/actions/pin/pin.action';
 // import Spinner from 'Spinner'
-import Spinner from 'Spinner'
-import { createMember } from 'redux/actions/authActions';
+import Preloader from 'PreloaderWebview'
+import { createMemberWebView } from 'redux/actions/authActions';
 import Swal from 'sweetalert2';
 import Default from 'assets/default.png'
 import {sendOtp} from "redux/actions/authActions";
@@ -17,8 +16,7 @@ import bycrypt from 'bcryptjs';
 import { withRouter } from 'react-router-dom';
 import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
-// import { object } from 'prop-types';
-// import OTPInput, { ResendOTP } from "otp-input-react";
+
 const resendTime = 120;
 class MemberForm extends Component{
     constructor(props){
@@ -37,7 +35,7 @@ class MemberForm extends Component{
             picture:'-',
             membership:'-',
             device_id:'-',
-            signup_source:'website',
+            signup_source:'android',
             sponsor:'-',
             sponsor_name:'-',
             sponsor_picture:'-',
@@ -97,31 +95,15 @@ class MemberForm extends Component{
         }
      }
     getProps(param){
-        if(this.props.dataAdd===undefined){
-            // window.location.href = '/binary'
-            this.props.history.push({pathname:'/binary'});
-        }
-        const findItemNested = (arr, itemId, nestingKey) => arr.reduce((a, c) => {
-            return a.length
-            ? a
-            : c.id === itemId
-            ? a.concat(c)
-            : c[nestingKey]
-                ? a.concat(findItemNested(c[nestingKey], itemId, nestingKey))
-                : a
-        }, []);
-        const res = findItemNested(this.props.dataUpline, this.props.dataId, null);
-        if(res[0]!==undefined){
-            this.setState({
-                sponsor:param.auth.user.referral_code,
-                sponsor_name:param.auth.user.full_name,
-                sponsor_picture:param.auth.user.picture,
-                upline:this.props.dataAdd.parent_id,
-                upline_name:res[0].name,
-                upline_picture:res[0].picture,
-                position:this.props.dataAdd.position,
-            })
-        }
+        this.setState({
+            sponsor:this.props.dataSponsor!==undefined?this.props.dataSponsor.id:'',
+            sponsor_name:this.props.dataSponsor!==undefined?this.props.dataSponsor.name:'',
+            sponsor_picture:this.props.dataSponsor!==undefined?this.props.dataSponsor.picture:'',
+            upline: this.props.dataUpline===undefined?'':this.props.dataUpline.id,
+            upline_name: this.props.dataUpline===undefined?'':this.props.dataUpline.name,
+            upline_picture: this.props.dataUpline===undefined?'':this.props.dataUpline.picture,
+            position: this.props.posisi,
+        })
     }
     componentWillMount(){
         this.getProps(this.props);
@@ -143,9 +125,19 @@ class MemberForm extends Component{
     }
     handleChange = (event) => {
 
-        this.setState({ [event.target.name]: event.target.value });
-        let err = Object.assign({}, this.state.error, {[event.target.name]: ""});
-        this.setState({error: err});
+        if (event.target.name==='pin'){
+            if (event.target.value.length >= 0 && event.target.value.length<=6){
+                this.setState({ [event.target.name]: event.target.value });
+            }else{
+                ToastQ.fire({icon:'error',title:`PIN harus 6 digit angka!`});
+            }
+
+        }else{
+            this.setState({ [event.target.name]: event.target.value });
+            let err = Object.assign({}, this.state.error, {[event.target.name]: ""});
+            this.setState({error: err});
+        }
+
     };
     setPhone(num, number) {
         this.setState({
@@ -158,62 +150,45 @@ class MemberForm extends Component{
         if(e.target.id==='cancel'){
             window.location.reload();
         } else {
-            let parseData = {};
-            parseData['full_name'] = this.state.full_name;
-            parseData['mobile_no'] = this.state.mobile_no;
-            parseData['id_card'] = this.state.id_card;
-            parseData['pin'] = this.state.pin;
-            parseData['picture'] = this.state.picture;
-            // parseData['membership'] = this.state.membership;
-            parseData['device_id'] = this.state.device_id;
-            parseData['signup_source'] = this.state.signup_source;
-            parseData['sponsor'] = this.state.sponsor;
-            parseData['upline'] = this.state.upline;
-            parseData['pin_regist'] = this.state.pin_regist.id;
-            let err = this.state.error;
-            
-            console.log("dddddddddddddddd",parseData)
+             let parseData = {
+                 full_name: this.state.full_name,
+                 mobile_no: this.state.mobile_no,
+                 id_card: this.state.id_card,
+                 pin: this.state.pin,
+                 picture: this.state.picture,
+                 position: this.state.position,
+                 device_id: this.state.device_id,
+                 signup_source: this.state.signup_source,
+                 sponsor: this.state.sponsor,
+                 upline: this.state.upline,
+                 pin_regist: this.state.pin_regist.id,
+             };
+             let err = this.state.error;
 
-            if(parseData['full_name']===''||parseData['full_name']===undefined){
-                err = Object.assign({}, err, {full_name:"Nama lengkap tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['mobile_no']===''||parseData['mobile_no']===undefined){
-                err = Object.assign({}, err, {mobile_no:"No Telpon tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['id_card']===''||parseData['id_card']===undefined){
-                err = Object.assign({}, err, {id_card:"ID Card tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['pin']===''||parseData['pin']===undefined){
-                err = Object.assign({}, err, {pin:"PIN tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['picture']===''||parseData['picture']===undefined){
-                err = Object.assign({}, err, {picture:"Gambar tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            // else if(parseData['membership']===''||parseData['membership']===undefined){
-            //     err = Object.assign({}, err, {membership:"membership tidak boleh kosong"});
-            //     this.setState({error: err});
-            // }
-            else if(parseData['device_id']===''||parseData['device_id']===undefined){
-                err = Object.assign({}, err, {device_id:"Device ID tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['signup_source']===''||parseData['signup_source']===undefined){
-                err = Object.assign({}, err, {signup_source:"Signup Source tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['sponsor']===''||parseData['sponsor']===undefined){
-                err = Object.assign({}, err, {sponsor:"Sponsor tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['upline']===''||parseData['upline']===undefined){
-                err = Object.assign({}, err, {upline:"Upline tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
+             if (parseData.full_name === '' || parseData.full_name === undefined) {
+                 ToastQ.fire({
+                     icon: 'error',
+                     title: `Nama lengkap tidak boleh kosong!`
+                 });
+             } else if (parseData.mobile_no === '' || parseData.mobile_no === undefined) {
+                 ToastQ.fire({
+                     icon: 'error',
+                     title: `No. Telp tidak boleh kosong!`
+                 });
+
+             } else if (parseData.pin === '' || parseData.pin === undefined) {
+                 ToastQ.fire({
+                     icon: 'error',
+                     title: `PIN tidak boleh kosong!`
+                 });
+
+             } else if (parseData.pin.length > 6 || parseData.pin.length < 6) {
+                 ToastQ.fire({
+                     icon: 'error',
+                     title: `PIN harus 6 digit angka!`
+                 });
+
+             }
             else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
                 err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
                 this.setState({confirm:false, error: err});
@@ -226,70 +201,32 @@ class MemberForm extends Component{
 
     handleSubmit(e){
         e.preventDefault();
-        const form = e.target;
-        let data = new FormData(form);
-        let parseData = stringifyFormData(data);
-        parseData['full_name'] = this.state.full_name;
-        parseData['mobile_no'] = this.state.mobile_no;
-        parseData['id_card'] = this.state.id_card;
-        parseData['pin'] = this.state.pin;
-        parseData['picture'] = this.state.picture;
-        // parseData['membership'] = this.state.membership;
-        parseData['position'] = this.state.position;
-        parseData['device_id'] = this.state.device_id;
-        parseData['signup_source'] = this.state.signup_source;
-        parseData['sponsor'] = this.state.sponsor;
-        parseData['upline'] = this.state.upline;
-        parseData['pin_regist'] = this.state.pin_regist.id;
-        let err = this.state.error;
+        let parseData = {
+            full_name: this.state.full_name,
+            mobile_no: this.state.mobile_no,
+            id_card: this.state.id_card,
+            pin: this.state.pin,
+            picture: this.state.picture,
+            position: this.state.position,
+            device_id: this.state.device_id,
+            signup_source: this.state.signup_source,
+            sponsor: this.state.sponsor,
+            upline: this.state.upline,
+            pin_regist: this.state.pin_regist.id,
+        };
         
-        if(parseData['full_name']===''||parseData['full_name']===undefined){
-            err = Object.assign({}, err, {full_name:"Nama lengkap tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
+        if(parseData.full_name===''||parseData.full_name===undefined){
+            ToastQ.fire({icon:'error',title:`Nama lengkap tidak boleh kosong!`});
         }
-        else if(parseData['mobile_no']===''||parseData['mobile_no']===undefined){
-            err = Object.assign({}, err, {mobile_no:"No Telpon tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
+        else if(parseData.mobile_no===''||parseData.mobile_no===undefined){
+            ToastQ.fire({icon:'error',title:`No. Telp tidak boleh kosong!`});
+
         }
-        else if(parseData['id_card']===''||parseData['id_card']===undefined){
-            err = Object.assign({}, err, {id_card:"ID Card tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['pin']===''||parseData['pin']===undefined){
-            err = Object.assign({}, err, {pin:"PIN tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['picture']===''||parseData['picture']===undefined){
-            err = Object.assign({}, err, {picture:"Gambar tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        // else if(parseData['membership']===''||parseData['membership']===undefined){
-        //     err = Object.assign({}, err, {membership:"membership tidak boleh kosong"});
-        //     this.setState({error: err});
-        // }
-        else if(parseData['device_id']===''||parseData['device_id']===undefined){
-            err = Object.assign({}, err, {device_id:"Device ID tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['signup_source']===''||parseData['signup_source']===undefined){
-            err = Object.assign({}, err, {signup_source:"Signup Source tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['sponsor']===''||parseData['sponsor']===undefined){
-            err = Object.assign({}, err, {sponsor:"Sponsor tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['upline']===''||parseData['upline']===undefined){
-            err = Object.assign({}, err, {upline:"Upline tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
-            err = Object.assign({}, err, {pin_regist:"Membership belum dipilih"});
-            this.setState({confirm:false, error: err});
+        else if(parseData.pin===''||parseData.pin===undefined){
+            ToastQ.fire({icon:'error',title:`PIN tidak boleh kosong!`});
         }
         else{
             // if (this.props.detail !== undefined) {
-                console.log("tes",this.props)
                 Swal.fire({
                     title: 'Informasi!',
                     text: "Pastikan data yang diinput telah benar.",
@@ -301,7 +238,7 @@ class MemberForm extends Component{
                     cancelButtonText: 'Batal'
                 }).then(function(result){
                     if (result.value) {
-                        this.props.createMember(parseData);
+                        this.props.createMemberWebView(parseData);
                     }
                 }.bind(this))
             // }
@@ -411,23 +348,14 @@ class MemberForm extends Component{
     }
 
     render(){
-        // const {
-        //     full_name,kode,paket,point_volume,category,
-        // } = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist);
-        // console.log(this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist))
-        // const { data } = this.props.location
-        // console.log(this.props.location)
+       
         return (
             !this.props.isLoadingAuth?
                 !this.props.registered?
-                <Card>
-                    {/* <CardHeader className="bg-transparent"><h4>Tambah Member Baru</h4></CardHeader> */}
-                    <CardBody>
-                        <form onSubmit={this.handleSubmit}>
-                                <div className={`row ${!this.state.confirm?'':'d-none'}`}>
-                                    <div className="col-md-6 offset-md-3">
-                                        <Card>
-                                            <CardBody>
+                        <form className='container' onSubmit={this.handleSubmit}>
+                                <div className={`row ${!this.state.confirm?'':'d-none'}`} style={{padding:'20px'}}>
+                            <br/>
+                                    <div className="col-12 col-md-6 offset-md-3">
                                                 <div className="form-group">
                                                     <label>Nama Lengkap</label>
                                                     <input type="text" className="form-control form-control-lg" name="full_name" value={this.state.full_name} onChange={this.handleChange}  />
@@ -435,37 +363,13 @@ class MemberForm extends Component{
                                                         {this.state.error.full_name}
                                                     </div>
                                                 </div>
-                                                {/* <div className="form-group">
-                                                    <label>No. Telp.</label>
-                                                    <input
-                                                            type="tel"
-                                                            pattern="\d*"
-                                                            maxLength="14"
-                                                            className="form-control form-control-lg"
-                                                            name="mobile_no"
-                                                            value={this.state.mobile_no}
-                                                            onChange={this.handleChange}  />
-                                                    <div className="invalid-feedback" style={this.state.error.mobile_no!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.mobile_no}
-                                                    </div>
-                                                </div> */}
                                                 <div class="form-group">
                                                     <label>No. Telp.</label>
                                                         {String(this.state.time.m)+String(this.state.time.s)!=='00'&&this.state.time.m!==undefined?
                                                             <h5 className="text-center text-danger">Kirim ulang kode aktivasi dalam {this.state.time.m +":"+this.state.time.s}</h5>
                                                             :
                                                             <div className="row">
-                                                            <div className="col-md-8">
-                                                                {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
-                                                                {/* <input
-                                                                    type="tel"
-                                                                    pattern="\d*"
-                                                                    maxLength="14"
-                                                                    className="form-control form-control-lg"
-                                                                    name="mobile_no"
-                                                                    value={this.state.mobile_no}
-                                                                    onChange={this.handleChange}
-                                                                    readOnly={this.state.isOtp} /> */}
+                                                            <div className="col-8 col-md-8">
                                                                     <IntlTelInput
                                                                         preferredCountries={['id']}
                                                                         css={['intl-tel-input', 'form-control-sm']}
@@ -480,10 +384,8 @@ class MemberForm extends Component{
                                                                         />
                                                                         
                                                             </div>
-                                                            <div className="col-md-4">
-                                                                {/* <span class="input-group-append"> */}
+                                                            <div className="col-4 col-md-4">
                                                                     <button type="button" class={`btn btn-${this.state.isOtp?'success':'primary'} btn-block`} onClick={(e)=>this.handleOtp(e)} disabled={this.state.isOtp} style={{padding:'11px'}} >{this.state.isOtp?'Terverifikasi':'Verifikasi'}</button>
-                                                                {/* </span> */}
                                                             </div>
                                                             </div>
                                                         }
@@ -496,7 +398,6 @@ class MemberForm extends Component{
                                                                 <div className="col-md-4">
                                                                     <label>Kode Aktivasi</label>
                                                                     <div class="input-group input-group-md">
-                                                                        {/* <input type="text" id="chat-search" name="search" class="form-control form-control-sm" placeholder="Search" value=""> */}
                                                                         <input
                                                                             type="tel"
                                                                             pattern="\d*"
@@ -505,15 +406,6 @@ class MemberForm extends Component{
                                                                             name="otp_val"
                                                                             value={this.state.otp_val}
                                                                             onInput={this.handleChange}  />
-                                                                            {/* <OTPInput
-                                                                                value={this.state.otp_val}
-                                                                                onChange={this.handleChange}
-                                                                                autoFocus={true}
-                                                                                OTPLength={6}
-                                                                                otpType="number"
-                                                                                disabled={false}
-                                                                                style={{AlignItem:"center",justifyContent:"center"}}
-                                                                            /> */}
                                                                         <span class="input-group-append">
                                                                             <button type="button" class="btn btn-primary" onClick={async (e)=>(await this.submitOtp(e))}><i className="fa fa-check"></i></button>
                                                                         </span>
@@ -529,57 +421,11 @@ class MemberForm extends Component{
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {/* <div className="form-group">
-                                                    <label>No. Identitas (KTP)</label>
-                                                    <input
-                                                            type="text"
-                                                            pattern="\d*"
-                                                            maxLength="24"
-                                                            className="form-control form-control-lg"
-                                                            name="id_card"
-                                                            value={this.state.id_card}
-                                                            onChange={this.handleChange}  />
-                                                    <div className="invalid-feedback" style={this.state.error.id_card!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.id_card}
-                                                    </div>
-                                                </div> */}
-                                              
-                                                {/* <div className="form-group">
-                                                    <label htmlFor="inputState" className="col-form-label">Foto {this.props.data_detail!==undefined?<small>(kosongkan apabila tidak ada perubahan.)</small>:""}</label><br/>
-                                                    <File64
-                                                        multiple={ false }
-                                                        maxSize={2048} //in kb
-                                                        fileType='png, jpg' //pisahkan dengan koma
-                                                        className="mr-3 form-control-file"
-                                                        onDone={ this.handleChangeImage }
-                                                        showPreview={true}
-                                                        lang='id'
-                                                        previewLink={this.state.prev}
-                                                        previewConfig={{
-                                                            width:'200px',
-                                                            height: '200px'
-                                                        }}
-                                                        />
-                                                    <div className="invalid-feedback" style={this.state.error.logo!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.logo}
-                                                    </div>
-                                                </div> */}
-                                            {/* </CardBody>
-                                        </Card>
-                                    </div>
-                                    <div className="col-md-6  offset-md-3">
-                                        <Card>
-                                            <CardBody> */}
                                                 <div className="col-md-10 offset-md-1">
                                                     <div className="row">
                                                         <div className="col-12 col-md-6">
                                                             <div className="form-group">
                                                                 <label>Sponsor</label>
-                                                                {/* 
-                                                                <input type="text" className="form-control form-control-lg" name="sponsor" value={this.state.sponsor} onChange={this.handleChange} readOnly />
-                                                                <div className="invalid-feedback" style={this.state.error.sponsor!==""?{display:'block'}:{display:'none'}}>
-                                                                    {this.state.error.sponsor}
-                                                                </div> */}
                                                                 <div className="member-content-area">
                                                                     <div className="member-contact-content d-flex align-items-center mb-4">
                                                                         <div className="contact-thumb">
@@ -596,10 +442,6 @@ class MemberForm extends Component{
                                                         <div className="col-12 col-md-6">
                                                             <div className="form-group">
                                                                 <label>Upline</label>
-                                                                {/* <input type="text" className="form-control form-control-lg" name="upline" value={this.state.upline} onChange={this.handleChange} readOnly />
-                                                                <div className="invalid-feedback" style={this.state.error.upline!==""?{display:'block'}:{display:'none'}}>
-                                                                    {this.state.error.upline}
-                                                                </div> */}
                                                                 <div className="member-content-area">
                                                                     <div className="member-contact-content d-flex align-items-center mb-4">
                                                                         <div className="contact-thumb">
@@ -622,20 +464,12 @@ class MemberForm extends Component{
                                                         {this.state.error.position}
                                                     </div>
                                                 </div>
-                                                {/* <div className="form-group">
-                                                    <label>PIN Regist</label>
-                                                    <input type="text" className="form-control form-control-lg" name="pin_regist" value={this.state.pin_regist} onChange={this.handleChange} readOnly />
-                                                    <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
-                                                        {this.state.error.pin_regist}
-                                                    </div>
-                                                </div> */}
+                                              
                                                 <div className="form-group" style={{display:this.state.isOtp?'':'none'}}>
                                                     <div className="d-md-flex justify-content-between align-items-center d-none">
                                                         <label>Pilih Membership</label>
-                                                        {/* <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label> */}
                                                     </div>
                                                     <div className="text-left d-block d-md-none">
-                                                        {/* <label>PIN YANG ANDA MILIKI : {this.props.availPin !== undefined?this.props.availPin.total_pin:''} PIN</label> */}
                                                         <br/>
                                                         <label>Pilih Membership</label>
                                                     </div>
@@ -672,22 +506,18 @@ class MemberForm extends Component{
                                                     </div>
 
                                                     <div className="form-group">
-                                                        <label>PIN</label>
+                                                        <label>Buat PIN</label>
                                                         <input
-                                                                type="text"
-                                                                pattern="\d*"
-                                                                maxLength="6"
+                                                                type="number"
                                                                 className="form-control form-control-lg"
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
-                                                        <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
-                                                            {this.state.error.pin}
-                                                        </div>
+                                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                                            Silahkan buatkan PIN untuk downline anda, PIN ini akan dipakai ketika downline anda akan login untuk pertama kali.
+                                                        </small>
                                                     </div>
                                                 </div>
-                                            </CardBody>
-                                        </Card>
                                     </div>
                                 </div>
                                 <div className={`row ${this.state.confirm?'':'d-none'}`}>
@@ -753,13 +583,13 @@ class MemberForm extends Component{
                                     </div>
                                 </div>
                                 <div className="form-group mt-2" style={{textAlign:"right"}}>
-                                    <button type="button" className="btn btn-warning mb-2 mr-2" id={this.state.confirm?'back':'cancel'} onClick={this.toggle}><i className="ti-close" />{this.state.confirm?'Kembali':'Batal'}</button>
+                                    <a className="btn btn-danger mb-2 mr-2" href={`/web_view/binary/${this.props.raw_token}`}> Kembali ke genealogy</a>
+
+                                    <button type="button" className={`btn btn-warning mb-2 mr-2 ${this.state.confirm?'':'d-none'}`} id='back' onClick={this.toggle}><i className="ti-close" />Sebelumnya</button>
                                     <button type="button" className={`btn btn-primary mb-2 mr-2 ${!this.state.confirm?'':'d-none'}`} onClick={this.toggle} disabled={!this.state.isOtp} ><i className="ti-close"/> Selanjutnya</button>
                                     <button type="submit" className={`btn btn-primary mb-2 mr-2 ${this.state.confirm?'':'d-none'}`} ><i className="ti-save" /> Daftarkan</button>
                                 </div>
                         </form>
-                    </CardBody>
-                </Card>
                 :
                 <div>
                     <Card className="box-margin">
@@ -807,21 +637,21 @@ class MemberForm extends Component{
                             </div>
                         </CardBody>
                         <CardFooter className="bg-transparent">
-                            <button className="btn btn-primary mr-1" onClick={(e)=>{e.preventDefault();window.location.reload()}}>Daftarkan Member Lagi</button>
-                            <button className="btn btn-info mr-1" onClick={(e)=>{e.preventDefault();window.location.href = '/'}}>Ke Halaman Utama</button>
+                            <a className="btn btn-primary mr-1" href={`/web_view/binary/${this.props.raw_token}`}> Kembali ke genealogy</a>
+
                             {/* <Link to="/" className="btn btn-primary">Ke Halaman Utama</Link> */}
                         </CardFooter>
                     </Card>
                 </div>
-            : <Spinner spinnerLabel="Sedang memproses data..."/>
+            : <Preloader/>
         );
     }
 }
 
 MemberForm.propTypes = {
     sendOtp: PropTypes.func.isRequired,
-    FetchDetailPin: PropTypes.func.isRequired,
-    createMember: PropTypes.func.isRequired,
+    FetchDetailPinWebView: PropTypes.func.isRequired,
+    createMemberWebView: PropTypes.func.isRequired,
     errors: PropTypes.object
 }
 
@@ -838,4 +668,4 @@ const mapStateToProps = (state) => {
         // Level:state.userLevelReducer.data,
     }
 }
-export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPin,createMember})(MemberForm));
+export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPinWebView,createMemberWebView})(MemberForm));

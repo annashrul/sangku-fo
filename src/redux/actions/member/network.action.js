@@ -8,6 +8,12 @@ export function setLoading(load=true){
 export function setNetwork(data=[]){
     return {type:NETWORK.SUCCESS,data}
 }
+export function setUpline(data = []) {
+    return {
+        type: NETWORK.UPLINE,
+        data
+    }
+}
 
 export const FetchNetwork = (uid,first,param)=>{
     return (dispatch) => {
@@ -30,7 +36,7 @@ export const FetchNetwork = (uid,first,param)=>{
     }
 }
 
-export const FetchNetworkWebview = (uid, first, param,token) => {
+export const FetchNetworkWebview = (uid, first, param,token,upline=false) => {
     return (dispatch) => {
         dispatch(setLoading(true));
         let url = `member/${param}/`;
@@ -41,7 +47,7 @@ export const FetchNetworkWebview = (uid, first, param,token) => {
         }
         axios.get(HEADERS.URL + url, {
                 headers: {
-                    Authorization: token,
+                    Authorization: btoa(token),
                     username: HEADERS.USERNAME,
                     password: HEADERS.PASSWORD,
                     myconnection: `apps`,
@@ -50,8 +56,8 @@ export const FetchNetworkWebview = (uid, first, param,token) => {
             })
             .then(function (response) {
                 const data = response.data;
-
-                dispatch(setNetwork(data));
+                if (upline) dispatch(setUpline(data));
+                else dispatch(setNetwork(data));
                 dispatch(setLoading(false));
             }).catch(function (error) {
                 dispatch(setLoading(false));

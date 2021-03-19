@@ -12,6 +12,8 @@ import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import Select from 'react-select';
 import FormAktivasiPinRo from '../../modals/member/form_aktivasi_pin_ro';
+import { TabList, Tabs, Tab } from 'react-tabs';
+
 class PinRo extends Component{
     constructor(props){
         super(props);
@@ -55,7 +57,7 @@ class PinRo extends Component{
         }
     }
     componentDidMount(){
-        this.props.dispatch(FetchAvailablePin(1));
+        this.props.dispatch(FetchAvailablePin('ro'));
         if (localStorage.location_pin_ro !== undefined && localStorage.location_pin_ro !== '') {
             this.setState({location: localStorage.location_pin_ro})
         }
@@ -115,33 +117,15 @@ class PinRo extends Component{
         this.handleParameter(1);
     }
     handleParameter(pageNumber){
-        // let dateFrom=localStorage.date_from_pin_ro;
-        // let dateTo=localStorage.date_to_pin_ro;
-        // let kategori = localStorage.kategori_pin_ro;
-        // let lokasi = localStorage.location_pin_ro;
+    
         let any = localStorage.any_pin_ro;
-        // let sort=localStorage.sort_pin_ro;
-        // let filter=localStorage.filter_pin_ro;
         let status=localStorage.status_pin_ro;
         let where='';
-        // if(dateFrom!==undefined&&dateFrom!==null){
-        //     where+=`&datefrom=${dateFrom}&dateto=${dateTo}`;
-        // }
-        // if(lokasi!==undefined&&lokasi!==null&&lokasi!==''){
-        //     where+=`&lokasi=${lokasi}`;
-        // }
-        
+       
         if(status!==undefined&&status!==null&&status!==''){
             where+=`&status=${status}`;
         }
-        // if(filter!==undefined&&filter!==null&&filter!==''){
-        //     if(sort!==undefined&&sort!==null&&sort!==''){
-        //         where+=`&sort=${filter}|${sort}`;
-        //     }
-        // }
-        // if(kategori!==undefined&&kategori!==null&&kategori!==''){
-        //     where+=`&q=${kategori}`
-        // }
+      
         if(any!==undefined&&any!==null&&any!==''){
             where+=`&search=${any}`
         }
@@ -149,7 +133,6 @@ class PinRo extends Component{
             where_data:where
         })
         this.props.dispatch(FetchPin(pageNumber,this.props.auth.user.id,where,'','ro'))
-        // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
     componentWillReceiveProps = (nextProps) => {
         let sort = [
@@ -278,171 +261,36 @@ class PinRo extends Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-body">
-                                <div className="d-md-flex align-items-content justify-content-between d-none">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Status
-                                                </label>
-                                                <Select
-                                                    options={this.state.status_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeStatus}
-                                                    value={
-                                                        this.state.status_data.find(op => {
-                                                            return op.value === this.state.status
-                                                        })
-                                                    }
-                                                />
-                                            </div>
+                            <div className="card-body" style={{textAlign:'center'}}>
+                                
+                                {
+                        (
+                            typeof this.props.getPin === 'object' ?
+                                this.props.getPin.map((v,i)=>{
+                                    return(
+                                        <div key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses">
+                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                            <br/>
+                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                            <br/>
+                                            
+                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
+                                            <br/>
+                                            <br/>
+                                            <a href="#" className="btn btn-warning mr-3" onClick={event=>this.handleTransfer(event,v)}>Transfer</a>
+                                            <a href="#" className="btn btn-primary" onClick={event=>this.handleAktivasiPinRo(event,v)}>Aktivasi</a>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label>Cari</label>
-                                                <div class="input-group">
-                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                                    <div class="input-group-append">
-                                                        <button className="btn btn-primary" onClick={this.handleSearch}>
-                                                            <i className="fa fa-search"/>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="pt-3">
-                                        {/* <div className="form-group">
-                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
-                                                <i className="fa fa-check"/>&nbsp;Reaktivasi
-                                            </button>
-                                        </div> */}
-                                        <h5>PIN Yang Anda Miliki : {this.props.getPin.total_pin} PIN</h5>
-                                    </div>
-                                </div>
-                                <div className="d-block d-md-none">
-                                    <div className="pb-3">
-                                        {/* <div className="form-group">
-                                            <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={(e)=>this.handleModal(e)}>
-                                                <i className="fa fa-check"/>&nbsp;Reaktivasi
-                                            </button>
-                                        </div> */}
-                                        <h5>PIN Yang Anda Miliki : {this.props.getPin.total_pin} PIN</h5>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label className="control-label font-12">
-                                                    Status
-                                                </label>
-                                                <Select
-                                                    options={this.state.status_data}
-                                                    // placeholder="Pilih Tipe Kas"
-                                                    onChange={this.HandleChangeStatus}
-                                                    value={
-                                                        this.state.status_data.find(op => {
-                                                            return op.value === this.state.status
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label>Cari</label>
-                                                <div class="input-group">
-                                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                                    <div class="input-group-append">
-                                                        <button className="btn btn-primary" onClick={this.handleSearch}>
-                                                            <i className="fa fa-search"/>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-                                    <Masonry>
-                                        {
-                                            !this.props.isLoading?(
-                                                (
-                                                    typeof data === 'object' ? data.length>0?
-                                                        data.map((v,i)=>{
-                                                            return(
-                                                                <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
-                                                                    <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
-                                                                        <div className="widget---content-text">
-                                                                        <h6 className="text-uppercase">{v.kode}</h6>
-                                                                            <div className="d-flex align-items-center justify-content-start">
-                                                                                <i className={`fa fa-circle text-success font-11 mr-2`}/>&nbsp;<p className="mb-0">{v.status}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        {/* <h6 className="mb-0 text-success">&nbsp;</h6> */}
-                                                                        {/* <h6 className="mb-0 text-success">PV : {v.point_volume}</h6> */}
-                                                                    </div>
-                                                                    <div className="progress h-5">
-                                                                        <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                                                                    </div>
-                                                                    <div className="d-flex align-items-center justify-content-between">
-                                                                        <div>
-                                                                            {/* {v.status===0?statusQ('info','Tidak Terdsedia'):(v.status===1?statusQ('success','Tersedia'):(v.status===3?statusQ('success','Selesai'):""))} */}
-                                                                            &nbsp;<button className="btn btn-info btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleAktivasiPinRo(e,v)}>Aktivasi</button>
-                                                                            &nbsp;<button className="btn btn-primary btn-sm btn-status" style={{fontSize: 8}} onClick={(e)=>this.handleTransfer(e,v)}>Transfer</button>
-                                                                        </div>
-                                                                        <p className="mt-3 font-11">PIN RO</p>
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        })
-                                                        : "No data." : "No data."
-                                                )
-                                            ):(() => {
-                                                    const rows = [];
-                                                    for (let i = 0; i < 9; i++) {
-                                                        rows.push(
-                                                            <div className="card widget-new-content p-3 mr-2 mb-2 bg-white">
-                                                                <div className="widget---stats d-flex align-items-center justify-content-between mb-15">
-                                                                    <div className="widget---content-text">
-                                                                    <h6><Skeleton width="90px"/></h6>
-                                                                    <p className="mb-0"><Skeleton width="90px"/></p>
-                                                                    </div>
-                                                                    <h6 className="mb-0 text-success"><Skeleton width="80px"/></h6>
-                                                                </div>
-                                                                <div className="progress h-5">
-                                                                    <div className="progress-bar w-100 bg-success" role="progressbar" aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                                                                </div>
-                                                                <div className="d-flex align-items-center justify-content-between pt-2">
-                                                                    <div>
-                                                                        {/* <Skeleton width="50px" height="25px"/>
-                                                                        &nbsp;<Skeleton width="50px" height="25px"/> */}
-                                                                        &nbsp;<Skeleton width="50px" height="25px"/>
-                                                                    </div>
-                                                                    <Skeleton width="80px"/>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }
-                                                    return rows;
-                                                })()
-                                        }
-                                    </Masonry>
-                                </ResponsiveMasonry>
-                                <div style={{"marginTop":"20px","float":"right"}}>
-                                    <Paginationq
-                                        current_page={current_page}
-                                        per_page={per_page}
-                                        total={parseInt((per_page*last_page),10)}
-                                        callback={this.handlePageChange.bind(this)}
-                                    />
-                                </div>
+                                    )
+                                })
+                                : "No data."
+                        )
+                                }
+                              
                             </div>
                         </div>
                     </div>
                 </div>
-                <FormReaktivasi availPin={this.props.getPin} directPin={undefined}/>
-                <FormPinTransfer data={this.state.pin_data}/>
+                <FormPinTransfer data={this.state.pin_data} jenis={1}/>
                 <FormAktivasiPinRo data={this.state.pin_data}/>
             </Layout>
             );
@@ -450,7 +298,6 @@ class PinRo extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.pinReducer",state.pinReducer)
     return {
         auth:state.auth,
         pinPin:state.pinReducer.data,
