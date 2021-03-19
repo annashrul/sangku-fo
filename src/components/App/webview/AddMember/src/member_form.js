@@ -357,14 +357,14 @@ class MemberForm extends Component{
                             <br/>
                                     <div className="col-12 col-md-6 offset-md-3">
                                                 <div className="form-group">
-                                                    <label>Nama Lengkap</label>
+                                                    <label className='text-dark'>Nama Lengkap</label>
                                                     <input type="text" className="form-control form-control-lg" name="full_name" value={this.state.full_name} onChange={this.handleChange}  />
                                                     <div className="invalid-feedback" style={this.state.error.full_name!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.full_name}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>No. Telp.</label>
+                                                    <label  className='text-dark'>No. Telp.</label>
                                                         {String(this.state.time.m)+String(this.state.time.s)!=='00'&&this.state.time.m!==undefined?
                                                             <h5 className="text-center text-danger">Kirim ulang kode aktivasi dalam {this.state.time.m +":"+this.state.time.s}</h5>
                                                             :
@@ -396,7 +396,7 @@ class MemberForm extends Component{
                                                         <div className="card-body">
                                                             <div className="row">
                                                                 <div className="col-md-4">
-                                                                    <label>Kode Aktivasi</label>
+                                                                    <label className='text-dark'>Kode Aktivasi</label>
                                                                     <div class="input-group input-group-md">
                                                                         <input
                                                                             type="tel"
@@ -425,7 +425,7 @@ class MemberForm extends Component{
                                                     <div className="row">
                                                         <div className="col-12 col-md-6">
                                                             <div className="form-group">
-                                                                <label>Sponsor</label>
+                                                                <label  className='text-dark'>Sponsor</label>
                                                                 <div className="member-content-area">
                                                                     <div className="member-contact-content d-flex align-items-center mb-4">
                                                                         <div className="contact-thumb">
@@ -441,7 +441,7 @@ class MemberForm extends Component{
                                                         </div>
                                                         <div className="col-12 col-md-6">
                                                             <div className="form-group">
-                                                                <label>Upline</label>
+                                                                <label  className='text-dark'>Upline</label>
                                                                 <div className="member-content-area">
                                                                     <div className="member-contact-content d-flex align-items-center mb-4">
                                                                         <div className="contact-thumb">
@@ -458,7 +458,7 @@ class MemberForm extends Component{
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Position</label>
+                                                    <label  className='text-dark'>Position</label>
                                                     <input type="text" className="form-control form-control-lg" name="position" value={String(this.state.position).toUpperCase()} onChange={this.handleChange} readOnly />
                                                     <div className="invalid-feedback" style={this.state.error.position!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.position}
@@ -467,11 +467,11 @@ class MemberForm extends Component{
                                               
                                                 <div className="form-group" style={{display:this.state.isOtp?'':'none'}}>
                                                     <div className="d-md-flex justify-content-between align-items-center d-none">
-                                                        <label>Pilih Membership</label>
+                                                        <label className='text-dark'>Pilih Membership</label>
                                                     </div>
                                                     <div className="text-left d-block d-md-none">
                                                         <br/>
-                                                        <label>Pilih Membership</label>
+                                                        <label className='text-dark'>Pilih Membership</label>
                                                     </div>
                                                     <Tabs>
                                                         <div className="row">
@@ -506,7 +506,7 @@ class MemberForm extends Component{
                                                     </div>
 
                                                     <div className="form-group">
-                                                        <label>Buat PIN</label>
+                                                        <label className='text-dark'>Buat PIN</label>
                                                         <input
                                                                 type="number"
                                                                 className="form-control form-control-lg"
@@ -593,31 +593,31 @@ class MemberForm extends Component{
                 :
                 <div>
                     <Card className="box-margin">
-                        <CardHeader className="bg-transparent"><h4>Detail Pendaftaran</h4></CardHeader>
+                        <CardHeader className="bg-transparent"><h4 className='text-dark'>Detail Pendaftaran</h4></CardHeader>
                         <CardBody>
                             <Table striped>
                                 <thead className="bg-transparent" style={{visibility:'collapse'}}>
                                     <tr>
                                         <th className="text-left text-light w-50"></th>
-                                        <th className="text-left text-dark w-50"><h5>Detail</h5></th>
+                                        <th className="text-left text-dark w-50"><h5 className='text-dark'>Detail</h5></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th className="text-left" scope="row">Nama Lengkap</th>
-                                        <th className="text-left" scope="row">: {this.state.full_name}</th>
+                                        <th className="text-left text-dark" scope="row">Nama Lengkap</th>
+                                        <th className="text-left text-dark" scope="row">: {this.state.full_name}</th>
                                     </tr>
                                     <tr>
-                                        <th className="text-left" scope="row">No. Telpon</th>
-                                        <th className="text-left" scope="row">: {this.state.mobile_no}</th>
+                                        <th className="text-left text-dark" scope="row">No. Telpon</th>
+                                        <th className="text-left text-dark" scope="row">: {this.state.mobile_no}</th>
                                     </tr>
                                     <tr>
-                                        <th className="text-left" scope="row">Sponsor</th>
-                                        <th className="text-left" scope="row">: {this.state.sponsor}</th>
+                                        <th className="text-left text-dark" scope="row">Sponsor</th>
+                                        <th className="text-left text-dark" scope="row">: {this.state.sponsor}</th>
                                     </tr>
                                     <tr>
-                                        <th className="text-left" scope="row">Upline</th>
-                                        <th className="text-left" scope="row">: {this.state.upline}</th>
+                                        <th className="text-left text-dark" scope="row">Upline</th>
+                                        <th className="text-left text-dark" scope="row">: {this.state.upline}</th>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -632,7 +632,7 @@ class MemberForm extends Component{
                         <CardHeader className="bg-transparent"><h4>Akses Masuk</h4></CardHeader>
                         <CardBody>
                             <div>
-                                <h5>Untuk pengguna yang telah berhasil di daftarkan, harap diarahkan untuk proses masuk sistem dengan menggunakan no telpon yang baru saja didaftarkan!</h5>
+                                <h5 className='text-dark'>Untuk pengguna yang telah berhasil di daftarkan, harap diarahkan untuk proses masuk sistem dengan menggunakan no telpon yang baru saja didaftarkan!</h5>
                                 <p>No Telpon : {this.state.mobile_no}</p>
                             </div>
                         </CardBody>
