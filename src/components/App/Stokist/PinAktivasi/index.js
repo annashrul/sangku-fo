@@ -12,8 +12,11 @@ import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import Select from 'react-select';
 import {setMemberAvail } from '../../../../redux/actions/member/member.action';
 import { FetchSitePaket } from '../../../../redux/actions/site.action';
+import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
+import ModalPin from '../../modals/modal_pin'
 // import { Tab } from 'bootstrap';
 import { TabList, Tabs, Tab } from 'react-tabs';
+import Swal from 'sweetalert2';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -26,6 +29,8 @@ class Pin extends Component{
         this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
         this.handleReaktivasi = this.handleReaktivasi.bind(this);
         this.handleTransfer = this.handleTransfer.bind(this);
+        this.handleGetList = this.handleGetList.bind(this);
+        this.handleSave = this.handleSave.bind(this);
         this.state={
             where_data:"",
             pin_data:{},
@@ -41,6 +46,8 @@ class Pin extends Component{
             filter_data:[],
             status:1,
             status_data:[],
+            code:'',
+            isModal:false,
         }
     }
 
@@ -86,12 +93,52 @@ class Pin extends Component{
     };
     handleReaktivasi(e,data){
         e.preventDefault()
-        this.setState({pin_reaktivasi:data})
-        const bool = !this.props.isOpen;
-        this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("FormReaktivasi"));
+        // const bool = !this.props.isOpen;
+        // this.props.dispatch(ModalToggle(bool));
+        // this.props.dispatch(ModalType("FormReaktivasi"));
+        Swal.fire({
+            title: 'Informasi?',
+            text: "Anda akan melakukan Reaktivasi PIN "+data.title,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Process!'
+        }).then((result) => {
+            if (result.value) {
+                // this.props.dispatch(FetchDelete(id));
+                this.setState({
+                    isModal:true,
+                    pin_reaktivasi:data
+                });
+                const bool = !this.props.isOpen;
+                this.props.dispatch(ModalToggle(bool));
+                this.props.dispatch(ModalType("modalPin"));
+            }
+        })
     }
+
+    handleSave(num){
     
+        this.setState({
+            code:num
+        });
+        let parse = {}
+        parse['pin_member'] = num
+        parse['id_membership'] = this.state.pin_reaktivasi.id
+        if(num.length===6){
+            this.props.dispatch(pinReaktivasi(parse));
+            this.setState({
+                code:0,
+                step:1,
+            });
+        }
+    }
+    handleGetList(e,id){
+        // e.preventDefault()
+        alert('test');
+        this.props.dispatch(FetchDetailPin(id));
+    }
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
         const akhir = moment(picker.endDate._d).format('YYYY-MM-DD');
@@ -248,7 +295,7 @@ class Pin extends Component{
     }
     handleTransfer(e,v){
         this.setState({pin_data:v})
-        this.props.dispatch(setMemberAvail({'result':{},'msg':'','status':''}))
+        // this.props.dispatch(setMemberAvail({'result':{},'msg':'','status':''}))
         const bool = !this.props.isOpen;
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormPinTransfer"));
@@ -271,7 +318,7 @@ class Pin extends Component{
                                         typeof this.props.getPin === 'object' ?
                                             this.props.getPin.map((v,i)=>{
                                                 return(
-                                                    <div key={i} className="col-md-3 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses">
+                                                    <div key={i} className="col-md-3 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} onCLick={(e)=>this.handleGetList(e,String(v.title).toLowerCase)}>
                                                         <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                         <br/>
                                                         <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -280,7 +327,7 @@ class Pin extends Component{
                                                         <br/>
                                                         <br/>
                                                         <div className="w-100 text-center">
-                                                            <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleMembership(e,v)}>Transfer</button>
+                                                            <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleTransfer(e,v)}>TRANSFER</button>
                                                             <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasi(e,v)}>REAKTIVASI</button>
                                                         </div>
                                                     </div>
@@ -293,8 +340,11 @@ class Pin extends Component{
                         </div>
                     </div>
                 </Tabs>
-                <FormReaktivasi availPin={this.props.getPin} datum={this.state.pin_reaktivasi} listPaket={this.props.listPaket}/>
+                {/* <FormReaktivasi availPin={this.props.getPin} datum={this.state.pin_reaktivasi} listPaket={this.props.listPaket}/> */}
                 <FormPinTransfer data={this.state.pin_data} jenis={0}/>
+                {
+                    this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null
+                }
             </Layout>
             );
     }

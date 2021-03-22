@@ -5,7 +5,7 @@ import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import {FetchAvailablePin, FetchPin} from '../../../../redux/actions/pin/pin.action'
+import {FetchAvailablePin, FetchPin, pinRoAktivasi} from '../../../../redux/actions/pin/pin.action'
 // import {toRp} from 'helper'
 import Skeleton from 'react-loading-skeleton';
 import FormReaktivasi from '../../modals/member/form_reaktivasi';
@@ -13,6 +13,8 @@ import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import Select from 'react-select';
 import FormAktivasiPinRo from '../../modals/member/form_aktivasi_pin_ro';
 import { TabList, Tabs, Tab } from 'react-tabs';
+import Swal from 'sweetalert2';
+import ModalPin from '../../modals/modal_pin'
 
 class PinRo extends Component{
     constructor(props){
@@ -27,6 +29,7 @@ class PinRo extends Component{
         this.handleReaktivasi = this.handleReaktivasi.bind(this);
         this.handleTransfer = this.handleTransfer.bind(this);
         this.handleAktivasiPinRo = this.handleAktivasiPinRo.bind(this);
+        this.handleSave = this.handleSave.bind(this);
         this.state={
             where_data:"",
             pin_data:{},
@@ -42,6 +45,8 @@ class PinRo extends Component{
             filter_data:[],
             status:1,
             status_data:[],
+            isModal:false,
+            code:false,
         }
     }
     componentWillMount(){
@@ -237,6 +242,21 @@ class PinRo extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormReaktivasi"));
     }
+    handleSave(num){
+        this.setState({
+            code:num
+        });
+        let parse = {}
+        parse['pin_member'] = num
+        parse['id_membership'] = this.state.pin_data.id
+        if(num.length===6){
+            this.props.dispatch(pinRoAktivasi(parse));
+            this.setState({
+                code:0
+            });
+        }
+    // }
+    }
     handleTransfer(e,v){
         this.setState({pin_data:v})
         const bool = !this.props.isOpen;
@@ -244,10 +264,29 @@ class PinRo extends Component{
         this.props.dispatch(ModalType("FormPinTransfer"));
     }
     handleAktivasiPinRo(e,v){
-        this.setState({pin_data:v})
-        const bool = !this.props.isOpen;
-        this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("FormAktivasiRo"));
+        // const bool = !this.props.isOpen;
+        // this.props.dispatch(ModalToggle(bool));
+        // this.props.dispatch(ModalType("FormAktivasiRo"));
+        Swal.fire({
+            title: 'Informasi?',
+            text: "Anda akan melakukan Reaktivasi PIN RO "+v.title,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Process!'
+        }).then((result) => {
+            if (result.value) {
+                // this.props.dispatch(FetchDelete(id));
+                this.setState({
+                    isModal:true,
+                    pin_data:v
+                });
+                const bool = !this.props.isOpen;
+                this.props.dispatch(ModalToggle(bool));
+                this.props.dispatch(ModalType("modalPin"));
+            }
+        })
     }
     render(){
         const {
@@ -292,6 +331,9 @@ class PinRo extends Component{
                 </div>
                 <FormPinTransfer data={this.state.pin_data} jenis={1}/>
                 <FormAktivasiPinRo data={this.state.pin_data}/>
+                {
+                    this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null
+                }
             </Layout>
             );
     }

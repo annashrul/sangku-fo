@@ -168,6 +168,7 @@ export const pinReaktivasi = (data) => {
             })
             .catch(function (error) {
                 // dispatch(setLoading(false));
+                dispatch(ModalToggle(false));
                 Swal.fire({
                     title: 'failed',
                     type: 'error',
@@ -260,6 +261,7 @@ export const pinRoAktivasi = (data) => {
             })
             .catch(function (error) {
                 // dispatch(setLoading(false));
+                dispatch(ModalToggle(false));
                 Swal.fire({
                     title: 'failed',
                     type: 'error',

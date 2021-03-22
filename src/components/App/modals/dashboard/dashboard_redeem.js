@@ -89,7 +89,7 @@ class DashboardRedeem extends Component{
                             <div className="card-body">
                                 <div className=" d-flex justify-content-start align-items-end">
                                     <div className="w-25 mr-2">
-                                        <img src={this.props.dashboard.reward.gambar} className="img-fluid" alt={this.props.dashboard.reward.title}/>
+                                        {/* <img src={this.props.dashboard.reward.gambar} className="img-fluid" alt={this.props.dashboard.reward.title}/> */}
                                     </div>
                                     <div className="w-75">
                                         <h5 className="text-dark m-0">{this.props.dashboard.reward.title}</h5>

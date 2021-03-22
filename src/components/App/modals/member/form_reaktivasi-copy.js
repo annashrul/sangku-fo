@@ -123,7 +123,7 @@ class FormReaktivasi extends Component{
             });
             let parse = {}
             parse['pin_member'] = num
-            parse['pin_reaktivasi'] = this.state.pin_regist.id
+            parse['id_membership'] = this.state.pin_regist.id
             if(num.length===6){
                 this.props.dispatch(pinReaktivasi(parse));
                 this.setState({
@@ -156,7 +156,7 @@ class FormReaktivasi extends Component{
     }
     handleMembership(e,val) {
         e.preventDefault();
-        if(this.props.availPin.total_pin>=val.jumlah){
+        if(parseInt(val.jumlah,10)>0){
             let err = this.state.error;
             err = Object.assign({}, err, {pin_regist:""});
             // if(String(val.title).toLowerCase)
@@ -179,7 +179,7 @@ class FormReaktivasi extends Component{
         console.log("this.state.paket",this.state.paket);
         return (
             <div>
-            <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasi"} size={'lg'}>
+            <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasiCopy"} size={'lg'}>
                 <ModalHeader toggle={this.toggle}>Reaktivasi Membership</ModalHeader>
                 <ModalBody>
                     <div className="form-group mb-0">
@@ -187,7 +187,7 @@ class FormReaktivasi extends Component{
                         <>
                             <div className="d-flex justify-content-between align-items-center">
                                 <label>Pilihan Membership</label>
-                                {this.props.availPin !== undefined?<label>PIN YANG ANDA MILIKI : {this.props.availPin.total_pin} PIN</label>:''}
+                                {/* {this.props.availPin !== undefined?<label>PIN YANG ANDA MILIKI : {this.props.availPin.total_pin} PIN</label>:''} */}
                             </div>
                             <Tabs>
                                 <div className="row">
@@ -197,8 +197,8 @@ class FormReaktivasi extends Component{
                                                 <Tab className="col-12 col-md-5 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                 {
                                                     (
-                                                        this.props.availPin!==undefined ? typeof this.props.availPin.data === 'object' ?
-                                                            this.props.availPin.data.map((v,i)=>{
+                                                        this.props.availPin!==undefined ? typeof this.props.availPin === 'object' ?
+                                                            this.props.availPin.map((v,i)=>{
                                                                 return(
                                                                     <Tab key={i} className="col-12 col-md-5 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
                                                                         <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
@@ -224,28 +224,28 @@ class FormReaktivasi extends Component{
                         </>
                         :this.state.step===2?
                         <>
-                            <div className="row">
+                            {/* <div className="row">
                             <div className="col-md-6 offset-md-3">
                                 {this.state.paket==={}&&this.state.paket===undefined?'':
                                 <div className="single-ticket-pricing-table text-center">
-                                    <h6 className="ticket-plan">{this.state.pin_regist.title!==undefined?this.state.pin_regist.title:''}</h6>
+                                    <h6 className="ticket-plan">{this.state.pin_regist.title!==undefined?this.state.pin_regist.title:''}</h6> */}
                                     {/* Ticket Icon */}
-                                    <div className="ticket-icon"  style={{width:'100px',height:'100px'}}>
+                                    {/* <div className="ticket-icon"  style={{width:'100px',height:'100px'}}>
                                         <img className="img-fluid" src={this.state.pin_regist.badge!==undefined?this.state.pin_regist.badge:''} alt="sangqu"/>
                                     </div>
-                                    <h5 className="ticket-price font-24">Keuntungan Yang Akan Didapatkan Dalam {this.state.paket.title}</h5>
+                                    <h5 className="ticket-price font-24">Keuntungan Yang Akan Didapatkan Dalam {this.state.paket.title}</h5> */}
                                     {/* Ticket Pricing Table Details */}
-                                    <div className="ticket-pricing-table-details">
-                                        <ul dangerouslySetInnerHTML={{__html: this.state.paket.deskripsi}} className="text-left"/>
+                                    {/* <div className="ticket-pricing-table-details">
+                                        <ul dangerouslySetInnerHTML={{__html: this.state.paket.deskripsi}} className="text-left"/> */}
                                     {/* <p><i className="zmdi zmdi-check" /> Eu nostrud qui eiusmod excepteur aute.</p>
                                     <p><i className="zmdi zmdi-check" /> Ex adipisicing occaecat ut.</p>
                                     <p><i className="zmdi zmdi-check" /> Reprehenderit occaecat Lorem.</p>
                                     <p><i className="zmdi zmdi-check" /> Aliquip voluptate sunt magna.</p>
                                     <p><i className="zmdi zmdi-check" /> Occaecat enim qui laborum.</p> */}
-                                    </div>
+                                    {/* </div>
                                 </div>}
                             </div>
-                            </div>
+                            </div> */}
                             <div class="alert alert-danger bg-white text-danger text-center" role="alert">
                                 Saat anda melakukan Reaktivasi, maka akan mempengaruhi 'Advantage' yang akan anda peroleh kedepannya, pikirkan baik-baik jika akan melakukan reaktivasi dibawah membership anda saat ini.
                             </div>

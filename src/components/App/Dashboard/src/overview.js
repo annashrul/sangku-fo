@@ -4,6 +4,7 @@ import DashboardReward from '../../modals/dashboard/dashboard_redeem';
 import { ModalToggle, ModalType } from '../../../../redux/actions/modal.action';
 import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
+import FormReaktivasiCopy from '../../modals/member/form_reaktivasi-copy';
 
 class Overview extends Component {
     constructor(props){
@@ -12,6 +13,7 @@ class Overview extends Component {
             detail:"",
         };
         this.toggleReward   = this.toggleReward.bind(this);
+        // this.handleModal   = this.handleModal.bind(this);
     }
     toggleReward(e,id){
         // e.preventDefault()
@@ -22,6 +24,13 @@ class Overview extends Component {
             detail:{id:id,reward:this.props.reward,jenjang_karir:this.props.jenjang_karir}
         })
     }
+    // handleModal(e,data){
+    //     e.preventDefault()
+    //     // this.setState({pin_reaktivasi:data})
+    //     const bool = !this.props.isOpen;
+    //     this.props.dispatch(ModalToggle(bool));
+    //     this.props.dispatch(ModalType("FormReaktivasiCopy"));
+    // }
     render(){
         const blur = {
             WebkitFilter: 'blur(5px)',
@@ -94,7 +103,7 @@ class Overview extends Component {
                     </div>
                 </div>
                 {
-                    this.props.isOpen?<DashboardReward dashboard={this.state.detail}/>:null
+                    this.state.detail!==""&&this.props.isOpen?<DashboardReward dashboard={this.state.detail}/>:null
                 }
             </div>
         )

@@ -104,7 +104,7 @@ class FormReaktivasi extends Component{
             });
             let parse = {}
             parse['pin_member'] = num
-            parse['pin_reaktivasi'] = this.props.datum.id
+            parse['id_membership'] = this.props.datum.id
             if(num.length===6){
                 this.props.dispatch(pinReaktivasi(parse));
                 this.setState({
@@ -142,31 +142,9 @@ class FormReaktivasi extends Component{
                 <ModalHeader toggle={this.toggle}>Reaktivasi Membership</ModalHeader>
                 <ModalBody>
                     <div className="form-group mb-0">
-                            <div className="row">
-                            <div className="col-md-6 offset-md-3">
-                                {this.state.paket==={}&&this.state.paket===undefined?'':
-                                <div className="single-ticket-pricing-table text-center">
-                                    <h6 className="ticket-plan">{this.state.pin_regist.title!==undefined?this.state.pin_regist.title:''}</h6>
-                                    {/* Ticket Icon */}
-                                    <div className="ticket-icon"  style={{width:'100px',height:'100px'}}>
-                                        <img className="img-fluid" src={this.state.pin_regist.badge!==undefined?this.state.pin_regist.badge:''} alt="sangqu"/>
-                                    </div>
-                                    <h5 className="ticket-price font-24">Keuntungan Yang Akan Didapatkan Dalam {this.state.paket.title}</h5>
-                                    {/* Ticket Pricing Table Details */}
-                                    <div className="ticket-pricing-table-details">
-                                        <ul dangerouslySetInnerHTML={{__html: this.state.paket.deskripsi}} className="text-left"/>
-                                    {/* <p><i className="zmdi zmdi-check" /> Eu nostrud qui eiusmod excepteur aute.</p>
-                                    <p><i className="zmdi zmdi-check" /> Ex adipisicing occaecat ut.</p>
-                                    <p><i className="zmdi zmdi-check" /> Reprehenderit occaecat Lorem.</p>
-                                    <p><i className="zmdi zmdi-check" /> Aliquip voluptate sunt magna.</p>
-                                    <p><i className="zmdi zmdi-check" /> Occaecat enim qui laborum.</p> */}
-                                    </div>
-                                </div>}
-                            </div>
-                            </div>
-                            <div class="alert alert-danger bg-white text-danger text-center" role="alert">
-                                Saat anda melakukan Reaktivasi, maka akan mempengaruhi 'Advantage' yang akan anda peroleh kedepannya, pikirkan baik-baik jika akan melakukan reaktivasi dibawah membership anda saat ini.
-                            </div>
+                    <div class="alert alert-info bg-white text-center text-dark" role="alert">
+                        Anda akan melakukan aktivasi PIN {this.state.pin_regist.title}.
+                    </div>
                     </div>
                 </ModalBody>
                 <ModalFooter>
