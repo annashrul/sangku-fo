@@ -127,11 +127,12 @@ class Auth extends Component{
                 })
             }
         }
-        if(nextProps.otp_config.type_otp!==this.props.otp_config.type_otp){
-            this.setState({otpConfig:nextProps.otp_config.type_otp});
-        }
-        if(nextProps.otp_config.type!==this.props.otp_config.type){
-            this.setState({type:nextProps.otp_config.type});
+        if (nextProps.otp_config !== this.state.otpBefore) {
+            this.setState({
+                otpConfig:nextProps.otp_config.type_otp,
+                type: nextProps.otp_config.type,
+                otpBefore: nextProps.otp_config
+            });
         }
 
     }
@@ -277,8 +278,6 @@ class Auth extends Component{
         // const renderButton = buttonProps => {
         //     return <button className="btn btn-warning" {...buttonProps}>Resend</button>;
         // };
-        console.log(this.state.otpConfig);
-        console.log(this.props.otp_config);
         const renderButton = buttonProps => {
                     return(
                         <div>
@@ -401,69 +400,69 @@ class Auth extends Component{
                                                     <Link to="/"> <i className="fa fa-long-arrow-left" aria-hidden="true" /> Kembali ke halaman utama</Link>
                                                 </div>
                                             </div>
-                                            {!this.props.auth.isRegisterPin?
-                                            <div style={{display:this.state.isPin?"block":"none"}}>
-                                                <label className="text-muted text-left mb-2">Masukan PIN Anda</label>
-                                                <OTPInput
-                                                    // maxTime={120}
-                                                    value={this.state.pin}
-                                                    onChange={this.setPin}
-                                                    autoFocus={true}
-                                                    OTPLength={6}
-                                                    otpType="number"
-                                                    disabled={false}
-                                                    style={{AlignItem:"center",justifyContent:"center"}}
-                                                />
-
-                                                    <button className="login100-form-btn" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyPin}>
-                                                        <span >Verifikasi</span>
-                                                    </button>
-                                            </div>
-                                            :
-                                            <div className="card text-center w-100 p-4 rounded-lg">
-                                                <p>INFOMASI KEAMANAN</p>
-                                                <small className="text-danger">Demi keamanan pada akun anda, silahkan ganti PIN default anda!</small>
-                                                <br/>
-                                                <div className="mb-3">
-                                                    <label className="text-muted text-left">PIN Baru</label>
+                                                {!this.props.auth.isRegisterPin?
+                                                <div style={{display:this.state.isPin?"block":"none"}}>
+                                                    <label className="text-muted text-left mb-2">Masukan PIN Anda</label>
                                                     <OTPInput
                                                         // maxTime={120}
-                                                        value={this.state.pinNew}
-                                                        onChange={this.setPinNew}
+                                                        value={this.state.pin}
+                                                        onChange={this.setPin}
                                                         autoFocus={true}
                                                         OTPLength={6}
-                                                        secure={true}
                                                         otpType="number"
                                                         disabled={false}
                                                         style={{AlignItem:"center",justifyContent:"center"}}
                                                     />
+
+                                                        <button className="login100-form-btn" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyPin}>
+                                                            <span >Verifikasi</span>
+                                                        </button>
                                                 </div>
-                                                <div className="mb-3">
-                                                    <label className="text-muted text-left">Ulangi PIN Baru</label>
-                                                    <OTPInput
-                                                        // maxTime={120}
-                                                        value={this.state.pinNewRe}
-                                                        onChange={this.setPinNewRe}
-                                                        autoFocus={false}
-                                                        OTPLength={6}
-                                                        secure={true}
-                                                        otpType="number"
-                                                        disabled={false}
-                                                        style={{AlignItem:"center",justifyContent:"center"}}
-                                                    />
-                                                    {this.state.pinNew.length===6&&this.state.pinNewRe.length===6&&this.state.pinNew!==this.state.pinNewRe?
-                                                        <small className="text-danger mt-2">PIN tidak sesuai!</small>:''
-                                                    }
+                                                :
+                                                <div className="card text-center w-100 p-4 rounded-lg">
+                                                    <p>INFOMASI KEAMANAN</p>
+                                                    <small className="text-danger">Demi keamanan pada akun anda, silahkan ganti PIN default anda!</small>
+                                                    <br/>
+                                                    <div className="mb-3">
+                                                        <label className="text-muted text-left">PIN Baru</label>
+                                                        <OTPInput
+                                                            // maxTime={120}
+                                                            value={this.state.pinNew}
+                                                            onChange={this.setPinNew}
+                                                            autoFocus={true}
+                                                            OTPLength={6}
+                                                            secure={true}
+                                                            otpType="number"
+                                                            disabled={false}
+                                                            style={{AlignItem:"center",justifyContent:"center"}}
+                                                        />
+                                                    </div>
+                                                    <div className="mb-3">
+                                                        <label className="text-muted text-left">Ulangi PIN Baru</label>
+                                                        <OTPInput
+                                                            // maxTime={120}
+                                                            value={this.state.pinNewRe}
+                                                            onChange={this.setPinNewRe}
+                                                            autoFocus={false}
+                                                            OTPLength={6}
+                                                            secure={true}
+                                                            otpType="number"
+                                                            disabled={false}
+                                                            style={{AlignItem:"center",justifyContent:"center"}}
+                                                        />
+                                                        {this.state.pinNew.length===6&&this.state.pinNewRe.length===6&&this.state.pinNew!==this.state.pinNewRe?
+                                                            <small className="text-danger mt-2">PIN tidak sesuai!</small>:''
+                                                        }
+                                                    </div>
+                                                    <div className="d-flex justify-content-end align-items-center">
+                                                        <button
+                                                            className="btn btn-primary btn-block"
+                                                            onClick={(e)=>this.handlePin(e)}
+                                                            disabled={this.state.pinNew.length===6&&this.state.pinNewRe.length===6&&this.state.pinNew===this.state.pinNewRe?false:true}
+                                                            >SIMPAN</button>
+                                                    </div>
                                                 </div>
-                                                <div className="d-flex justify-content-end align-items-center">
-                                                    <button
-                                                        className="btn btn-primary btn-block"
-                                                        onClick={(e)=>this.handlePin(e)}
-                                                        disabled={this.state.pinNew.length===6&&this.state.pinNewRe.length===6&&this.state.pinNew===this.state.pinNewRe?false:true}
-                                                        >SIMPAN</button>
-                                                </div>
-                                            </div>
-                                            }
+                                                }
                                             </>
                                             :
                                             <Skeleton style={{width:'100%', height:'100px'}}/>
