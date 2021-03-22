@@ -66,12 +66,26 @@ class Header extends Component {
         })
     }
     refreshData(id){
-        socket.emit('get_notif', {id_member:id})
+        setInterval(function () {
+            // socket.emit('getMessages')
+            socket.emit('get_notif', {id_member:id})
+        }, 2000); /* Request data from the socket every 10 seconds */
+        socket.on("set_notif", (data) => {
+            // console.log('socket.on("set_notif"',data);
+            this.setState({
+                list_notif:data.list_notif,
+                list_cart:data.list_cart,
+                pending_trx:data.pending_trx,
+                pending_tagihan:data.pending_tagihan,
+            })
+        })
     }
     rmCart(e,data){
         e.preventDefault();
         // if(parseInt(data.status,10)===0){
             this.props.deleteCart(data.id)
+            const my_id = atob(Cookies.get('sangqu_exp'));
+            this.refreshData(my_id);
         // }
     }
     handleNotif(e,data){
@@ -107,6 +121,7 @@ class Header extends Component {
         if(prevState.triggerMobileEcaps&&this.props.triggerMobileEcaps){
             // const bool = !this.props.triggerMobileEcaps;
             this.props.setMobileEcaps(false);
+            // this.refreshData(atob(Cookies.get('sangqu_exp')));
         }
     }
 

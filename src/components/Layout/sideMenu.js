@@ -85,6 +85,7 @@ class SideMenu extends Component {
             })
         }else if(
             path==='/report/riwayat'
+            || path==='/report/sangquota'
             || path==='/report/ppob'
             || path==='/report/wallet/deposit'
             || path==='/report/redeem'
@@ -215,6 +216,7 @@ class SideMenu extends Component {
                         || path==='/report/pembelian'
                         || path==='/report/ppob'
                         || path==='/report/riwayat'
+                        || path==='/report/sangquota'
                         || path==='/report/wallet/deposit'
                         || path==='/report/wallet/penarikan'
                         || path==='/report/redeem'
@@ -226,6 +228,7 @@ class SideMenu extends Component {
                             {/* <li className={path==='/report/pin'?"active":''}><Link to="/report/pin" style={{width:'fit-content'}}> PIN</Link></li> */}
                             <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}>Riwayat Pembelian</Link></li>
                             <li className={path==='/report/riwayat'?"active":''}><Link to="/report/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
+                            <li className={path==='/report/sangquota'?"active":''}><Link to="/report/sangquota" style={{width:'fit-content'}}> Riwayat SangQuota</Link></li>
                             <li className={path==='/report/ppob'?"active":''}><Link to="/report/ppob" style={{width:'fit-content'}}> Top Up & Tagihan</Link></li>
                             <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
