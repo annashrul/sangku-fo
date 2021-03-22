@@ -70,7 +70,7 @@ class Overview extends Component {
                                 </div>
                             </div>
                         </div>
-                    <ul className="positions">
+                    <ul className="positions text-dark">
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
