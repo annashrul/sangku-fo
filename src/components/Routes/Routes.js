@@ -4,62 +4,9 @@ import PrivateRoute from '../common/PrivateRoute';
 import NotFound from '../common/notfound'
 import Preloader from '../../Preloader';
 import ErrorBoundary from '../../ErrorBoundary'
-// import Landing from '../App/Landing';
-// import Login from '../App/Auth';
-// import Signup from '../App/Regist';
-// import ConfirmPage from '../App/Regist/ConfirmPage';
-// import Dashboard from '../App/Dashboard';
-// import IndexProduct from '../App/transaction/indexProduct';
-// import IndexRedeem from '../App/transaction/redeem/indexRedeem';
-// import IndexCart from '../App/transaction/indexCart';
-// import IndexCheckout from '../App/transaction/indexCheckout';
-// import IndexInvoice from '../App/transaction/indexInvoice';
-// import AddMember from '../App/Member/AddMember';
-// import IndexDeposit from '../App/wallet/indexDeposit';
-// import IndexPenarikan from '../App/wallet/indexPenarikan';
-// import IndexTransfer from '../App/wallet/indexTransfer';
-// import IndexAlamat from '../App/Member/Alamat/indexAlamat';
-// import IndexBank from '../App/Member/bank/indexBank';
-// import Binary from '../App/Member/Binary';
-// import Sponsor from '../App/Member/Sponsor';
-// import Testt from '../App/Masterdata/test';
-// import RiwayatTransaksi from '../App/transaction/riwayat'
-// import RiwayatPPOB from '../App/Report/PPOB'
-// import ReportDeposit from '../App/Report/Deposit'
-// import ReportPembelian from '../App/Report/Pembelian'
-// import Berita from '../App/Konten/Berita'
-// import BeritaDetail from '../App/Konten/BeritaDetail'
-// import Testimoni from '../App/Konten/Testimoni'
-// import TestimoniDetail from '../App/Konten/TestimoniDetail'
-// import StokistAktivasi from '../App/Stokist/PinAktivasi'
-// import StokistRo from '../App/Stokist/PinRo'
-// // import Stokist from '../App/Report/Pin'
-// import IndexPPOB from '../App/PPOB/indexPPOB'
-// import DetailPPOB from '../App/PPOB/detailPPOB'
-// import TempPasca from '../App/PPOB/temp_pasca'
-// import TempPra from '../App/PPOB/temp_pra'
-// import PulsaAll from '../App/PPOB/PulsaAll'
-// import PaketData from '../App/PPOB/PaketData';
-// import PulsaSmsTelp from '../App/PPOB/PulsaSmsTelp';
-// import EToll from '../App/PPOB/EToll';
-// import VoucherWifiid from '../App/PPOB/VoucherWifiid';
-// import EMoney from '../App/PPOB/EMoney';
-// import TrxPln from '../App/PPOB/TrxPln';
-// import TrxPdam from '../App/PPOB/TrxPdam';
-// import TrxTelpKabel from '../App/PPOB/TrxTelpKabel';
-// import TrxTelpPasca from '../App/PPOB/TrxTelpPasca';
-// import TrxBpjs from '../App/PPOB/TrxBpjs';
-// import TrxZakat from '../App/PPOB/TrxZakat';
-// import indexProfile from '../App/Member/Profile/indexProfile';
-// import Rekapitulasi from '../App/Member/Rekapitulasi';
-// import PagesSpace from '../App/Landing/pages';
-// import PenarikanReport from '../App/Report/Wallet/reportPenarikan';
-// import DepositReport from '../App/Report/Wallet/reportDeposit';
-// import ReportRedeem from '../App/Report/Redeem';
-// import ReportReward from '../App/Report/Reward';
-// import webviewBinary from '../App/webview/Binary';
-// import webviewSponsor from '../App/webview/Sponsor';
-// import webviewRegister from '../App/webview/AddMember';
+import webviewBinary from '../App/webview/Binary';
+import webviewSponsor from '../App/webview/Sponsor';
+import webviewRegister from '../App/webview/AddMember';
 
 const Landing = React.lazy(() => import('../App/Landing'));
 const Login = React.lazy(() => import('../App/Auth'));
@@ -113,9 +60,7 @@ const PenarikanReport = React.lazy(() => import('../App/Report/Wallet/reportPena
 const DepositReport = React.lazy(() => import('../App/Report/Wallet/reportDeposit'));
 const ReportRedeem = React.lazy(() => import('../App/Report/Redeem'));
 const ReportReward = React.lazy(() => import('../App/Report/Reward'));
-const webviewBinary = React.lazy(() => import('../App/webview/Binary'));
-const webviewSponsor = React.lazy(() => import('../App/webview/Sponsor'));
-const webviewRegister = React.lazy(() => import('../App/webview/AddMember'));
+
 
 const Routes = (
     <div>

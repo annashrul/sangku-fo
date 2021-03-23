@@ -8,35 +8,47 @@ class Binary extends Component{
 
     getProps(props){
         this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true,'network'))
-    }
-    // componentWillReceiveProps(nextProps){
-    //     // if(this.state.arrs.length>0){
+        var head = document.getElementsByTagName('head')[0];
 
-    //     // } else {
-    //     //     this.setState({arrs:nextProps.list.data===undefined?[]:nextProps.list.data.data})
-    //     // }
-    //     this.getProps(nextProps);
-    // }
-    componentDidMount(){
+        var cssnode3 = document.createElement('link');
+
+        cssnode3.type = 'text/css';
+        cssnode3.rel = 'stylesheet';
+        cssnode3.href = '/genealogy/sponsor-style.css';
+        head.appendChild(cssnode3);
+
+        var cssnode = document.createElement('link');
+
+        cssnode.type = 'text/css';
+        cssnode.rel = 'stylesheet';
+        cssnode.href = '/genealogy/tree.css';
+
+        head.appendChild(cssnode);
+        var cssnode2 = document.createElement('link');
+
+        cssnode2.type = 'text/css';
+        cssnode2.rel = 'stylesheet';
+        cssnode2.href = '/genealogy/treedev.css';
+        head.appendChild(cssnode2);
+
+    }
+
+    componentDidMount() {
         this.getProps(this.props)
     }
+
+    componentWillUnmount() {
+        document.querySelector("link[href='/genealogy/sponsor-style.css']").remove()
+        document.querySelector("link[href='/genealogy/tree.css']").remove()
+        document.querySelector("link[href='/genealogy/treedev.css']").remove()
+    }
     componentDidUpdate(prevState){
-        // if(this.state.arrs.length<=0){
             if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code){
-                // this.getProps(this.props)
-                // this.props.dispatch(FetchNetwork(btoa('MB5711868825'),true))
-                // this.props.dispatch(FetchNetwork(btoa(this.props.auth.user.referral_code),true))
                 this.getProps(this.props);
             }
-        // }
     }
-    // componentWillMount(){
-    //     this.getProps(this.props)
-    // }
     render(){
-        require("../../Member/Sponsor/sponsor-style.css"); // here
-        require("./tree.css"); // here
-        require("./treedev.css"); // here
+        
         return (
             <Layout page="Genealogy Binary" subpage="Jaringan">
                 <div className="card">
