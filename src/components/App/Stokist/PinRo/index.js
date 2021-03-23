@@ -1,18 +1,11 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
-import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchAvailablePin, FetchPin, pinRoAktivasi} from '../../../../redux/actions/pin/pin.action'
-// import {toRp} from 'helper'
-import Skeleton from 'react-loading-skeleton';
-import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
-import Select from 'react-select';
 import FormAktivasiPinRo from '../../modals/member/form_aktivasi_pin_ro';
-import { TabList, Tabs, Tab } from 'react-tabs';
 import Swal from 'sweetalert2';
 import ModalPin from '../../modals/modal_pin'
 
@@ -264,9 +257,6 @@ class PinRo extends Component{
         this.props.dispatch(ModalType("FormPinTransfer"));
     }
     handleAktivasiPinRo(e,v){
-        // const bool = !this.props.isOpen;
-        // this.props.dispatch(ModalToggle(bool));
-        // this.props.dispatch(ModalType("FormAktivasiRo"));
         Swal.fire({
             title: 'Informasi?',
             text: "Anda akan melakukan Reaktivasi PIN RO "+v.title,
@@ -277,7 +267,6 @@ class PinRo extends Component{
             confirmButtonText: 'Process!'
         }).then((result) => {
             if (result.value) {
-                // this.props.dispatch(FetchDelete(id));
                 this.setState({
                     isModal:true,
                     pin_data:v
@@ -289,12 +278,6 @@ class PinRo extends Component{
         })
     }
     render(){
-        const {
-            per_page,
-            last_page,
-            current_page,
-            data
-        } = this.props.pinPin;
         return (
             <Layout page="PIN RO" subpage="Stokist">
                 <div className="row">
@@ -316,8 +299,8 @@ class PinRo extends Component{
                                             <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
                                             <br/>
                                             <br/>
-                                            <a href="#" className="btn btn-warning mr-3" onClick={event=>this.handleTransfer(event,v)}>Transfer</a>
-                                            <a href="#" className="btn btn-primary" onClick={event=>this.handleAktivasiPinRo(event,v)}>Aktivasi</a>
+                                            <a href={() => false} className="btn btn-warning mr-3" onClick={event=>this.handleTransfer(event,v)}>Transfer</a>
+                                            <a href={() => false} className="btn btn-primary" onClick={event=>this.handleAktivasiPinRo(event,v)}>Aktivasi</a>
                                         </div>
                                     )
                                 })

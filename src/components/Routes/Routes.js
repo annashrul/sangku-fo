@@ -60,8 +60,7 @@ const PenarikanReport = React.lazy(() => import('../App/Report/Wallet/reportPena
 const DepositReport = React.lazy(() => import('../App/Report/Wallet/reportDeposit'));
 const ReportRedeem = React.lazy(() => import('../App/Report/Redeem'));
 const ReportReward = React.lazy(() => import('../App/Report/Reward'));
-
-
+const ReportSangquota = React.lazy(() => import('../App/Report/Sangquota'));
 const Routes = (
     <div>
         <ErrorBoundary>
@@ -131,6 +130,7 @@ const Routes = (
             {/* REPORT WALLET SECTION END */}
             <PrivateRoute path="/report/deposit" exact strict component={ReportDeposit} />
             <PrivateRoute path="/report/pembelian" exact strict component={ReportPembelian} />
+            <PrivateRoute path="/report/sangquota" exact strict component={ReportSangquota} />
             {/* REPORT SECTION END */}
             {/* KONTEN SECTION START */}
             <PrivateRoute path="/konten/berita" exact strict component={Berita} />
