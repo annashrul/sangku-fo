@@ -117,16 +117,16 @@ class Header extends Component {
             this.setState({totCart:nextProps.resCart.data.length});
         }
     }
-    componentDidUpdate(prevState){
-        if(prevState.triggerMobileEcaps&&this.props.triggerMobileEcaps){
-            // const bool = !this.props.triggerMobileEcaps;
-            this.props.setMobileEcaps(false);
-            // this.refreshData(atob(Cookies.get('sangqu_exp')));
-        }
+    
+    componentWillUnmount() {
+        this.unlisten();
     }
 
     componentWillMount(){
         this.refreshData(atob(Cookies.get('sangqu_exp')));
+        this.unlisten = this.props.history.listen((location, action) => {
+            this.props.setMobileEcaps(false);
+        });
     }
 
     infoCart(e){

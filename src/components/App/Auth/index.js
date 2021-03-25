@@ -130,9 +130,9 @@ class Auth extends Component{
         if(nextProps.otp_config.type_otp!==this.props.otp_config.type_otp){
             this.setState({otpConfig:nextProps.otp_config.type_otp});
         }
-        if(nextProps.otp_config.type!==this.props.otp_config.type){
+        // if(nextProps.otp_config.type!==this.props.otp_config.type){
             this.setState({type:nextProps.otp_config.type});
-        }
+        // }
 
     }
 
@@ -277,6 +277,7 @@ class Auth extends Component{
         // const renderButton = buttonProps => {
         //     return <button className="btn btn-warning" {...buttonProps}>Resend</button>;
         // };
+        console.log("this.state.type",this.state.type);
         console.log(this.state.otpConfig);
         console.log(this.props.otp_config);
         const renderButton = buttonProps => {
@@ -391,26 +392,23 @@ class Auth extends Component{
                                                     formatOnInit={true}
                                                     value={this.state.phone}
                                                     />
-                                                <div className="container-login100-form-btn">
+                                                {/* <div className="container-login100-form-btn">
                                                     <button className="login100-form-btn" onClick={this.handleLoginBtnPin}>
                                                         <span style={{marginRight:"7px",fontSize:'1.3em'}}>Masuk</span> <i className="fa fa-long-arrow-right" aria-hidden="true" />
                                                     </button>
-                                                </div>
-
-                                                <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
-                                                    <Link to="/"> <i className="fa fa-long-arrow-left" aria-hidden="true" /> Kembali ke halaman utama</Link>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             {!this.props.auth.isRegisterPin?
-                                            <div style={{display:this.state.isPin?"block":"none"}}>
+                                            <div>
                                                 <label className="text-muted text-left mb-2">Masukan PIN Anda</label>
                                                 <OTPInput
                                                     // maxTime={120}
                                                     value={this.state.pin}
                                                     onChange={this.setPin}
-                                                    autoFocus={true}
+                                                    // autoFocus={true}
                                                     OTPLength={6}
                                                     otpType="number"
+                                                    secure={true}
                                                     disabled={false}
                                                     style={{AlignItem:"center",justifyContent:"center"}}
                                                 />
@@ -418,6 +416,10 @@ class Auth extends Component{
                                                     <button className="login100-form-btn" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyPin}>
                                                         <span >Verifikasi</span>
                                                     </button>
+
+                                                <div style={{display:"flex",alignItems:'center',justifyContent:'center',marginTop:"50px"}}>
+                                                    <Link to="/"> <i className="fa fa-long-arrow-left" aria-hidden="true" /> Kembali ke halaman utama</Link>
+                                                </div>
                                             </div>
                                             :
                                             <div className="card text-center w-100 p-4 rounded-lg">

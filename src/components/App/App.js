@@ -13,6 +13,8 @@ import { initDB } from 'react-indexed-db';
 import {HEADERS} from "redux/actions/_constants";
 import axios from 'axios';
 
+import 'bootstrap-daterangepicker/daterangepicker.css';
+
 initDB(DBConfig);
 axios.defaults.headers.common['username'] = `${HEADERS.USERNAME}`;
 axios.defaults.headers.common['password'] = `${HEADERS.PASSWORD}`;
