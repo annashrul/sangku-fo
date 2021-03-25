@@ -4,6 +4,9 @@ import PrivateRoute from '../common/PrivateRoute';
 import NotFound from '../common/notfound'
 import Preloader from '../../Preloader';
 import ErrorBoundary from '../../ErrorBoundary'
+import webviewBinary from '../App/webview/Binary';
+import webviewSponsor from '../App/webview/Sponsor';
+import webviewRegister from '../App/webview/AddMember';
 
 const Landing = React.lazy(() => import('../App/Landing'));
 const Login = React.lazy(() => import('../App/Auth'));
@@ -58,10 +61,6 @@ const DepositReport = React.lazy(() => import('../App/Report/Wallet/reportDeposi
 const ReportRedeem = React.lazy(() => import('../App/Report/Redeem'));
 const ReportReward = React.lazy(() => import('../App/Report/Reward'));
 const ReportSangquota = React.lazy(() => import('../App/Report/Sangquota'));
-const webviewBinary = React.lazy(() => import('../App/webview/Binary'));
-const webviewSponsor = React.lazy(() => import('../App/webview/Sponsor'));
-const webviewRegister = React.lazy(() => import('../App/webview/AddMember'));
-
 const Routes = (
     <div>
         <ErrorBoundary>

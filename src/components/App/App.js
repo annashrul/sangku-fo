@@ -12,6 +12,7 @@ import { initDB } from 'react-indexed-db';
  import {get} from "components/model/app.model";
 import {HEADERS} from "redux/actions/_constants";
 import axios from 'axios';
+import 'react-intl-tel-input/dist/main.css';
 
 import 'bootstrap-daterangepicker/daterangepicker.css';
 

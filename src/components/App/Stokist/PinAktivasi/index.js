@@ -1,21 +1,14 @@
 import React,{Component} from 'react'
 import Layout from 'components/Layout'
-import Paginationq from "helper";
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import {FetchAvailablePin, FetchPin, pinReaktivasi} from '../../../../redux/actions/pin/pin.action'
-import Skeleton from 'react-loading-skeleton';
-import FormReaktivasi from '../../modals/member/form_reaktivasi';
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
-import Select from 'react-select';
-import {setMemberAvail } from '../../../../redux/actions/member/member.action';
 import { FetchSitePaket } from '../../../../redux/actions/site.action';
 import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
 import ModalPin from '../../modals/modal_pin'
-// import { Tab } from 'bootstrap';
-import { TabList, Tabs, Tab } from 'react-tabs';
+import { Tabs } from 'react-tabs';
 import Swal from 'sweetalert2';
 class Pin extends Component{
     constructor(props){
@@ -301,12 +294,6 @@ class Pin extends Component{
         this.props.dispatch(ModalType("FormPinTransfer"));
     }
     render(){
-        const {
-            per_page,
-            last_page,
-            current_page,
-            data
-        } = this.props.pinPin;
         return (
             <Layout page="PIN Aktivasi" subpage="Stokist">
                 <Tabs>

@@ -4,7 +4,6 @@ import DashboardReward from '../../modals/dashboard/dashboard_redeem';
 import { ModalToggle, ModalType } from '../../../../redux/actions/modal.action';
 import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
-import FormReaktivasiCopy from '../../modals/member/form_reaktivasi-copy';
 
 class Overview extends Component {
     constructor(props){
@@ -29,7 +28,7 @@ class Overview extends Component {
     //     // this.setState({pin_reaktivasi:data})
     //     const bool = !this.props.isOpen;
     //     this.props.dispatch(ModalToggle(bool));
-    //     this.props.dispatch(ModalType("FormReaktivasiCopy"));
+    //     this.props.dispatch(ModalType(""));
     // }
     render(){
         const blur = {
