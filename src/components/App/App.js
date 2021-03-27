@@ -15,6 +15,8 @@ import axios from 'axios';
 import 'react-intl-tel-input/dist/main.css';
 import jwt_decode from "jwt-decode";
 
+import 'bootstrap-daterangepicker/daterangepicker.css';
+
 initDB(DBConfig);
 axios.defaults.headers.common['username'] = `${HEADERS.USERNAME}`;
 axios.defaults.headers.common['password'] = `${HEADERS.PASSWORD}`;

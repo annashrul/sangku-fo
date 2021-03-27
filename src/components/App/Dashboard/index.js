@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Layout from 'components/Layout';
 import moment from 'moment';
-import 'bootstrap-daterangepicker/daterangepicker.css';
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 // import Charts from './src/charts'
 // import FormReaktivasi from '../modals/member/form_reaktivasi';
