@@ -20,6 +20,7 @@ class PenarikanReport extends Component{
         this.handleEvent        = this.handleEvent.bind(this);
         this.handleChange       = this.handleChange.bind(this);
         this.HandleChangeStatus = this.HandleChangeStatus.bind(this);
+        this.HandleChangeSearchby = this.HandleChangeSearchby.bind(this);
         this.state={
             where_data:"",
             detail          :{},

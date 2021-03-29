@@ -357,7 +357,13 @@ class PembelianReport extends Component{
                                     <div className="col-6 col-xs-6 col-md-3">
                                         <div className="form-group">
                                             <label>Cari</label>
-                                            <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                            <div className="input-group">
+                                                {/* <input type="text" name="any_deposit_report" class="form-control" value=""> */}
+                                                <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
+                                                <div className="input-group-prepend">
+                                                    <button className="btn btn-primary" onCLick={(e)=>this.handleSearch(e)}><i className="fa fa-search"></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

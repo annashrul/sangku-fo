@@ -7,7 +7,9 @@ import {FetchAvailablePin, FetchPin, pinRoAktivasi} from '../../../../redux/acti
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import FormAktivasiPinRo from '../../modals/member/form_aktivasi_pin_ro';
 import Swal from 'sweetalert2';
+import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
 import ModalPin from '../../modals/modal_pin'
+import FormListStokist from '../../modals/member/form_list_stokist';
 
 class PinRo extends Component{
     constructor(props){
@@ -23,6 +25,7 @@ class PinRo extends Component{
         this.handleTransfer = this.handleTransfer.bind(this);
         this.handleAktivasiPinRo = this.handleAktivasiPinRo.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.handleGetList = this.handleGetList.bind(this);
         this.state={
             where_data:"",
             pin_data:{},
@@ -212,6 +215,16 @@ class PinRo extends Component{
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    handleGetList(e,id){
+        // e.preventDefault()
+        // alert('test');
+        if(e.target.id==='toListForm'){
+            this.props.dispatch(FetchDetailPin(id));
+            const bool = !this.props.isOpen;
+            this.props.dispatch(ModalToggle(bool));
+            this.props.dispatch(ModalType("FormListStokist"));
+        }
+    }
     HandleChangeSort(sr) {
         this.setState({
             sort: sr.value,
@@ -290,7 +303,7 @@ class PinRo extends Component{
                             typeof this.props.getPin === 'object' ?
                                 this.props.getPin.map((v,i)=>{
                                     return(
-                                        <div key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses">
+                                        <div key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses" id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
                                             <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                             <br/>
                                             <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -313,6 +326,7 @@ class PinRo extends Component{
                     </div>
                 </div>
                 <FormPinTransfer data={this.state.pin_data} jenis={1}/>
+                <FormListStokist/>
                 <FormAktivasiPinRo data={this.state.pin_data}/>
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null
