@@ -10,6 +10,7 @@ import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
 import ModalPin from '../../modals/modal_pin'
 import { Tabs } from 'react-tabs';
 import Swal from 'sweetalert2';
+import FormListStokist from '../../modals/member/form_list_stokist';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -129,8 +130,13 @@ class Pin extends Component{
     }
     handleGetList(e,id){
         // e.preventDefault()
-        alert('test');
-        this.props.dispatch(FetchDetailPin(id));
+        // alert(e.target.id);
+        if(e.target.id==='toListForm'){
+            this.props.dispatch(FetchDetailPin(id));
+            const bool = !this.props.isOpen;
+            this.props.dispatch(ModalToggle(bool));
+            this.props.dispatch(ModalType("FormListStokist"));
+        }
     }
     handleEvent = (event, picker) => {
         const awal = moment(picker.startDate._d).format('YYYY-MM-DD');
@@ -305,7 +311,7 @@ class Pin extends Component{
                                         typeof this.props.getPin === 'object' ?
                                             this.props.getPin.map((v,i)=>{
                                                 return(
-                                                    <div key={i} className="col-md-3 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} onCLick={(e)=>this.handleGetList(e,String(v.title).toLowerCase)}>
+                                                    <div key={i} className="col-md-3 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
                                                         <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                         <br/>
                                                         <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -329,6 +335,7 @@ class Pin extends Component{
                 </Tabs>
                 {/* <FormReaktivasi availPin={this.props.getPin} datum={this.state.pin_reaktivasi} listPaket={this.props.listPaket}/> */}
                 <FormPinTransfer data={this.state.pin_data} jenis={0}/>
+                <FormListStokist/>
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null
                 }

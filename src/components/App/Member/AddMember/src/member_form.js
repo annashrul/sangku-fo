@@ -739,12 +739,38 @@ class MemberForm extends Component{
                                                             <th className="text-left" scope="row">: {this.state.mobile_no}</th>
                                                         </tr>
                                                         <tr>
-                                                            <th className="text-left" scope="row">Sponsor</th>
-                                                            <th className="text-left" scope="row">: {this.state.sponsor}</th>
+                                                            <th className="text-left align-middle" scope="row">Sponsor</th>
+                                                            <th className="text-left align-middle" scope="row">
+                                                                <div className="member-content-area">
+                                                                    <div className="member-contact-content d-flex align-items-center">
+                                                                        <span>:</span> &nbsp;&nbsp;&nbsp;
+                                                                        <div className="contact-thumb">
+                                                                            <img src={this.state.sponsor_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
+                                                                        </div>
+                                                                        <div className="member-contact-info">
+                                                                            <h5>{this.state.sponsor_name}</h5>
+                                                                            <span className="badge badge-success badge-pill">{this.state.sponsor}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
                                                         </tr>
                                                         <tr>
-                                                            <th className="text-left" scope="row">Upline</th>
-                                                            <th className="text-left" scope="row">: {this.state.upline}</th>
+                                                            <th className="text-left align-middle" scope="row">Upline</th>
+                                                            <th className="text-left align-middle" scope="row">
+                                                                <div className="member-content-area">
+                                                                    <div className="member-contact-content d-flex align-items-center">
+                                                                        <span>:</span> &nbsp;&nbsp;&nbsp;
+                                                                        <div className="contact-thumb">
+                                                                            <img src={this.state.upline_picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" />
+                                                                        </div>
+                                                                        <div className="member-contact-info">
+                                                                            <h5>{this.state.upline_name}</h5>
+                                                                            <span className="badge badge-success badge-pill">{this.state.upline}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
                                                         </tr>
                                                     </tbody>
                                                 </Table>

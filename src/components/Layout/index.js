@@ -11,6 +11,7 @@ import {noImage} from "helper";
 import moment from "moment"
 import 'moment/locale/id';
 import Clock from 'components/common/clock'
+import {setMobileEcaps} from 'redux/actions/site.action'
 
 class Layout extends Component {
     constructor(props){
@@ -48,11 +49,18 @@ class Layout extends Component {
             sideHover:'deactive'
         })
     }
+    outSideClickSideBar(e){
+        e.preventDefault();
+        if(e.target.id==='sbTrClick'){
+            this.props.setMobileEcaps(false);
+        }
+    }
 
     render() {
         return (
             <div className={this.props.triggerEcaps?"ecaps-page-wrapper sidemenu-hover-" + this.state.sideHover + " menu-collasped-active":"ecaps-page-wrapper " + (this.props.triggerMobileEcaps?"mobile-menu-active":"")}>
             {/* Side Menu */}
+                <div className={"w-100 "+(this.props.triggerMobileEcaps?"h-100":"")} style={{position:'fixed', zIndex:'100',backgroundColor:'#343a40cc'}} id="sbTrClick" onClick={(e)=>this.outSideClickSideBar(e)}>
                 <div className="ecaps-sidemenu-area" onMouseEnter={this.mouseEnterHandle} onMouseLeave={this.mouseOutHandle}>
                     {/* Desktop Logo */}
                     <div className="ecaps-logo">
@@ -70,6 +78,7 @@ class Layout extends Component {
                         </FreeScrollbar>
                             </div>
                     </div>
+                </div>
                 </div>
 
                 {/* Page Content */}
@@ -178,6 +187,7 @@ class Layout extends Component {
 }
 Layout.propTypes = {
     logoutUser: PropTypes.func.isRequired,
+    setMobileEcaps: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({auth,siteReducer}) =>{
@@ -187,4 +197,4 @@ const mapStateToProps = ({auth,siteReducer}) =>{
        triggerMobileEcaps: siteReducer.triggerMobileEcaps
      }
 }
-export default connect(mapStateToProps,{logoutUser})(Layout);
+export default connect(mapStateToProps,{logoutUser,setMobileEcaps})(Layout);

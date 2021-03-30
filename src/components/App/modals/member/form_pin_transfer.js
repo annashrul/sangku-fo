@@ -24,6 +24,7 @@ class FormPinTransfer extends Component{
         this.state = {
             foto:"",
             uuid:'',
+            qty:'',
             pin:'',
             pin_data:'',
             member_data:{},
@@ -31,6 +32,7 @@ class FormPinTransfer extends Component{
             code:0,
             error:{
                 uuid:'',
+                qty:'',
                 pin:'',
                 pin_data:'',
             }
@@ -83,11 +85,18 @@ class FormPinTransfer extends Component{
             parse['pin_member'] = num
             parse['id_membership'] = this.state.pin_data.id
             parse['uid'] = this.state.member_data.referral_code
+            parse['qty'] = this.state.qty
             if(num.length===6){
                 this.props.dispatch(pinTransfer(parse, this.props.jenis));
                 this.setState({
-                    code:0
+                    foto:"",
+                    uuid:'',
+                    qty:'',
+                    pin:'',
+                    pin_data:'',
+                    member_data:{},
                 });
+                this.props.dispatch(ModalToggle(false));
             }
         // }
     }
@@ -148,6 +157,17 @@ class FormPinTransfer extends Component{
                         <span className="font-14">{parseInt(this.props.jenis)===1?'RO':'Aktivasi'} - ({this.state.pin_data.title})</span>
                         </div>
                     </div>
+                    <hr className="my-3" />
+                    <div className="row align-items-center">
+                        <div className="col">
+                        <h6 className="font-14 mb-0">
+                            <i className="fa fa-circle-o mr-2 text-info" /><small className=" text-muted">Jumlah yang di transfer</small>
+                        </h6>
+                        </div>
+                        <div className="col-auto">
+                        <span className="font-14">{parseInt(this.state.qty)} PIN</span>
+                        </div>
+                    </div>
                 </div>
                 </>
                 :
@@ -163,6 +183,18 @@ class FormPinTransfer extends Component{
                         </div> */}
                     </div>
                     <div className='text-muted'>Masukan ID member penerima.</div>
+                </div>
+                <label>QTY</label>
+                <div className="form-group">
+                    <div class="input-group">
+                        <input className={`form-control ${this.state.error.qty!==""?'is-invalid':''}`} type="number" style={{padding: '9px',fontWeight:'bolder'}} name="qty" value={this.state.qty} onChange={(e) => this.handleChange(e)}/>
+                        {/* <div class="input-group-append">
+                            <button className="btn btn-primary" onClick={this.handleSearch}>
+                                <i className="fa fa-search"/>
+                            </button>
+                        </div> */}
+                    </div>
+                    <div className='text-muted'>Masukan Jumlah Kuantiti.</div>
                 </div>
                 </>}
 

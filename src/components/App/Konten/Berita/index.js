@@ -458,7 +458,7 @@ class Berita extends Component{
                             </div>
                         </div>
                         {/* DESKTOP VERSION END */}
-                        <div className="card fixed-bottom d-block d-md-none shadow-lg rounded-lg">
+                        <div className="card fixed-bottom d-block d-md-none shadow-lg rounded-lg" style={{zIndex:'1'}}>
                         <button type="button" className="btn btn-lg btn-block btn-outline-success rounded-lg rounded-top border-none mb-1 bg-transparent text-success" onClick={(e)=>this.toggleCollapse(e)}>KATEGORI&nbsp;<i className={`fa fa-angle-${!this.state.isOpen?'up':'down'}`}/></button>
                         <Collapse isOpen={this.state.isOpen}>
                             <div style={{overflow:'auto',minHeight:'auto', maxHeight:'300px'}} onScroll={(e) => this.handleLoadMore(e,'mobile')} ref={this.kategoriMobileInnerRef}>
