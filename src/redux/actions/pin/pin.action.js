@@ -152,18 +152,18 @@ export const pinReaktivasi = (data) => {
                 if (data.status === 'success') {
                     Swal.fire({
                         title: 'Informasi.',
-                        type: 'info',
-                        text: 'Transfer sukses!',
+                        type: 'success',
+                        text: 'Reaktivasi Berhasil!',
                     })
                 } else {
                     Swal.fire({
                         title: 'Informasi.',
                         type: 'danger',
-                        text: 'Transfer gagal. Silahkan ulangi beberapa saat lagi.',
+                        text: 'Reaktivasi gagal. Silahkan ulangi beberapa saat lagi.',
                     })
                 }
                 dispatch(ModalToggle(false));
-                dispatch(FetchPin(1, atob(Cookies.get('sangqu_exp')), '', 'aktivasi'))
+                dispatch(FetchAvailablePin('aktivasi'))
                 dispatch(setLoading(false));
             })
             .catch(function (error) {
@@ -245,18 +245,18 @@ export const pinRoAktivasi = (data) => {
                 if (data.status === 'success') {
                     Swal.fire({
                         title: 'Informasi.',
-                        type: 'info',
-                        text: 'Transfer sukses!',
+                        type: 'success',
+                        text: 'Aktivasi sukses!',
                     })
                 } else {
                     Swal.fire({
                         title: 'Informasi.',
                         type: 'danger',
-                        text: 'Transfer gagal. Silahkan ulangi beberapa saat lagi.',
+                        text: 'Aktivasi gagal. Silahkan ulangi beberapa saat lagi.',
                     })
                 }
                 dispatch(ModalToggle(false));
-                dispatch(FetchPin(1, atob(Cookies.get('sangqu_exp')), '', 'ro'))
+                dispatch(FetchAvailablePin('ro'))
                 dispatch(setLoading(false));
             })
             .catch(function (error) {
