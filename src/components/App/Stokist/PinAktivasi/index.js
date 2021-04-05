@@ -154,33 +154,13 @@ class Pin extends Component{
         this.handleParameter(1);
     }
     handleParameter(pageNumber){
-        // let dateFrom=localStorage.date_from_pin;
-        // let dateTo=localStorage.date_to_pin;
-        // let kategori = localStorage.kategori_pin;
-        // let lokasi = localStorage.location_pin;
         let any = localStorage.any_pin;
-        // let sort=localStorage.sort_pin;
-        // let filter=localStorage.filter_pin;
         let status=localStorage.status_pin;
         let where='';
-        // if(dateFrom!==undefined&&dateFrom!==null){
-        //     where+=`&datefrom=${dateFrom}&dateto=${dateTo}`;
-        // }
-        // if(lokasi!==undefined&&lokasi!==null&&lokasi!==''){
-        //     where+=`&lokasi=${lokasi}`;
-        // }
         
         if(status!==undefined&&status!==null&&status!==''){
             where+=`&status=${status}`;
         }
-        // if(filter!==undefined&&filter!==null&&filter!==''){
-        //     if(sort!==undefined&&sort!==null&&sort!==''){
-        //         where+=`&sort=${filter}|${sort}`;
-        //     }
-        // }
-        // if(kategori!==undefined&&kategori!==null&&kategori!==''){
-        //     where+=`&q=${kategori}`
-        // }
         if(any!==undefined&&any!==null&&any!==''){
             where+=`&search=${any}`
         }
@@ -188,7 +168,6 @@ class Pin extends Component{
             where_data:where
         })
         this.props.dispatch(FetchPin(pageNumber,this.props.auth.user.id,where))
-        // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
     componentWillReceiveProps = (nextProps) => {
         let sort = [
