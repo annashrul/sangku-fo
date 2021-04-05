@@ -40,7 +40,7 @@ class TrxTv extends Component{
     }
 
     HandleChangeProvider(pr) {
-        console.log("provider",pr)
+        
         this.setState({provider:pr})
         this.props.dispatch(FetchPulsaAll('provider',pr.value))
     }
@@ -128,7 +128,7 @@ class TrxTv extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.pulsa_allReducer",state.pulsa_allReducer)
+    
     return {
         auth:state.auth,
         pulsa_allPulsaAll:state.pulsa_allReducer.data,

@@ -21,7 +21,7 @@ const initialState = {
 export const depositReducer = (state = initialState, action) => {
     switch (action.type) {
         case DEPOSIT.SUCCESS:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,
@@ -29,7 +29,7 @@ export const depositReducer = (state = initialState, action) => {
             });
 
         case DEPOSIT.SUCCESS_REPORT:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,
@@ -40,7 +40,7 @@ export const depositReducer = (state = initialState, action) => {
                 persenDl: action.data
             });
         case DEPOSIT.SUCCESS_REPORT_EXCEL:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,

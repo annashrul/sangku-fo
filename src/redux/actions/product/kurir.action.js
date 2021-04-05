@@ -55,11 +55,11 @@ export const cekResi = (data) => {
     return (dispatch) => {
         dispatch(setLoading(true))
         const url = HEADERS.URL + `transaction/kurir/cek/resi`;
-        console.log(url);
+        
         axios.post(url, data)
             .then(function (response) {
                 const data = (response.data);
-                console.log("ACTION RESI",data);
+                
                 if (data.status === 'success') {
                     dispatch(setDataResi(data));
                 } else {

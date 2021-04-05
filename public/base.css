@@ -510,9 +510,7 @@ span.circle {
     transform: scale(21);
 }
 
-.svgImg {
-    /*filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(220deg) brightness(100%) contrast(105%);*/
-}
+
 
 .card1 p {
     font-weight: bold;

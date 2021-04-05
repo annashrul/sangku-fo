@@ -48,7 +48,7 @@ class FormBankMember extends Component{
     }
 
     HandleChangeBank(bk) {
-        console.log(bk);
+        
         this.setState({bank:bk.label})
     }
 

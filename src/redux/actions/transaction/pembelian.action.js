@@ -87,11 +87,11 @@ export const getReportPembelianExcel = (where='')=>{
         if(where!==''){
             url+=`?${where}`
         }
-        // console.log(url);
+        // 
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;
-                console.log(data);
+                
                 dispatch(setReportExcel(data));
                 dispatch(setLoadingReportExcel(false));
             }).catch(function(error){

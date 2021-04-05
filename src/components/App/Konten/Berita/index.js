@@ -132,7 +132,7 @@ class Berita extends Component{
                 const { scrollTop, scrollHeight, clientHeight } = pick;
                 if (parseInt(scrollTop,10) + parseInt(clientHeight,10) === parseInt(scrollHeight,10)) {
                 // TO SOMETHING HERE
-                    console.log('Reached bottom')
+                    
                     let perpage = parseInt(this.props.beritaKategori.per_page,10);
                     let lengthBrg = parseInt(this.props.beritaKategori.total,10);
                     if(perpage===lengthBrg || perpage<lengthBrg){
@@ -500,7 +500,7 @@ class Berita extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.beritaReducer",state.beritaReducer)
+    
     return {
         auth:state.auth,
         beritaBerita:state.beritaReducer.data_berita,

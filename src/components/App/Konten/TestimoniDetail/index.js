@@ -144,7 +144,7 @@ class TestimoniDetail extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.testimoniReducer",state.testimoniReducer)
+    
     return {
         auth:state.auth,
         testimoniKategori:state.testimoniReducer.data_testimoni_kategori,

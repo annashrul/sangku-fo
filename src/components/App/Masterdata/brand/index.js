@@ -67,7 +67,7 @@ class Brand extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         Brand:state.brandReducer.data,
         isLoading: state.brandReducer.isLoading,

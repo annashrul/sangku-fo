@@ -73,7 +73,7 @@ export const getRedeem = (where) => {
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
                 const data = response.data;
-                console.log(data);
+                
                 dispatch(setData(data));
                 dispatch(setLoading(false));
             })
@@ -101,7 +101,7 @@ export const postRedeem = (data) => {
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);
-                console.log(data.status);
+                
                 if(data.status ==='success'){
                     dispatch(getRedeem('page=1'));
                     Swal.fire({
@@ -135,7 +135,7 @@ export const postRedeem = (data) => {
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
-                console.log("ERROR",error);
+                
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(true));
                 if (error.message === 'Network Error') {
@@ -170,7 +170,7 @@ export const postReward = (data) => {
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);
-                console.log(data.status);
+                
                 if(data.status ==='success'){
                     Swal.fire({
                         title: 'Berhasil',
@@ -203,7 +203,7 @@ export const postReward = (data) => {
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
-                console.log("ERROR",error);
+                
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(true));
                 if (error.message === 'Network Error') {
@@ -239,7 +239,7 @@ export const postRedeemDone = (data) => {
         axios.put(url)
             .then(function (response) {
                 const data = (response.data);
-                console.log(data.status);
+                
                 if(data.status ==='success'){
                     Swal.fire({
                         title: 'Informasi',
@@ -272,7 +272,7 @@ export const postRedeemDone = (data) => {
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
-                console.log("ERROR",error);
+                
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(true));
                 if (error.message === 'Network Error') {
@@ -310,7 +310,7 @@ export const getRedeemReport = (page=1,where,perpage=10) => {
         axios.get(HEADERS.URL + `${url}&perpage=${perpage}`)
             .then(function (response) {
                 const data = response.data;
-                console.log(data);
+                
                 dispatch(setDataReport(data));
                 dispatch(setLoadingReport(false));
             })

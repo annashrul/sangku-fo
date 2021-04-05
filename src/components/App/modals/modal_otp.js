@@ -31,7 +31,7 @@ class ModalOtp extends Component{
     };
 
     render(){
-        console.log("this.props.isOpen",this.props.isOpen);
+        
         return (
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "modalOtp"} size="lg">
                 <ModalHeader toggle={this.toggle}>KEAMANAN</ModalHeader>

@@ -67,7 +67,7 @@ class Promo extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         Promo:state.promoReducer.data,
         isLoading: state.promoReducer.isLoading,

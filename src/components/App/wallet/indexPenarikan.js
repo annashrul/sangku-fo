@@ -79,7 +79,7 @@ class IndexPenarikan extends Component{
         this.props.dispatch(FetchWalletConfig());
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.resBank);
+        
         if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.wd_min!==undefined){
             this.setState({
                 wd_min:parseInt(nextProps.resWalletConfig.wd_min,10),
@@ -104,20 +104,20 @@ class IndexPenarikan extends Component{
         this.setState({bank_data:data_bank})
 
         if (nextProps.location !== this.props.location) {
-            console.log("this.props.location",this.props.location);
+            
         }
-        console.log("this.props.location",this.props.location);
-        console.log("nextProp.location",nextProps.location);
-        console.log("this.props.history",this.props.history);
-        console.log("nextProp.history",nextProps.history);
-        // console.log("this.props.history.location.state.from.pathname",this.props.history.location.state.from.pathname);
-        // console.log("this.props.history.location.state",this.props.history.location.state);
+        
+        
+        
+        
+        // 
+        // 
     }
     componentDidMount(){
         
     //     const { location, history } = this.props
     //     const previousPath = location.state.from.pathname
-    //     console.log(previousPath);
+    //     
     }
     componentDidUpdate(prevState){
         if(prevState.isOpen===true&&this.state.currentStep===2){
@@ -128,7 +128,7 @@ class IndexPenarikan extends Component{
         }
     }
     HandleChangeBank(bk) {
-        console.log(bk);
+        
         this.setState({bank:bk})
     }
     onClickNext() {

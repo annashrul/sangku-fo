@@ -23,10 +23,10 @@ export const getKota = (where) => {
     return (dispatch) => {
         dispatch(setLoading(true));
         let url = `transaction/kurir/kota?id=${where}`;
-        console.log(url);
+        
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
-                console.log(response);
+                
                 const data = response.data;
                 dispatch(setData(data));
                 dispatch(setLoading(false));

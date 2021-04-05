@@ -34,7 +34,7 @@ class BeritaDetail extends Component{
         }
     }
     componentWillMount(){
-        console.log("componentWillMount(){");
+        
         this.props.dispatch(getBeritaDetail(this.props.match.params.id))
         this.props.dispatch(getBerita(1))
     }
@@ -50,7 +50,7 @@ class BeritaDetail extends Component{
                 const { scrollTop, scrollHeight, clientHeight } = pick;
                 if (parseInt(scrollTop,10) + parseInt(clientHeight,10) === parseInt(scrollHeight,10)) {
                 // TO SOMETHING HERE
-                    console.log('Reached bottom')
+                    
                     let perpage = parseInt(this.props.beritaBerita.per_page,10);
                     let lengthBrg = parseInt(this.props.beritaBerita.total,10);
                     if(perpage===lengthBrg || perpage<lengthBrg){
@@ -227,7 +227,7 @@ class BeritaDetail extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.beritaReducer",state.beritaReducer)
+    
     return {
         auth:state.auth,
         isLoadingBeritaDetail:state.beritaReducer.isLoadingBeritaDetail,

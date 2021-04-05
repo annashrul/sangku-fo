@@ -265,7 +265,7 @@ class MemberForm extends Component{
     }
     submitOtp = async (e)=>{
         e.preventDefault();
-        console.log(this.props.auth.user_otp.sender_id);
+        
         if(this.state.otp_val!==''){
             const res = await bycrypt.compare(this.state.otp_val,this.props.auth.user_otp.sender_id);
             if(res){
@@ -656,7 +656,7 @@ MemberForm.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,

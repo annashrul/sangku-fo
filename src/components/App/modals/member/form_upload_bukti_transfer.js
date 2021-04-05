@@ -46,7 +46,7 @@ class FormUploadBuktiTransfer extends Component{
     }
 
     render(){
-        console.log(this.state.foto.base64);
+        
         return (
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormUploadBuktiTransfer"} size="md">
                 <ModalHeader toggle={this.toggle}>Upload Bukti Transfer</ModalHeader>

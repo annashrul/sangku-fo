@@ -142,7 +142,7 @@ class Sponsor extends Component{
                     } else {
                         document.getElementById('btnAdd_'+id).style.display = 'none';
                         // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
-                        console.log("data.result.length",data.result.length)
+                        
                         if(data.result.length===1){
                             if(data.result[0].position==='left'){
                                 let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
@@ -274,7 +274,7 @@ class Sponsor extends Component{
 
 
 const mapStateToProps = (state) => {
-    // console.log(state.networkReducer)
+    // 
     return {
         isLoading:state.networkReducer.isLoading,
         list:state.networkReducer.data,

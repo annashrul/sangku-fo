@@ -118,7 +118,7 @@ export const postTestimoni = (data) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         const url = HEADERS.URL + `content`;
-        console.log("DATA TESTI",data);
+        
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);

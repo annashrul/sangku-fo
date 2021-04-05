@@ -134,7 +134,7 @@ class Product extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         // users:state.usersReducer.data,
         // isLoading2: state.usersReducer.isLoading,

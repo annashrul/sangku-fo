@@ -166,7 +166,7 @@ class DepositReport extends Component{
             // to,
             data
         } = this.props.dataReport;
-        console.log(this.state.status_data);
+        
         return (
             <Layout page="Laporan Deposit" subpage="Laporan">
                 <div className="card box-margin">
@@ -343,7 +343,7 @@ class DepositReport extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.depositReducer);
+    
     return {
         dataReport:state.depositReducer.data_report,
         isLoadingReport: state.depositReducer.isLoadingReport,

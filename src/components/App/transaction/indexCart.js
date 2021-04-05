@@ -25,7 +25,7 @@ class IndexCart extends Component{
         let data=[];
         if(nextProps.resCart!==undefined){
             if(nextProps.resCart.length>0){
-                console.log("LENGTH CART",nextProps.resCart.length);
+                
                 for(let i=0;i<nextProps.resCart.length;i++){
                     data.push({
                         berat: nextProps.resCart[i].berat,
@@ -53,7 +53,7 @@ class IndexCart extends Component{
         e.preventDefault();
         let column = 'qty';
         let id = param;
-        console.log("asasa",id);
+        
         let value = qty;
         if(id==='qtyMin'){
             if(value>1){
@@ -95,7 +95,7 @@ class IndexCart extends Component{
     }
 
     render(){
-        // console.log(this.state.res_cart.length);
+        // 
         // if(this.state.res_cart.length===0){
         //     localStorage.removeItem("productType");
         // }

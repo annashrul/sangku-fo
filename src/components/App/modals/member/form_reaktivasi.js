@@ -128,14 +128,17 @@ class FormReaktivasi extends Component{
                 paket: paket
             })
         } else {
+            let err = this.state.error;
+            err = Object.assign({}, err, {pin_regist:"Jumlah PIN yang anda miliki masih kurang!"});
             this.setState({
-                pin_regist: {}
+                pin_regist: {},
+                error: err,
             })
             ToastQ.fire({icon:'info',title:`Jumlah PIN yang anda miliki masih kurang!`});
         }
     };
     render(){
-        console.log("this.state.list_paket",this.state.list_paket);
+        
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasi"} size={'lg'}>

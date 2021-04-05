@@ -3,7 +3,12 @@ import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import {FetchAvailablePin, FetchPin, pinReaktivasi} from '../../../../redux/actions/pin/pin.action'
+import {
+    FetchAvailablePin,
+    FetchPin,
+    pinReaktivasi,
+    setKategori
+} from '../../../../redux/actions/pin/pin.action'
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import { FetchSitePaket } from '../../../../redux/actions/site.action';
 import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
@@ -272,11 +277,20 @@ class Pin extends Component{
         this.props.dispatch(ModalType("FormReaktivasi"));
     }
     handleTransfer(e,v){
-        this.setState({pin_data:v})
-        // this.props.dispatch(setMemberAvail({'result':{},'msg':'','status':''}))
-        const bool = !this.props.isOpen;
-        this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("FormPinTransfer"));
+        if(parseInt(v.jumlah)===0){
+            Swal.fire({
+                title: 'PERHATIAN',
+                text: "Anda tidak memiliki PIN ini. Silahkan lakukan pembelian paket.",
+                icon: 'warning',
+            })
+
+        }else{
+            this.props.dispatch(setKategori(v))
+            // this.props.dispatch(setMemberAvail({'result':{},'msg':'','status':''}))
+            const bool = !this.props.isOpen;
+            this.props.dispatch(ModalToggle(bool));
+            this.props.dispatch(ModalType("FormPinTransfer"));
+        }
     }
     render(){
         return (
@@ -313,7 +327,7 @@ class Pin extends Component{
                     </div>
                 </Tabs>
                 {/* <FormReaktivasi availPin={this.props.getPin} datum={this.state.pin_reaktivasi} listPaket={this.props.listPaket}/> */}
-                <FormPinTransfer data={this.state.pin_data} jenis={0}/>
+                <FormPinTransfer jenis={0}/>
                 <FormListStokist/>
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null
@@ -324,7 +338,7 @@ class Pin extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.pinReducer",state.pinReducer)
+    
     return {
         auth:state.auth,
         pinPin:state.pinReducer.data,

@@ -295,7 +295,7 @@ class PembelianReport extends Component{
     toggleModal(e,total,perpage) {
         localStorage.setItem("modalExportReport","true");
         e.preventDefault();
-        console.log(total);
+        
         this.setState({
             detailReport:{perpage:total}
         })

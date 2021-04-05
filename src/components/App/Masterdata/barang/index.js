@@ -146,7 +146,7 @@ class Product extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         barang:state.barangReducer.data,
         isLoading: state.barangReducer.isLoading,

@@ -4,14 +4,18 @@ import DashboardReward from '../../modals/dashboard/dashboard_redeem';
 import { ModalToggle, ModalType } from '../../../../redux/actions/modal.action';
 import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
+import { putMember } from '../../../../redux/actions/member/member.action';
+import Swal from 'sweetalert2';
 
 class Overview extends Component {
     constructor(props){
         super(props);
         this.state={
             detail:"",
+            autoWd:this.props.auto_wd===1?true:false,
         };
         this.toggleReward   = this.toggleReward.bind(this);
+        this.handleAutoWd   = this.handleAutoWd.bind(this);
         // this.handleModal   = this.handleModal.bind(this);
     }
     toggleReward(e,id){
@@ -22,6 +26,33 @@ class Overview extends Component {
         this.setState({
             detail:{id:id,reward:this.props.reward,jenjang_karir:this.props.jenjang_karir}
         })
+    }
+    // componentWillReceiveProps(nextProps){
+    //     if(nextProps.auto_wd!==this.props.auto_wd){
+    //         this.setState({
+    //             autoWd:this.props.auto_wd===1?true:false
+    //         })
+    //     }
+    // }
+    handleAutoWd(e){
+        // e.preventDefault();
+        Swal.fire({
+            title: 'Informasi!',
+            text: this.state.autoWd?'Matikan Auto WD?':'Nyalakan Auto WD',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Proses',
+            cancelButtonText: 'Batal'
+        }).then(function(result){
+            if (result.value) {
+                this.props.dispatch(putMember({auto_wd:this.state.autoWd?0:1},this.props.auth.user.id))
+                this.setState({
+                    autoWd:!this.state.autoWd
+                })
+            }
+        }.bind(this))
     }
     // handleModal(e,data){
     //     e.preventDefault()
@@ -50,7 +81,7 @@ class Overview extends Component {
                                 <div className="profile-text" style={{marginTop:'4px'}}>
                                     <div style={{fontSize:'1.5em'}}>{this.props.user}</div>
                                     {/* <div style={{fontSize:'.9em'}}>{this.props.jenjang_karir}</div> */}
-                                    <div style={{fontSize:'.8em',marginTop:'5px'}}>{this.props.uid}</div>
+                                    <div style={{fontSize:'.8em',marginTop:'5px'}}>{this.props.is_stockist}</div>
                                 </div>
                             </div>
                             <a href='/profile' className="btn btn-primary btn-sm text-light m-3 p-2" style={{cursor:'pointer',width:'90%',marginTop:"10px"}}><i class="fa fa-user"></i> Lihat Profil</a>
@@ -83,6 +114,21 @@ class Overview extends Component {
                             </div>
                         </div>
                 </div>
+                {/* <div className="card h-100 box-margin">
+                    <div className="card-body">
+                        <div className="d-flex justify-content-between align-items-center p-1">
+                            <p class="p-0 m-0">AUTO WITHDRAW</p>
+                            <div className="new-checkbox">
+                                <div className="d-flex justify-content-start align-items-center" >
+                                    <label className="switch m-0">
+                                        <input type="checkbox" checked={this.state.autoWd} onChange={(e)=>this.handleAutoWd(e)}/>
+                                        <span className="slider rounded-lg"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
                 <div className="card h-100">
                     <div className="card-body" style={rewardBool?null:blur}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}

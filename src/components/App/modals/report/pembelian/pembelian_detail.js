@@ -109,10 +109,10 @@ class PembelianDetail extends Component{
     };
     getListPin(e,data,id){
         e.preventDefault();
-        // console.log(data);
+        // 
         // this.state.data.detail[id].isShow=!this.state.data.detail[id].isShow;
         // Object.assign(data,{isShow:false});
-        // console.log(data);
+        // 
         this.setState({list_pin:data});
     }
 
@@ -121,7 +121,7 @@ class PembelianDetail extends Component{
         // const data = this.props.pembelianDetail===undefined?{}:this.props.pembelianDetail;
         const {data}=this.state;
 
-        console.log(this.state.data);
+        
         let status='';
         if(data.status===0){
             status=<span className={"btn btn-secondary btn-sm bold text-white"}>Pesanan Menunggu Pembayaran</span>;

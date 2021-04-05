@@ -38,7 +38,7 @@ class Rekapitulasi extends Component{
     // }
     getData(){
         const data = get(table);
-        // console.log("mmmmmmmmmmmm",data.length)
+        // 
         data.then(res => {
             let val = [];
             res.map((i) => {

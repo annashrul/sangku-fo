@@ -2,13 +2,19 @@ import {PIN, HEADERS} from "../_constants";
 import axios from 'axios'
 import Swal from "sweetalert2";
 import {ModalToggle} from "redux/actions/modal.action";
-import Cookies from 'js-cookie'
 
 export function setLoading(load){
     return {type : PIN.LOADING,load}
 }
 export function setLoadingAvail(load){
     return {type : PIN.LOADING_AVAILABLE,load}
+}
+
+export function setKategori(data = []) {
+    return {
+        type: PIN.SET_KATEGORI,
+        data
+    }
 }
 
 export function setPin(data=[]){
@@ -210,7 +216,7 @@ export const pinTransfer = (data, type) => {
                     })
                 }
                 dispatch(ModalToggle(false));
-                dispatch(FetchPin(1, atob(Cookies.get('sangqu_exp')), '', type))
+                dispatch(FetchAvailablePin(type===0?'aktivasi':'ro'))
                 dispatch(setLoading(false));
             })
             .catch(function (error) {

@@ -39,11 +39,11 @@ class FormPinTransfer extends Component{
         };
     }
     static getDerivedStateFromProps(props, state){
-        if (state.beforePinData !== props.data) {
-            console.log("member_data", props.data);
+        if (state.beforePinData !== props.data_kategori) {
+            console.log("member_data", props.data_kategori);
             return {
-                pin_data: props.data,
-                beforePinData:props.data
+                pin_data: props.data_kategori,
+                beforePinData:props.data_kategori
             }
         }
         if(state.beforeMemberAvail!==props.memberAvail){
@@ -59,9 +59,9 @@ class FormPinTransfer extends Component{
         e.preventDefault();
         if(this.state.uuid!==''&&this.state.uuid!==undefined){
             this.setState({member_data:{},uuid:''})
-            console.log("toggle",true);
+            
         } else {
-            console.log("toggle",false);
+            
             const bool = !this.props.isOpen;
             this.props.dispatch(ModalToggle(bool));
             this.setState({
@@ -125,7 +125,7 @@ class FormPinTransfer extends Component{
         this.setState({error: err});
     };
     render(){
-        console.log('this.props.type', this.props.type);
+        
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormPinTransfer"} size="md">
@@ -250,6 +250,7 @@ const mapStateToProps = (state) => {
         isLoading:state.pinReducer.isLoading,
         isLoadingAvail:state.memberReducer.isLoadingAvail,
         memberAvail:state.memberReducer.data_avail,
+        data_kategori:state.pinReducer.data_kategori
     }
 }
 export default connect(mapStateToProps)(FormPinTransfer);

@@ -39,7 +39,7 @@ export const FetchPulsaAll = (where)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
         let url=`transaction/produk/list?${where}`;
-        console.log(url);
+        
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;
@@ -91,7 +91,7 @@ export const postCheckoutPPOB = (data) => {
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);
-                console.log(data.status);
+                
                 if(data.status ==='success'){
                     localStorage.removeItem("dataPPOB");
                     dispatch(setIsError(false));
@@ -106,7 +106,7 @@ export const postCheckoutPPOB = (data) => {
                 dispatch(setLoadingPost(false));
             })
             .catch(function (error) {
-                console.log("ERROR",error);
+                
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(true));
                 if (error.message === 'Network Error') {

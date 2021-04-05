@@ -60,7 +60,7 @@ export const getPaket = (where) => {
         axios.get(HEADERS.URL + `${url}`)
             .then(function (response) {
                 const data = response.data;
-                console.log(data);
+                
                 dispatch(setData(data));
                 dispatch(setLoading(false));
             })

@@ -113,7 +113,7 @@ export const postAlamat = (data) => {
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
         const url = HEADERS.URL + `alamat`;
-        console.log("DATA ALAMAT",data);
+        
         axios.post(url,data)
             .then(function (response) {
                 const data = (response.data);

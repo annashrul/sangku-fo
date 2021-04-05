@@ -214,7 +214,7 @@ class Sponsor extends Component{
                     } else {
                         document.getElementById('btnAdd_'+id).style.display = 'none';
                         // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
-                        console.log("data.result.length",data.result.length)
+                        
                         if(data.result.length===1){
                             if(data.result[0].position==='left'){
                                 let joinedA = this.state.arrs.concat({"parent_id":id,"position":'right','hasChild':false,"detail":null},);
@@ -286,8 +286,8 @@ class Sponsor extends Component{
     }
     getProps(props){
         this.flatToTree(this.state.arrs===[]?props.dataList:this.state.arrs,0)
-        // console.log("myTree",myTree);
-        console.log("props.dataList",props.dataList);
+        // 
+        
         const findItemNested = (arr, itemId, nestingKey) => arr.reduce((a, c) => {
             return a.length
             ? a
@@ -300,7 +300,7 @@ class Sponsor extends Component{
         
         this.state.arrs.forEach(elemA => {
             const res = findItemNested(this.state.arrs===[]?props.dataList:this.state.arrs, elemA.id, "children");
-            console.log("elemA.hasChild",res[0])
+            
             if(res[0].children === undefined){
                 if(elemA.hasChild){
                     document.getElementById('btnAdd_'+elemA.id).style.display = '';
@@ -314,7 +314,7 @@ class Sponsor extends Component{
                     // }
                 }
             } else {
-                console.log("res.children",res[0].children);
+                
                 if(res[0].children.length===1){
                     if(res[0].children[0].position==='left'){
                         let joinedA = this.state.arrs.concat({"parent_id":res[0].id,"position":'right','hasChild':false,"detail":null},);
@@ -324,7 +324,7 @@ class Sponsor extends Component{
                         this.setState({arrs:joinedA})
                     }
                 }
-                console.log("nnnnnnnnnnnnnnn",true)
+                
             }
         });
     }
@@ -384,7 +384,7 @@ class Sponsor extends Component{
         }
     }
     render(){
-        console.log("newwwwwwwww",this.state.arrs)
+        
         return (
             <div id="block-system-main" className="block block-system clearfix">
                 <div className="binary-genealogy-tree binary_tree_extended">
@@ -417,7 +417,7 @@ class Sponsor extends Component{
 
 
 const mapStateToProps = (state) => {
-    // console.log(state.networkReducer)
+    // 
     return {
         isLoading:state.networkReducer.isLoading,
         list:state.networkReducer.data,
