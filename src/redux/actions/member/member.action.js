@@ -1,6 +1,9 @@
 import axios from "axios"
+import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { update } from "../../../components/model/app.model";
+import setAuthToken from "../../../utils/setAuthToken";
+import { setCurrentUser, setLoggedin } from "../authActions";
 import {MEMBER, HEADERS, NOTIF_ALERT} from "../_constants";
 
 
@@ -153,6 +156,7 @@ export const UpdateIndexDb = (id)=>{
         axios.get(HEADERS.URL+url)
             .then(function(res){
                 if(res.data.status==='success'){
+                    const token = res.data.result.token;
                     update('sess', {
                         id: res.data.result.id,
                         full_name: res.data.result.full_name,
@@ -161,9 +165,23 @@ export const UpdateIndexDb = (id)=>{
                         referral_code: res.data.result.referral_code,
                         status: res.data.result.status,
                         picture: res.data.result.picture,
-                        // have_pin: res.data.result.have_pin,
-                        have_pin: true,
+                        have_pin: res.data.result.have_pin,
+                        have_ktp: res.data.result.have_ktp,
+                        is_register: res.data.result.is_register,
                     });
+
+                // console.log("res.data.result.is_register",res.data.result.is_register);
+                    // Set token to Auth Header 
+                    setAuthToken(token);
+                    // decode token to set user data
+                    setCurrentUser(res.data.result);
+                    Cookies.set('sangqu_datum', btoa(token), {
+                        expires: 1
+                    });
+                    Cookies.set('sangqu_exp', btoa(res.data.result.id), {
+                        expires: 1
+                    });
+                    dispatch(setLoggedin(true));
                     window.location.reload()
                 }
             }).catch(function(error){

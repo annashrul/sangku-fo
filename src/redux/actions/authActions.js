@@ -218,7 +218,11 @@ export const loginUser = (userData) =>
                 dispatch({type: AUTH.GET_ERRORS, payload: err.response.data.msg})
 
             }
-            window.location.reload();
+            if(err.response.data.msg==='PIN Tidak Sesuai.'){
+                console.log(err);
+            } else {
+                window.location.reload();
+            }
             
         });
     }
