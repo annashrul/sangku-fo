@@ -140,13 +140,17 @@ class Index extends Component {
         this.props.dispatch(getBerita(1,'&perpage=5'))
         this.props.dispatch(getRiwayat(1, null, null, null));
         this.getData()
-        if(this.props.isShow){
-            this.showPopup()
+        if(!localStorage.getItem('dashboardPopup')){
+        // if(this.props.isShow){
+            setTimeout(function() { //Start the timer
+                this.showPopup()
+            }.bind(this), 5000)
         }
     }
 
     showPopup(){
         Swal.fire({
+            allowOutsideClick: false,
             title: '<strong>Berita Ketetapan Management SangQu Masa Persiapan</strong>',
             icon: 'info',
             width: 600,
@@ -156,10 +160,10 @@ class Index extends Component {
             '<div>&nbsp;</div>'+
             '<div>Sehubungan dengan tengah menunggunya proses penyelesaian ijin khusus beroperasinya sebagai perusahaan yang bergerak di bidang network marketing, dengan ini Management PT Sangkuriang Sinergi Insan menyampaikan ketetapan yang harus diikuti oleh setiap calon distributor sebagai berikut;</div>'+
             '<ol class="ml-4">'+
-                '<li style="list-style:decimal;>Dilarang untuk melakukan transaksi hingga Program sangQu dinyatakan resmi dibuka oleh pihak Management SangQu, segala aktifitas komitment transaksi bersifat individual dan Management SangQu tidak membuka pelayanan transaksi barang / paket hingga waktu yang akan ditetapkan kemudian.</li>'+
-                '<li style="list-style:decimal;>Calon member dilarang untuk mengupload segala aktifitas yang berkaitan dengan aktifitas di masa persiapan ini di semua platform media social secara terbuka/umum, terkecuali share informasi di media yang bersifat Clossed Grup (tertutup ) dan khusus hanya untuk konsumsi internal.</li>'+
-                '<li style="list-style:decimal;>Akses login di website &amp; Apps hanya bersifat trial- uji coba, dimana calon member dapat merasakan fitur-fitur fasilitas bisnis yang telah disiapkan oleh Management SangQu dan ditujukan untuk mendapat masukan yang bersifat evaluative pada masa persiapan ini.&nbsp;</li>'+
-                '<li style="list-style:decimal;>Management SangQu tidak bertanggung jawab atas segala aktifitas individu yang menyatakan dirinya sebagai calon member SangQu dan melalukan tindakan diluar ketentuan yang telah ditetapkan oleh pihak Management Sangqu di masa persiapan ini.</li>'+
+                '<li style="list-style:decimal;">Dilarang untuk melakukan transaksi hingga Program sangQu dinyatakan resmi dibuka oleh pihak Management SangQu, segala aktifitas komitment transaksi bersifat individual dan Management SangQu tidak membuka pelayanan transaksi barang / paket hingga waktu yang akan ditetapkan kemudian.</li>'+
+                '<li style="list-style:decimal;">Calon member dilarang untuk mengupload segala aktifitas yang berkaitan dengan aktifitas di masa persiapan ini di semua platform media social secara terbuka/umum, terkecuali share informasi di media yang bersifat Clossed Grup (tertutup ) dan khusus hanya untuk konsumsi internal.</li>'+
+                '<li style="list-style:decimal;">Akses login di website &amp; Apps hanya bersifat trial- uji coba, dimana calon member dapat merasakan fitur-fitur fasilitas bisnis yang telah disiapkan oleh Management SangQu dan ditujukan untuk mendapat masukan yang bersifat evaluative pada masa persiapan ini.</li>'+
+                '<li style="list-style:decimal;">Management SangQu tidak bertanggung jawab atas segala aktifitas individu yang menyatakan dirinya sebagai calon member SangQu dan melalukan tindakan diluar ketentuan yang telah ditetapkan oleh pihak Management Sangqu di masa persiapan ini.</li>'+
             '</ol>'+
             '<div><br> Management sangQu berhak menolak pengajuan keanggotaan program SangQu bilamana terbukti ada aktifitas individu yang melanggar ketentuan yang berakibat pada terganggunya proses persiapan program SangQu.</div>'+
             '<div><br> Atas pengertian dan kerjasama untuk mensukseskan masa-masa persiapan akhir ini, kami Management SangQu mengucapkan banyak terimakasih</div>'+
@@ -177,6 +181,7 @@ class Index extends Component {
             // console.log(result);
             if(result.value){
                 this.props.dispatch(setPopup(false));
+                localStorage.setItem('dashboardPopup',true);
             }
         })
     }

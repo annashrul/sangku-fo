@@ -114,21 +114,6 @@ class Overview extends Component {
                             </div>
                         </div>
                 </div>
-                <div className="card h-100 box-margin">
-                    <div className="card-body">
-                        <div className="d-flex justify-content-between align-items-center p-1">
-                            <p class="p-0 m-0">AUTO WITHDRAW</p>
-                            <div className="new-checkbox">
-                                <div className="d-flex justify-content-start align-items-center" >
-                                    <label className="switch m-0">
-                                        <input type="checkbox" checked={this.state.autoWd} onChange={(e)=>this.handleAutoWd(e)}/>
-                                        <span className="slider rounded-lg"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="card h-100">
                     <div className="card-body" style={rewardBool?null:blur}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}

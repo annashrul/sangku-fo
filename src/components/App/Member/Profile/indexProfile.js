@@ -24,6 +24,15 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown 
 import Cropper from 'react-easy-crop'
 import getCroppedImg from 'cropImage'
 import StickyBox from "react-sticky-box";
+import socketIOClient from "socket.io-client";
+import {HEADERS} from 'redux/actions/_constants'
+import Cookies from 'js-cookie'
+const socket = socketIOClient(HEADERS.URL, {
+    withCredentials: true,
+    extraHeaders: {
+        "my-custom-header": "abcd"
+    }
+});
 class IndexProfile extends Component{
     constructor(props){
         super(props);
@@ -41,6 +50,7 @@ class IndexProfile extends Component{
         this.onCropComplete    = this.onCropComplete.bind(this);
         this.handleLoadMoreAlamat    = this.handleLoadMoreAlamat.bind(this);
         this.handleLoadMoreBank    = this.handleLoadMoreBank.bind(this);
+        this.handleAutoWd    = this.handleAutoWd.bind(this);
         this.showPin    = this.showPin.bind(this);
         this.alamatInnerRef = React.createRef();
         this.bankInnerRef = React.createRef();
@@ -56,11 +66,25 @@ class IndexProfile extends Component{
             re_password:'',
             any_alamat:'',
             any_bank:'',
+            autoWd:false,
             cropped:'',
             crop: { x: 0, y: 0 },
             zoom: 1,
             aspect: 1 / 1,
         }
+        
+        socket.on('refresh_dashboard',(data)=>{
+            this.refreshData(atob(Cookies.get('sangqu_exp')));
+        })
+       
+        socket.on("set_dashboard", (data) => {
+            console.log("set_dashboard",data);
+           this.setState({
+               load_socket:false,
+               autoWd: data.auto_wd,
+           })
+        });
+
     }
     componentDidUpdate(prevState){
         if(prevState.auth.user.id!==this.props.auth.user.id){
@@ -69,6 +93,7 @@ class IndexProfile extends Component{
         }
     }
     componentWillMount(){
+        this.refreshData(atob(Cookies.get('sangqu_exp')));
         this.props.dispatch(getAlamat(`page=1`));
         this.props.dispatch(getBankMember(`page=1`));
         if(this.props.auth.user.id!==undefined){
@@ -91,6 +116,11 @@ class IndexProfile extends Component{
         this.setState({ showPin:!this.state.showPin })
     }
 
+    
+    refreshData(id){
+        socket.emit('get_dashboard', {id_member:id})
+        socket.emit('get_notif', {id_member:id})
+    }
     onCropComplete = (croppedArea, croppedAreaPixels) => {
     // 
     var that = this
@@ -346,6 +376,27 @@ class IndexProfile extends Component{
         }
     }
 
+    handleAutoWd(e){
+        // e.preventDefault();
+        Swal.fire({
+            title: 'Informasi!',
+            text: this.state.autoWd?'Matikan Auto WD?':'Nyalakan Auto WD',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Proses',
+            cancelButtonText: 'Batal'
+        }).then(function(result){
+            if (result.value) {
+                this.props.dispatch(putMember({auto_wd:this.state.autoWd?0:1},this.props.auth.user.id))
+                this.setState({
+                    autoWd:!this.state.autoWd
+                })
+            }
+        }.bind(this))
+    }
+
     render(){
         
         const {
@@ -527,6 +578,25 @@ class IndexProfile extends Component{
                                                         <div>
                                                             <p className="text-muted m-0">Membership</p>
                                                             <h5 className="text-black">{membership}</h5>
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-muted m-0">Auto WD</p>
+                                                            {/* <h5 className="text-black">{membership}</h5> */}
+                                                                {/* <div className="card h-100 box-margin">
+                                                                    <div className="card-body">
+                                                                        <div className="d-flex justify-content-between align-items-center p-1">
+                                                                            <p class="p-0 m-0">AUTO WITHDRAW</p>
+                                                                        <div className="d-flex justify-content-start align-items-center" > */}
+                                                                        <div className="new-checkbox">
+                                                                                    <label className="switch m-0">
+                                                                                        <input type="checkbox" checked={this.state.autoWd} onChange={(e)=>this.handleAutoWd(e)} />
+                                                                                        <span className="slider rounded-lg"></span>
+                                                                                    </label>
+                                                                        </div>
+                                                                                {/* </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> */}
                                                         </div>
                                                         {/* <a className="user-avatar text-right" href={()=>null}><img src="http://ptnetindo.com:6694/badge/executive.png" alt="user" className="img-fluid w-50" /> </a> */}
                                                     </div>

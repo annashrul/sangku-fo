@@ -179,13 +179,13 @@ export const loginUser = (userData) =>
                     // decode token to set user data
                     dispatch(setCurrentUser(res.data.result));
                     dispatch(getCart());
+                    Cookies.set('sangqu_datum', btoa(token), {
+                        expires: 1
+                    });
+                    Cookies.set('sangqu_exp', btoa(res.data.result.id), {
+                        expires: 1
+                    });
                     if(res.data.result.is_register===1){
-                        Cookies.set('sangqu_datum', btoa(token), {
-                            expires: 1
-                        });
-                        Cookies.set('sangqu_exp', btoa(res.data.result.id), {
-                            expires: 1
-                        });
                         dispatch(setLoggedin(true));
                     } else {
                         dispatch(setLoggedin(false));
