@@ -109,7 +109,7 @@ class ListKurir extends Component{
         } else {
             data = this.props.data.data
         }
-        console.log(data)
+        
         return (
             <div>
                 <form onSubmit={this.handlesearch} noValidate>

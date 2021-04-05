@@ -17,7 +17,7 @@ const initialState = {
 export const alamatReducer = (state = initialState, action) => {
     switch (action.type) {
         case ALAMAT.SUCCESS:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,

@@ -101,7 +101,7 @@ class Index extends Component {
         })
        
         socket.on("set_dashboard", (data) => {
-            console.log("object data dashboard",data);
+            
            this.setState({
                load_socket:false,
                bonus:data.bonus,
@@ -124,7 +124,9 @@ class Index extends Component {
                uid:data.uid,
                withdrawal:data.withdrawal,
                membership_badge: data.membership_badge,
-               jenjang_karir_badge: data.jenjang_karir_badge
+               jenjang_karir_badge: data.jenjang_karir_badge,
+               is_stockist: data.is_stockist,
+               auto_wd: data.auto_wd,
            })
         });
 
@@ -249,6 +251,8 @@ class Index extends Component {
                         <Overview
                             user={this.state.nama}
                             uid={this.state.uid}
+                            is_stockist={this.state.is_stockist}
+                            auto_wd={this.state.auto_wd}
                             membership={this.state.membership}
                             picture={this.state.picture}
                             jenjang_karir={this.state.jenjang_karir}
@@ -288,7 +292,7 @@ class Index extends Component {
 // }
 
 const mapStateToProps = (state) =>{
-    console.log("state.pinReducer.data_available",state.pinReducer.data_available);
+    
      return{
         auth: state.auth,
         stock: state.dashboardReducer.data,

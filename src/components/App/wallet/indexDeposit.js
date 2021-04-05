@@ -75,7 +75,7 @@ class IndexDeposit extends Component{
         this.props.dispatch(FetchWalletConfig());
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.resBank);
+        
         let data_bank=[];
         if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.dp_min!==undefined){
             this.setState({
@@ -106,7 +106,7 @@ class IndexDeposit extends Component{
         }
     }
     HandleChangeBank(bk) {
-        console.log(bk);
+        
         this.setState({bank:bk})
     }
     onClickNext() {
@@ -215,7 +215,7 @@ class IndexDeposit extends Component{
             cursor:'no-drop',
             userSelect:'none'
         }
-        console.log("this.props.resWalletConfig",this.props.resWalletConfig);
+        
         return(
             <Layout page={"Deposit"} subpage="Wallet">
                 <div className="row">

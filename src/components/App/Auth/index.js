@@ -277,9 +277,9 @@ class Auth extends Component{
         // const renderButton = buttonProps => {
         //     return <button className="btn btn-warning" {...buttonProps}>Resend</button>;
         // };
-        console.log("this.state.type",this.state.type);
-        console.log(this.state.otpConfig);
-        console.log(this.props.otp_config);
+        
+        
+        
         const renderButton = buttonProps => {
                     return(
                         <div>
@@ -370,7 +370,7 @@ class Auth extends Component{
                                                     disabled={false}
                                                     style={{AlignItem:"center",justifyContent:"center"}}
                                                 />
-                                                    <ResendOTP renderButton={renderButton} maxTime='90' renderTime={renderTime} onResendClick={() =>{ this.sendOtpLogin();console.log('ResendOtp');}} />
+                                                    <ResendOTP renderButton={renderButton} maxTime='90' renderTime={renderTime} onResendClick={() =>{ this.sendOtpLogin();}} />
 
                                                     <button className="login100-form-btn" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyOtp}>
                                                         <span >Verifikasi</span>
@@ -380,7 +380,7 @@ class Auth extends Component{
                                             :
                                             this.state.type==='uid'?
                                             <>
-                                            <div style={{display: this.state.isPin?"none":"block"}}>
+                                            <div style={{display: this.state.isPin?"none":this.props.auth.isRegisterPin?"none":"block"}}>
                                                 <IntlTelInput
                                                     preferredCountries={['id']}
                                                     css={['intl-tel-input', 'form-control']}

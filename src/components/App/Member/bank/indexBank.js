@@ -85,7 +85,7 @@ class IndexBank extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormBankMember"));
         if(i!==''){
-            console.log(this.props.data.data[i].id);
+            
             this.setState({detail:{
 
                 "id":this.props.data.data[i].id,

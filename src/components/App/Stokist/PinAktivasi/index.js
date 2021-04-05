@@ -345,7 +345,7 @@ class Pin extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("state.pinReducer",state.pinReducer)
+    
     return {
         auth:state.auth,
         pinPin:state.pinReducer.data,

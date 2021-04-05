@@ -74,7 +74,7 @@ class Sponsor extends Component{
 
 
 const mapStateToProps = (state) => {
-   console.log(state)
+   
    return {
       isLoading:state.networkReducer.isLoading,
       list:state.networkReducer.data,

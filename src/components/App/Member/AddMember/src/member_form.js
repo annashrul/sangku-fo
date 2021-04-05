@@ -172,7 +172,7 @@ class MemberForm extends Component{
             parseData['pin_regist'] = this.state.pin_regist.id;
             let err = this.state.error;
             
-            console.log("dddddddddddddddd",parseData)
+            
 
             if(parseData['full_name']===''||parseData['full_name']===undefined){
                 err = Object.assign({}, err, {full_name:"Nama lengkap tidak boleh kosong"});
@@ -289,7 +289,7 @@ class MemberForm extends Component{
         }
         else{
             // if (this.props.detail !== undefined) {
-                console.log("tes",this.props)
+                
                 Swal.fire({
                     title: 'Informasi!',
                     text: "Pastikan data yang diinput telah benar.",
@@ -328,7 +328,7 @@ class MemberForm extends Component{
     }
     submitOtp = async (e)=>{
         e.preventDefault();
-        console.log(this.props.auth.user_otp.sender_id);
+        
         if(this.state.otp_val!==''){
             const res = await bycrypt.compare(this.state.otp_val,this.props.auth.user_otp.sender_id);
             if(res){
@@ -414,9 +414,9 @@ class MemberForm extends Component{
         // const {
         //     full_name,kode,paket,point_volume,category,
         // } = this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist);
-        // console.log(this.state.pin_regist===''?'':JSON.parse(this.state.pin_regist))
+        // 
         // const { data } = this.props.location
-        // console.log(this.props.location)
+        // 
         return (
             !this.props.isLoadingAuth?
                 !this.props.registered?
@@ -852,7 +852,7 @@ MemberForm.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,

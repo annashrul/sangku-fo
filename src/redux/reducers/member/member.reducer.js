@@ -23,7 +23,7 @@ export const memberReducer = (state = initialState, action) => {
                 isLoadingAvail: action.load
             });
         case MEMBER.SUCCESS_AVAIL:
-            console.log("action.data.result",action.data.result)
+            
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,

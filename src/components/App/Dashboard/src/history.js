@@ -6,7 +6,7 @@ import { toRp } from '../../../../helper';
 
 class History extends Component {
     render(){
-        console.log('this.props.list',this.props.list);
+        
         return(
              <div className="card h-100">
                 <div className="card-body">

@@ -50,7 +50,7 @@ class IndexTransfer extends Component{
         this.props.dispatch(FetchWalletConfig());
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.resBank);
+        
         if(nextProps.resWalletConfig!==undefined&&nextProps.resWalletConfig.tf_min!==undefined){
             this.setState({
                 tf_min:parseInt(nextProps.resWalletConfig.tf_min,10),
@@ -90,12 +90,12 @@ class IndexTransfer extends Component{
                 });
             }
         }
-        console.log("this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.'",this.props.tfReducer.status==='failed'&&this.props.tfReducer.msg==='PIN anda tidak sesuai.');
-        console.log("prevState.pinError",prevState.pinError);
-        console.log("this.state.pinError",this.state.pinError);
-        console.log("this.props.tfReducer",this.props.tfReducer);
-        console.log("this.props.tfReducer.status==='failed'",this.props.tfReducer.status==='failed');
-        console.log("this.props.tfReducer.msg===''",this.props.tfReducer.msg==='PIN anda tidak sesuai.');
+        
+        
+        
+        
+        
+        
     }
     onClickNext() {
         const { 
@@ -203,7 +203,7 @@ class IndexTransfer extends Component{
             cursor:'no-drop',
             userSelect:'none'
         }
-        console.log('currentStep',currentStep);
+        
         return(
             <Layout page={"Transfer"}>
                 <div className="row">
@@ -375,7 +375,7 @@ class IndexTransfer extends Component{
     }
 }
 const mapStateToProps = (state) => {
-    console.log("state.transferReducer",state.transferReducer);
+    
     return {
         auth: state.auth,
         resBank:state.bankReducer.data,

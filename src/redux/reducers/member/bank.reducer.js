@@ -19,14 +19,14 @@ const initialState = {
 export const bankReducer = (state = initialState, action) => {
     switch (action.type) {
         case BANK.SUCCESS:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,
                 data: action.data.result,
             });
         case BANK.SUCCESS_DATA:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,

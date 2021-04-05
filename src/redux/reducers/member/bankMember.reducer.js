@@ -17,7 +17,7 @@ const initialState = {
 export const bankMemberReducer = (state = initialState, action) => {
     switch (action.type) {
         case BANK_MEMBER.SUCCESS:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,

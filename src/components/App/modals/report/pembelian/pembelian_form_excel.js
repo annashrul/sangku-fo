@@ -42,7 +42,7 @@ class PembelianReportExcel extends Component{
         this.props.dispatch(getReportPembelianExcel('page=1'));
     }
     componentWillReceiveProps(nextProps){
-        console.log("componentWillReceiveProps",nextProps.pembelianReportExcel)
+        
     }
     toggle = (e) => {
         e.preventDefault();
@@ -85,7 +85,7 @@ class PembelianReportExcel extends Component{
             data,
             // footer
         );
-        console.log(data);
+        
         // this.toggle(e);
       }
     render(){

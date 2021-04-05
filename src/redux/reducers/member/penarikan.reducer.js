@@ -21,14 +21,14 @@ const initialState = {
 export const penarikanReducer = (state = initialState, action) => {
     switch (action.type) {
         case PENARIKAN.SUCCESS:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,
                 data: action.data.result,
             });
         case PENARIKAN.SUCCESS_REPORT:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,
@@ -39,7 +39,7 @@ export const penarikanReducer = (state = initialState, action) => {
                 persenDl: action.data
             });
         case PENARIKAN.SUCCESS_REPORT_EXCEL:
-            // console.log()
+            // 
             return Object.assign({}, state, {
                 status: action.data.status,
                 msg: action.data.msg,

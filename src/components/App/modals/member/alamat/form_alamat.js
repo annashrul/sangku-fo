@@ -111,9 +111,9 @@ class FormAlamat extends Component{
         let value = e.target.value;
         if(column==='main_address'){
             let split = String(value).split(',')
-            console.log("object ................",split.length);
-            console.log("splits ................",split);
-            // console.log("testtt ................",value.match(/,/g).length);
+            
+            
+            // 
             if(split.length===2&&String(split[1]).length<1){
                 if(value.match(/,/g).length<2){
                     ToastQ.fire({icon:'success',title:`Nama jalan diisi.`});
@@ -208,7 +208,7 @@ class FormAlamat extends Component{
         parsedata['no_hp'] = this.state.no_hp;
         parsedata['ismain'] = this.state.ismain;
 
-        console.log(parsedata);
+        
         if(parsedata['title']===''){
             ToastQ.fire({icon:'error',title:`title tidak boleh kosong`});
         }

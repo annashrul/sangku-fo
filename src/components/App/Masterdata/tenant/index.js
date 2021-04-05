@@ -200,7 +200,7 @@ class Tenant extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         tenant:state.tenantReducer.data,
         isLoading: state.tenantReducer.isLoading,

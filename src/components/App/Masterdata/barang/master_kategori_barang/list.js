@@ -103,7 +103,7 @@ class ListKategoriBarang extends Component{
     render(){
         const columnStyle = {verticalAlign: "middle", textAlign: "center",};
         const {last_page,per_page,current_page,data} = this.props.data;
-        console.log(data)
+        
         return (
             <div>
                 <form onSubmit={this.handlesearch} noValidate>

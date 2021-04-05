@@ -67,7 +67,7 @@ class Kurir extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         Kurir:state.kurirReducer.data,
         isLoading: state.kurirReducer.isLoading,

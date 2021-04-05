@@ -33,7 +33,7 @@ class AddMember extends Component {
         // this.props.dispatch(FetchNetwork(btoa(this.props.location.data===undefined?null:this.props.location.data.parent_id),true,'network'))
     }
     render() {
-        console.log('upline', this.props.upline);
+        
         return (
             <div>
                 {

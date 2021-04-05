@@ -27,7 +27,7 @@ export const sendOtp = (userData) =>
                     function () {
                         Swal.close()
                         // save token to localStorage
-                        // console.log(res);
+                        // 
                         dispatch(setCurrentOtp(res.data.result));
                         dispatch(setIsError(true));
                     },800)

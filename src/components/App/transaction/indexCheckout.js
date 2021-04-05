@@ -77,8 +77,8 @@ class IndexCheckout extends Component{
                 dataLayanan:[],
                 kurir:''
             })
-            console.log(this.state.valAlamat.title);
-            console.log(prevState.valAlamat.title);
+            
+            
         }
     }
 
@@ -199,9 +199,9 @@ class IndexCheckout extends Component{
 
             this.setState({dataBank:bank});
         }
-        console.log("nextProps.resVoucher.status !== undefined",nextProps.resVoucher.status !== undefined);
+        
         if(nextProps.resVoucher.status !== undefined){
-            console.log("nextProps.resVoucher",nextProps.resVoucher);
+            
             let data = {}
             if(nextProps.resVoucher.status===0){
                 data['msg'] = 'Voucher sudah terpakai.'
@@ -211,9 +211,9 @@ class IndexCheckout extends Component{
                 let dateNow = moment(new Date()).add(1,'d').format('YYYY-MM-DD HH:mm:ss')
                 let periodeEndValid = moment(dateNow).isSameOrBefore(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD HH:mm:ss'));
                 let periodeStartValid = moment(dateNow).isSameOrAfter(moment(nextProps.resVoucher.periode_start).format('YYYY-MM-DD HH:mm:ss'));
-                console.log("dNow",dateNow);
-                console.log("pEnd",periodeEndValid);
-                console.log("pStart",periodeStartValid);
+                
+                
+                
                 if(periodeStartValid&&periodeEndValid){
                     data['msg'] = 'Voucher digunakan.'
                     data['status'] = 'success'
@@ -230,15 +230,15 @@ class IndexCheckout extends Component{
                     data['disc'] = 0
                 }
                 // if(moment().diff(moment(nextProps.resVoucher.periode_end))){
-                //     console.log('tstdiff',moment(moment(new Date()).format('YYYY-MM-DD')).diff(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD')));
-                //     console.log('issameorafter',moment(moment(new Date()).format('YYYY-MM-DD')).isSameOrBefore(moment(nextProps.resVoucher.periode_end).format('YYYY-MM-DD')));
-                //     console.log('moment now',moment(new Date()).format());
-                //     console.log('moment pend',moment(nextProps.resVoucher.periode_end).format());
+                //     
+                //     
+                //     
+                //     
                 // } else {
-                //     console.log('tstdifffalse',moment(nextProps.resVoucher.periode_end));
+                //     
                 // }
             }
-            console.log('msg data',data);
+            
             this.setState({dataVoucher:data})
         }
     }

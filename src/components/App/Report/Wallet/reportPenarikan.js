@@ -153,7 +153,7 @@ class PenarikanReport extends Component{
             // to,
             data
         } = this.props.dataReport;
-        console.log("last_page",last_page);
+        
         return (
             <Layout page="Laporan Penarikan" subpage="Laporan">
                 <div className="card box-margin">
@@ -327,7 +327,7 @@ class PenarikanReport extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.penarikanReducer);
+    
     return {
         dataReport:state.penarikanReducer.data_report,
         isLoadingReport: state.penarikanReducer.isLoadingReport,

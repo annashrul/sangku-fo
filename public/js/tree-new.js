@@ -40,10 +40,10 @@ function trigger_click(target, parent_id, obj) {
                 $('#block-system-main').append(response);
                 w = $(obj).find('.fa-2x').offset().left;
                 tt = $('.binary-genealogy-tree').eq($('.binary-genealogy-tree').length - 1).find('.binary-node-single-item').eq(0).offset().left;
-                console.log("$(obj).find('.fa-2x')",$(obj).find('.fa-2x').offset())
-                console.log("$(obj).find('.fa-2x')",$(obj).find('.fa-2x').position())
-                console.log("W",w)
-                console.log("tt",tt)
+                
+                
+                
+                
                 if (w > tt) {
                     class_div = "binar-hr-line-left";
                     width = w - tt;
@@ -53,7 +53,7 @@ function trigger_click(target, parent_id, obj) {
                         w += 2;
                     }
                     width -= $('.binary-genealogy-tree').eq($('.binary-genealogy-tree').length - 1).find('.binary-node-single-item').eq(0).width() / 2;
-                    console.log(w);
+                    
                 } else {
                     class_div = "binar-hr-line-right";
                     width = tt - w;
@@ -65,9 +65,9 @@ function trigger_click(target, parent_id, obj) {
                     }
                     width += $('.binary-genealogy-tree').eq($('.binary-genealogy-tree').length - 1).find('.binary-node-single-item').eq(0).width() / 2;
                 }
-                console.log($(obj).find('.fa-2x').width())
-                console.log(w)
-                console.log(width)
+                
+                
+                
                 $('.binary-genealogy-tree').eq($('.binary-genealogy-tree').length - 1).prepend('<span class="line_logic hr_class ' + class_div + ' "></span>');
                 $('.binary-genealogy-tree').eq($('.binary-genealogy-tree').length - 1).find('.hr_class').css('width', (width) + 'px');
                 $('.binary-genealogy-tree').eq($('.binary-genealogy-tree').length - 1).find('.hr_class').css(css_style, w + 'px');

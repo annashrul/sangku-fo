@@ -58,7 +58,7 @@ class Binary extends Component{
 
 
 const mapStateToProps = (state) => {
-    // console.log(state.networkReducer)
+    // 
     return {
         isLoading:state.networkReducer.isLoading,
         list:state.networkReducer.data,

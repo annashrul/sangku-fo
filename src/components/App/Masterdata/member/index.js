@@ -67,7 +67,7 @@ class Member extends Component{
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    
     return {
         Member:state.memberReducer.data,
         isLoading: state.memberReducer.isLoading,

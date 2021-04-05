@@ -43,7 +43,7 @@ export const getInvoice = (trx) => {
             })
             .catch(function (error) {
                 dispatch(setLoading(false));
-                console.log(error.response.data);
+                
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

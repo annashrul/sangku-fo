@@ -81,7 +81,7 @@ class Sponsor extends Component{
                         document.getElementById('btnAdd_'+id).style.display = 'none';
                     } else {
                         document.getElementById('btnAdd_'+id).style.display = 'none';
-                        console.log("data.result.length",data.result.length)
+                        
                         if(data.result.length===1){
                         } else if(data.result.length>=2) {
                             let joined = this.state.arrs.concat(data.result);
@@ -139,7 +139,7 @@ class Sponsor extends Component{
     }
     getProps(props){
         this.flatToTree(this.state.arrs===[]?props.dataList:this.state.arrs,0)
-        // console.log("myTree",myTree);
+        // 
         const findItemNested = (arr, itemId, nestingKey) => arr.reduce((a, c) => {
             return a.length
             ? a
@@ -152,13 +152,13 @@ class Sponsor extends Component{
         
         this.state.arrs.forEach(elemA => {
             const res = findItemNested(this.state.arrs===[]?props.dataList:this.state.arrs, elemA.id, "children");
-            console.log("elemA.hasChild",res[0])
+            
             if(res[0].children === undefined){
                 if(elemA.hasChild){
                     document.getElementById('btnAdd_'+elemA.id).style.display = '';
                 }
             } else {
-                console.log("res.children",res[0].children);
+                
                 if(res[0].children.length===1){
                     if(res[0].children[0].position==='left'){
                         let joinedA = this.state.arrs.concat({"parent_id":res[0].id,"position":'right','hasChild':false,"detail":null},);
@@ -253,7 +253,7 @@ class Sponsor extends Component{
 
 
 const mapStateToProps = (state) => {
-    // console.log(state.networkReducer)
+    // 
     return {
         isLoading:state.networkReducer.isLoading,
         list:state.networkReducer.data,

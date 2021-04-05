@@ -92,7 +92,7 @@ class IndexProfile extends Component{
     }
 
     onCropComplete = (croppedArea, croppedAreaPixels) => {
-    // console.log(croppedArea, croppedAreaPixels)
+    // 
     var that = this
     try {
             let res = ''
@@ -102,14 +102,14 @@ class IndexProfile extends Component{
             )
             Promise.resolve(croppedImage).then(function(value) {
                 let getRes = ''
-                console.log(value);
+                
                 const xhr = new XMLHttpRequest();
                 xhr.onload = () => {
                     const reader = new FileReader();
                     reader.onloadend = () => {
                         getRes = reader.result
                         that.setState({cropped:reader.result})
-                        // console.log('donee',  reader.result )
+                        // 
                     };
                     reader.readAsDataURL(xhr.response);
                 };
@@ -117,10 +117,10 @@ class IndexProfile extends Component{
                 xhr.responseType = 'blob';
                 xhr.send();
                 res = getRes
-                console.log('dfdfsfs',getRes);
+                
             })
             // setCroppedImage(croppedImage)
-            console.log("asasasasa",res);
+            
             this.setState({cropped:res})
         } catch (e) {
             console.error(e)
@@ -219,7 +219,7 @@ class IndexProfile extends Component{
         this.props.dispatch(ModalToggle(bool));
         this.props.dispatch(ModalType("FormBankMember"));
         if(i!==''){
-            console.log(this.props.data_bank.data[i].id);
+            
             this.setState({detail:{
 
                 "id":this.props.data_bank.data[i].id,
@@ -300,7 +300,7 @@ class IndexProfile extends Component{
             const { scrollTop, scrollHeight, clientHeight } = this.alamatInnerRef.current;
             if (parseInt(scrollTop,10) + parseInt(clientHeight,10) === parseInt(scrollHeight,10)) {
               // TO SOMETHING HERE
-                console.log('Reached bottom')
+                
                 let perpage = parseInt(this.props.data_alamat.per_page,10);
                 let lengthData = parseInt(this.props.data_alamat.total,10);
                 if(perpage===lengthData || perpage<lengthData){
@@ -325,7 +325,7 @@ class IndexProfile extends Component{
             const { scrollTop, scrollHeight, clientHeight } = this.bankInnerRef.current;
             if (parseInt(scrollTop,10) + parseInt(clientHeight,10) === parseInt(scrollHeight,10)) {
               // TO SOMETHING HERE
-                console.log('Reached bottom')
+                
                 let perpage = parseInt(this.props.data_bank.per_page,10);
                 let lengthData = parseInt(this.props.data_bank.total,10);
                 if(perpage===lengthData || perpage<lengthData){
@@ -347,7 +347,7 @@ class IndexProfile extends Component{
     }
 
     render(){
-        console.log("full_name",this.state.full_name)
+        
         const {
             saldo,
             sponsor,

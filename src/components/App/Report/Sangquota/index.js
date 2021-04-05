@@ -84,7 +84,7 @@ class IndexSangquota extends Component{
             per_page,
             current_page
         } = this.props.raw_data;
-        console.log(this.props.data);
+        
         return(
             <Layout page="Riwayat SangQuota">
                <div className="row">

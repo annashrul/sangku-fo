@@ -51,9 +51,9 @@ class FormPinTransfer extends Component{
         e.preventDefault();
         if(this.state.uuid!==''&&this.state.uuid!==undefined){
             this.setState({member_data:{},uuid:''})
-            console.log("toggle",true);
+            
         } else {
-            console.log("toggle",false);
+            
             const bool = !this.props.isOpen;
             this.props.dispatch(ModalToggle(bool));
             this.setState({
@@ -117,7 +117,7 @@ class FormPinTransfer extends Component{
         this.setState({error: err});
     };
     render(){
-        console.log('this.props.type', this.props.type);
+        
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormPinTransfer"} size="md">

@@ -17,11 +17,11 @@ class PembelianCekResi extends Component{
     }
 
     componentWillMount(){
-        // console.log("componentWillMount",this.props.detailResi);
+        // 
         this.props.dispatch(cekResi(this.props.detailResi))
     }
     componentWillReceiveProps(nextProps){
-        console.log('componentWillReceiveProps',nextProps.pembelianCekResi)
+        
 
     }
 

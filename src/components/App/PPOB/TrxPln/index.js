@@ -76,7 +76,7 @@ class TrxPln extends Component{
         data['jenis'] = this.state.jenis;
         data['id_pelanggan'] = this.state.id_pelanggan;
         data['nohp'] = this.state.number;
-        console.log(data['nohp'])
+        
         if(data['jenis']===""){
             ToastQ.fire({icon:'error',title:`silahkan pilih jenis tagihan`});
             return false;

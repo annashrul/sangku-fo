@@ -89,7 +89,7 @@ class TempPasca extends Component{
         // }
         if(this.props.isLoadingCekTagihan){
             if (nextProps.dataTagihan !== undefined && typeof nextProps.dataTagihan === 'object') {
-                console.log('nextProps.dataTagihan', currentStep);
+                
                 var size = Object.keys(nextProps.dataTagihan).length;
 
                 if (size>2) {
@@ -248,7 +248,7 @@ class TempPasca extends Component{
     }
     render(){
         const { steps, currentStep,jenis } = this.state;
-        console.log(currentStep);
+        
         const blur = {
             WebkitFilter: 'blur(5px)',
             cursor:'no-drop',

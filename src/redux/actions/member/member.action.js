@@ -47,7 +47,7 @@ export const putMember = (data,id) => {
                     Swal.fire({
                         title: 'Success',
                         icon: 'success',
-                        text: "Data berhasil diperbarui, untuk melihat perubahan, silahkan relogin.",
+                        text: "Data berhasil diperbarui, untuk melihat perubahan, mungkin anda perlu melakukan login ulang.",
                     });
                     // window.location.href = '/'
                 } else {

@@ -13,7 +13,7 @@ class AddMember extends Component {
         this.props.dispatch(FetchNetwork(btoa(this.props.location.data===undefined?null:this.props.location.data.parent_id),true,'network'))
     }
     render() {
-        console.log(this.props.location.data)
+        
         return (
             <Layout page="Tambah Downline" subpage="Jaringan">
                 {

@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
 import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {ModalToggle, ModalType} from "redux/actions/modal.action";
+import {ModalToggle} from "redux/actions/modal.action";
 import connect from "react-redux/es/connect/connect";
 // import {ToastQ} from "helper";
 import WrapperModal from "../_wrapper.modal";
 import Spinner from 'Spinner'
-import Default from 'assets/default.png'
+// import Default from 'assets/default.png'
 import Skeleton from 'react-loading-skeleton';
 import {toRp} from 'helper';
 

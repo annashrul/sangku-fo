@@ -22,7 +22,7 @@ class PembelianDetail extends Component{
 
     // componentWillReceiveProps(nextProps){
     //     if(nextProps.data!=='-'){
-    //         console.log('OK');
+    //         
     //     }
     // }
 
@@ -36,7 +36,7 @@ class PembelianDetail extends Component{
 
     render(){
         const data = this.props.detail;
-        console.log(data.tagihan);
+        
         // const data = this.props.pembelianDetail===undefined?{}:this.props.pembelianDetail;
         let status='';
         if(data.status===0){

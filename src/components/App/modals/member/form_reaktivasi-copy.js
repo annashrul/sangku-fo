@@ -168,15 +168,18 @@ class FormReaktivasi extends Component{
                 paket: paket
             })
         } else {
+            let err = this.state.error;
+            err = Object.assign({}, err, {pin_regist:"Jumlah PIN yang anda miliki masih kurang!"});
             this.setState({
-                pin_regist: {}
+                pin_regist: {},
+                error: err,
             })
             ToastQ.fire({icon:'info',title:`Jumlah PIN yang anda miliki masih kurang!`});
         }
     };
     render(){
-        console.log("this.state.list_paket",this.state.list_paket);
-        console.log("this.state.paket",this.state.paket);
+        
+        
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasiCopy"} size={'lg'}>
@@ -263,7 +266,7 @@ class FormReaktivasi extends Component{
                         </div>
                         <div className="form-group mb-0 mt-0">
                             <button type="button" className="btn btn-warning mr-2" onClick={this.toggle}><i className="ti-close" /> Batal</button>
-                            <button type="submit" className="btn btn-primary mr-2" onClick={(e)=>this.handleStep(e,'next')} > {!this.props.isLoadingPost?(this.state.step!==2?'Selanjutnya':'Reaktivasi'):'Loading ......'}</button>
+                            <button type="submit" className="btn btn-primary mr-2" onClick={(e)=>this.handleStep(e,'next')} disabled={this.state.error.pin_regist!==''}> {!this.props.isLoadingPost?(this.state.step!==2?'Selanjutnya':'Reaktivasi'):'Loading ......'}</button>
                         </div>
                     </div>
                 </ModalFooter>
