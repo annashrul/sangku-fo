@@ -21,6 +21,8 @@ import { getBerita } from '../../../redux/actions/konten/berita.action';
 import {getRiwayat} from "../../../redux/actions/transaction/riwayat.action";
 import History from './src/history';
 import FormReaktivasiCopy from '../modals/member/form_reaktivasi-copy';
+import Swal from 'sweetalert2';
+import { setPopup } from '../../../redux/actions/dashboard/dashboard.action';
 const table = 'rekapitulasi';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
@@ -138,8 +140,46 @@ class Index extends Component {
         this.props.dispatch(getBerita(1,'&perpage=5'))
         this.props.dispatch(getRiwayat(1, null, null, null));
         this.getData()
+        if(this.props.isShow){
+            this.showPopup()
+        }
     }
 
+    showPopup(){
+        Swal.fire({
+            title: '<strong>Berita Ketetapan Management SangQu Masa Persiapan</strong>',
+            icon: 'info',
+            width: 600,
+            // padding: '3em',
+            html:
+            '<div style="text-align:justify"><div>PT Sangkuriang Sinergi Insan adalah perusahaan legal yang mentaati setiap regulasi yang telah ditetapkan oleh pemerintah Republik Indonesia berkaitan dengan pemenuhan aspek legal operasi sebuah perusahaan.</div>'+
+            '<div>&nbsp;</div>'+
+            '<div>Sehubungan dengan tengah menunggunya proses penyelesaian ijin khusus beroperasinya sebagai perusahaan yang bergerak di bidang network marketing, dengan ini Management PT Sangkuriang Sinergi Insan menyampaikan ketetapan yang harus diikuti oleh setiap calon distributor sebagai berikut;</div>'+
+            '<ol class="ml-4">'+
+                '<li style="list-style:decimal;>Dilarang untuk melakukan transaksi hingga Program sangQu dinyatakan resmi dibuka oleh pihak Management SangQu, segala aktifitas komitment transaksi bersifat individual dan Management SangQu tidak membuka pelayanan transaksi barang / paket hingga waktu yang akan ditetapkan kemudian.</li>'+
+                '<li style="list-style:decimal;>Calon member dilarang untuk mengupload segala aktifitas yang berkaitan dengan aktifitas di masa persiapan ini di semua platform media social secara terbuka/umum, terkecuali share informasi di media yang bersifat Clossed Grup (tertutup ) dan khusus hanya untuk konsumsi internal.</li>'+
+                '<li style="list-style:decimal;>Akses login di website &amp; Apps hanya bersifat trial- uji coba, dimana calon member dapat merasakan fitur-fitur fasilitas bisnis yang telah disiapkan oleh Management SangQu dan ditujukan untuk mendapat masukan yang bersifat evaluative pada masa persiapan ini.&nbsp;</li>'+
+                '<li style="list-style:decimal;>Management SangQu tidak bertanggung jawab atas segala aktifitas individu yang menyatakan dirinya sebagai calon member SangQu dan melalukan tindakan diluar ketentuan yang telah ditetapkan oleh pihak Management Sangqu di masa persiapan ini.</li>'+
+            '</ol>'+
+            '<div><br> Management sangQu berhak menolak pengajuan keanggotaan program SangQu bilamana terbukti ada aktifitas individu yang melanggar ketentuan yang berakibat pada terganggunya proses persiapan program SangQu.</div>'+
+            '<div><br> Atas pengertian dan kerjasama untuk mensukseskan masa-masa persiapan akhir ini, kami Management SangQu mengucapkan banyak terimakasih</div>'+
+            '<h4 class="text-dark mt-2">Management SangQu</h4></div>',
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Setuju!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText:
+                '<i class="fa fa-thumbs-down"></i>',
+            cancelButtonAriaLabel: 'Thumbs down'
+        }).then((result) => {
+            // console.log(result);
+            if(result.value){
+                this.props.dispatch(setPopup(false));
+            }
+        })
+    }
     UNSAFE_componentWillReceiveProps = (nextProps) => {
         if (nextProps.auth.user) {
             if(nextProps.auth.user.id !== undefined){
@@ -304,6 +344,7 @@ const mapStateToProps = (state) =>{
         isLoadingBerita:state.beritaReducer.isLoadingBerita,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
+        isShow: state.dashboardReducer.popupShow
      }
 }
 export default connect(mapStateToProps)(Index);

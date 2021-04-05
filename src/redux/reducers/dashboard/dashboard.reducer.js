@@ -4,6 +4,7 @@ import {
 
 const initialState = {
     isLoading: true,
+    popupShow: true,
     isLoadingPost:false,
     status: "",
     msg: "",
@@ -28,6 +29,10 @@ export const dashboardReducer = (state = initialState, action) => {
         case DASHBOARD.LOADING:
             return Object.assign({}, state, {
                 isLoading: action.load
+            });
+        case DASHBOARD.POPUP:
+            return Object.assign({}, state, {
+                popupShow: action.load
             });
         case DASHBOARD.SUCCESS_NEWEST:
             return Object.assign({}, state, {

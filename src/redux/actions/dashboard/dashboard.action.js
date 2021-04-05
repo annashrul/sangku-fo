@@ -9,6 +9,13 @@ export function setLoading(load) {
     }
 }
 
+export function setPopup(load) {
+    return {
+        type: DASHBOARD.POPUP,
+        load
+    }
+}
+
 export function setSendLoading(loadPost) {
     return {
         type: DASHBOARD.POST_LOADING,
