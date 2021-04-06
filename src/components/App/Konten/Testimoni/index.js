@@ -408,7 +408,10 @@ class Testimoni extends Component{
                                                                                         <div><button type="button" className="btn btn-outline-danger btn-circle" onClick={(e)=>this.toggleVideo(e,v.video)} ><i className="fa fa-play"/></button></div>
                                                                                     :''}
                                                                                     {String(v.picture).toLowerCase().search('default')!=='-1'?
-                                                                                    <div><button type="button" className="btn btn-outline-info btn-circle" onClick={(e)=>this.toggleFoto(e,v.picture)} ><i className="fa fa-file-image-o"/></button></div>
+                                                                                    <div>
+                                                                                        {/* <button type="button" className="btn btn-outline-info btn-circle" onClick={(e)=>this.toggleFoto(e,v.picture)} ><i className="fa fa-file-image-o"/></button> */}
+                                                                                        <img src={v.picture} className="img-fluid w-50 rounded-lg cursor-pointer" alt="sangku" onClick={(e)=>this.toggleFoto(e,v.picture)} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}/>
+                                                                                    </div>
                                                                                     :''}
                                                                                 </div>
                                                                             </div>

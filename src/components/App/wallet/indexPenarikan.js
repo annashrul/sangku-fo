@@ -122,7 +122,7 @@ class IndexPenarikan extends Component{
                     // cancelButtonText: 'Batal'
                 }).then(function(result){
                     if (result.value) {
-                        window.location.href = '/report/riwayat'
+                        window.location.href = '/report/wallet/penarikan'
                     }
                 })
             }
@@ -138,7 +138,7 @@ class IndexPenarikan extends Component{
                     // cancelButtonText: 'Batal'
                 }).then(function(result){
                     if (result.value) {
-                        window.location.href = '/report/riwayat'
+                        window.location.href = '/report/wallet/penarikan'
                     }
                 })
             }
@@ -341,52 +341,6 @@ class IndexPenarikan extends Component{
             <Layout page={"Penarikan"} subpage="Wallet">
                 {this.props.isLoadingWalletConfig?<div className="pt-3 w-100 bg-white"><Spinner/></div>:
                 <div className="row">
-                    {
-                    (this.state.id_card!=='-'&&this.state.id_card!==''&&this.state.id_card!==undefined)&&!this.state.is_have_ktp?
-                    <div className="col-12 box-margin">
-                        <div className="alert alert-danger bg-white text-danger text-center p-30 m-3" role="alert">
-                            <img className="img-fluid w-25 d-none d-md-inline" src={approve_user} alt="sangqu" />
-                            <img className="img-fluid w-75 d-inline d-md-none" src={approve_user} alt="sangqu" />
-                            <br/>
-                            <h3 className="text-danger">KTP sudah di terima. Silahkan tunggu proses validasi KTP anda oleh admin.</h3>
-                        </div>
-                    </div>
-                    :
-                    !this.state.is_have_ktp?
-                    <div className="col-12 box-margin">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="jumbotron text-center">
-                                    <div className="card-body">
-                                        <h3>Untuk melakukan penarikan, kami harus memastikan bahwa anda bukan robot. Maka dari itu silahkan unggah foto identitas anda seperti KTP/SIM/KITAS dsb.</h3>
-                                        {/* <div className="card-body"> */}
-                                            <div className="row mb-30">
-                                                <div className="col-md-4 offset-md-4">
-                                                    <img className="img-fluid mb-2" src={this.state.picture} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
-                                                    <div className="form-group">
-                                                        <File64
-                                                            multiple={ false }
-                                                            maxSize={2048} //in kb
-                                                            fileType='png, jpg' //pisahkan dengan koma
-                                                            className="form-control-file"
-                                                            onDone={ this.handleChangeImage }
-                                                            showPreview={false}
-                                                            lang='id'
-                                                        />
-                                                    </div>
-                                                    {this.state.picture!==''?<button type="button" className="btn btn-outline-secondary btn-block" onClick={(e)=>this.handleId(e)}>SIMPAN</button>:''}
-                                                </div>
-                                            </div>
-                                            <p className="font-11">Besar file: maksimum 2.000.000 bytes (2 Megabytes) Ekstensi file yang diperbolehkan: .JPG .JPEG .PNG</p>
-                                        {/* </div> */}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    :
-                    this.state.trx_wd===0?
                     <div className="col-12 box-margin">
                         <div className="container">
                             <div className="row">
@@ -437,7 +391,7 @@ class IndexPenarikan extends Component{
                                                                 <label>Tambah Rekening Bank</label>
                                                                 <Link to={`/profile`} className="btn btn-outline-info btn-block">TAMBAH BARU</Link>
                                                             </div>
-                }
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -528,7 +482,7 @@ class IndexPenarikan extends Component{
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                         <br/>
-                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/report/riwayat'})}}>Lihat Riwayat</button>
+                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/report/wallet/penarikan'})}}>Lihat Riwayat</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -553,15 +507,6 @@ class IndexPenarikan extends Component{
                             </div>
                         </div>
                     </div>
-                    :
-                    <div className="alert alert-danger bg-white text-danger text-center p-30 m-3" role="alert">
-                        <img className="img-fluid w-25 d-none d-md-inline" src={sorry} alt="sangqu" />
-                        <img className="img-fluid w-75 d-inline d-md-none" src={sorry} alt="sangqu" />
-                        <br/>
-                        <h3 className="text-danger">Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.</h3>
-                    </div>
-
-                }
                 </div>
                 }
                 {

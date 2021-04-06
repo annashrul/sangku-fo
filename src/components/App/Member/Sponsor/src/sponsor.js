@@ -17,7 +17,7 @@ class Sponsor extends Component{
         };
     }
     getCurrent = (node) => this.state.arrs.sort(function(a,b){if(a.position < b.position) { return -1 } if(a.position > b.position) { return 1 } return 0}).filter(cNode => cNode.parent_id === node).map(cNode => (
-        <li id={`li_${cNode.id}`} key={`node_${cNode.id}`}>
+        <li id={`li_${cNode.id}`} key={`node_${cNode.id}`} style={{visibility:cNode.id===undefined?'hidden':''}}>
             {cNode.detail===null?
                 <div className="eps-nc" nid={cNode.parent_id}>
                     <div className="usr-pic">
