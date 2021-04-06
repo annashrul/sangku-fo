@@ -24,12 +24,22 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown 
 import Cropper from 'react-easy-crop'
 import getCroppedImg from 'cropImage'
 import StickyBox from "react-sticky-box";
+import socketIOClient from "socket.io-client";
+import {HEADERS} from 'redux/actions/_constants'
+import Cookies from 'js-cookie'
+const socket = socketIOClient(HEADERS.URL, {
+    withCredentials: true,
+    extraHeaders: {
+        "my-custom-header": "abcd"
+    }
+});
 class IndexProfile extends Component{
     constructor(props){
         super(props);
         this.handleDetail    = this.handleDetail.bind(this);
         this.handleChange    = this.handleChange.bind(this);
         this.handleChangeImage    = this.handleChangeImage.bind(this);
+        this.handleChangeKtp    = this.handleChangeKtp.bind(this);
         this.handleSubmit    = this.handleSubmit.bind(this);
         this.handleDeleteAlamat    = this.handleDeleteAlamat.bind(this);
         this.handleDeleteBank    = this.handleDeleteBank.bind(this);
@@ -41,6 +51,7 @@ class IndexProfile extends Component{
         this.onCropComplete    = this.onCropComplete.bind(this);
         this.handleLoadMoreAlamat    = this.handleLoadMoreAlamat.bind(this);
         this.handleLoadMoreBank    = this.handleLoadMoreBank.bind(this);
+        this.handleAutoWd    = this.handleAutoWd.bind(this);
         this.showPin    = this.showPin.bind(this);
         this.alamatInnerRef = React.createRef();
         this.bankInnerRef = React.createRef();
@@ -51,16 +62,31 @@ class IndexProfile extends Component{
             member_detail:{},
             full_name:'',
             picture:'',
+            ktp:'',
             pin:'',
             password:'',
             re_password:'',
             any_alamat:'',
             any_bank:'',
+            autoWd:false,
             cropped:'',
             crop: { x: 0, y: 0 },
             zoom: 1,
             aspect: 1 / 1,
         }
+        
+        socket.on('refresh_dashboard',(data)=>{
+            this.refreshData(atob(Cookies.get('sangqu_exp')));
+        })
+       
+        socket.on("set_dashboard", (data) => {
+            console.log("set_dashboard",data);
+           this.setState({
+               load_socket:false,
+               autoWd: data.auto_wd,
+           })
+        });
+
     }
     componentDidUpdate(prevState){
         if(prevState.auth.user.id!==this.props.auth.user.id){
@@ -69,6 +95,7 @@ class IndexProfile extends Component{
         }
     }
     componentWillMount(){
+        this.refreshData(atob(Cookies.get('sangqu_exp')));
         this.props.dispatch(getAlamat(`page=1`));
         this.props.dispatch(getBankMember(`page=1`));
         if(this.props.auth.user.id!==undefined){
@@ -91,6 +118,11 @@ class IndexProfile extends Component{
         this.setState({ showPin:!this.state.showPin })
     }
 
+    
+    refreshData(id){
+        socket.emit('get_dashboard', {id_member:id})
+        socket.emit('get_notif', {id_member:id})
+    }
     onCropComplete = (croppedArea, croppedAreaPixels) => {
     // 
     var that = this
@@ -140,6 +172,15 @@ class IndexProfile extends Component{
         }
     };
 
+    handleChangeKtp(files) {
+        if (files.status==='success'){
+            // this.props.dispatch(putMember({picture:files.base64},this.props.auth.user.id))
+            this.setState({
+                ktp: files.base64
+            })
+        }
+    };
+
     handleDetail(e,i){
         e.preventDefault();
         alert(i);
@@ -165,12 +206,16 @@ class IndexProfile extends Component{
         param['full_name'] = this.state.full_name
         param['pin'] = parseInt(this.state.pin,10)
         param['password'] = this.state.password
+        param['id_card'] = this.state.ktp
 
         if(param.full_name===''){
             delete param.full_name
         }
-        if(param.pin===''){
+        if(param.pin===''&&param.pin===null){
             delete param.pin
+        }
+        if(param.id_card===''){
+            delete param.id_card
         }
         if(param.password===''){
             delete param.password
@@ -346,6 +391,27 @@ class IndexProfile extends Component{
         }
     }
 
+    handleAutoWd(e){
+        // e.preventDefault();
+        Swal.fire({
+            title: 'Informasi!',
+            text: this.state.autoWd?'Matikan Auto WD?':'Nyalakan Auto WD',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Proses',
+            cancelButtonText: 'Batal'
+        }).then(function(result){
+            if (result.value) {
+                this.props.dispatch(putMember({auto_wd:this.state.autoWd?0:1},this.props.auth.user.id))
+                this.setState({
+                    autoWd:!this.state.autoWd
+                })
+            }
+        }.bind(this))
+    }
+
     render(){
         
         const {
@@ -357,6 +423,7 @@ class IndexProfile extends Component{
             membership,
             jenjang_karir,
             pin,
+            id_card,
         } = this.state.member_detail
         return(
             <Layout page="Profile">
@@ -496,6 +563,27 @@ class IndexProfile extends Component{
                                                                                 </td>
                                                                                 {/* <td><h6 className="font-14">: {parseFloat(investment).toFixed(8)}</h6></td> */}
                                                                             </tr>
+                                                                            {String(id_card).includes('profile.png')?
+                                                                            <tr>
+                                                                                <td><h6 className="font-14"><span className="text-muted">KTP</span></h6></td>
+                                                                                <td>
+                                                                                <img className="img-fluid mb-2" src={this.state.ktp} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
+                                                                                <div className={!this.state.isEdit?"d-none":"form-group"}>
+                                                                                    <File64
+                                                                                        multiple={ false }
+                                                                                        maxSize={2048} //in kb
+                                                                                        fileType='png, jpg' //pisahkan dengan koma
+                                                                                        className="form-control-file"
+                                                                                        onDone={ this.handleChangeKtp }
+                                                                                        showPreview={false}
+                                                                                        lang='id'
+                                                                                    />
+                                                                                </div>
+                                                                                </td>
+                                                                                {/* <td><h6 className="font-14">: {parseFloat(investment).toFixed(8)}</h6></td> */}
+                                                                            </tr>
+                                                                            :null
+                                                                            }
                                                                         </tbody>
                                                                         <tfoot>
                                                                             <tr>
@@ -527,6 +615,25 @@ class IndexProfile extends Component{
                                                         <div>
                                                             <p className="text-muted m-0">Membership</p>
                                                             <h5 className="text-black">{membership}</h5>
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-muted m-0">Auto WD</p>
+                                                            {/* <h5 className="text-black">{membership}</h5> */}
+                                                                {/* <div className="card h-100 box-margin">
+                                                                    <div className="card-body">
+                                                                        <div className="d-flex justify-content-between align-items-center p-1">
+                                                                            <p class="p-0 m-0">AUTO WITHDRAW</p>
+                                                                        <div className="d-flex justify-content-start align-items-center" > */}
+                                                                        <div className="new-checkbox">
+                                                                                    <label className="switch m-0">
+                                                                                        <input type="checkbox" checked={this.state.autoWd} onChange={(e)=>this.handleAutoWd(e)} />
+                                                                                        <span className="slider rounded-lg"></span>
+                                                                                    </label>
+                                                                        </div>
+                                                                                {/* </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> */}
                                                         </div>
                                                         {/* <a className="user-avatar text-right" href={()=>null}><img src="http://ptnetindo.com:6694/badge/executive.png" alt="user" className="img-fluid w-50" /> </a> */}
                                                     </div>

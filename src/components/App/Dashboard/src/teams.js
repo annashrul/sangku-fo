@@ -64,7 +64,7 @@ class Overview extends Component {
                                         <div className="row">
                                             <div className="col-12">
                                                 <h5>{this.props.point_ro}</h5>
-                                                <p className="title-widget-team mb-0">Poin Repeat Order</p>
+                                                <p className="title-widget-team mb-0">Poin Blanza</p>
                                             </div>
                                         </div>
                                     </div>
