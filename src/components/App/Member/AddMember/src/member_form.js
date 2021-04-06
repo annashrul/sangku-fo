@@ -462,7 +462,7 @@ class MemberForm extends Component{
     };
     handleSponsorFind(e) {
         e.preventDefault();
-        this.props.FetchAvailableMember(this.state.findSponsor);
+        this.props.FetchAvailableMember(this.state.findSponsor,this.state.upline);
     };
     handleMembership(e,val) {
         e.preventDefault();
