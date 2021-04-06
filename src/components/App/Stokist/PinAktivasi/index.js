@@ -3,7 +3,12 @@ import Layout from 'components/Layout'
 import connect from "react-redux/es/connect/connect";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import moment from "moment";
-import {FetchAvailablePin, FetchPin, pinReaktivasi} from '../../../../redux/actions/pin/pin.action'
+import {
+    FetchAvailablePin,
+    FetchPin,
+    pinReaktivasi,
+    setKategori
+} from '../../../../redux/actions/pin/pin.action'
 import FormPinTransfer from '../../modals/member/form_pin_transfer';
 import { FetchSitePaket } from '../../../../redux/actions/site.action';
 import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
@@ -154,33 +159,13 @@ class Pin extends Component{
         this.handleParameter(1);
     }
     handleParameter(pageNumber){
-        // let dateFrom=localStorage.date_from_pin;
-        // let dateTo=localStorage.date_to_pin;
-        // let kategori = localStorage.kategori_pin;
-        // let lokasi = localStorage.location_pin;
         let any = localStorage.any_pin;
-        // let sort=localStorage.sort_pin;
-        // let filter=localStorage.filter_pin;
         let status=localStorage.status_pin;
         let where='';
-        // if(dateFrom!==undefined&&dateFrom!==null){
-        //     where+=`&datefrom=${dateFrom}&dateto=${dateTo}`;
-        // }
-        // if(lokasi!==undefined&&lokasi!==null&&lokasi!==''){
-        //     where+=`&lokasi=${lokasi}`;
-        // }
         
         if(status!==undefined&&status!==null&&status!==''){
             where+=`&status=${status}`;
         }
-        // if(filter!==undefined&&filter!==null&&filter!==''){
-        //     if(sort!==undefined&&sort!==null&&sort!==''){
-        //         where+=`&sort=${filter}|${sort}`;
-        //     }
-        // }
-        // if(kategori!==undefined&&kategori!==null&&kategori!==''){
-        //     where+=`&q=${kategori}`
-        // }
         if(any!==undefined&&any!==null&&any!==''){
             where+=`&search=${any}`
         }
@@ -188,7 +173,6 @@ class Pin extends Component{
             where_data:where
         })
         this.props.dispatch(FetchPin(pageNumber,this.props.auth.user.id,where))
-        // this.props.dispatch(FetchPembelianExcel(pageNumber,where))
     }
     componentWillReceiveProps = (nextProps) => {
         let sort = [
@@ -293,11 +277,20 @@ class Pin extends Component{
         this.props.dispatch(ModalType("FormReaktivasi"));
     }
     handleTransfer(e,v){
-        this.setState({pin_data:v})
-        // this.props.dispatch(setMemberAvail({'result':{},'msg':'','status':''}))
-        const bool = !this.props.isOpen;
-        this.props.dispatch(ModalToggle(bool));
-        this.props.dispatch(ModalType("FormPinTransfer"));
+        if(parseInt(v.jumlah)===0){
+            Swal.fire({
+                title: 'PERHATIAN',
+                text: "Anda tidak memiliki PIN ini. Silahkan lakukan pembelian paket.",
+                icon: 'warning',
+            })
+
+        }else{
+            this.props.dispatch(setKategori(v))
+            // this.props.dispatch(setMemberAvail({'result':{},'msg':'','status':''}))
+            const bool = !this.props.isOpen;
+            this.props.dispatch(ModalToggle(bool));
+            this.props.dispatch(ModalType("FormPinTransfer"));
+        }
     }
     render(){
         return (
@@ -334,7 +327,7 @@ class Pin extends Component{
                     </div>
                 </Tabs>
                 {/* <FormReaktivasi availPin={this.props.getPin} datum={this.state.pin_reaktivasi} listPaket={this.props.listPaket}/> */}
-                <FormPinTransfer data={this.state.pin_data} jenis={0}/>
+                <FormPinTransfer jenis={0}/>
                 <FormListStokist/>
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null

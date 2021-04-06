@@ -13,6 +13,7 @@ import { initDB } from 'react-indexed-db';
 import {HEADERS} from "redux/actions/_constants";
 import axios from 'axios';
 import 'react-intl-tel-input/dist/main.css';
+import jwt_decode from "jwt-decode";
 
 import 'bootstrap-daterangepicker/daterangepicker.css';
 
@@ -30,20 +31,20 @@ axios.defaults.headers.common['Content-Type'] = `application/x-www-form-urlencod
     const sess = get('sess');
       sess.then(res => {
         if (res.length!==0) {
+          // Set auth token header auth
+          setAuthToken(atob(token));
           store.dispatch(setCurrentUser(res[0]))
 
-          // Decode auth token and get user info
-          // let decoded = jwt_decode(localStorage.jwtToken);
-          // Dispatch user info
-          // Check for expire token
-          // const currentTime = Date.now() /1000;
-          // if(decoded.exp < currentTime){
-          //   // Logout User
-          //   store.dispatch(logoutUser());
-          //   // TODO: Clear current profile
-          //   // Redirect to login
-          //   window.location.href = '/login';
-          // }
+          // cek JWT Token
+          var decodedToken = jwt_decode(atob(token));
+          var dateNow = new Date();
+          if (decodedToken.exp * 1000 < dateNow.getTime()) {
+            store.dispatch(logoutUser());
+            Cookies.remove('sangqu_datum')
+
+            // Redirect to login
+            window.location.href = '/login';
+          }
         }else{
           store.dispatch(logoutUser());
           Cookies.remove('sangqu_datum')

@@ -2,14 +2,6 @@ import axios from "axios"
 import Swal from "sweetalert2";
 import {CART, HEADERS} from "../_constants";
 import {ToastQ} from "helper";
-// import socketIOClient from "socket.io-client";
-// import Cookies from 'js-cookie'
-// const socket = socketIOClient(HEADERS.URL, {
-//     withCredentials: true,
-//     extraHeaders: {
-//         "my-custom-header": "abcd"
-//     }
-// });
 export function setLoading(load) {
     return {
         type: CART.LOADING,
@@ -100,7 +92,6 @@ export const postCart = (data,param="") => {
                     dispatch(setIsError(false));
                 }
                 dispatch(setLoadingPost(false));
-                // socket.emit('get_notif', {id_member:atob(Cookies.get('sangqu_exp'))})
 
 
             })
@@ -154,7 +145,6 @@ export const deleteCart = (id) => async dispatch =>{
                     }
                     dispatch(setLoading(false));
                     dispatch(getCart());
-                    // socket.emit('get_notif', {id_member:atob(Cookies.get('sangqu_exp'))})
                 },800)
 
         }).catch(error =>{

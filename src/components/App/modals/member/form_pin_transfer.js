@@ -38,15 +38,23 @@ class FormPinTransfer extends Component{
             }
         };
     }
-
-    componentDidUpdate(prevState){
-        if(prevState.data!==this.props.data){
-            this.setState({pin_data:this.props.data})
+    static getDerivedStateFromProps(props, state){
+        if (state.beforePinData !== props.data_kategori) {
+            console.log("member_data", props.data_kategori);
+            return {
+                pin_data: props.data_kategori,
+                beforePinData:props.data_kategori
+            }
         }
-        if(prevState.memberAvail!==this.props.memberAvail){
-            this.setState({member_data:this.props.memberAvail})
+        if(state.beforeMemberAvail!==props.memberAvail){
+            return {
+                member_data:props.memberAvail,
+                beforeMemberAvail: props.memberAvail
+            }
         }
+        
     }
+
     toggle = (e) => {
         e.preventDefault();
         if(this.state.uuid!==''&&this.state.uuid!==undefined){
@@ -242,6 +250,7 @@ const mapStateToProps = (state) => {
         isLoading:state.pinReducer.isLoading,
         isLoadingAvail:state.memberReducer.isLoadingAvail,
         memberAvail:state.memberReducer.data_avail,
+        data_kategori:state.pinReducer.data_kategori
     }
 }
 export default connect(mapStateToProps)(FormPinTransfer);
