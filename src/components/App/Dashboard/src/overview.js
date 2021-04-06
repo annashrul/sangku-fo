@@ -106,7 +106,7 @@ class Overview extends Component {
                                             </div>
                                             <div className="col-md-7 col-7 pl-2 pr-0">
                                                 <div style={{marginTop:'5px'}}>{this.props.jenjang_karir}</div>
-                                                <div style={{fontSize:'.7em',color:'gray',fontWeight:'bold'}}>Karir terkini.</div>
+                                                <div style={{fontSize:'.7em',color:'gray',fontWeight:'bold'}}>Poin reward.</div>
                                                 <div style={{fontSize:'.8em',color:'black',fontWeight:'light'}}>Poin : {this.props.reward_kiri} | {this.props.reward_kanan}</div>
                                             </div>
                                         </div>

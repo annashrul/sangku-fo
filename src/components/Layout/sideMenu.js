@@ -198,7 +198,7 @@ class SideMenu extends Component {
                     </li>
                     {/* STKIST MODUL END */}
                     {/* PPOB MODUL START */}
-                    <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> Top Up & Tagihan</span></Link></li>
+                    {/* <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> Top Up & Tagihan</span></Link></li> */}
                     {/* PPOB MODUL END */}
                     {/* WALLET MODUL START */}
                     <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
@@ -229,7 +229,7 @@ class SideMenu extends Component {
                             <li className={path==='/report/pembelian'?"active":''}><Link to="/report/pembelian" style={{width:'fit-content'}}>Riwayat Pembelian</Link></li>
                             <li className={path==='/report/riwayat'?"active":''}><Link to="/report/riwayat" style={{width:'fit-content'}}> Riwayat Transaksi</Link></li>
                             <li className={path==='/report/sangquota'?"active":''}><Link to="/report/sangquota" style={{width:'fit-content'}}> Riwayat SangQuota</Link></li>
-                            <li className={path==='/report/ppob'?"active":''}><Link to="/report/ppob" style={{width:'fit-content'}}> Top Up & Tagihan</Link></li>
+                            {/* <li className={path==='/report/ppob'?"active":''}><Link to="/report/ppob" style={{width:'fit-content'}}> Top Up & Tagihan</Link></li> */}
                             <li className={path==='/report/wallet/deposit'?"active":''}><Link to="/report/wallet/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/report/wallet/penarikan'?"active":''}><Link to="/report/wallet/penarikan" style={{width:'fit-content'}}> Penarikan</Link></li>
                             <li className={path==='/report/redeem'?"active":''}><Link to="/report/redeem" style={{width:'fit-content'}}> Redeem Poin</Link></li>

@@ -17,9 +17,24 @@ import bycrypt from 'bcryptjs';
 import { withRouter } from 'react-router-dom';
 import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
+import { getBankData } from '../../../../../redux/actions/member/bank.action';
+import Select, { components } from "react-select";
+import { FetchAvailableMember } from '../../../../../redux/actions/member/member.action';
 // import { object } from 'prop-types';
 // import OTPInput, { ResendOTP } from "otp-input-react";
 const resendTime = 120;
+const { Option } = components;
+const IconOption = props => (
+<Option {...props}>
+    <div className="client-media-content d-flex align-items-center p-1">
+    {/* <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} /> */}
+    <div className="user--media-body">
+        <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
+        <span className="font-13 text-dark">{props.data.childLabel}</span>
+    </div>
+    </div>
+</Option>
+);
 class MemberForm extends Component{
     constructor(props){
         super(props);
@@ -28,6 +43,8 @@ class MemberForm extends Component{
         this.handleLevel = this.handleLevel.bind(this);
         this.handleMembership = this.handleMembership.bind(this);
         this.handleChangeImage = this.handleChangeImage.bind(this);
+        this.handleSponsor = this.handleSponsor.bind(this);
+        this.handleSponsorFind = this.handleSponsorFind.bind(this);
         this.state = {
             full_name:'',
             mobile_no:'',
@@ -38,14 +55,22 @@ class MemberForm extends Component{
             membership:'-',
             device_id:'-',
             signup_source:'website',
+            findSponsor:'',
+            sponsorship:'me',
             sponsor:'-',
             sponsor_name:'-',
             sponsor_picture:'-',
+            temp_sponsor:'-',
+            temp_sponsor_name:'-',
+            temp_sponsor_picture:'-',
             upline:'-',
             upline_name:'-',
             upline_picture:'-',
             pin_regist:'',
             otp_val:'',
+            bank_data:[],
+            bank_name:'',
+            bank_no:'',
             position:'-',
             prev:'',
             confirm:false,
@@ -66,6 +91,8 @@ class MemberForm extends Component{
                 upline:'',
                 pin_regist:'',
                 otp_val:'',
+                bank_name:'',
+                bank_no:'',
                 prev:'',}
         };
         this.handleMembership = this.handleMembership.bind(this);
@@ -73,7 +100,7 @@ class MemberForm extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.toggle = this.toggle.bind(this);
         this.setPhone = this.setPhone.bind(this);
-        
+        this.HandleChangeBank = this.HandleChangeBank.bind(this);
         this.submitOtp = this.submitOtp.bind(this);
         this.timer = 0;
         this.startTimer = this.startTimer.bind(this);
@@ -90,12 +117,51 @@ class MemberForm extends Component{
                 }.bind(this), 500)
             }
         }
+        let data_bank = []
+        if(nextProps.resBank!==undefined&&nextProps.resBank.length>0){
+            nextProps.resBank.map((i) => {
+                data_bank.push({
+                    value: i.id,
+                    label: i.name,
+                    childLabel: i.code,
+                    icon: i.value,
+                });
+                return null;
+            });
+            this.setState({
+                bank_data:data_bank
+            })
+        }
         this.getProps(nextProps)
         //debug otp
         if (this.props.auth.user_otp !==undefined) {
             this.setState({otp_val:this.props.auth.user_otp.otp_anying })
         }
+        
+        if (this.props.memberAvail!==undefined&&this.props.memberAvail.referral_code!==undefined) {
+            if (this.state.sponsor !==this.props.memberAvail.referral_code) {
+                this.setState({
+                    sponsor:this.props.memberAvail.referral_code,
+                    sponsor_name:this.props.memberAvail.full_name,
+                    sponsor_picture:this.props.memberAvail.picture,
+                })
+            }
+        }
      }
+    //  componentDidUpdate(prevState){
+         
+    //     // if (this.props.data_avail!==undefined&&this.props.data_avail.referral_code!==undefined) {
+    //         // if (this.state.sponsor !==this.props.data_avail.referral_code) {
+    //         if (prevState.data_avail !==this.props.data_avail) {
+    //             this.setState({
+    //                 sponsor:this.props.data_avail.referral_code,
+    //                 sponsor_name:this.props.data_avail.full_name,
+    //                 sponsor_picture:this.props.data_avail.picture,
+    //             })
+    //         }
+    //         // }
+    //     // }
+    //  }
     getProps(param){
         if(this.props.dataAdd===undefined){
             // window.location.href = '/binary'
@@ -112,27 +178,40 @@ class MemberForm extends Component{
         }, []);
         const res = findItemNested(this.props.dataUpline, this.props.dataId, null);
         if(res[0]!==undefined){
-            this.setState({
-                sponsor:param.auth.user.referral_code,
-                sponsor_name:param.auth.user.full_name,
-                sponsor_picture:param.auth.user.picture,
-                upline:this.props.dataAdd.parent_id,
-                upline_name:res[0].name,
-                upline_picture:res[0].picture,
-                position:this.props.dataAdd.position,
-            })
+            if(this.state.sponsorship==='me'){
+                this.setState({
+                    sponsor:param.auth.user.referral_code,
+                    sponsor_name:param.auth.user.full_name,
+                    sponsor_picture:param.auth.user.picture,
+                    upline:this.props.dataAdd.parent_id,
+                    upline_name:res[0].name,
+                    upline_picture:res[0].picture,
+                    position:this.props.dataAdd.position,
+                })
+            }
         }
     }
     componentWillMount(){
         this.getProps(this.props);
-    }
-    componentWillReceiveProps(nextProps) {
-        this.getProps(nextProps);
+        this.props.getBankData()
     }
     componentDidUpdate(prevProps){
         if(this.props!==prevProps){
             this.getProps(this.props)
         }
+        console.log("prevProps.memberAvail",prevProps.memberAvail);
+        console.log("this.props.memberAvail",this.props.memberAvail);
+        // if (prevProps.sponsor !=='-') {
+        //     this.setState({
+        //         sponsor:this.props.memberAvail.referral_code,
+        //         sponsor_name:this.props.memberAvail.full_name,
+        //         sponsor_picture:this.props.memberAvail.picture,
+        //     })
+        // }
+    }
+    
+    HandleChangeBank(bk) {
+        this.setState({bank_name:bk.label})
     }
     handleLevel(val) {
         let err = Object.assign({}, this.state.error, {level: ""});
@@ -357,6 +436,34 @@ class MemberForm extends Component{
             picture: files.base64
         })
     };
+    handleSponsor(e,data) {
+        e.preventDefault();
+        this.setState({
+            sponsorship: data
+        })
+        if(data==='their'){
+            this.setState({
+                temp_sponsor: this.state.sponsor,
+                temp_sponsor_name: this.state.sponsor_name,
+                temp_sponsor_picture: this.state.sponsor_picture,
+                
+                sponsor : '-',
+                sponsor_name : '-',
+                sponsor_picture : '-',
+            })
+        } else {
+            this.setState({
+                sponsor : this.state.temp_sponsor,
+                sponsor_name : this.state.temp_sponsor_name,
+                sponsor_picture : this.state.temp_sponsor_picture,
+            })
+
+        }
+    };
+    handleSponsorFind(e) {
+        e.preventDefault();
+        this.props.FetchAvailableMember(this.state.findSponsor);
+    };
     handleMembership(e,val) {
         e.preventDefault();
         if(parseInt(val.jumlah,10)>0){
@@ -529,6 +636,32 @@ class MemberForm extends Component{
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div className="form-group">
+                                                    <label>Sponsorship</label>
+                                                    <div className="row no-gutters">
+                                                        <div className="col-6">
+                                                            <button type="button" className={`btn${this.state.sponsorship==='me'?'-danger':'-secondary'} btn-block p-2`} disabled={this.state.sponsorship==='me'} onClick={(e)=>this.handleSponsor(e,'me')}>Saya sebagai Sponsor</button>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <button type="button" className={`btn${this.state.sponsorship==='their'?'-danger':'-secondary'} btn-block p-2`} disabled={this.state.sponsorship==='their'} onClick={(e)=>this.handleSponsor(e,'their')}>Orang lain sebagai Sponsor</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className={`form-group ${this.state.sponsorship==='their'?'':'d-none'}`}>
+                                                    <label>Cari Sponsorship</label>
+                                                    <div className="input-group mb-3">
+                                                        <input type="text" className="form-control" placeholder="Kode Sponsor" name="findSponsor" value={this.state.findSponsor} onChange={this.handleChange}/>
+                                                        <div className="input-group-append">
+                                                            {this.props.isLoadingAvail?
+                                                            <button className="btn btn-primary" type="button" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /><span className="sr-only">Loading...</span></button>
+                                                            :
+                                                            <button className="btn btn-primary" type="button" onClick={(e)=>this.handleSponsorFind(e)}><i className="fa fa-search"/></button>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
                                                 {/* <div className="form-group">
                                                     <label>No. Identitas (KTP)</label>
                                                     <input
@@ -646,21 +779,21 @@ class MemberForm extends Component{
                                                                 <div className="row m-1 justify-content-center">
                                                                     <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                                     {
-                        (
-                            typeof this.props.availPin === 'object' ?
-                                this.props.availPin.map((v,i)=>{
-                                    return(
-                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
-                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
-                                            <br/>
-                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
-                                            <br/>
-                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
-                                        </Tab>
-                                    )
-                                })
-                                : "No data."
-                        )
+                                                                        (
+                                                                            typeof this.props.availPin === 'object' ?
+                                                                                this.props.availPin.map((v,i)=>{
+                                                                                    return(
+                                                                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                                                            <br/>
+                                                                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                                                            <br/>
+                                                                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
+                                                                                        </Tab>
+                                                                                    )
+                                                                                })
+                                                                                : "No data."
+                                                                        )
                                                                     }
                                                                 </div>
                                                                 </TabList>
@@ -683,6 +816,35 @@ class MemberForm extends Component{
                                                                 onChange={this.handleChange}  />
                                                         <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
                                                             {this.state.error.pin}
+                                                        </div>
+                                                    </div>
+                                                    <div className="img-thumbnail rounded-lg p-2 d-none" style={{borderColor:'#e8ebf1'}}>
+                                                    {/* <hr/> */}
+                                                        <small className="text-muted">Data Bank</small>
+                                                        <div className="form-group">
+                                                            <label>Nama Bank</label>
+                                                            { typeof this.state.bank_data === 'object'? this.state.bank_data.length>0?
+                                                            <Select
+                                                                defaultValue={this.state.bank_data[0]}
+                                                                options={this.state.bank_data}
+                                                                components={{ Option: IconOption }}
+                                                                onChange={this.HandleChangeBank}
+                                                                value={
+                                                                    this.state.bank_data.find(op => {
+                                                                    return op.label === this.state.bank
+                                                                })}
+                                                            /> : <Spinner/> : <Spinner/>
+                                                            }
+                                                            <div className="invalid-feedback" style={this.state.error.bank_name!==""?{display:'block'}:{display:'none'}}>
+                                                                {this.state.error.bank_name}
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Nomor Bank</label>
+                                                            <input type="text" className="form-control form-control-lg" name="bank_no" value={this.state.bank_no} onChange={this.handleChange}  />
+                                                            <div className="invalid-feedback" style={this.state.error.bank_no!==""?{display:'block'}:{display:'none'}}>
+                                                                {this.state.error.bank_no}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -738,6 +900,14 @@ class MemberForm extends Component{
                                                             <th className="text-left" scope="row">No. Telpon</th>
                                                             <th className="text-left" scope="row">: {this.state.mobile_no}</th>
                                                         </tr>
+                                                        {/* <tr>
+                                                            <th className="text-left" scope="row">Nama Bank</th>
+                                                            <th className="text-left" scope="row">: {this.state.bank_name}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th className="text-left" scope="row">No. Bank</th>
+                                                            <th className="text-left" scope="row">: {this.state.bank_no}</th>
+                                                        </tr> */}
                                                         <tr>
                                                             <th className="text-left align-middle" scope="row">Sponsor</th>
                                                             <th className="text-left align-middle" scope="row">
@@ -807,6 +977,14 @@ class MemberForm extends Component{
                                         <th className="text-left" scope="row">No. Telpon</th>
                                         <th className="text-left" scope="row">: {this.state.mobile_no}</th>
                                     </tr>
+                                    {/* <tr>
+                                        <th className="text-left" scope="row">Nama Bank</th>
+                                        <th className="text-left" scope="row">: {this.state.bank_name}</th>
+                                    </tr>
+                                    <tr>
+                                        <th className="text-left" scope="row">No. Bank</th>
+                                        <th className="text-left" scope="row">: {this.state.bank_no}</th>
+                                    </tr> */}
                                     <tr>
                                         <th className="text-left" scope="row">Sponsor</th>
                                         <th className="text-left" scope="row">: {this.state.sponsor}</th>
@@ -859,9 +1037,13 @@ const mapStateToProps = (state) => {
         pinList:state.pinReducer.data_detail,
         isLoading:state.pinReducer.isLoading,
         isLoadingAuth:state.auth.isLoading,
+        isLoadingData: state.bankReducer.isLoadingData,
+        resBank: state.bankReducer.data_bank,
         registered:state.auth.isRegistered,
-        auth:state.auth
+        auth:state.auth,
+        isLoadingAvail:state.memberReducer.isLoadingAvail,
+        memberAvail:state.memberReducer.data_avail,
         // Level:state.userLevelReducer.data,
     }
 }
-export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPin,createMember})(MemberForm));
+export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPin,createMember,getBankData,FetchAvailableMember})(MemberForm));

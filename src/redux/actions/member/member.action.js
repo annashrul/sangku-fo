@@ -50,6 +50,26 @@ export const putMember = (data,id) => {
                         icon: 'success',
                         text: "Data berhasil diperbarui, untuk melihat perubahan, mungkin anda perlu melakukan login ulang.",
                     });
+                    Swal.fire({
+                        allowOutsideClick: false,
+                        title: 'Success',
+                        icon: 'success',
+                        text: "Data berhasil diperbarui, untuk melihat perubahan, mungkin anda perlu melakukan login ulang.",
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Okay!',
+                        confirmButtonAriaLabel: 'Okay!',
+                        // cancelButtonText:
+                        //     '<i class="fa fa-thumbs-down"></i>',
+                        // cancelButtonAriaLabel: 'Thumbs down'
+                    }).then((result) => {
+                        // console.log(result);
+                        if(result.value){
+                            window.location.reload()
+                        }
+                    })
                     // window.location.href = '/'
                 } else {
                     Swal.fire({
@@ -178,7 +198,6 @@ export const UpdateIndexDb = (id)=>{
                     //     expires: 1
                     // });
                     dispatch(setLoggedin(true));
-                    window.location.reload()
                 }
             }).catch(function(error){
                 if (error.message === 'Network Error') {

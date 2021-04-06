@@ -8,6 +8,7 @@ import Stepper from 'react-stepper-horizontal';
 import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
 import sorry from '../../../assets/sorry.png'
+import approve_user from '../../../assets/approve_user.png'
 // import { FetchAvailableMember } from '../../../redux/actions/member/member.action';
 import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
@@ -20,6 +21,7 @@ import File64 from "components/common/File64";
 import { putMember } from '../../../redux/actions/member/member.action';
 import { FetchWalletConfig } from '../../../redux/actions/site.action';
 import { toRp } from '../../../helper';
+import Spinner from 'Spinner';
 
 
 const { Option } = components;
@@ -40,6 +42,7 @@ class IndexPenarikan extends Component{
         this.state={
             amount:"0",
             is_have_ktp:true,
+            id_card:'-',
             wd_min:0,
             wd_charge:0,
             trx_wd:'',
@@ -87,6 +90,7 @@ class IndexPenarikan extends Component{
                 saldo:parseInt(nextProps.resWalletConfig.saldo,10),
                 trx_wd:parseInt(nextProps.resWalletConfig.trx_wd,10),
                 is_have_ktp:nextProps.resWalletConfig.is_have_ktp,
+                id_card:nextProps.resWalletConfig.id_card,
             })
         }
         let data_bank=[];
@@ -253,8 +257,20 @@ class IndexPenarikan extends Component{
 
         return(
             <Layout page={"Penarikan"} subpage="Wallet">
+                {this.props.isLoadingWalletConfig?<div className="pt-3 w-100 bg-white"><Spinner/></div>:
                 <div className="row">
-                    {!this.state.is_have_ktp?
+                    {
+                    (this.state.id_card!=='-'&&this.state.id_card!==''&&this.state.id_card!==undefined)&&!this.state.is_have_ktp?
+                    <div className="col-12 box-margin">
+                        <div className="alert alert-danger bg-white text-danger text-center p-30 m-3" role="alert">
+                            <img className="img-fluid w-25 d-none d-md-inline" src={approve_user} alt="sangqu" />
+                            <img className="img-fluid w-75 d-inline d-md-none" src={approve_user} alt="sangqu" />
+                            <br/>
+                            <h3 className="text-danger">KTP sudah di terima. Silahkan tunggu proses validasi KTP anda oleh admin.</h3>
+                        </div>
+                    </div>
+                    :
+                    !this.state.is_have_ktp?
                     <div className="col-12 box-margin">
                         <div className="row">
                             <div className="col-md-12">
@@ -465,6 +481,7 @@ class IndexPenarikan extends Component{
 
                 }
                 </div>
+                }
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.pin} save={this.handleSubmit} typePage={'FormWalletTransfer'}/>:null
                 }

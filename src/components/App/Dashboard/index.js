@@ -140,12 +140,12 @@ class Index extends Component {
         this.props.dispatch(getBerita(1,'&perpage=5'))
         this.props.dispatch(getRiwayat(1, null, null, null));
         this.getData()
-        if(!localStorage.getItem('dashboardPopup')){
-        // if(this.props.isShow){
-            setTimeout(function() { //Start the timer
-                this.showPopup()
-            }.bind(this), 5000)
-        }
+        // if(!localStorage.getItem('dashboardPopup')){
+        // // if(this.props.isShow){
+        //     setTimeout(function() { //Start the timer
+        //         this.showPopup()
+        //     }.bind(this), 5000)
+        // }
     }
 
     showPopup(){
