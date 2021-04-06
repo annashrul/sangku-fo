@@ -26,6 +26,7 @@ import { setPopup } from '../../../redux/actions/dashboard/dashboard.action';
 const table = 'rekapitulasi';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
+    secure: true,
     extraHeaders: {
         "my-custom-header": "abcd"
     }

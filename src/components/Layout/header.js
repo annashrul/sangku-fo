@@ -25,6 +25,7 @@ import { putNotif } from '../../redux/actions/site.action';
 import { deleteCart } from '../../redux/actions/product/cart.action';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
+    secure: true,
     extraHeaders: {
         "my-custom-header": "abcd"
     }
