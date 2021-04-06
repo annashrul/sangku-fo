@@ -261,12 +261,20 @@ class MemberForm extends Component{
                 err = Object.assign({}, err, {mobile_no:"No Telpon tidak boleh kosong"});
                 this.setState({confirm:false, error: err});
             }
+            else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
+                err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
+                this.setState({confirm:false, error: err});
+            }
             else if(parseData['id_card']===''||parseData['id_card']===undefined){
                 err = Object.assign({}, err, {id_card:"ID Card tidak boleh kosong"});
                 this.setState({confirm:false, error: err});
             }
             else if(parseData['pin']===''||parseData['pin']===undefined){
                 err = Object.assign({}, err, {pin:"PIN tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['pin'].length<6){
+                err = Object.assign({}, err, {pin:"PIN masih kurang dari 6 digit"});
                 this.setState({confirm:false, error: err});
             }
             else if(parseData['picture']===''||parseData['picture']===undefined){
@@ -291,10 +299,6 @@ class MemberForm extends Component{
             }
             else if(parseData['upline']===''||parseData['upline']===undefined){
                 err = Object.assign({}, err, {upline:"Upline tidak boleh kosong"});
-                this.setState({confirm:false, error: err});
-            }
-            else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
-                err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
                 this.setState({confirm:false, error: err});
             }
             else{
@@ -462,7 +466,7 @@ class MemberForm extends Component{
     };
     handleSponsorFind(e) {
         e.preventDefault();
-        this.props.FetchAvailableMember(this.state.findSponsor);
+        this.props.FetchAvailableMember(this.state.findSponsor,this.state.upline);
     };
     handleMembership(e,val) {
         e.preventDefault();
@@ -814,6 +818,7 @@ class MemberForm extends Component{
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
+                                                                <small className="text-muted">Masukan 6 digit angka yang akan digunakan member baru untuk login.</small>
                                                         <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
                                                             {this.state.error.pin}
                                                         </div>

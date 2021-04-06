@@ -57,6 +57,14 @@ class IndexTransfer extends Component{
                 tf_charge:parseInt(nextProps.resWalletConfig.tf_charge,10),
             })
         }
+        // if(this.state.pinError===false){
+            if(this.props.tfReducer.status==='success'){
+                this.setState({
+                    currentStep:2,
+                    pinError:true,
+                });
+            }
+        // }
     }
     componentDidUpdate(prevState){
         if(prevState.memberAvail!==this.props.memberAvail){
@@ -82,14 +90,14 @@ class IndexTransfer extends Component{
                 }
             }
         }
-        if(this.state.pinError===false){
-            if(this.props.tfReducer.status==='success'){
-                this.setState({
-                    currentStep:2,
-                    pinError:true,
-                });
-            }
-        }
+        // if(this.state.pinError===false){
+        //     if(this.props.tfReducer.status==='success'){
+        //         this.setState({
+        //             currentStep:2,
+        //             pinError:true,
+        //         });
+        //     }
+        // }
         
         
         
@@ -341,7 +349,7 @@ class IndexTransfer extends Component{
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                         <br/>
-                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
+                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/report/riwayat'})}}>Lihat Riwayat</button>
                                                     </div>
                                                 </div>
                                             </div>

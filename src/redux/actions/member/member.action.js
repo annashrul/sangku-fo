@@ -104,10 +104,14 @@ export const putMember = (data,id) => {
             })
     }
 }
-export const FetchAvailableMember = (id)=>{
+export const FetchAvailableMember = (id,upline='')=>{
     return (dispatch) => {
         dispatch(setLoadingAvail(true));
-        let url = `member/data/${id}`;
+        let qString = ''
+        if(upline!==''&&upline!==undefined&&upline!==null){
+            qString = `?id_upline=${upline}`;
+        }
+        let url = `member/data/${id}${qString}`;
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;
