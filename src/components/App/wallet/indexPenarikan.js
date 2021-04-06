@@ -198,7 +198,7 @@ class IndexPenarikan extends Component{
         if(num.length===6&&this.valid){
             let data={};
             data['id_bank'] = this.state.bank.value;
-            data['pin_member'] = num;
+            data['member_pin'] = num;
             data['amount'] = rmComma(this.state.amount);
             this.props.dispatch(postPenarikan(data));
             this.props.dispatch(ModalToggle(false));
