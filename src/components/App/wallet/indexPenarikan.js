@@ -22,6 +22,7 @@ import { putMember } from '../../../redux/actions/member/member.action';
 import { FetchWalletConfig } from '../../../redux/actions/site.action';
 import { toRp } from '../../../helper';
 import Spinner from 'Spinner';
+import Swal from 'sweetalert2';
 
 
 const { Option } = components;
@@ -42,6 +43,7 @@ class IndexPenarikan extends Component{
         this.state={
             amount:"0",
             is_have_ktp:true,
+            pinError:false,
             id_card:'-',
             wd_min:0,
             wd_charge:0,
@@ -92,6 +94,54 @@ class IndexPenarikan extends Component{
                 is_have_ktp:nextProps.resWalletConfig.is_have_ktp,
                 id_card:nextProps.resWalletConfig.id_card,
             })
+            if(!nextProps.resWalletConfig.is_have_ktp&&nextProps.resWalletConfig.id_card==='-'){
+                Swal.fire({
+                    title: 'Informasi!',
+                    text: 'Untuk melakukan penarikan, kami harus memastikan bahwa anda bukan robot. Maka dari itu silahkan unggah foto identitas anda seperti KTP/SIM/KITAS dsb pada Halaman profile.',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Unggah Sekarang',
+                    // cancelButtonText: 'Batal'
+                }).then(function(result){
+                    if (result.value) {
+                        window.location.href = '/profile'
+                    }
+                })
+            }
+            else if (nextProps.resWalletConfig.id_card!=='-'&&!nextProps.resWalletConfig.is_have_ktp){
+                Swal.fire({
+                    title: 'Informasi!',
+                    text: 'KTP sudah di terima. Silahkan tunggu proses validasi KTP anda oleh admin.',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Saya Mengerti',
+                    // cancelButtonText: 'Batal'
+                }).then(function(result){
+                    if (result.value) {
+                        window.location.href = '/report/riwayat'
+                    }
+                })
+            }
+            else if (parseInt(nextProps.resWalletConfig.trx_wd,10)!==0){
+                Swal.fire({
+                    title: 'Informasi!',
+                    text: 'Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Saya Mengerti',
+                    // cancelButtonText: 'Batal'
+                }).then(function(result){
+                    if (result.value) {
+                        window.location.href = '/report/riwayat'
+                    }
+                })
+            }
         }
         let data_bank=[];
         if(nextProps.resBank!==undefined&&nextProps.resBank.data!==undefined){
@@ -112,7 +162,17 @@ class IndexPenarikan extends Component{
         }
         
         
-        
+        if(this.props.wdReducer.status==='success'){
+            // if(this.state.pinError===false){
+                this.setState({
+                    currentStep:2,
+                    pinError:true,
+                });
+            // }
+        }
+        // if(!nextProps.resWalletConfig.is_have_ktp){
+            
+        // }
         
         // 
         // 
@@ -127,9 +187,31 @@ class IndexPenarikan extends Component{
         if(prevState.isOpen===true&&this.state.currentStep===2){
             this.setState({currentStep:this.state.currentStep-1});
         }
-        if(prevState.isOpen===false&&prevState.isError===false&&this.state.currentStep===1&&this.state.pin!==''){
-            this.setState({currentStep:2});
+        if(prevState.isOpen===true&&this.state.currentStep===2){
+            this.setState({currentStep:this.state.currentStep-1});
         }
+
+        if(prevState.isOpen===false&&prevState.isError===false&&this.state.currentStep===1&&this.state.pin!==''){
+            if(this.state.pinError===false){
+                if(this.props.wdReducer.status==='failed'&&this.props.wdReducer.msg==='PIN anda tidak sesuai.'){
+                    this.setState({
+                        currentStep:1,
+                        pinError:true,
+                    });
+                }
+            }
+        }
+        // if(this.props.wdReducer.status==='success'&&this.props.wdReducer.msg==='Silahkan tunggu konfirmasi dari admin.'){
+        //     if(this.state.pinError===false){
+        //         this.setState({
+        //             currentStep:2,
+        //             pinError:true,
+        //         });
+        //     }
+        // }
+        console.log("this.state.currentStep",this.state.currentStep);
+        console.log("this.props.wdReducer",this.props.wdReducer);
+        console.log("this.state.pinError",this.state.pinError);
     }
     HandleChangeBank(bk) {
         
@@ -397,7 +479,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toRp(this.state.amount)}</span>
+                                                        <span className="font-14">{toRp(rmComma(this.state.amount))}</span>
                                                         </div>
                                                     </div>
                                                     <hr className="my-3" />
@@ -446,7 +528,7 @@ class IndexPenarikan extends Component{
                                                         <hr/>
                                                         <small className="text-muted">Kami tidak bertanggung jawab atas kesalahan dalam menulisan sehingga menyebabkan terkirimnya bukan kepada tujuan yang anda tunjukan.</small>
                                                         <br/>
-                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/transaksi/riwayat'})}}>Lihat Riwayat</button>
+                                                        <button type="button" className="btn btn-sm btn-outline-success mt-2" onClick={(e)=>{e.preventDefault();this.props.history.push({pathname:'/report/riwayat'})}}>Lihat Riwayat</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -496,6 +578,7 @@ const mapStateToProps = (state) => {
         isLoadingBank:state.bankReducer.isLoading,
         isLoadingPost:state.penarikanReducer.isLoadingPost,
         isError:state.penarikanReducer.isError,
+        wdReducer:state.penarikanReducer,
         isOpen: state.modalReducer,
         isLoadingWalletConfig: state.siteReducer.isLoadingWalletConfig,
         resWalletConfig: state.siteReducer.data_wallet_config,

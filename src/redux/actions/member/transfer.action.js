@@ -54,6 +54,15 @@ export function setDataFailed(data = []) {
 
 export const postTransfer = (data) => {
     return (dispatch) => {
+        Swal.fire({
+            allowOutsideClick:false,
+            title: 'Silahkan tunggu.',
+            html: 'Sedang melakukan penarikan..',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+            onClose: () => {}
+        })
         dispatch(setLoadingPost(true));
         dispatch(setIsError(false));
         const url = HEADERS.URL + `transaction/transfer`;

@@ -105,6 +105,7 @@ export const postPenarikan = (data) => {
 
                     // })
                     dispatch(setIsError(true));
+                    dispatch(setData(data));
                 } else {
                     Swal.fire({
                         title: 'failed',
@@ -112,6 +113,7 @@ export const postPenarikan = (data) => {
                         text: NOTIF_ALERT.FAILED,
                     });
                     dispatch(setIsError(false));
+                    dispatch(setDataFailed(data));
                 }
                 dispatch(setLoadingPost(false));
             })
@@ -119,6 +121,7 @@ export const postPenarikan = (data) => {
                 Swal.close()
                 dispatch(setLoadingPost(false));
                 dispatch(setIsError(false));
+                dispatch(setDataFailed(error.response.data));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

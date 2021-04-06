@@ -818,7 +818,7 @@ class MemberForm extends Component{
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
-                                                                <small className="text-muted">6 digit PIN ini akan digunakan sebagai fitur keamanan untuk beberapa fitur.</small>
+                                                                <small className="text-muted">Masukan 6 digit angka yang akan digunakan member baru untuk login.</small>
                                                         <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
                                                             {this.state.error.pin}
                                                         </div>
