@@ -45,11 +45,11 @@ export const putMember = (data,id) => {
                 const data = (response.data);
                 if (data.status === 'success') {
                     dispatch(UpdateIndexDb(id))
-                    Swal.fire({
-                        title: 'Success',
-                        icon: 'success',
-                        text: "Data berhasil diperbarui, untuk melihat perubahan, mungkin anda perlu melakukan login ulang.",
-                    });
+                    // Swal.fire({
+                    //     title: 'Success',
+                    //     icon: 'success',
+                    //     text: "Data berhasil diperbarui, untuk melihat perubahan, mungkin anda perlu melakukan login ulang.",
+                    // });
                     Swal.fire({
                         allowOutsideClick: false,
                         title: 'Success',

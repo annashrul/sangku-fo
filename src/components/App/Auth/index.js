@@ -385,53 +385,53 @@ class Auth extends Component{
                                             </>
                                             :
                                             this.state.type==='uid'?
-                                            this.state.disclaim?
-                                            <div style={{textAlign: 'justify'}}>
-                                                <h4  style={{textAlign: 'center'}}>Berita Ketetapan Management SangQu Masa Persiapan</h4>
-                                                <br/>
-                                                <div>PT Sangkuriang Sinergi Insan adalah perusahaan legal yang mentaati setiap regulasi yang telah ditetapkan oleh pemerintah Republik Indonesia berkaitan dengan pemenuhan aspek legal operasi sebuah perusahaan.</div>
-                                                <div>&nbsp;</div>
-                                                <div>Sehubungan dengan tengah menunggunya proses penyelesaian ijin khusus beroperasinya sebagai perusahaan yang bergerak di bidang network marketing, dengan ini Management PT Sangkuriang Sinergi Insan menyampaikan ketetapan yang harus diikuti oleh setiap calon distributor sebagai berikut;</div>
-                                                <ol className="ml-4">
-                                                    <li style={{listStyle: 'decimal'}}>Dilarang untuk melakukan transaksi hingga Program sangQu dinyatakan resmi dibuka oleh pihak Management SangQu, segala aktifitas komitment transaksi bersifat individual dan Management SangQu tidak membuka pelayanan transaksi barang / paket hingga waktu yang akan ditetapkan kemudian.</li>
-                                                    <li style={{listStyle: 'decimal'}}>Calon member dilarang untuk mengupload segala aktifitas yang berkaitan dengan aktifitas di masa persiapan ini di semua platform media social secara terbuka/umum, terkecuali share informasi di media yang bersifat Clossed Grup (tertutup ) dan khusus hanya untuk konsumsi internal.</li>
-                                                    <li style={{listStyle: 'decimal'}}>Akses login di website &amp; Apps hanya bersifat trial- uji coba, dimana calon member dapat merasakan fitur-fitur fasilitas bisnis yang telah disiapkan oleh Management SangQu dan ditujukan untuk mendapat masukan yang bersifat evaluative pada masa persiapan ini.</li>
-                                                    <li style={{listStyle: 'decimal'}}>Management SangQu tidak bertanggung jawab atas segala aktifitas individu yang menyatakan dirinya sebagai calon member SangQu dan melalukan tindakan diluar ketentuan yang telah ditetapkan oleh pihak Management Sangqu di masa persiapan ini.</li>
-                                                </ol>
-                                                <div><br /> Management sangQu berhak menolak pengajuan keanggotaan program SangQu bilamana terbukti ada aktifitas individu yang melanggar ketentuan yang berakibat pada terganggunya proses persiapan program SangQu.</div>
-                                                <div><br /> Atas pengertian dan kerjasama untuk mensukseskan masa-masa persiapan akhir ini, kami Management SangQu mengucapkan banyak terimakasih</div>
-                                                <h4 className="text-dark mt-2">Management SangQu</h4>
-                                                <div className="d-flex">
-                                                    <button className="login100-form-btn w-50 mx-2 bg-danger" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleDisclaim}>
-                                                        <span >Kembali</span>
-                                                    </button>
-                                                    <button className="login100-form-btn w-50 mx-2" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyPin}>
-                                                        <span >Lanjut Masuk</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            :
                                             <>
-                                            <div style={{display: this.state.isPin?"none":this.props.auth.isRegisterPin?"none":"block"}}>
-                                                <IntlTelInput
-                                                    preferredCountries={['id']}
-                                                    css={['intl-tel-input', 'form-control']}
-                                                    onPhoneNumberChange={(status, value, countryData, number, id) => {
-                                                        this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
-                                                    }}
-                                                    separateDialCode={true}
-                                                    format={true}
-                                                    formatOnInit={true}
-                                                    value={this.state.phone}
-                                                    />
-                                                {/* <div className="container-login100-form-btn">
-                                                    <button className="login100-form-btn" onClick={this.handleLoginBtnPin}>
-                                                        <span style={{marginRight:"7px",fontSize:'1.3em'}}>Masuk</span> <i className="fa fa-long-arrow-right" aria-hidden="true" />
-                                                    </button>
-                                                </div> */}
-                                            </div>
                                             {!this.props.auth.isRegisterPin?
+                                                this.state.disclaim?
+                                                <div style={{textAlign: 'justify'}}>
+                                                    <h4  style={{textAlign: 'center'}}>Berita Ketetapan Management SangQu Masa Persiapan</h4>
+                                                    <br/>
+                                                    <div>PT Sangkuriang Sinergi Insan adalah perusahaan legal yang mentaati setiap regulasi yang telah ditetapkan oleh pemerintah Republik Indonesia berkaitan dengan pemenuhan aspek legal operasi sebuah perusahaan.</div>
+                                                    <div>&nbsp;</div>
+                                                    <div>Sehubungan dengan tengah menunggunya proses penyelesaian ijin khusus beroperasinya sebagai perusahaan yang bergerak di bidang network marketing, dengan ini Management PT Sangkuriang Sinergi Insan menyampaikan ketetapan yang harus diikuti oleh setiap calon distributor sebagai berikut;</div>
+                                                    <ol className="ml-4">
+                                                        <li style={{listStyle: 'decimal'}}>Dilarang untuk melakukan transaksi hingga Program sangQu dinyatakan resmi dibuka oleh pihak Management SangQu, segala aktifitas komitment transaksi bersifat individual dan Management SangQu tidak membuka pelayanan transaksi barang / paket hingga waktu yang akan ditetapkan kemudian.</li>
+                                                        <li style={{listStyle: 'decimal'}}>Calon member dilarang untuk mengupload segala aktifitas yang berkaitan dengan aktifitas di masa persiapan ini di semua platform media social secara terbuka/umum, terkecuali share informasi di media yang bersifat Clossed Grup (tertutup ) dan khusus hanya untuk konsumsi internal.</li>
+                                                        <li style={{listStyle: 'decimal'}}>Akses login di website &amp; Apps hanya bersifat trial- uji coba, dimana calon member dapat merasakan fitur-fitur fasilitas bisnis yang telah disiapkan oleh Management SangQu dan ditujukan untuk mendapat masukan yang bersifat evaluative pada masa persiapan ini.</li>
+                                                        <li style={{listStyle: 'decimal'}}>Management SangQu tidak bertanggung jawab atas segala aktifitas individu yang menyatakan dirinya sebagai calon member SangQu dan melalukan tindakan diluar ketentuan yang telah ditetapkan oleh pihak Management Sangqu di masa persiapan ini.</li>
+                                                    </ol>
+                                                    <div><br /> Management sangQu berhak menolak pengajuan keanggotaan program SangQu bilamana terbukti ada aktifitas individu yang melanggar ketentuan yang berakibat pada terganggunya proses persiapan program SangQu.</div>
+                                                    <div><br /> Atas pengertian dan kerjasama untuk mensukseskan masa-masa persiapan akhir ini, kami Management SangQu mengucapkan banyak terimakasih</div>
+                                                    <h4 className="text-dark mt-2">Management SangQu</h4>
+                                                    <div className="d-flex">
+                                                        <button className="login100-form-btn w-50 mx-2 bg-danger" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleDisclaim}>
+                                                            <span >Kembali</span>
+                                                        </button>
+                                                        <button className="login100-form-btn w-50 mx-2" style={this.state.verifyAccess?{marginTop:"20px"}:{marginTop:"20px",cursor:'not-allowed',background:'#eee'}} onClick={this.handleVerifyPin}>
+                                                            <span >Lanjut Masuk</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            :
                                             <div>
+                                                <div style={{display: this.state.isPin?"none":this.props.auth.isRegisterPin?"none":"block"}}>
+                                                    <IntlTelInput
+                                                        preferredCountries={['id']}
+                                                        css={['intl-tel-input', 'form-control']}
+                                                        onPhoneNumberChange={(status, value, countryData, number, id) => {
+                                                            this.setPhone(value.replace(/^0+/, ''), number.replace(/[^A-Z0-9]/ig, ""))
+                                                        }}
+                                                        separateDialCode={true}
+                                                        format={true}
+                                                        formatOnInit={true}
+                                                        value={this.state.phone}
+                                                        />
+                                                    {/* <div className="container-login100-form-btn">
+                                                        <button className="login100-form-btn" onClick={this.handleLoginBtnPin}>
+                                                            <span style={{marginRight:"7px",fontSize:'1.3em'}}>Masuk</span> <i className="fa fa-long-arrow-right" aria-hidden="true" />
+                                                        </button>
+                                                    </div> */}
+                                                </div>
                                                 <label className="text-muted text-left mb-2">Masukan PIN Anda</label>
                                                 <OTPInput
                                                     // maxTime={120}
