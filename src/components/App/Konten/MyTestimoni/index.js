@@ -14,8 +14,7 @@ import "slick-carousel/slick/slick-theme.css";
 import VideoTesti from '../../modals/testimoni/video_testi';
 import FormAddTestimoni from '../../modals/testimoni/form_add_testimoni';
 import Default from '../../../../assets/default.png'
-import { Link } from 'react-router-dom';
-class Testimoni extends Component{
+class MyTestimoni extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -44,6 +43,11 @@ class Testimoni extends Component{
             filter_data:[],
             status:"",
             status_data:[],
+        }
+        console.log(this.props.location.myId);
+        
+        if(this.props.location.myId===undefined){
+            window.location.href = '/konten/testimoni'
         }
     }
     componentWillMount(){
@@ -147,6 +151,7 @@ class Testimoni extends Component{
         let dateTo=localStorage.date_to_testimoni;
         // let lokasi = localStorage.location_testimoni;
         let any = localStorage.any_testimoni;
+        let me = this.props.location.myId;
         // let sort=localStorage.sort_testimoni;
         // let filter=localStorage.filter_testimoni;
         // let status=localStorage.status_testimoni;
@@ -168,6 +173,9 @@ class Testimoni extends Component{
         // }
         if(any!==undefined&&any!==null&&any!==''){
             where+=`&q=${any}`
+        }
+        if(me!==undefined&&me!==null&&me!==''){
+            where+=`&id_member=${me}`
         }
         this.setState({
             where_data:where
@@ -306,7 +314,7 @@ class Testimoni extends Component{
                                 </div>
                             </div>
                             <div className="col-6 col-xs-6 col-md-2">
-                                <div className="form-group d-flex">
+                                <div className="form-group">
                                     <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
                                         <i className="fa fa-search"/>
                                     </button>
@@ -368,12 +376,9 @@ class Testimoni extends Component{
                                                                 <i className="fa fa-search"/>
                                                             </button>
                                                         </div>
-                                                        {/* <button className="btn btn-primary ml-2" onClick={this.toggleAdd}>
+                                                        <button className="btn btn-primary ml-2" onClick={this.toggleAdd}>
                                                             TAMBAH
-                                                        </button> */}
-                                                        <Link className="btn btn-primary ml-2" to={{pathname:'/konten/testimoni-saya',myId:this.props.auth.user.id}} >
-                                                            TESTIMONI SAYA
-                                                        </Link>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -540,4 +545,4 @@ const mapStateToProps = (state) => {
         type: state.modalTypeReducer,
     }
 }
-export default connect(mapStateToProps)(Testimoni);
+export default connect(mapStateToProps)(MyTestimoni);

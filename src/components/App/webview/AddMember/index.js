@@ -17,18 +17,18 @@ class AddMember extends Component {
         }
     }
     componentWillMount(){
-        const datum = (atob(this.props.match.params.id)).split('|');
-        const params = (atob(datum[0])).split('|');
+        const datum = (atob(decodeURIComponent(this.props.match.params.id))).split('|');
+        const params = (atob(decodeURIComponent(datum[0]))).split('|');
         const uplines= JSON.parse(datum[1])
         this.setState({
             posisi: uplines.position,
             raw_token: datum[0],
-            token: atob(params[1])
+            token: atob(decodeURIComponent(params))
         })
         this.props.dispatch(FetchNetworkWebview(btoa(params[0]), true, 'network', params[1]));
         this.props.dispatch(FetchNetworkWebview(btoa(uplines.parent_id), true, 'network', params[1], true));
 
-        this.props.dispatch(FetchAvailablePinWebView(atob(params[1])));
+        this.props.dispatch(FetchAvailablePinWebView(atob(decodeURIComponent(params))));
         this.props.dispatch(setRegistered(false));
         // this.props.dispatch(FetchNetwork(btoa(this.props.location.data===undefined?null:this.props.location.data.parent_id),true,'network'))
     }

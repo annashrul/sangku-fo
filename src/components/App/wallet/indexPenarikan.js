@@ -7,8 +7,8 @@ import Stepper from 'react-stepper-horizontal';
 // import noUser from '../../../assets/no-user.png'
 import imgCancel from '../../../assets/cancel.gif'
 import imgCheck from '../../../assets/check.gif'
-import sorry from '../../../assets/sorry.png'
-import approve_user from '../../../assets/approve_user.png'
+// import sorry from '../../../assets/sorry.png'
+// import approve_user from '../../../assets/approve_user.png'
 // import { FetchAvailableMember } from '../../../redux/actions/member/member.action';
 import ModalPin from '../modals/modal_pin';
 import { ModalToggle, ModalType } from '../../../redux/actions/modal.action';
@@ -16,8 +16,8 @@ import { Link, withRouter } from 'react-router-dom';
 import Select, { components } from "react-select";
 import {getBankMember} from "redux/actions/member/bankMember.action";
 import {postPenarikan} from "redux/actions/member/penarikan.action";
-import imgDefault from 'assets/default.png';
-import File64 from "components/common/File64";
+// import imgDefault from 'assets/default.png';
+// import File64 from "components/common/File64";
 import { putMember } from '../../../redux/actions/member/member.action';
 import { FetchWalletConfig } from '../../../redux/actions/site.action';
 import { toRp } from '../../../helper';

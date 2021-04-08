@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 // import Iphone from './iphone.png'
-import HeadShake from 'react-reveal/HeadShake';
+// import HeadShake from 'react-reveal/HeadShake';
 import Flip from 'react-reveal/Flip';
 
 
@@ -26,7 +26,7 @@ class Home extends Component{
                         {this.props.title} <br />
                         <div dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.title }} />
                         </h1>
-                        <HeadShake>
+                        {/* <HeadShake> */}
                             <div className="buttons">
                                 <a href="#download" className="smoothscroll button stroke">
                                     <span className="icon-circle-down" aria-hidden="true" />
@@ -37,7 +37,7 @@ class Home extends Component{
                                             Watch Video
                                         </a> */}
                             </div>                                         
-                        </HeadShake>
+                        {/* </HeadShake> */}
                     </div>
                     <div className="home-image-right">
                         <Flip left>
