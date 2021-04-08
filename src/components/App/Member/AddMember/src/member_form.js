@@ -134,9 +134,9 @@ class MemberForm extends Component{
         }
         this.getProps(nextProps)
         //debug otp
-        if (this.props.auth.user_otp !==undefined) {
-            this.setState({otp_val:this.props.auth.user_otp.otp_anying })
-        }
+        // if (this.props.auth.user_otp !==undefined) {
+        //     this.setState({otp_val:this.props.auth.user_otp.otp_anying })
+        // }
         
         if (this.props.memberAvail!==undefined&&this.props.memberAvail.referral_code!==undefined) {
             if (this.state.sponsor !==this.props.memberAvail.referral_code) {
