@@ -7,6 +7,7 @@ import ErrorBoundary from '../../ErrorBoundary'
 import webviewBinary from '../App/webview/Binary';
 import webviewSponsor from '../App/webview/Sponsor';
 import webviewRegister from '../App/webview/AddMember';
+// import TestimoniSaya from '../App/Konten/TestimoniSaya';
 
 const Landing = React.lazy(() => import('../App/Landing'));
 const Login = React.lazy(() => import('../App/Auth'));
@@ -34,6 +35,7 @@ const ReportPembelian = React.lazy(() => import('../App/Report/Pembelian'));
 const Berita = React.lazy(() => import('../App/Konten/Berita'));
 const BeritaDetail = React.lazy(() => import('../App/Konten/BeritaDetail'));
 const Testimoni = React.lazy(() => import('../App/Konten/Testimoni'));
+const MyTestimoni = React.lazy(() => import('../App/Konten/MyTestimoni'));
 const TestimoniDetail = React.lazy(() => import('../App/Konten/TestimoniDetail'));
 const StokistAktivasi = React.lazy(() => import('../App/Stokist/PinAktivasi'));
 const StokistRo = React.lazy(() => import('../App/Stokist/PinRo'));
@@ -136,6 +138,7 @@ const Routes = (
             <PrivateRoute path="/konten/berita" exact strict component={Berita} />
             <PrivateRoute path="/konten/berita/:id" exact strict component={BeritaDetail} />
             <PrivateRoute path="/konten/testimoni" exact strict component={Testimoni} />
+            <PrivateRoute path="/konten/testimoni-saya" exact strict component={MyTestimoni} />
             <PrivateRoute path="/konten/testimoni/:id" exact strict component={TestimoniDetail} />
             {/* KONTEN SECTION END */}
             <PrivateRoute path="/report/riwayat" exact strict component={RiwayatTransaksi} />

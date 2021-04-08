@@ -16,6 +16,7 @@ import bycrypt from 'bcryptjs';
 import { withRouter } from 'react-router-dom';
 import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
+import { FetchAvailableMember } from '../../../../../redux/actions/member/member.action';
 
 const resendTime = 120;
 class MemberForm extends Component{
@@ -51,6 +52,11 @@ class MemberForm extends Component{
             isSend:false,
             time: {},
             seconds: resendTime,
+            findSponsor:'',
+            sponsorship:'me',
+            temp_sponsor:'-',
+            temp_sponsor_name:'-',
+            temp_sponsor_picture:'-',
             error:{
                 full_name:'',
                 mobile_no:'',
@@ -93,17 +99,28 @@ class MemberForm extends Component{
         if (this.props.auth.user_otp !==undefined) {
             this.setState({otp_val:this.props.auth.user_otp.otp_anying })
         }
+        if (this.props.memberAvail!==undefined&&this.props.memberAvail.referral_code!==undefined) {
+            if (this.state.sponsor !==this.props.memberAvail.referral_code) {
+                this.setState({
+                    sponsor:this.props.memberAvail.referral_code,
+                    sponsor_name:this.props.memberAvail.full_name,
+                    sponsor_picture:this.props.memberAvail.picture,
+                })
+            }
+        }
      }
     getProps(param){
-        this.setState({
-            sponsor:this.props.dataSponsor!==undefined?this.props.dataSponsor.id:'',
-            sponsor_name:this.props.dataSponsor!==undefined?this.props.dataSponsor.name:'',
-            sponsor_picture:this.props.dataSponsor!==undefined?this.props.dataSponsor.picture:'',
-            upline: this.props.dataUpline===undefined?'':this.props.dataUpline.id,
-            upline_name: this.props.dataUpline===undefined?'':this.props.dataUpline.name,
-            upline_picture: this.props.dataUpline===undefined?'':this.props.dataUpline.picture,
-            position: this.props.posisi,
-        })
+        if(this.state.sponsorship==='me'){
+            this.setState({
+                sponsor:this.props.dataSponsor!==undefined?this.props.dataSponsor.id:'',
+                sponsor_name:this.props.dataSponsor!==undefined?this.props.dataSponsor.name:'',
+                sponsor_picture:this.props.dataSponsor!==undefined?this.props.dataSponsor.picture:'',
+                upline: this.props.dataUpline===undefined?'':this.props.dataUpline.id,
+                upline_name: this.props.dataUpline===undefined?'':this.props.dataUpline.name,
+                upline_picture: this.props.dataUpline===undefined?'':this.props.dataUpline.picture,
+                position: this.props.posisi,
+            })
+        }
     }
     componentWillMount(){
         this.getProps(this.props);
@@ -347,6 +364,35 @@ class MemberForm extends Component{
         }
     }
 
+    handleSponsor(e,data) {
+        e.preventDefault();
+        this.setState({
+            sponsorship: data
+        })
+        if(data==='their'){
+            this.setState({
+                temp_sponsor: this.state.sponsor,
+                temp_sponsor_name: this.state.sponsor_name,
+                temp_sponsor_picture: this.state.sponsor_picture,
+                
+                sponsor : '-',
+                sponsor_name : '-',
+                sponsor_picture : '-',
+            })
+        } else {
+            this.setState({
+                sponsor : this.state.temp_sponsor,
+                sponsor_name : this.state.temp_sponsor_name,
+                sponsor_picture : this.state.temp_sponsor_picture,
+            })
+
+        }
+    };
+    handleSponsorFind(e) {
+        e.preventDefault();
+        this.props.FetchAvailableMember(this.state.findSponsor,this.state.upline);
+    };
+
     render(){
        
         return (
@@ -420,6 +466,32 @@ class MemberForm extends Component{
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                
+                                                <div className="form-group">
+                                                    <label>Sponsorship</label>
+                                                    <div className="row no-gutters">
+                                                        <div className="col-6">
+                                                            <button type="button" className={`btn${this.state.sponsorship==='me'?'-danger':'-secondary'} btn-block p-2`} disabled={this.state.sponsorship==='me'} onClick={(e)=>this.handleSponsor(e,'me')}>Saya sebagai Sponsor</button>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <button type="button" className={`btn${this.state.sponsorship==='their'?'-danger':'-secondary'} btn-block p-2`} disabled={this.state.sponsorship==='their'} onClick={(e)=>this.handleSponsor(e,'their')}>Orang lain sebagai Sponsor</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className={`form-group ${this.state.sponsorship==='their'?'':'d-none'}`}>
+                                                    <label>Cari Sponsorship</label>
+                                                    <div className="input-group mb-3">
+                                                        <input type="text" className="form-control" placeholder="Kode Sponsor" name="findSponsor" value={this.state.findSponsor} onChange={this.handleChange}/>
+                                                        <div className="input-group-append">
+                                                            {this.props.isLoadingAvail?
+                                                            <button className="btn btn-primary" type="button" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /><span className="sr-only">Loading...</span></button>
+                                                            :
+                                                            <button className="btn btn-primary" type="button" onClick={(e)=>this.handleSponsorFind(e)}><i className="fa fa-search"/></button>
+                                                            }
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div className="col-md-10 offset-md-1">
                                                     <div className="row">
@@ -664,8 +736,10 @@ const mapStateToProps = (state) => {
         isLoading:state.pinReducer.isLoading,
         isLoadingAuth:state.auth.isLoading,
         registered:state.auth.isRegistered,
-        auth:state.auth
+        auth:state.auth,
+        isLoadingAvail:state.memberReducer.isLoadingAvail,
+        memberAvail:state.memberReducer.data_avail,
         // Level:state.userLevelReducer.data,
     }
 }
-export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPinWebView,createMemberWebView})(MemberForm));
+export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPinWebView,createMemberWebView,FetchAvailableMember})(MemberForm));

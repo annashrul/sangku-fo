@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import { FetchDetailPin } from '../../../../redux/actions/pin/pin.action';
 import ModalPin from '../../modals/modal_pin'
 import FormListStokist from '../../modals/member/form_list_stokist';
+import { Tabs } from 'react-tabs';
 
 class PinRo extends Component{
     constructor(props){
@@ -224,6 +225,7 @@ class PinRo extends Component{
         // e.preventDefault()
         // alert('test');
         if(e.target.id==='toListForm'){
+            this.setState({idStokist:id});
             this.props.dispatch(FetchDetailPin(id));
             const bool = !this.props.isOpen;
             this.props.dispatch(ModalToggle(bool));
@@ -307,17 +309,18 @@ class PinRo extends Component{
     render(){
         return (
             <Layout page="PIN RO" subpage="Stokist">
+                <Tabs>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-body" style={{textAlign:'center'}}>
+                            <div className="row m-1 justify-content-center">
                                 
                                 {
                         (
                             typeof this.props.getPin === 'object' ?
                                 this.props.getPin.map((v,i)=>{
                                     return(
-                                        <div key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses" id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
+                                        <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label="Core Courses" id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
                                             <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                             <br/>
                                             <a href={() => false} className="font-24">{`${v.title}`}</a>
@@ -326,8 +329,13 @@ class PinRo extends Component{
                                             <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
                                             <br/>
                                             <br/>
-                                            <a href={() => false} className="btn btn-warning mr-3" onClick={event=>this.handleTransfer(event,v)}>Transfer</a>
-                                            <a href={() => false} className="btn btn-primary" onClick={event=>this.handleAktivasiPinRo(event,v)}>Aktivasi</a>
+                                            {/* <a href={() => false} className="btn btn-warning  rounded-lg mr-3" onClick={event=>this.handleTransfer(event,v)}>Transfer</a>
+                                            <a href={() => false} className="btn btn-primary  rounded-lg" onClick={event=>this.handleAktivasiPinRo(event,v)}>Aktivasi</a> */}
+                                            
+                                            <div className="w-100 text-center">
+                                                <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleTransfer(e,v)}>TRANSFER</button>
+                                                <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasiPinRo(e,v)}>REAKTIVASI</button>
+                                            </div>
                                         </div>
                                     )
                                 })
@@ -339,8 +347,9 @@ class PinRo extends Component{
                         </div>
                     </div>
                 </div>
+                </Tabs>
                 <FormPinTransfer data={this.state.pin_data} jenis={1}/>
-                <FormListStokist/>
+                <FormListStokist idStokist={this.state.idStokist}/>
                 <FormAktivasiPinRo data={this.state.pin_data}/>
                 {
                     this.state.isModal?<ModalPin isLoading={this.props.isLoadingPost} code={this.state.code} save={this.handleSave} typePage={'FormReaktivasi'}/>:null

@@ -106,11 +106,19 @@ export const FetchAvailablePinWebView = (token) => {
     }
 }
 
-export const FetchDetailPin = (id)=>{
+export const FetchDetailPin = (id,where='',page=1,perpage=10)=>{
     return (dispatch) => {
         dispatch(setLoading(true));
-        let url=`pin/get/${id}`;
-        
+        // let url=`pin/get/${id}`;
+        let url = '';
+        if(where===''){
+            url=`pin/get/${id}?page=${page}`;
+        }else{
+            url=`pin/get/${id}?page=${page}&${where}`;
+        }
+        if(perpage!==''){
+            url+=`&perpage=${perpage}`
+        }
         axios.get(HEADERS.URL+url)
             .then(function(response){
                 const data = response.data;

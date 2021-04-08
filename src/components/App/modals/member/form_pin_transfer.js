@@ -58,7 +58,7 @@ class FormPinTransfer extends Component{
     toggle = (e) => {
         e.preventDefault();
         if(this.state.uuid!==''&&this.state.uuid!==undefined){
-            this.setState({member_data:{},uuid:''})
+            this.setState({member_data:{},uuid:'',qty:''})
             
         } else {
             
@@ -66,6 +66,7 @@ class FormPinTransfer extends Component{
             this.props.dispatch(ModalToggle(bool));
             this.setState({
                 pin:'',
+                qty:'',
                 // pin_data:'',
                 member_data:'',
                 uuid:'',
@@ -78,7 +79,14 @@ class FormPinTransfer extends Component{
             ToastQ.fire({icon:'error',title:txtErr});
             let err = Object.assign({}, this.state.error, {'member_data': txtErr});
             this.setState({error: err});
-        } else {
+        }
+        else if(this.state.qty===''||this.state.qty===undefined){
+            let txtErr = 'QTY tidak boleh kosong!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'qty': txtErr});
+            this.setState({error: err});
+        } 
+        else {
             this.setState({
                 isModal:true
             });
@@ -110,13 +118,18 @@ class FormPinTransfer extends Component{
     }
     handleSearch(e){
         e.preventDefault();
-        if(this.state.uuid!==undefined&&this.state.uuid!==''){
-            this.props.dispatch(FetchAvailableMember(this.state.uuid));
-        } else {
+        if(this.state.uuid==='') {
             let txtErr = 'Penerima masih kosong!'
             ToastQ.fire({icon:'error',title:txtErr});
             let err = Object.assign({}, this.state.error, {'uuid': txtErr});
             this.setState({error: err});
+        } else if(this.state.qty===''){
+            let txtErr = 'QTY masih kosong!'
+            ToastQ.fire({icon:'error',title:txtErr});
+            let err = Object.assign({}, this.state.error, {'qty': txtErr});
+            this.setState({error: err});
+        } else {
+            this.props.dispatch(FetchAvailableMember(this.state.uuid));
         }
     }
     handleChange = (event) => {

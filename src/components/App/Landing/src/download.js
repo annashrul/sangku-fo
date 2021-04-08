@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import Fade from 'react-reveal/Fade';
-import HeadShake from 'react-reveal/HeadShake';
+// import HeadShake from 'react-reveal/HeadShake';
 
 class Download extends Component{
     constructor(props){
@@ -20,12 +20,12 @@ class Download extends Component{
                             <p className="lead" data-aos="fade-up" dangerouslySetInnerHTML={{ __html: this.props.data===undefined?'':this.props.data.deskripsi }}>
                             </p>
                         </Fade>
-                        <HeadShake>
+                        {/* <HeadShake> */}
                             <ul className="download-badges">
                                 {/* <li><a href={() => false} title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li> */}
                                 <li><a href={this.props.data===undefined?()=>{return false}:this.props.data.link} target="_blank" rel="noopener noreferrer" title="sangqu" className="badge-googleplay" data-aos="fade-up">Play Store</a></li>
                             </ul>
-                        </HeadShake>
+                        {/* </HeadShake> */}
                     </div>
                 </div>
             </section>

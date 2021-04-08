@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import Shake from 'react-reveal/Shake';
+// import Shake from 'react-reveal/Shake';
 import Fade from 'react-reveal/Fade';
 
 class Pricing extends Component{
@@ -24,7 +24,7 @@ class Pricing extends Component{
                     </div>
                     <div className="col-eight pricing-table">
                     <div className="row">
-                        <Shake>
+                        {/* <Shake> */}
                             <div className="col-md-4 p-md-0">
                             {/* BEGIN TABLE */}
                             <div className="table-default table2 blue">
@@ -103,7 +103,7 @@ class Pricing extends Component{
                             </div>
                             {/* END TABLE */}
                             </div>
-                        </Shake>
+                        {/* </Shake> */}
                        
                     </div>             
                     </div> {/* end pricing-table */}
