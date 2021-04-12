@@ -211,7 +211,7 @@ class IndexProfile extends Component{
         if(param.full_name===''){
             delete param.full_name
         }
-        if(param.pin===''&&param.pin===null||param.pin==='-'){
+        if((param.pin===''&&param.pin===null)||param.pin==='-'){
             delete param.pin
         }
         if(param.id_card===''){
