@@ -18,7 +18,7 @@ import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
 import { FetchAvailableMember } from '../../../../../redux/actions/member/member.action';
 
-const resendTime = 120;
+const resendTime = 300;
 class MemberForm extends Component{
     constructor(props){
         super(props);
@@ -33,6 +33,7 @@ class MemberForm extends Component{
             number:'',
             id_card:'-',
             pin:'',
+            pin_re:'',
             picture:'-',
             membership:'-',
             device_id:'-',
@@ -62,6 +63,7 @@ class MemberForm extends Component{
                 mobile_no:'',
                 id_card:'',
                 pin:'',
+                pin_re:'',
                 picture:'',
                 membership:'',
                 device_id:'',
@@ -172,6 +174,7 @@ class MemberForm extends Component{
                  mobile_no: this.state.mobile_no,
                  id_card: this.state.id_card,
                  pin: this.state.pin,
+                 pin_re: this.state.pin_re,
                  picture: this.state.picture,
                  position: this.state.position,
                  device_id: this.state.device_id,
@@ -204,8 +207,27 @@ class MemberForm extends Component{
                      icon: 'error',
                      title: `PIN harus 6 digit angka!`
                  });
-
-             }
+             } else if (isNaN(String(parseData.pin).replace(/[0-9]/g, ''))) {
+                 ToastQ.fire({
+                     icon: 'error',
+                     title: `PIN harus berupa digit angka!`
+                 });
+            } else if (parseData.pin_re === '' || parseData.pin_re === undefined) {
+                ToastQ.fire({
+                    icon: 'error',
+                    title: `PIN tidak boleh kosong!`
+                });
+            } else if (parseData.pin_re.length > 6 || parseData.pin_re.length < 6) {
+                ToastQ.fire({
+                    icon: 'error',
+                    title: `PIN harus 6 digit angka!`
+                });
+            } else if (parseData.pin_re!== parseData.pin) {
+                ToastQ.fire({
+                    icon: 'error',
+                    title: `PIN tidak sesuai!`
+                });
+            }
             else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
                 err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
                 this.setState({confirm:false, error: err});
@@ -552,21 +574,21 @@ class MemberForm extends Component{
                                                                 <div className="row m-1 justify-content-center">
                                                                     <Tab className="col-auto btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded d-none"></Tab>
                                                                     {
-                        (
-                            typeof this.props.availPin === 'object' ?
-                                this.props.availPin.map((v,i)=>{
-                                    return(
-                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
-                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
-                                            <br/>
-                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
-                                            <br/>
-                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
-                                        </Tab>
-                                    )
-                                })
-                                : "No data."
-                        )
+                                                                        (
+                                                                            typeof this.props.availPin === 'object' ?
+                                                                                this.props.availPin.map((v,i)=>{
+                                                                                    return(
+                                                                                        <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
+                                                                                            <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                                                            <br/>
+                                                                                            <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                                                            <br/>
+                                                                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
+                                                                                        </Tab>
+                                                                                    )
+                                                                                })
+                                                                                : "No data."
+                                                                        )
                                                                     }
                                                                 </div>
                                                                 </TabList>
@@ -580,13 +602,27 @@ class MemberForm extends Component{
                                                     <div className="form-group">
                                                         <label className='text-dark'>Buat PIN</label>
                                                         <input
-                                                                type="number"
+                                                                type="password"
+                                                                maxLength="6"
                                                                 className="form-control form-control-lg"
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
                                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                                             Silahkan buatkan PIN untuk downline anda, PIN ini akan dipakai ketika downline anda akan login untuk pertama kali.
+                                                        </small>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label className='text-dark'>Ulangi PIN</label>
+                                                        <input
+                                                                type="password"
+                                                                maxLength="6"
+                                                                className="form-control form-control-lg"
+                                                                name="pin_re"
+                                                                value={this.state.pin_re}
+                                                                onChange={this.handleChange}  />
+                                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                                            Silahkan samakan PIN dengan PIN yang sudah anda ketik sebelumnya.
                                                         </small>
                                                     </div>
                                                 </div>

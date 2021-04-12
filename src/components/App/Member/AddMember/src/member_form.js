@@ -22,7 +22,7 @@ import Select, { components } from "react-select";
 import { FetchAvailableMember } from '../../../../../redux/actions/member/member.action';
 // import { object } from 'prop-types';
 // import OTPInput, { ResendOTP } from "otp-input-react";
-const resendTime = 120;
+const resendTime = 300;
 const { Option } = components;
 const IconOption = props => (
 <Option {...props}>
@@ -51,6 +51,7 @@ class MemberForm extends Component{
             number:'',
             id_card:'-',
             pin:'',
+            pin_re:'',
             picture:'-',
             membership:'-',
             device_id:'-',
@@ -83,6 +84,7 @@ class MemberForm extends Component{
                 mobile_no:'',
                 id_card:'',
                 pin:'',
+                pin_re:'',
                 picture:'',
                 membership:'',
                 device_id:'',
@@ -242,6 +244,7 @@ class MemberForm extends Component{
             parseData['mobile_no'] = this.state.mobile_no;
             parseData['id_card'] = this.state.id_card;
             parseData['pin'] = this.state.pin;
+            parseData['pin_re'] = this.state.pin_re;
             parseData['picture'] = this.state.picture;
             // parseData['membership'] = this.state.membership;
             parseData['device_id'] = this.state.device_id;
@@ -275,6 +278,22 @@ class MemberForm extends Component{
             }
             else if(parseData['pin'].length<6){
                 err = Object.assign({}, err, {pin:"PIN masih kurang dari 6 digit"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(isNaN(String(parseData['pin']).replace(/[0-9]/g, ''))){
+                err = Object.assign({}, err, {pin:"PIN harus berupa angka"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['pin_re']===''||parseData['pin_re']===undefined){
+                err = Object.assign({}, err, {pin_re:"PIN tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['pin_re'].length<6){
+                err = Object.assign({}, err, {pin_re:"PIN masih kurang dari 6 digit"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['pin']!==parseData['pin_re']){
+                err = Object.assign({}, err, {pin_re:"PIN tidak sesuai!"});
                 this.setState({confirm:false, error: err});
             }
             else if(parseData['picture']===''||parseData['picture']===undefined){
@@ -811,16 +830,31 @@ class MemberForm extends Component{
                                                     <div className="form-group">
                                                         <label>PIN</label>
                                                         <input
-                                                                type="text"
+                                                                type="password"
                                                                 pattern="\d*"
                                                                 maxLength="6"
-                                                                className="form-control form-control-lg"
+                                                                className="form-control form-control-lg password-cus"
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
                                                                 <small className="text-muted">Masukan 6 digit angka yang akan digunakan member baru untuk login.</small>
                                                         <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
                                                             {this.state.error.pin}
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label>ULANGI PIN</label>
+                                                        <input
+                                                                type="password"
+                                                                pattern="\d*"
+                                                                maxLength="6"
+                                                                className="form-control form-control-lg password-cus"
+                                                                name="pin_re"
+                                                                value={this.state.pin_re}
+                                                                onChange={this.handleChange}  />
+                                                                <small className="text-muted">Masukan kembali 6 digit angka yang telah anda input sebelumnya.</small>
+                                                        <div className="invalid-feedback" style={this.state.error.pin_re!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.pin_re}
                                                         </div>
                                                     </div>
                                                     <div className="img-thumbnail rounded-lg p-2 d-none" style={{borderColor:'#e8ebf1'}}>
