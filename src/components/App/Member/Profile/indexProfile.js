@@ -204,14 +204,14 @@ class IndexProfile extends Component{
         e.preventDefault()
         let param = {}
         param['full_name'] = this.state.full_name
-        param['pin'] = parseInt(this.state.pin,10)
+        param['pin'] = this.state.pin===''?'-':this.state.pin
         param['password'] = this.state.password
         param['id_card'] = this.state.ktp
 
         if(param.full_name===''){
             delete param.full_name
         }
-        if(param.pin===''&&param.pin===null){
+        if((param.pin===''&&param.pin===null)||param.pin==='-'){
             delete param.pin
         }
         if(param.id_card===''){
