@@ -27,6 +27,7 @@ class MemberForm extends Component{
         this.handleLevel = this.handleLevel.bind(this);
         this.handleMembership = this.handleMembership.bind(this);
         this.handleChangeImage = this.handleChangeImage.bind(this);
+        this.showPin = this.showPin.bind(this);
         this.state = {
             full_name:'',
             mobile_no:'',
@@ -42,6 +43,8 @@ class MemberForm extends Component{
             sponsor_name:'-',
             sponsor_picture:'-',
             upline:'-',
+            showPin:false,
+            showPinRe:false,
             upline_name:'-',
             upline_picture:'-',
             pin_regist:'',
@@ -158,6 +161,10 @@ class MemberForm extends Component{
         }
 
     };
+    showPin(e,param){
+        e.preventDefault()
+        this.setState({ [param]:!this.state[param] })
+    }
     setPhone(num, number) {
         this.setState({
             mobile_no:number,
@@ -601,26 +608,36 @@ class MemberForm extends Component{
 
                                                     <div className="form-group">
                                                         <label className='text-dark'>Buat PIN</label>
+                                                        <div className="input-group mb-3">
                                                         <input
-                                                                type="password"
+                                                                type={this.state.showPin?"text":"password"}
                                                                 maxLength="6"
                                                                 className="form-control form-control-lg"
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
+                                                            <div className="input-group-append">
+                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPin')}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
+                                                            </div>
+                                                        </div>
                                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                                             Silahkan buatkan PIN untuk downline anda, PIN ini akan dipakai ketika downline anda akan login untuk pertama kali.
                                                         </small>
                                                     </div>
                                                     <div className="form-group">
                                                         <label className='text-dark'>Ulangi PIN</label>
+                                                        <div className="input-group mb-3">
                                                         <input
-                                                                type="password"
+                                                                type={this.state.showPinRe?"text":"password"}
                                                                 maxLength="6"
                                                                 className="form-control form-control-lg"
                                                                 name="pin_re"
                                                                 value={this.state.pin_re}
                                                                 onChange={this.handleChange}  />
+                                                            <div className="input-group-append">
+                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPinRe')}><i className={`zmdi zmdi-eye${this.state.showPinRe?'':'-off'}`}></i></button>
+                                                            </div>
+                                                        </div>
                                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                                             Silahkan samakan PIN dengan PIN yang sudah anda ketik sebelumnya.
                                                         </small>

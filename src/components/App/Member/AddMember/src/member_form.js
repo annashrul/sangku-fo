@@ -45,6 +45,7 @@ class MemberForm extends Component{
         this.handleChangeImage = this.handleChangeImage.bind(this);
         this.handleSponsor = this.handleSponsor.bind(this);
         this.handleSponsorFind = this.handleSponsorFind.bind(this);
+        this.showPin = this.showPin.bind(this);
         this.state = {
             full_name:'',
             mobile_no:'',
@@ -79,6 +80,8 @@ class MemberForm extends Component{
             isSend:false,
             time: {},
             seconds: resendTime,
+            showPin:false,
+            showPinRe:false,
             error:{
                 full_name:'',
                 mobile_no:'',
@@ -211,7 +214,10 @@ class MemberForm extends Component{
         //     })
         // }
     }
-    
+    showPin(e,param){
+        e.preventDefault()
+        this.setState({ [param]:!this.state[param] })
+    }
     HandleChangeBank(bk) {
         this.setState({bank_name:bk.label})
     }
@@ -663,10 +669,10 @@ class MemberForm extends Component{
                                                     <label>Sponsorship</label>
                                                     <div className="row no-gutters">
                                                         <div className="col-6">
-                                                            <button type="button" className={`btn${this.state.sponsorship==='me'?'-danger':'-secondary'} btn-block p-2`} disabled={this.state.sponsorship==='me'} onClick={(e)=>this.handleSponsor(e,'me')}>Saya sebagai Sponsor</button>
+                                                            <button type="button" className={`btn${this.state.sponsorship==='me'?'-danger':'-secondary zoom-hover'} btn-block p-2 border-none`} disabled={this.state.sponsorship==='me'} onClick={(e)=>this.handleSponsor(e,'me')}>Saya sebagai Sponsor</button>
                                                         </div>
                                                         <div className="col-6">
-                                                            <button type="button" className={`btn${this.state.sponsorship==='their'?'-danger':'-secondary'} btn-block p-2`} disabled={this.state.sponsorship==='their'} onClick={(e)=>this.handleSponsor(e,'their')}>Orang lain sebagai Sponsor</button>
+                                                            <button type="button" className={`btn${this.state.sponsorship==='their'?'-danger':'-secondary zoom-hover'} btn-block p-2 border-none`} disabled={this.state.sponsorship==='their'} onClick={(e)=>this.handleSponsor(e,'their')}>Orang lain sebagai Sponsor</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -829,14 +835,19 @@ class MemberForm extends Component{
 
                                                     <div className="form-group">
                                                         <label>PIN</label>
+                                                        <div className="input-group mb-3">
                                                         <input
-                                                                type="password"
+                                                                type={this.state.showPin?"text":"password"}
                                                                 pattern="\d*"
                                                                 maxLength="6"
                                                                 className="form-control form-control-lg password-cus"
                                                                 name="pin"
                                                                 value={this.state.pin}
                                                                 onChange={this.handleChange}  />
+                                                            <div className="input-group-append">
+                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPin')}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
+                                                            </div>
+                                                        </div>
                                                                 <small className="text-muted">Masukan 6 digit angka yang akan digunakan member baru untuk login.</small>
                                                         <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
                                                             {this.state.error.pin}
@@ -844,14 +855,19 @@ class MemberForm extends Component{
                                                     </div>
                                                     <div className="form-group">
                                                         <label>ULANGI PIN</label>
+                                                        <div className="input-group mb-3">
                                                         <input
-                                                                type="password"
+                                                                type={this.state.showPinRe?"text":"password"}
                                                                 pattern="\d*"
                                                                 maxLength="6"
                                                                 className="form-control form-control-lg password-cus"
                                                                 name="pin_re"
                                                                 value={this.state.pin_re}
                                                                 onChange={this.handleChange}  />
+                                                            <div className="input-group-append">
+                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPinRe')}><i className={`zmdi zmdi-eye${this.state.showPinRe?'':'-off'}`}></i></button>
+                                                            </div>
+                                                        </div>
                                                                 <small className="text-muted">Masukan kembali 6 digit angka yang telah anda input sebelumnya.</small>
                                                         <div className="invalid-feedback" style={this.state.error.pin_re!==""?{display:'block'}:{display:'none'}}>
                                                             {this.state.error.pin_re}
