@@ -65,7 +65,7 @@ export const putMember = (data,id) => {
                         //     '<i class="fa fa-thumbs-down"></i>',
                         // cancelButtonAriaLabel: 'Thumbs down'
                     }).then((result) => {
-                        // console.log(result);
+                        // 
                         if(result.value){
                             window.location.reload()
                         }
@@ -190,7 +190,7 @@ export const UpdateIndexDb = (id)=>{
                         have_pin: true,
                     });
 
-                // console.log("res.data.result.is_register",res.data.result.is_register);
+                // 
                     // Set token to Auth Header 
                     // setAuthToken(token);
                     // decode token to set user data

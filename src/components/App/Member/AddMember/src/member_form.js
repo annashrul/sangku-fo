@@ -201,8 +201,8 @@ class MemberForm extends Component{
         if(this.props!==prevProps){
             this.getProps(this.props)
         }
-        console.log("prevProps.memberAvail",prevProps.memberAvail);
-        console.log("this.props.memberAvail",this.props.memberAvail);
+        
+        
         // if (prevProps.sponsor !=='-') {
         //     this.setState({
         //         sponsor:this.props.memberAvail.referral_code,

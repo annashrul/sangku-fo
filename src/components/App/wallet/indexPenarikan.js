@@ -209,9 +209,9 @@ class IndexPenarikan extends Component{
         //         });
         //     }
         // }
-        console.log("this.state.currentStep",this.state.currentStep);
-        console.log("this.props.wdReducer",this.props.wdReducer);
-        console.log("this.state.pinError",this.state.pinError);
+        
+        
+        
     }
     HandleChangeBank(bk) {
         

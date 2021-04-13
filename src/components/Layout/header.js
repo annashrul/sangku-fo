@@ -50,9 +50,9 @@ class Header extends Component {
         socket.on('refresh_notif',(data)=>{
             const my_id = atob(Cookies.get('sangqu_exp'));
             const update_id=data.id;
-            console.log("UPDATE ID",data);
+            
             if(my_id===update_id){
-            console.log("MASUK", data);
+            
 
                 this.refreshData(update_id);
             }
@@ -72,7 +72,7 @@ class Header extends Component {
             socket.emit('get_notif', {id_member:id})
         }, 2000); /* Request data from the socket every 10 seconds */
         socket.on("set_notif", (data) => {
-            // console.log('socket.on("set_notif"',data);
+            // 
             this.setState({
                 list_notif:data.list_notif,
                 list_cart:data.list_cart,

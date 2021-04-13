@@ -44,7 +44,7 @@ class MyTestimoni extends Component{
             status:"",
             status_data:[],
         }
-        console.log(this.props.location.myId);
+        
         
         if(this.props.location.myId===undefined){
             window.location.href = '/konten/testimoni'

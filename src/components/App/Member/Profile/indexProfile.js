@@ -80,7 +80,7 @@ class IndexProfile extends Component{
         })
        
         socket.on("set_dashboard", (data) => {
-            console.log("set_dashboard",data);
+            
            this.setState({
                load_socket:false,
                autoWd: data.auto_wd,
@@ -553,7 +553,7 @@ class IndexProfile extends Component{
                                                                                                 onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
                                                                                                 onChange={(e) => this.handleChange(e)}/>
                                                                                             <div className="input-group-append">
-                                                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e)}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
+                                                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e)} disabled={!this.state.isEdit}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
                                                                                             </div>
                                                                                             <small id="passwordHelpBlock" class="form-text text-muted">
                                                                                                 Kosongkan jika tidak akan di update.

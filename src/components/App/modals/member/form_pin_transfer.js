@@ -40,7 +40,7 @@ class FormPinTransfer extends Component{
     }
     static getDerivedStateFromProps(props, state){
         if (state.beforePinData !== props.data_kategori) {
-            console.log("member_data", props.data_kategori);
+            
             return {
                 pin_data: props.data_kategori,
                 beforePinData:props.data_kategori

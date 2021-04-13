@@ -219,7 +219,7 @@ export const loginUser = (userData) =>
 
             }
             if(err.response.data.msg==='PIN Tidak Sesuai.'){
-                console.log(err);
+                
             } else {
                 window.location.reload();
             }
