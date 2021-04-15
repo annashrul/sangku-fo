@@ -94,39 +94,55 @@ class IndexPenarikan extends Component{
                 is_have_ktp:nextProps.resWalletConfig.is_have_ktp,
                 id_card:nextProps.resWalletConfig.id_card,
             })
-            if(!nextProps.resWalletConfig.is_have_ktp&&nextProps.resWalletConfig.id_card==='-'){
-                Swal.fire({
-                    title: 'Informasi!',
-                    text: 'Untuk melakukan penarikan, kami harus memastikan bahwa anda bukan robot. Maka dari itu silahkan unggah foto identitas anda seperti KTP/SIM/KITAS dsb pada Halaman profile.',
-                    type: 'info',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Unggah Sekarang',
-                    // cancelButtonText: 'Batal'
-                }).then(function(result){
-                    if (result.value) {
-                        window.location.href = '/profile'
-                    }
-                })
-            }
-            else if (nextProps.resWalletConfig.id_card!=='-'&&!nextProps.resWalletConfig.is_have_ktp){
-                Swal.fire({
-                    title: 'Informasi!',
-                    text: 'KTP sudah di terima. Silahkan tunggu proses validasi KTP anda oleh admin.',
-                    type: 'info',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Saya Mengerti',
-                    // cancelButtonText: 'Batal'
-                }).then(function(result){
-                    if (result.value) {
-                        window.location.href = '/report/wallet/penarikan'
-                    }
-                })
-            }
-            else if (parseInt(nextProps.resWalletConfig.trx_wd,10)!==0){
+            // if(!nextProps.resWalletConfig.is_have_ktp&&nextProps.resWalletConfig.id_card==='-'){
+            //     Swal.fire({
+            //         title: 'Informasi!',
+            //         text: 'Untuk melakukan penarikan, kami harus memastikan bahwa anda bukan robot. Maka dari itu silahkan unggah foto identitas anda seperti KTP/SIM/KITAS dsb pada Halaman profile.',
+            //         type: 'info',
+            //         showCancelButton: false,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Unggah Sekarang',
+            //         // cancelButtonText: 'Batal'
+            //     }).then(function(result){
+            //         if (result.value) {
+            //             window.location.href = '/profile'
+            //         }
+            //     })
+            // }
+            // else if (nextProps.resWalletConfig.id_card!=='-'&&!nextProps.resWalletConfig.is_have_ktp){
+            //     Swal.fire({
+            //         title: 'Informasi!',
+            //         text: 'KTP sudah di terima. Silahkan tunggu proses validasi KTP anda oleh admin.',
+            //         type: 'info',
+            //         showCancelButton: false,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Saya Mengerti',
+            //         // cancelButtonText: 'Batal'
+            //     }).then(function(result){
+            //         if (result.value) {
+            //             window.location.href = '/report/wallet/penarikan'
+            //         }
+            //     })
+            // }
+            // else if (parseInt(nextProps.resWalletConfig.trx_wd,10)!==0){
+            //     Swal.fire({
+            //         title: 'Informasi!',
+            //         text: 'Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.',
+            //         type: 'info',
+            //         showCancelButton: false,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Saya Mengerti',
+            //         // cancelButtonText: 'Batal'
+            //     }).then(function(result){
+            //         if (result.value) {
+            //             window.location.href = '/report/wallet/penarikan'
+            //         }
+            //     })
+            // }
+            if (parseInt(nextProps.resWalletConfig.trx_wd,10)!==0){
                 Swal.fire({
                     title: 'Informasi!',
                     text: 'Saat ini anda tidak dapat melakukan penarikan dikarenakan anda telah melakukan penarikan sebelumnya. Harap tunggu sampai dana penarikan anda selesai kami proses dan anda dapat melakukan penarikan kembali.',

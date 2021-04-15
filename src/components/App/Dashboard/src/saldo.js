@@ -30,7 +30,7 @@ class Overview extends Component {
                     </div>
                     <div className="content-widget-dashboard" style={{marginBottom:'30px'}}>
                         <div className="row mt-3 mb-4">
-                            <div className='col-md-4 col-4'>
+                            <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'deposit')}>
                                         <div className="row">
@@ -43,7 +43,7 @@ class Overview extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-md-4 col-4'>
+                            {/* <div className='col-md-4 col-4'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'transfer')}>
                                         <div className="row">
@@ -55,8 +55,8 @@ class Overview extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='col-md-4 col-4'>
+                            </div> */}
+                            <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'penarikan')}>
                                         <div className="row">
