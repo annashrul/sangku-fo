@@ -206,7 +206,7 @@ class IndexProfile extends Component{
         param['full_name'] = this.state.full_name
         param['pin'] = this.state.pin===''?'-':this.state.pin
         param['password'] = this.state.password
-        param['id_card'] = this.state.ktp
+        // param['id_card'] = this.state.ktp
 
         if(param.full_name===''){
             delete param.full_name
@@ -214,9 +214,9 @@ class IndexProfile extends Component{
         if((param.pin===''&&param.pin===null)||param.pin==='-'){
             delete param.pin
         }
-        if(param.id_card===''){
-            delete param.id_card
-        }
+        // if(param.id_card===''){
+        //     delete param.id_card
+        // }
         if(param.password===''){
             delete param.password
         } else {
@@ -564,24 +564,24 @@ class IndexProfile extends Component{
                                                                                 {/* <td><h6 className="font-14">: {parseFloat(investment).toFixed(8)}</h6></td> */}
                                                                             </tr>
                                                                             {String(id_card).includes('profile.png')?
-                                                                            <tr>
-                                                                                <td><h6 className="font-14"><span className="text-muted">KTP</span></h6></td>
-                                                                                <td>
-                                                                                <img className="img-fluid mb-2" src={this.state.ktp} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
-                                                                                <div className={!this.state.isEdit?"d-none":"form-group"}>
-                                                                                    <File64
-                                                                                        multiple={ false }
-                                                                                        maxSize={2048} //in kb
-                                                                                        fileType='png, jpg' //pisahkan dengan koma
-                                                                                        className="form-control-file"
-                                                                                        onDone={ this.handleChangeKtp }
-                                                                                        showPreview={false}
-                                                                                        lang='id'
-                                                                                    />
-                                                                                </div>
-                                                                                </td>
-                                                                                {/* <td><h6 className="font-14">: {parseFloat(investment).toFixed(8)}</h6></td> */}
-                                                                            </tr>
+                                                                            // <tr>
+                                                                            //     <td><h6 className="font-14"><span className="text-muted">KTP</span></h6></td>
+                                                                            //     <td>
+                                                                            //     <img className="img-fluid mb-2" src={this.state.ktp} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${imgDefault}`}}  />
+                                                                            //     <div className={!this.state.isEdit?"d-none":"form-group"}>
+                                                                            //         <File64
+                                                                            //             multiple={ false }
+                                                                            //             maxSize={2048} //in kb
+                                                                            //             fileType='png, jpg' //pisahkan dengan koma
+                                                                            //             className="form-control-file"
+                                                                            //             onDone={ this.handleChangeKtp }
+                                                                            //             showPreview={false}
+                                                                            //             lang='id'
+                                                                            //         />
+                                                                            //     </div>
+                                                                            //     </td>
+                                                                            // </tr>
+                                                                            null
                                                                             :null
                                                                             }
                                                                         </tbody>
@@ -761,7 +761,7 @@ class IndexProfile extends Component{
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-12">
+                                        <div className="col-md-12 d-none">
                                             <div className="card box-margin">
                                                 <div className="card-body">
                                                     <div className="form-inline d-flex justify-content-between">

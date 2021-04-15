@@ -398,9 +398,31 @@ class Header extends Component {
                                         <div className="slimScrollBar" style={{background: 'rgb(140, 140, 140)', width: 2, position: 'absolute', top: 0, opacity: '0.4', display: 'none', borderRadius: 7, zIndex: 99, right: 0, height: '97.4063px'}} /><div className="slimScrollRail" style={{width: 2, height: '100%', position: 'absolute', top: 0, display: 'none', borderRadius: 7, background: 'rgb(51, 51, 51)', opacity: '0.2', zIndex: 90, right: 0}} />
                                     </div>
                                     <div className="notifications-heading bg-transparent pb-2" style={{display:'inline-table'}}>
-                                        <Link to={`/cart`} className="mt-1 mb-1">Lihat keranjang <i className="fa fa-cart"/></Link>
-                                        <br/>
+                                        {/* <br/> */}
+                                        <div className="d-flex align-items-center justify-content-between">
                                         <h6 style={{whiteSpace:'no-wrap'}}>Total : {this.state.list_cart.length > 0 ? toRp(this.state.list_cart.reduce((a, b) => ({harga: (parseInt(a.harga,10)*parseInt(a.qty,10)) + (parseInt(b.harga,10)*parseInt(b.qty,10))})).harga) :0}</h6>
+                                        
+                                        <Link
+                                            to={`/cart`}
+                                            className="mt-1 mb-1 btn btn-secondary m-0 pb-2"
+                                            style={{
+                                                backgroundColor:'#28a745',
+                                                border:'1px solid #28a745',
+                                                fontSize:'14px',
+                                                borderRadius: '0.15rem',
+                                                fontWeight: '600',
+                                                letterSpacing: '0.5px',
+                                                color:'#fff',
+                                                display:'inline-block',
+                                                textAlign:'center',
+                                                verticalAlign:'middle',
+                                                userSelect:'none',
+                                                padding:'0.375rem 0.75rem'
+                                            }}
+                                            >
+                                                Lihat keranjang <i className="fa fa-cart"/>
+                                        </Link>
+                                        </div>
                                         <div className="d-flex justify-content-between align-items-center w-100">
                                             <Link
                                                 to={'/product'}

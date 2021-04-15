@@ -17,6 +17,23 @@ import { withRouter } from 'react-router-dom';
 import {ToastQ} from 'helper'
 import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
 import { FetchAvailableMember } from '../../../../../redux/actions/member/member.action';
+import { getBankData } from '../../../../../redux/actions/member/bank.action';
+
+import Spinner from 'Spinner'
+
+import Select, { components } from "react-select";
+const { Option } = components;
+const IconOption = props => (
+<Option {...props}>
+    <div className="client-media-content d-flex align-items-center p-1">
+    {/* <img className="client-thumb mr-3" src={props.data.icon} alt={props.data.label} /> */}
+    <div className="user--media-body">
+        <h6 className="mb-0 text-dark font-15">{props.data.label}</h6>
+        <span className="font-13 text-dark">{props.data.childLabel}</span>
+    </div>
+    </div>
+</Option>
+);
 
 const resendTime = 300;
 class MemberForm extends Component{
@@ -28,9 +45,11 @@ class MemberForm extends Component{
         this.handleMembership = this.handleMembership.bind(this);
         this.handleChangeImage = this.handleChangeImage.bind(this);
         this.showPin = this.showPin.bind(this);
+        this.HandleChangeBank = this.HandleChangeBank.bind(this);
         this.state = {
             full_name:'',
             mobile_no:'',
+            acc_no:'',
             number:'',
             id_card:'-',
             pin:'',
@@ -58,12 +77,16 @@ class MemberForm extends Component{
             seconds: resendTime,
             findSponsor:'',
             sponsorship:'me',
+            bank_data:[],
+            bank_name:'',
+            bank_no:'',
             temp_sponsor:'-',
             temp_sponsor_name:'-',
             temp_sponsor_picture:'-',
             error:{
                 full_name:'',
                 mobile_no:'',
+                acc_no:'',
                 id_card:'',
                 pin:'',
                 pin_re:'',
@@ -75,6 +98,8 @@ class MemberForm extends Component{
                 upline:'',
                 pin_regist:'',
                 otp_val:'',
+                bank_name:'',
+                bank_no:'',
                 prev:'',}
         };
         this.handleMembership = this.handleMembership.bind(this);
@@ -98,6 +123,21 @@ class MemberForm extends Component{
                     this.startTimer()
                 }.bind(this), 500)
             }
+        }
+        let data_bank = []
+        if(nextProps.resBank!==undefined&&nextProps.resBank.length>0){
+            nextProps.resBank.map((i) => {
+                data_bank.push({
+                    value: i.id,
+                    label: i.name,
+                    childLabel: i.code,
+                    icon: i.value,
+                });
+                return null;
+            });
+            this.setState({
+                bank_data:data_bank
+            })
         }
         this.getProps(nextProps)
         //debug otp
@@ -129,6 +169,7 @@ class MemberForm extends Component{
     }
     componentWillMount(){
         this.getProps(this.props);
+        this.props.getBankData()
     }
     componentWillReceiveProps(nextProps) {
         this.getProps(nextProps);
@@ -161,6 +202,11 @@ class MemberForm extends Component{
         }
 
     };
+    HandleChangeBank(bk) {
+        this.setState({bank_name:bk.label})
+        let err = Object.assign({}, this.state.error, {bank_name: ""});
+        this.setState({error: err});
+    }
     showPin(e,param){
         e.preventDefault()
         this.setState({ [param]:!this.state[param] })
@@ -179,6 +225,8 @@ class MemberForm extends Component{
              let parseData = {
                  full_name: this.state.full_name,
                  mobile_no: this.state.mobile_no,
+                 bank_no: this.state.bank_no,
+                 bank_name: this.state.bank_name,
                  id_card: this.state.id_card,
                  pin: this.state.pin,
                  pin_re: this.state.pin_re,
@@ -202,12 +250,11 @@ class MemberForm extends Component{
                      icon: 'error',
                      title: `No. Telp tidak boleh kosong!`
                  });
-
-             } else if (parseData.pin === '' || parseData.pin === undefined) {
-                 ToastQ.fire({
-                     icon: 'error',
-                     title: `PIN tidak boleh kosong!`
-                 });
+            } else if (parseData.pin === '' || parseData.pin === undefined) {
+                ToastQ.fire({
+                    icon: 'error',
+                    title: `PIN tidak boleh kosong!`
+                });
 
              } else if (parseData.pin.length > 6 || parseData.pin.length < 6) {
                  ToastQ.fire({
@@ -234,6 +281,21 @@ class MemberForm extends Component{
                     icon: 'error',
                     title: `PIN tidak sesuai!`
                 });
+            } else if (parseData.bank_name === '' || parseData.bank_name === undefined) {
+                ToastQ.fire({
+                    icon: 'error',
+                    title: `Bank belum dipilih!`
+                });
+            } else if (parseData.bank_no === '' || parseData.bank_no === undefined) {
+                ToastQ.fire({
+                    icon: 'error',
+                    title: `Data No Rekening tidak boleh kosong!`
+                });
+           } else if (isNaN(String(parseData.bank_no).replace(/[0-9]/g, ''))) {
+               ToastQ.fire({
+                   icon: 'error',
+                   title: `Data No Rekening harus berupa digit angka!`
+               });
             }
             else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
                 err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
@@ -250,6 +312,7 @@ class MemberForm extends Component{
         let parseData = {
             full_name: this.state.full_name,
             mobile_no: this.state.mobile_no,
+            bank: {'bank_name':this.state.bank_name,'acc_no':this.state.bank_no,'acc_name':this.state.full_name},
             id_card: this.state.id_card,
             pin: this.state.pin,
             picture: this.state.picture,
@@ -266,7 +329,16 @@ class MemberForm extends Component{
         }
         else if(parseData.mobile_no===''||parseData.mobile_no===undefined){
             ToastQ.fire({icon:'error',title:`No. Telp tidak boleh kosong!`});
-
+        } else if (parseData.acc_no === '' || parseData.acc_no === undefined) {
+            ToastQ.fire({
+                icon: 'error',
+                title: `Data Rekening tidak boleh kosong!`
+            });
+        } else if (isNaN(String(parseData.acc_no).replace(/[0-9]/g, ''))) {
+            ToastQ.fire({
+                icon: 'error',
+                title: `Data Rekening harus berupa digit angka!`
+            });
         }
         else if(parseData.pin===''||parseData.pin===undefined){
             ToastQ.fire({icon:'error',title:`PIN tidak boleh kosong!`});
@@ -605,7 +677,6 @@ class MemberForm extends Component{
                                                     <div className="invalid-feedback" style={this.state.error.pin_regist!==""?{display:'block'}:{display:'none'}}>
                                                         {this.state.error.pin_regist}
                                                     </div>
-
                                                     <div className="form-group">
                                                         <label className='text-dark'>Buat PIN</label>
                                                         <div className="input-group mb-3">
@@ -615,6 +686,7 @@ class MemberForm extends Component{
                                                                 className="form-control form-control-lg"
                                                                 name="pin"
                                                                 value={this.state.pin}
+                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
                                                                 onChange={this.handleChange}  />
                                                             <div className="input-group-append">
                                                                 <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPin')}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
@@ -633,6 +705,7 @@ class MemberForm extends Component{
                                                                 className="form-control form-control-lg"
                                                                 name="pin_re"
                                                                 value={this.state.pin_re}
+                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
                                                                 onChange={this.handleChange}  />
                                                             <div className="input-group-append">
                                                                 <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPinRe')}><i className={`zmdi zmdi-eye${this.state.showPinRe?'':'-off'}`}></i></button>
@@ -641,6 +714,43 @@ class MemberForm extends Component{
                                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                                             Silahkan samakan PIN dengan PIN yang sudah anda ketik sebelumnya.
                                                         </small>
+                                                    </div>
+                                                    
+                                                    <div className="img-thumbnail rounded-lg p-2" style={{borderColor:'#e8ebf1'}}>
+                                                    {/* <hr/> */}
+                                                        <small className="text-muted">Data Bank</small>
+                                                        <div className="form-group">
+                                                            <label>Nama Bank</label>
+                                                            { typeof this.state.bank_data === 'object'? this.state.bank_data.length>0?
+                                                            <Select
+                                                                defaultValue={this.state.bank_data[0]}
+                                                                options={this.state.bank_data}
+                                                                components={{ Option: IconOption }}
+                                                                onChange={this.HandleChangeBank}
+                                                                value={
+                                                                    this.state.bank_data.find(op => {
+                                                                    return op.label === this.state.bank
+                                                                })}
+                                                            /> : <Spinner/> : <Spinner/>
+                                                            }
+                                                            <div className="invalid-feedback" style={this.state.error.bank_name!==""?{display:'block'}:{display:'none'}}>
+                                                                {this.state.error.bank_name}
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Nomor Rekening Bank</label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control form-control-lg"
+                                                                name="bank_no"
+                                                                maxLength="17"
+                                                                value={this.state.bank_no}
+                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
+                                                                onChange={this.handleChange}  />
+                                                            <div className="invalid-feedback" style={this.state.error.bank_no!==""?{display:'block'}:{display:'none'}}>
+                                                                {this.state.error.bank_no}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                     </div>
@@ -694,6 +804,14 @@ class MemberForm extends Component{
                                                             <th className="text-left" scope="row">: {this.state.mobile_no}</th>
                                                         </tr>
                                                         <tr>
+                                                            <th className="text-left" scope="row">Nama Bank</th>
+                                                            <th className="text-left" scope="row">: {this.state.bank_name}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th className="text-left" scope="row">No Rekening Bank</th>
+                                                            <th className="text-left" scope="row">: {this.state.bank_no}</th>
+                                                        </tr>
+                                                        <tr>
                                                             <th className="text-left" scope="row">Sponsor</th>
                                                             <th className="text-left" scope="row">: {this.state.sponsor}</th>
                                                         </tr>
@@ -737,6 +855,14 @@ class MemberForm extends Component{
                                         <th className="text-left text-dark" scope="row">: {this.state.mobile_no}</th>
                                     </tr>
                                     <tr>
+                                        <th className="text-left text-dark" scope="row">Nama Bank</th>
+                                        <th className="text-left text-dark" scope="row">: {this.state.bank_name}</th>
+                                    </tr>
+                                    <tr>
+                                        <th className="text-left text-dark" scope="row">No Rekening Bank</th>
+                                        <th className="text-left text-dark" scope="row">: {this.state.bank_no}</th>
+                                    </tr>
+                                    <tr>
                                         <th className="text-left text-dark" scope="row">Sponsor</th>
                                         <th className="text-left text-dark" scope="row">: {this.state.sponsor}</th>
                                     </tr>
@@ -777,6 +903,7 @@ MemberForm.propTypes = {
     sendOtp: PropTypes.func.isRequired,
     FetchDetailPinWebView: PropTypes.func.isRequired,
     createMemberWebView: PropTypes.func.isRequired,
+    getBankData: PropTypes.func.isRequired,
     errors: PropTypes.object
 }
 
@@ -792,7 +919,9 @@ const mapStateToProps = (state) => {
         auth:state.auth,
         isLoadingAvail:state.memberReducer.isLoadingAvail,
         memberAvail:state.memberReducer.data_avail,
+        isLoadingData: state.bankReducer.isLoadingData,
+        resBank: state.bankReducer.data_bank,
         // Level:state.userLevelReducer.data,
     }
 }
-export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPinWebView,createMemberWebView,FetchAvailableMember})(MemberForm));
+export default withRouter(connect(mapStateToProps,{sendOtp,FetchDetailPinWebView,createMemberWebView,FetchAvailableMember,getBankData})(MemberForm));

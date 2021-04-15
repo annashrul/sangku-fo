@@ -49,6 +49,7 @@ class MemberForm extends Component{
         this.state = {
             full_name:'',
             mobile_no:'',
+            acc_no:'',
             number:'',
             id_card:'-',
             pin:'',
@@ -85,6 +86,7 @@ class MemberForm extends Component{
             error:{
                 full_name:'',
                 mobile_no:'',
+                acc_no:'',
                 id_card:'',
                 pin:'',
                 pin_re:'',
@@ -220,6 +222,8 @@ class MemberForm extends Component{
     }
     HandleChangeBank(bk) {
         this.setState({bank_name:bk.label})
+        let err = Object.assign({}, this.state.error, {bank_name: ""});
+        this.setState({error: err});
     }
     handleLevel(val) {
         let err = Object.assign({}, this.state.error, {level: ""});
@@ -252,6 +256,8 @@ class MemberForm extends Component{
             parseData['pin'] = this.state.pin;
             parseData['pin_re'] = this.state.pin_re;
             parseData['picture'] = this.state.picture;
+            parseData['bank_name'] = this.state.bank_name;
+            parseData['bank_no'] = this.state.bank_no;
             // parseData['membership'] = this.state.membership;
             parseData['device_id'] = this.state.device_id;
             parseData['signup_source'] = this.state.signup_source;
@@ -276,6 +282,18 @@ class MemberForm extends Component{
             }
             else if(parseData['id_card']===''||parseData['id_card']===undefined){
                 err = Object.assign({}, err, {id_card:"ID Card tidak boleh kosong"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['bank_name']===''||parseData['bank_name']===undefined){
+                err = Object.assign({}, err, {bank_name:"Nama Bank belum dipilih!"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(parseData['bank_no']===''||parseData['bank_no']===undefined){
+                err = Object.assign({}, err, {bank_no:"Data No Rekening tidak boleh kosong!"});
+                this.setState({confirm:false, error: err});
+            }
+            else if(isNaN(String(parseData['bank_no']).replace(/[0-9]/g, ''))){
+                err = Object.assign({}, err, {bank_no:"Data No Rekening harus berupa angka"});
                 this.setState({confirm:false, error: err});
             }
             else if(parseData['pin']===''||parseData['pin']===undefined){
@@ -342,6 +360,9 @@ class MemberForm extends Component{
         parseData['id_card'] = this.state.id_card;
         parseData['pin'] = this.state.pin;
         parseData['picture'] = this.state.picture;
+        parseData['bank'] = {'bank_name':this.state.bank_name,'acc_name':this.state.full_name,'acc_no':this.state.bank_no};
+        parseData['bank_name'] = this.state.bank_name;
+        parseData['bank_no'] = this.state.bank_no;
         // parseData['membership'] = this.state.membership;
         parseData['position'] = this.state.position;
         parseData['device_id'] = this.state.device_id;
@@ -359,12 +380,48 @@ class MemberForm extends Component{
             err = Object.assign({}, err, {mobile_no:"No Telpon tidak boleh kosong"});
             this.setState({confirm:false, error: err});
         }
+        else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
+            err = Object.assign({}, err, {pin_regist:"Membership belum dipilih atau pilihan tidak sesuai dengan jumlah PIN yang anda miliki!"});
+            this.setState({confirm:false, error: err});
+        }
         else if(parseData['id_card']===''||parseData['id_card']===undefined){
             err = Object.assign({}, err, {id_card:"ID Card tidak boleh kosong"});
             this.setState({confirm:false, error: err});
         }
+        else if(parseData['bank_name']===''||parseData['bank_name']===undefined){
+            err = Object.assign({}, err, {bank_name:"Nama Bank belum dipilih!"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(parseData['bank_no']===''||parseData['bank_no']===undefined){
+            err = Object.assign({}, err, {bank_no:"Data No Rekening tidak boleh kosong!"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(isNaN(String(parseData['bank_no']).replace(/[0-9]/g, ''))){
+            err = Object.assign({}, err, {bank_no:"Data No Rekening harus berupa angka"});
+            this.setState({confirm:false, error: err});
+        }
         else if(parseData['pin']===''||parseData['pin']===undefined){
             err = Object.assign({}, err, {pin:"PIN tidak boleh kosong"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(parseData['pin'].length<6){
+            err = Object.assign({}, err, {pin:"PIN masih kurang dari 6 digit"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(isNaN(String(parseData['pin']).replace(/[0-9]/g, ''))){
+            err = Object.assign({}, err, {pin:"PIN harus berupa angka"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(parseData['pin_re']===''||parseData['pin_re']===undefined){
+            err = Object.assign({}, err, {pin_re:"PIN tidak boleh kosong"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(parseData['pin_re'].length<6){
+            err = Object.assign({}, err, {pin_re:"PIN masih kurang dari 6 digit"});
+            this.setState({confirm:false, error: err});
+        }
+        else if(parseData['pin']!==parseData['pin_re']){
+            err = Object.assign({}, err, {pin_re:"PIN tidak sesuai!"});
             this.setState({confirm:false, error: err});
         }
         else if(parseData['picture']===''||parseData['picture']===undefined){
@@ -389,10 +446,6 @@ class MemberForm extends Component{
         }
         else if(parseData['upline']===''||parseData['upline']===undefined){
             err = Object.assign({}, err, {upline:"Upline tidak boleh kosong"});
-            this.setState({confirm:false, error: err});
-        }
-        else if(parseData['pin_regist']===''||parseData['pin_regist']===undefined){
-            err = Object.assign({}, err, {pin_regist:"Membership belum dipilih"});
             this.setState({confirm:false, error: err});
         }
         else{
@@ -833,47 +886,24 @@ class MemberForm extends Component{
                                                         {this.state.error.pin_regist}
                                                     </div>
 
-                                                    <div className="form-group">
-                                                        <label>PIN</label>
-                                                        <div className="input-group mb-3">
+                                                    {/* <div className="form-group">
+                                                        <label>DATA REKENING</label>
                                                         <input
-                                                                type={this.state.showPin?"text":"password"}
-                                                                pattern="\d*"
-                                                                maxLength="6"
-                                                                className="form-control form-control-lg password-cus"
-                                                                name="pin"
-                                                                value={this.state.pin}
-                                                                onChange={this.handleChange}  />
-                                                            <div className="input-group-append">
-                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPin')}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
-                                                            </div>
+                                                            type="text"
+                                                            pattern="\d*"
+                                                            maxLength="17"
+                                                            className="form-control form-control-lg"
+                                                            name="acc_no"
+                                                            value={this.state.acc_no}
+                                                            onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
+                                                            onChange={this.handleChange}  />
+                                                                <small className="text-warning">Masukan Data Rekening yang bersangkutan, wajib diisi dan bersifat permanen!.</small>
+                                                        <div className="invalid-feedback" style={this.state.error.acc_no!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.acc_no}
                                                         </div>
-                                                                <small className="text-muted">Masukan 6 digit angka yang akan digunakan member baru untuk login.</small>
-                                                        <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
-                                                            {this.state.error.pin}
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>ULANGI PIN</label>
-                                                        <div className="input-group mb-3">
-                                                        <input
-                                                                type={this.state.showPinRe?"text":"password"}
-                                                                pattern="\d*"
-                                                                maxLength="6"
-                                                                className="form-control form-control-lg password-cus"
-                                                                name="pin_re"
-                                                                value={this.state.pin_re}
-                                                                onChange={this.handleChange}  />
-                                                            <div className="input-group-append">
-                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPinRe')}><i className={`zmdi zmdi-eye${this.state.showPinRe?'':'-off'}`}></i></button>
-                                                            </div>
-                                                        </div>
-                                                                <small className="text-muted">Masukan kembali 6 digit angka yang telah anda input sebelumnya.</small>
-                                                        <div className="invalid-feedback" style={this.state.error.pin_re!==""?{display:'block'}:{display:'none'}}>
-                                                            {this.state.error.pin_re}
-                                                        </div>
-                                                    </div>
-                                                    <div className="img-thumbnail rounded-lg p-2 d-none" style={{borderColor:'#e8ebf1'}}>
+                                                    </div> */}
+                                                    
+                                                    <div className="img-thumbnail rounded-lg p-2" style={{borderColor:'#e8ebf1'}}>
                                                     {/* <hr/> */}
                                                         <small className="text-muted">Data Bank</small>
                                                         <div className="form-group">
@@ -895,11 +925,60 @@ class MemberForm extends Component{
                                                             </div>
                                                         </div>
                                                         <div className="form-group">
-                                                            <label>Nomor Bank</label>
-                                                            <input type="text" className="form-control form-control-lg" name="bank_no" value={this.state.bank_no} onChange={this.handleChange}  />
+                                                            <label>Nomor Rekening Bank</label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control form-control-lg"
+                                                                name="bank_no"
+                                                                maxLength="17"
+                                                                value={this.state.bank_no}
+                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
+                                                                onChange={this.handleChange}  />
                                                             <div className="invalid-feedback" style={this.state.error.bank_no!==""?{display:'block'}:{display:'none'}}>
                                                                 {this.state.error.bank_no}
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label>PIN</label>
+                                                        <div className="input-group mb-3">
+                                                        <input
+                                                                type={this.state.showPin?"text":"password"}
+                                                                pattern="\d*"
+                                                                maxLength="6"
+                                                                className="form-control form-control-lg password-cus"
+                                                                name="pin"
+                                                                value={this.state.pin}
+                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
+                                                                onChange={this.handleChange}  />
+                                                            <div className="input-group-append">
+                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPin')}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
+                                                            </div>
+                                                        </div>
+                                                                <small className="text-muted">Masukan 6 digit angka yang akan digunakan member baru untuk login.</small>
+                                                        <div className="invalid-feedback" style={this.state.error.pin!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.pin}
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label>ULANGI PIN</label>
+                                                        <div className="input-group mb-3">
+                                                        <input
+                                                                type={this.state.showPinRe?"text":"password"}
+                                                                pattern="\d*"
+                                                                maxLength="6"
+                                                                className="form-control form-control-lg password-cus"
+                                                                name="pin_re"
+                                                                value={this.state.pin_re}
+                                                                onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
+                                                                onChange={this.handleChange}  />
+                                                            <div className="input-group-append">
+                                                                <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPinRe')}><i className={`zmdi zmdi-eye${this.state.showPinRe?'':'-off'}`}></i></button>
+                                                            </div>
+                                                        </div>
+                                                                <small className="text-muted">Masukan kembali 6 digit angka yang telah anda input sebelumnya.</small>
+                                                        <div className="invalid-feedback" style={this.state.error.pin_re!==""?{display:'block'}:{display:'none'}}>
+                                                            {this.state.error.pin_re}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -956,13 +1035,17 @@ class MemberForm extends Component{
                                                             <th className="text-left" scope="row">: {this.state.mobile_no}</th>
                                                         </tr>
                                                         {/* <tr>
+                                                            <th className="text-left" scope="row">Data Rekening</th>
+                                                            <th className="text-left" scope="row">: {this.state.acc_no}</th>
+                                                        </tr> */}
+                                                        <tr>
                                                             <th className="text-left" scope="row">Nama Bank</th>
                                                             <th className="text-left" scope="row">: {this.state.bank_name}</th>
                                                         </tr>
                                                         <tr>
                                                             <th className="text-left" scope="row">No. Bank</th>
                                                             <th className="text-left" scope="row">: {this.state.bank_no}</th>
-                                                        </tr> */}
+                                                        </tr>
                                                         <tr>
                                                             <th className="text-left align-middle" scope="row">Sponsor</th>
                                                             <th className="text-left align-middle" scope="row">
@@ -1033,13 +1116,17 @@ class MemberForm extends Component{
                                         <th className="text-left" scope="row">: {this.state.mobile_no}</th>
                                     </tr>
                                     {/* <tr>
+                                        <th className="text-left" scope="row">Data Rekening</th>
+                                        <th className="text-left" scope="row">: {this.state.acc_no}</th>
+                                    </tr> */}
+                                    <tr>
                                         <th className="text-left" scope="row">Nama Bank</th>
                                         <th className="text-left" scope="row">: {this.state.bank_name}</th>
                                     </tr>
                                     <tr>
                                         <th className="text-left" scope="row">No. Bank</th>
                                         <th className="text-left" scope="row">: {this.state.bank_no}</th>
-                                    </tr> */}
+                                    </tr>
                                     <tr>
                                         <th className="text-left" scope="row">Sponsor</th>
                                         <th className="text-left" scope="row">: {this.state.sponsor}</th>

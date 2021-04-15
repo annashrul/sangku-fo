@@ -206,7 +206,7 @@ class SideMenu extends Component {
                         <ul className={"treeview-menu"} style={{display:this.state.isWallet===true?"block":"none"}}>
                             <li className={path==='/deposit'?"active":''}><Link to="/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
                             <li className={path==='/penarikan'?"active":''}><Link to="/penarikan" style={{width:'fit-content'}}>Penarikan</Link></li>
-                            <li className={path==='/transfer'?"active":''}><Link to="/transfer" style={{width:'fit-content'}}> Transfer</Link></li>
+                            {/* <li className={path==='/transfer'?"active":''}><Link to="/transfer" style={{width:'fit-content'}}> Transfer</Link></li> */}
                         </ul>
                     </li>
                     {/* WALLET MODUL END */}

@@ -22,7 +22,7 @@ const IndexInvoice = React.lazy(() => import('../App/transaction/indexInvoice'))
 const AddMember = React.lazy(() => import('../App/Member/AddMember'));
 const IndexDeposit = React.lazy(() => import('../App/wallet/indexDeposit'));
 const IndexPenarikan = React.lazy(() => import('../App/wallet/indexPenarikan'));
-const IndexTransfer = React.lazy(() => import('../App/wallet/indexTransfer'));
+// const IndexTransfer = React.lazy(() => import('../App/wallet/indexTransfer'));
 const IndexAlamat = React.lazy(() => import('../App/Member/Alamat/indexAlamat'));
 const IndexBank = React.lazy(() => import('../App/Member/bank/indexBank'));
 const Binary = React.lazy(() => import('../App/Member/Binary'));
@@ -120,13 +120,13 @@ const Routes = (
             {/* WALLET SECTION START */}
             <PrivateRoute path="/deposit" exact strict component={IndexDeposit} />
             <PrivateRoute path="/penarikan" exact strict component={IndexPenarikan} />
-            <PrivateRoute path="/transfer" exact strict component={IndexTransfer} />
+            {/* <PrivateRoute path="/transfer" exact strict component={IndexTransfer} /> */}
             {/* WALLET SECTION END */}
             {/* REPORT SECTION START */}
             {/* REPORT WALLET SECTION START */}
             <PrivateRoute path="/report/wallet/deposit" exact strict component={DepositReport} />
             <PrivateRoute path="/report/wallet/penarikan" exact strict component={PenarikanReport} />
-            <PrivateRoute path="/report/wallet/transfer" exact strict component={IndexTransfer} />
+            {/* <PrivateRoute path="/report/wallet/transfer" exact strict component={IndexTransfer} /> */}
             <PrivateRoute path="/report/redeem" exact strict component={ReportRedeem} />
             <PrivateRoute path="/report/reward" exact strict component={ReportReward} />
             {/* REPORT WALLET SECTION END */}
