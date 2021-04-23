@@ -156,7 +156,7 @@
 .last_level_user {
   font-size: 1.6em;
   color: #6e7bad;
-  margin-top: 6em;
+  margin-top: 30px;
 }
 
 .last_level_user .fa-2x {
@@ -164,7 +164,6 @@
 }
 
 .binary-node-single-item .pop-up-content {
-  zoom: 85%;
   border-radius: 2px;
   padding: 0;
   background-color: #fff;
@@ -186,7 +185,7 @@
 }
 
 .binary-node-single-item .pop-up-content .profile_tooltip_pick {
-  padding: 5px 5px;
+  padding: 20px 16px;
   display: block;
 }
 
@@ -216,7 +215,7 @@
 }
 
 .binary-node-single-item .pop-up-content .tooltip_profile_detaile {
-  padding: 10px 5px;
+  padding: 30px 16px;
   display: block;
   background-color: #f0f2f7;
 }
@@ -242,7 +241,7 @@
 }
 
 .binary-node-single-item .pop-up-content .tooltip-footer {
-  padding: 5px;
+  padding: 16px;
   text-align: left;
   font-size: 12px;
   color: #000;

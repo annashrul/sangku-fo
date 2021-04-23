@@ -18,21 +18,21 @@ class Sponsor extends Component{
 
       cssnode3.type = 'text/css';
       cssnode3.rel = 'stylesheet';
-      cssnode3.href = '/genealogy/sponsor-style.css';
+      cssnode3.href = '/sponsor/sponsor-style.css';
       head.appendChild(cssnode3);
 
       var cssnode = document.createElement('link');
 
       cssnode.type = 'text/css';
       cssnode.rel = 'stylesheet';
-      cssnode.href = '/genealogy/tree.css';
+      cssnode.href = '/sponsor/tree.css';
 
       head.appendChild(cssnode);
       var cssnode2 = document.createElement('link');
 
       cssnode2.type = 'text/css';
       cssnode2.rel = 'stylesheet';
-      cssnode2.href = '/genealogy/treedev.css';
+      cssnode2.href = '/sponsor/treedev.css';
       head.appendChild(cssnode2);
 
    }
@@ -42,9 +42,9 @@ class Sponsor extends Component{
    }
 
    componentWillUnmount() {
-      document.querySelector("link[href='/genealogy/sponsor-style.css']").remove()
-      document.querySelector("link[href='/genealogy/tree.css']").remove()
-      document.querySelector("link[href='/genealogy/treedev.css']").remove()
+      document.querySelector("link[href='/sponsor/sponsor-style.css']").remove()
+      document.querySelector("link[href='/sponsor/tree.css']").remove()
+      document.querySelector("link[href='/sponsor/treedev.css']").remove()
    }
    componentDidUpdate(prevState){
       if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code){

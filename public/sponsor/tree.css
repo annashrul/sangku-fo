@@ -15,8 +15,8 @@ body {
 }
 
 .row {
-	/* margin-left: -20px; */
-	/* margin-right: -20px; */
+	margin-left: -20px;
+	margin-right: -20px
 }
 
 .col_1 {
@@ -312,14 +312,14 @@ td {
 }
 
 .binary-node-single-item {
-	width: 7em;
-	height: 7em;
+	width: 80px;
+	height: 80px;
 	border: solid 2px #000;
 	border-radius: 50%;
 	display: block;
 	margin: auto;
 	line-height: 80px;
-	text-align: center;
+	text-align: center
 }
 
 .node-item-root {
@@ -460,18 +460,18 @@ td {
 }
 
 .pop-up-content {
-	/* width: 280px; */
+	width: 280px;
 	height: auto;
 	display: block;
 	background: #e7e7e7;
 	border: solid 1px #c2c0c0;
 	border-radius: 10px;
 	z-index: 3;
-	/* top: -100px; */
-	/* left: 85px; */
+	top: -100px;
+	left: 85px;
 	text-align: left;
 	padding: 13px;
-	position: relative;
+	position: relative
 }
 
 .pop-up-content:after {
@@ -580,7 +580,7 @@ td {
 }
 
 .pop-up-content {
-	/* display: none */
+	display: none
 }
 
 .user-block:hover .pop-up-content {

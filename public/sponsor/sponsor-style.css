@@ -29,8 +29,8 @@
 }
 
 .eps-tree li ul {
-    margin: 12em 0;
-    padding: 0;
+    margin: 2em 0;
+    padding: 0
 }
 
 .eps-tree li li:before {
@@ -41,7 +41,7 @@
     top: calc(-1em - 0.03125em);
     content: '';
     border-top: .0625em solid #cfdadd;
-    height: .0625em;
+    height: .0625em
 }
 
 .eps-tree li li:first-child:before {
@@ -104,12 +104,12 @@
 .eps-tree .eps-nc:after {
     position: absolute;
     display: block;
-    height: 11em;
+    height: 1em;
     left: calc(50% - 0.03125em);
     top: calc(100% + 0.03125em);
     content: '';
     border-left: .0625em solid #cfdadd;
-    width: .0625em;
+    width: .0625em
 }
 
 .eps-tree .eps-node-content:only-child:after,
