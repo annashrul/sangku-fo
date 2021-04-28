@@ -7,6 +7,7 @@ import {getCart, postCart} from "redux/actions/product/cart.action";
 import {ModalToggle, ModalType} from "redux/actions/modal.action";
 import DetailProduct from "../../modals/product/detail_product"
 import * as Swal from "sweetalert2";
+import { FetchAvailablePin } from '../../../../redux/actions/pin/pin.action';
 
 
 class IndexRegister extends Component{
@@ -14,15 +15,17 @@ class IndexRegister extends Component{
         super(props);
         this.handleCart    = this.handleCart.bind(this);
         this.handleDetail    = this.handleDetail.bind(this);
+        this.handleGetList    = this.handleGetList.bind(this);
+        this.handleBack    = this.handleBack.bind(this);
         this.state={
             detail:{},
             idx:0,
+            toggleView:false,
         }
     }
 
     componentWillMount(){
-        this.props.dispatch(getPaket(`page=1&tipe=aktivasi`));
-        this.props.dispatch(getCart());
+        this.props.dispatch(FetchAvailablePin("aktivasi"));
     }
 
     handleCart(e,i){
@@ -70,7 +73,24 @@ class IndexRegister extends Component{
             detail:{id:id,tipe:'register'}
         })
     }
-
+    
+    handleGetList(e,id){
+        // e.preventDefault()
+        // alert(e.target.id);
+        if(e.target.id==='toListForm'){
+            this.setState({toggleView:true});
+            // this.props.dispatch(FetchDetailPin(id));
+            // const bool = !this.props.isOpen;
+            // this.props.dispatch(ModalToggle(bool));
+            // this.props.dispatch(ModalType("FormListStokist"));
+            
+        this.props.dispatch(getPaket(`page=1&tipe=aktivasi&category=${id}`));
+        this.props.dispatch(getCart());
+        }
+    }
+    handleBack(e){
+        this.setState({toggleView:false});
+    }
     render(){
 
         const {
@@ -78,7 +98,32 @@ class IndexRegister extends Component{
         } = this.props.resPaket;
         return(
             <div className="card-body">
-                <div className="row">
+                <div className="row" style={{display:this.state.toggleView?'none':''}}>
+                        <div className="col-md-12">
+                            <p>Silahkan pilih kategori terlebih dahulu dibawah ini, setelah kategori terpilih maka anda dapat memilih paket yang hendak akan anda order sesuai dengan kriteria yang anda inginkan.</p>
+                            <div className="row m-1 justify-content-center">
+                                {
+                                    (
+                                        typeof this.props.getPin === 'object' ?
+                                            this.props.getPin.map((v,i)=>{
+                                                return(
+                                                    <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
+                                                        <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                        <br/>
+                                                        <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                        <br/>
+                                                        <br/>
+                                                    </div>
+                                                )
+                                            })
+                                            : "No data."
+                                    )
+                                }
+                            </div>
+                        </div>
+                    </div>
+                <div className="row" style={{display:!this.state.toggleView?'none':''}}>
+                    <button className="btn btn-secondary my-2" onClick={(e)=>this.handleBack(e)}><i className="fa fa-chevron-left"/> KEMBALI KE KATEGORI</button>
                     {
                         !this.props.isLoading?typeof data==='object'?data.length>0?data.map((v,i)=>{
                             return (
@@ -168,7 +213,9 @@ const mapStateToProps = (state) => {
         auth: state.auth,
         resPaket:state.paketReducer.data,
         isLoading: state.paketReducer.isLoading,
-        isLoadingPost:state.cartReducer.isLoadingPost
+        isLoadingPost:state.cartReducer.isLoadingPost,
+        getPin:state.pinReducer.data_available,
+        isLoadingPa:state.pinReducer.isLoading,
     }
 }
 export default connect(mapStateToProps)(IndexRegister);
