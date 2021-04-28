@@ -225,14 +225,16 @@ class Index extends Component {
 
     componentWillMount(){
         this.refreshData(atob(Cookies.get('sangqu_exp')));
-        let start = moment(new Date()).subtract(4,'days');
-        let end = moment(new Date()).add(1,'days');
-        for (var m = moment(start); m.isBefore(end); m.add(1, 'days')) {
-            if(moment(m).format("yyyy-MM-DD")!==moment(new Date()).add(1,'days').format("yyyy-MM-DD")){
-                let param = 'tgl='+moment(m).format("yyyy-MM-DD")
-                this.props.dispatch(FetchRekapitulasi(param));
-            }
-        }
+        // let start = moment(new Date()).subtract(4,'days');
+        // let end = moment(new Date()).add(1,'days');
+        // for (var m = moment(start); m.isBefore(end); m.add(1, 'days')) {
+        //     if(moment(m).format("yyyy-MM-DD")!==moment(new Date()).add(1,'days').format("yyyy-MM-DD")){
+        //         let param = 'tgl='+moment(m).format("yyyy-MM-DD")
+        //         this.props.dispatch(FetchRekapitulasi(param));
+        //     }
+        // }
+        let param = 'tgl='+moment(new Date()).format("yyyy-MM-DD")
+        this.props.dispatch(FetchRekapitulasi(param));
         this.getData()
     }
 
@@ -281,6 +283,7 @@ class Index extends Component {
                             bonus_sponsor={this.state.bonus_sponsor}
                             withdrawal={this.state.withdrawal}
                             load={this.state.load_socket}
+                            plafon={this.state.plafon}
                         />
                     </div>
                     <div className="col-md-4">
@@ -291,6 +294,8 @@ class Index extends Component {
                             pv_kanan={this.state.pv_kanan}
                             pv_kiri={this.state.pv_kiri}
                             sponsor={this.state.sponsor}
+                            reward_kiri={this.state.reward_kiri}
+                            reward_kanan={this.state.reward_kanan}
                         />
                     </div>
                     <div className="col-md-4">

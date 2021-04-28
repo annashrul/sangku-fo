@@ -69,7 +69,7 @@ class Overview extends Component {
         }
         let rewardBool = !this.props.reward.is_claimed && this.props.reward.id !== '-';
         return(
-            <div>
+            <div className="h-100 box-margin">
                 <div className="card h-100 box-margin">
                     {/* <div className="card-header bg-transparent border-bottom-0 h3">Overview</div> */}
                     <div className="card-body" style={{padding:'2.2rem'}}>
@@ -129,7 +129,7 @@ class Overview extends Component {
                         </div>
                     </div>
                 </div> */}
-                <div className="card h-100">
+                <div className="card" style={{display:rewardBool?'':'none',zIndex:1,bottom:'245px'}}>
                     <div className="card-body" style={rewardBool?null:blur}>
                     {/* <div className="card-body" style={{padding:'22px'}}> */}
                         <div className="row">

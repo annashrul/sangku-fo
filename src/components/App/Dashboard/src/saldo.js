@@ -29,8 +29,8 @@ class Overview extends Component {
                         <h1>Saldo Aktif</h1>
                     </div>
                     <div className="content-widget-dashboard" style={{marginBottom:'30px'}}>
-                        <div className="row mt-3 mb-4">
-                            <div className='col-md-6 col-6'>
+                        {/* <div className="row mt-3 mb-4"> */}
+                            {/* <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'deposit')}>
                                         <div className="row">
@@ -42,7 +42,7 @@ class Overview extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <div className='col-md-4 col-4'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'transfer')}>
@@ -56,7 +56,7 @@ class Overview extends Component {
                                     </div>
                                 </div>
                             </div> */}
-                            <div className='col-md-6 col-6'>
+                            {/* <div className='col-md-6 col-6'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px', cursor:'pointer'}} onClick={(e)=>this.wallet_redirect(e,'penarikan')}>
                                         <div className="row">
@@ -68,9 +68,19 @@ class Overview extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> */}
+                        {/* </div> */}
                     <ul className="positions text-dark">
+                        <li className="pos-card" id="pos_1">
+                            <div className="content"> 
+                                <div className="title d-inline-block">
+                                <img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
+                                <div className="content-title">
+                                    <h1>SangQuota</h1> <h6>Total SangQuota anda</h6></div>
+                                </div>
+                                <div className="amount"><small>Rp</small> {toRp(this.props.plafon)}</div>
+                            </div>
+                        </li>
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
@@ -81,7 +91,7 @@ class Overview extends Component {
                                 <div className="amount"><small>Rp</small> {toRp(this.props.saldo_bonus)}</div>
                             </div>
                         </li>
-                        <li className="pos-card" id="pos_1">
+                        {/* <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
                                 <img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
@@ -90,13 +100,13 @@ class Overview extends Component {
                                 </div>
                                 <div className="amount"><small>Rp</small> {toRp(this.props.bonus_sponsor)}</div>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="pos-card" id="pos_1">
                             <div className="content"> 
                                 <div className="title d-inline-block">
                                 <img src={HEADERS.URL+"/icon/Icon_Utama_TopUp.svg"} className="img-circle mr-2 ml-1" alt="" style={{height: '30px', width: '30px', objectFit: 'contain'}} />
                                 <div className="content-title">
-                                    <h1>Total Withdrawal</h1> <h6>Total penarikan bonus.</h6></div>
+                                    <h1>Total Penarikan</h1> <h6>Total penarikan bonus.</h6></div>
                                 </div>
                                 <div className="amount"><small>Rp</small> {toRp(this.props.withdrawal)}</div>
                             </div>

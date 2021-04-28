@@ -78,18 +78,9 @@ class IndexRO extends Component{
     }
 
     handleGetList(e,id){
-        // e.preventDefault()
-        // alert(e.target.id);
-        if(e.target.id==='toListForm'){
-            this.setState({toggleView:true});
-            // this.props.dispatch(FetchDetailPin(id));
-            // const bool = !this.props.isOpen;
-            // this.props.dispatch(ModalToggle(bool));
-            // this.props.dispatch(ModalType("FormListStokist"));
-            
+        this.setState({toggleView:true});            
         this.props.dispatch(getPaket(`page=1&tipe=ro&category=${id}`));
         this.props.dispatch(getCart());
-        }
     }
     handleBack(e){
         this.setState({toggleView:false});

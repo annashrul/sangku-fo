@@ -312,12 +312,12 @@ td {
 }
 
 .binary-node-single-item {
-	width: 7em;
-	height: 7em;
+	width: 5em;
+	height: 5em;
 	border: solid 2px #000;
 	border-radius: 50%;
 	display: block;
-	margin: auto;
+	margin: 0 1em;
 	line-height: 80px;
 	text-align: center;
 }

@@ -155,7 +155,9 @@ class Sponsor extends Component{
                     zIndex: 1,
                     padding: "3px",
                     backgroundColor: "#ffffff",
-                    height:'16em'
+                    width:'10em',
+                    right:'2em',
+                    display:'inline-table'
                   }}
                 >
                   <div className="pop-up-content">
