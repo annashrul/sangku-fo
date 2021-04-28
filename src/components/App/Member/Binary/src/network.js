@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import connect from "react-redux/es/connect/connect";
 import { Link } from "react-router-dom";
-import moment from "moment";
+// import moment from "moment";
 import { HEADERS } from "../../../../../redux/actions/_constants";
 import noUser from "assets/no-user.png";
 import Default from "assets/default.png";
@@ -205,11 +205,12 @@ class Sponsor extends Component {
                     zIndex: 1,
                     padding: "3px",
                     backgroundColor: "#ffffff",
+                    height:'16em'
                   }}
                 >
                   <div className="pop-up-content">
                     <div className="profile_tooltip_pick py-1 px-1">
-                      <div className="full-name m-0 font-18"><strong>{cNode.name}</strong></div>
+                      <div className="full-name m-0 font-16"><strong>{cNode.name}</strong></div>
                       <div className="username">
                         <span className="text-value">{cNode.id}</span>
                       </div>
