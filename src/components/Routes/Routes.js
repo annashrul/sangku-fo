@@ -39,6 +39,7 @@ const MyTestimoni = React.lazy(() => import('../App/Konten/MyTestimoni'));
 const TestimoniDetail = React.lazy(() => import('../App/Konten/TestimoniDetail'));
 const StokistAktivasi = React.lazy(() => import('../App/Stokist/PinAktivasi'));
 const StokistRo = React.lazy(() => import('../App/Stokist/PinRo'));
+const IndexPinMutasi = React.lazy(() => import('../App/Stokist/PinMutasi'));
 const IndexPPOB = React.lazy(() => import('../App/PPOB/indexPPOB'));
 const DetailPPOB = React.lazy(() => import('../App/PPOB/detailPPOB'));
 const TempPasca = React.lazy(() => import('../App/PPOB/temp_pasca'));
@@ -85,6 +86,7 @@ const Routes = (
             
             <PrivateRoute path="/stokist/pin-aktivasi" exact strict component={StokistAktivasi} />
             <PrivateRoute path="/stokist/pin-ro" exact strict component={StokistRo} />
+            <PrivateRoute path="/stokist/pin-mutasi" exact strict component={IndexPinMutasi} />
             <PrivateRoute path="/rekapitulasi" exact strict component={Rekapitulasi} />
            
             {/* DASHBOARD SECTION START */}

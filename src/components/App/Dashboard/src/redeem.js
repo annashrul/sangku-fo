@@ -97,7 +97,7 @@ class Charts extends Component {
                     <div className="card h-100">
                         <div className="card-body">
                             <h5 className="card-title">Pergerakan Bonus</h5>
-                                <table className="table table-hover" style={{tableLayout:'fixed',zoom:'85%'}}>
+                                <table className="table table-hover table-striped" style={{tableLayout:'fixed',zoom:'85%'}}>
                                 <thead className="bg-info">
                                     <tr>
                                         <td width="50%" className="text-light text-center">BONUS</td>
@@ -106,32 +106,36 @@ class Charts extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>PAKET REPEAT ORDER</td>
-                                        <td>BASIC</td>
+                                        <td className="border-0 p-2">PAKET REPEAT ORDER</td>
+                                        <td className="border-0 p-2 text-right text-dark">BASIC</td>
                                     </tr>
                                     <tr>
-                                        <td>BONUS RO</td>
-                                        <td>Rp. 845.000</td>
+                                        <td className="border-0 p-2">BONUS SPONSOR</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 845.000</td>
                                     </tr>
                                     <tr>
-                                        <td>TOTAL BONUS</td>
-                                        <td>Rp. 845.000</td>
+                                        <td className="border-0 p-2">BONUS PASANGAN</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 845.000</td>
+                                    </tr>
+                                    <tr className="table-primary">
+                                        <td className="border-0 p-2">TOTAL BONUS</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 1.640.000</td>
+                                    </tr>
+                                    <tr className="table-danger">
+                                        <td className="border-0 p-2">ADMIN 10%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 164.000</td>
+                                    </tr>
+                                    <tr className="table-danger">
+                                        <td className="border-0 p-2">CHARGE BANK</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 6.500</td>
                                     </tr>
                                     <tr>
-                                        <td>ADMIN 10%</td>
-                                        <td>Rp. 84.500</td>
+                                        <td className="border-0 p-2">TOTAL TRANSFER</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 754.000</td>
                                     </tr>
                                     <tr>
-                                        <td>CHARGE BANK</td>
-                                        <td>Rp. 6.500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>TOTAL TRANSFER</td>
-                                        <td>Rp. 754.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>STATUS</td>
-                                        <td>DIPROSES/DITRANSFER/DITOLAK</td>
+                                        <td className="border-0 p-2">STATUS</td>
+                                        <td className="border-0 p-2 text-right text-dark">DIPROSES/DITRANSFER/DITOLAK</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -145,7 +149,7 @@ class Charts extends Component {
                     <div className="card h-100">
                         <div className="card-body">
                             <h5 className="card-title">Diamond Sharing</h5>
-                                <table className="table table-hover" style={{tableLayout:'fixed',zoom:'85%'}}>
+                                <table className="table table-hover table-striped" style={{tableLayout:'fixed',zoom:'85%'}}>
                                 <thead className="bg-primary">
                                     <tr>
                                         <td width="33%" className="text-light text-center">KUALIFIKASI</td>
@@ -155,46 +159,46 @@ class Charts extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>DIAMOND</td>
-                                        <td>2%</td>
-                                        <td>3.435.000</td>
+                                        <td className="border-0 p-2">DIAMOND</td>
+                                        <td className="border-0 p-2 text-right">2%</td>
+                                        <td className="border-0 p-2 text-right text-dark">3.435.000</td>
                                     </tr>
                                     <tr>
-                                        <td>RED DIAMOND</td>
-                                        <td>2%</td>
-                                        <td>Rp. 7.650.800</td>
+                                        <td className="border-0 p-2">RED DIAMOND</td>
+                                        <td className="border-0 p-2 text-right">2%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 7.650.800</td>
                                     </tr>
                                     <tr>
-                                        <td>BLUE DIAMOND</td>
-                                        <td>2%</td>
-                                        <td>Rp. 0</td>
+                                        <td className="border-0 p-2">BLUE DIAMOND</td>
+                                        <td className="border-0 p-2 text-right">2%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 0</td>
                                     </tr>
                                     <tr>
-                                        <td>MAROON DIAMOND</td>
-                                        <td>1%</td>
-                                        <td>Rp. 0</td>
+                                        <td className="border-0 p-2">MAROON DIAMOND</td>
+                                        <td className="border-0 p-2 text-right">1%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 0</td>
+                                    </tr>
+                                    <tr className="table-primary">
+                                        <td className="border-0 p-2" colSpan="2">TOTAL BONUS</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 11.085.800</td>
+                                    </tr>
+                                    <tr className="table-danger">
+                                        <td className="border-0 p-2">ADMIN</td>
+                                        <td className="border-0 p-2 text-right">10%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 1.108.580</td>
+                                    </tr>
+                                    <tr className="table-danger">
+                                        <td className="border-0 p-2">CHARGE BANK</td>
+                                        <td className="border-0 p-2 text-right">6.500</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 6.500</td>
                                     </tr>
                                     <tr>
-                                        <td colSpan="2">TOTAL BONUS</td>
-                                        <td>Rp. 11.085.800</td>
+                                        <td className="border-0 p-2" colSpan="2">TOTAL TRANSFER</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. 9.970.720</td>
                                     </tr>
                                     <tr>
-                                        <td>ADMIN</td>
-                                        <td>10%</td>
-                                        <td>Rp. 1.108.580</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CHARGE BANK</td>
-                                        <td>6.500</td>
-                                        <td>Rp. 6.500</td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan="2">TOTAL TRANSFER</td>
-                                        <td>Rp. 9.970.720</td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan="2">STATUS</td>
-                                        <td>DIPROSES/DITRANSFER/DITOLAK</td>
+                                        <td className="border-0 p-2" colSpan="2">STATUS</td>
+                                        <td className="border-0 p-2 text-right text-dark">DIPROSES/DITRANSFER/DITOLAK</td>
                                     </tr>
                                 </tbody>
                             </table>

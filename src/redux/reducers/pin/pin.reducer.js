@@ -9,6 +9,7 @@ const initialState = {
     data:[],
     data_detail:'',
     data_available:[],
+    data_mutasi:[],
     data_kategori:[]
 };
 
@@ -33,6 +34,10 @@ export const pinReducer = (state=initialState,action) => {
         case PIN.SUCCESS_DETAIL:
             return Object.assign({}, state,{
                 data_detail:action.data.result
+            });
+        case PIN.SUCCESS_MUTASI:
+            return Object.assign({}, state,{
+                data_mutasi:action.data.result
             });
         case PIN.FAILED:
             return Object.assign({}, state, {

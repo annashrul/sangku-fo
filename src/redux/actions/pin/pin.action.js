@@ -28,6 +28,9 @@ export function setAvailablePin(data=[]){
 export function setPinDetail(data=[]){
     return {type:PIN.SUCCESS_DETAIL,data}
 }
+export function setPinMutasi(data=[]){
+    return {type:PIN.SUCCESS_MUTASI,data}
+}
 export function setPinFailed(data=[]){
     return {type:PIN.FAILED,data}
 }
@@ -124,6 +127,30 @@ export const FetchDetailPin = (id,where='',page=1,perpage=10)=>{
                 const data = response.data;
                 
                 dispatch(setPinDetail(data));
+                dispatch(setLoading(false));
+            }).catch(function(error){
+            
+        })
+    }
+}
+export const FetchMutasiPin = (id,where='',page=1,perpage=10)=>{
+    return (dispatch) => {
+        dispatch(setLoading(true));
+        // let url=`pin/get/${id}`;
+        let url = '';
+        if(where===''){
+            url=`pin/mutasi?page=${page}&id_member=${id}`;
+        }else{
+            url=`pin/mutasi?page=${page}&id_member=${id}&${where}`;
+        }
+        if(perpage!==''){
+            url+=`&perpage=${perpage}`
+        }
+        axios.get(HEADERS.URL+url)
+            .then(function(response){
+                const data = response.data;
+                
+                dispatch(setPinMutasi(data));
                 dispatch(setLoading(false));
             }).catch(function(error){
             

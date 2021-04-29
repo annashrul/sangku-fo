@@ -252,6 +252,11 @@ class Sponsor extends Component {
                           </span>
                         </div>
                       </div>
+                      <div className="row mt-2">
+                        <div className="col-md-12  text-center">
+                          <span className="text-value">SPONSOR : {cNode.sponsor}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
