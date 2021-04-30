@@ -127,11 +127,6 @@ export const FetchSite = () => {
                     );
                 }
                 else{
-                    Swal.fire({
-                        title: 'failed',
-                        icon: 'error',
-                        text: error.response.data.msg,
-                    });
 
                     if (error.response) {
 

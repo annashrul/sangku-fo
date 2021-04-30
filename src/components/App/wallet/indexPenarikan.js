@@ -473,7 +473,7 @@ class IndexPenarikan extends Component{
                                                         </h6>
                                                         </div>
                                                         <div className="col-auto">
-                                                        <span className="font-14">{toRp(rmComma(this.state.amount)+(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.wd_charge,10)/100))))}</span>
+                                                        <span className="font-14">{toRp(rmComma(this.state.amount)-(Math.round(parseInt(rmComma(this.state.amount),10)*parseFloat(parseInt(this.state.wd_charge,10)/100))))}</span>
                                                         </div>
                                                     </div>
                                                 </div>

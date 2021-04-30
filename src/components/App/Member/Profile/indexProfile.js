@@ -522,7 +522,7 @@ class IndexProfile extends Component{
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td><h6 className="font-14"><span className="text-muted">Nama Lengkap</span></h6></td>
+                                                                                {/*<td><h6 className="font-14"><span className="text-muted">Nama Lengkap</span></h6></td>
                                                                                 <td>
                                                                                     <div className="form-group">
                                                                                         <input
@@ -534,7 +534,7 @@ class IndexProfile extends Component{
                                                                                             readOnly={!this.state.isEdit}
                                                                                             onChange={(e) => this.handleChange(e)}/>
                                                                                     </div>
-                                                                                </td>
+                                                                                </td>*/}
                                                                                 {/* <td><h6 className="font-14">: {parseFloat(active_balance).toFixed(8)}</h6></td> */}
                                                                             </tr>
                                                                             <tr>
@@ -910,7 +910,7 @@ class IndexProfile extends Component{
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><h6 className="font-14"><span className="text-muted">Nama Lengkap</span></h6></td>
+                                                  {/*  <td><h6 className="font-14"><span className="text-muted">Nama Lengkap</span></h6></td>
                                                     <td>
                                                         <div className="form-group">
                                                             <input
@@ -923,7 +923,7 @@ class IndexProfile extends Component{
                                                                 onChange={(e) => this.handleChange(e)}/>
                                                         </div>
                                                     </td>
-                                                    {/* <td><h6 className="font-14">: {parseFloat(active_balance).toFixed(8)}</h6></td> */}
+                                                     <td><h6 className="font-14">: {parseFloat(active_balance).toFixed(8)}</h6></td> */}
                                                 </tr>
                                                 <tr>
                                                     <td><h6 className="font-14"><span className="text-muted">PIN</span></h6></td>

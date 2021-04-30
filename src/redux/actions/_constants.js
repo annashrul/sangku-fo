@@ -19,8 +19,9 @@ export const NOTIF_ALERT = {
     NO_DATA: "https://www.mediseller.com/front_assets/img/search.png"
 }
 export const HEADERS ={
-  // URL: 'http://192.168.100.10:3010/',
-  URL: 'http://ptnetindo.com:6701/',
+  //URL: 'http://ptnetindo.com:6701/',
+  URL: 'http://localhost:3010/',
+  //  URL: 'https://api.sangqu.id/',
   TOKEN:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwY2RiN2M5OC0wNWNmLTQ4NDgtOGM3Yy0yZTFiYTczZGUwNmYiLCJpYXQiOjE1NzAxNzM0ODYsImV4cCI6MTU3MDc3ODI4Nn0.1NiWtt2luG83am8FJSvWpL5p35Oxd8GSJJTwhFmAdgw",
   USERNAME: "netindo",
   PASSWORD: "$2b$08$hLMU6rEvNILCMaQbthARK.iCmDRO7jNbUB8CcvyRStqsHD4UQxjDO"

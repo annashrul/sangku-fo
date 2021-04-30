@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import connect from "react-redux/es/connect/connect";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { HEADERS } from "../../../../../redux/actions/_constants";
 import noUser from "assets/no-user.png";
 import Default from "assets/default.png";
@@ -17,79 +16,6 @@ class Sponsor extends Component {
       arrs: [],
     };
   }
-  // getCurrent = (node) => this.state.arrs.filter(cNode => cNode.parent_id === node).map(cNode => (
-  //     <div key={`node_${cNode.id===undefined?Math.random():cNode.id}`} className={`node-${cNode.position===null?'right':cNode.position}-item binary-level-width-50`}>
-  //         <span id={`line-${cNode.position}-${cNode.id}`} className={`binary-hr-line binar-hr-line-${cNode.position} binary-hr-line-width-25`} style={{display: cNode.detail!==null?'none':''}}/>
-  //         {cNode.detail===null?
-  //             <Link to={{ pathname: "/downline/add", data: cNode }}>
-  //                 <div className={`node-item-1-child-${cNode.position}`}>
-  //                     <div className="binary-node-single-item user-block user-11">
-  //                         <div className="images_wrapper">
-  //                             <img className="profile-rounded-image-small" src={noUser} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt="Add new member" title="Add new member" />
-  //                         </div>
-  //                             <div class="alert alert-primary mt-1 font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>
-  //                             <i className="fa fa-plus"></i>&nbsp;
-  //                             Member
-  //                             </div>
-  //                     </div>
-  //                     <div className="last_level_user"><i className="fa fa-2x">&nbsp;</i></div>
-  //                 </div>
-  //             </Link>
-  //         :
-  //         <div id={`node-wrapper-${cNode.id}`} className={`node-item-1-child-${cNode.position} node-item-root`}>
-  //             <div className="binary-node-single-item user-block user-12">
-  //                 <div className="ribbon_wrapper images_wrapper">
-  //             <div className="ribbon ribbon-vertical-l" style={{lineHeight:'unset',width:'70px',transform:'rotate(-45deg)',left:'-40px',top:'-15px'}}><img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
-  //                     <img className="profile-rounded-image-small" style={{borderColor: '#ccc'}} src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
-  //                 <div class="alert alert-primary mt-1 font-12" style={{padding:'unset', backgroundColor:'#7266ba',zIndex:1, padding:'3px'}}>{String(cNode.name).replace(/ .*/,'')}</div>
-  //                     <div className="pop-up-content">
-  //                         <div className="profile_tooltip_pick">
-  //                             <div className="image_tooltip"><img className="profile-rounded-image-tooltip" src={cNode.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} width={70} height={70} alt={cNode.name} title={cNode.name} /></div>
-  //                             <div className="full-name">{cNode.name}&nbsp;<img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/></div>
-  //                             <div className="username">
-  //                                 <span className="text-label">UID : </span>
-  //                                 <span className="text-value">{cNode.id}</span>
-  //                             </div>
-  //                             {/* <div className="username">
-  //                                 <span className="text-label">Membership : </span>
-  //                                 <img src={cNode.badge} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} style={{width:'10%'}} alt="user" class="thumb-xs mb-2 rounded-circle"/>
-  //                             </div> */}
-  //                         </div>
-  //                         <div className="tooltip_profile_detaile">
-  //                             <div className="row mb-2">
-  //                                 <div className="col-md-6  text-center">
-  //                                     <span className="text-label">PV KIRI</span>
-  //                                 </div>
-  //                                 <div className="col-md-6  text-center">
-  //                                     <span className="text-label">PV KANAN</span>
-  //                                 </div>
-  //                             </div>
-  //                             <div className="row">
-  //                                 <div className="col-md-6  text-center" style={{borderRight: 'solid darkgrey thin'}}>
-  //                                     <span className="text-value">{cNode.left_pv}</span>
-  //                                 </div>
-  //                                 <div className="col-md-6  text-center">
-  //                                     <span className="text-value">{cNode.right_pv}</span>
-  //                                 </div>
-  //                             </div>
-  //                         </div>
-  //                         <div className="tooltip-footer">
-  //                             <div className="text">
-  //                                 <span className="text-label">Tanggal Bergabung : </span>
-  //                                 <span className="text-value">{moment(cNode.join_date).format('YYYY-MM-DD')}</span>
-  //                             </div>
-  //                         </div>
-  //                     </div>
-
-  //             </div>
-  //             <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
-  //         </div>
-  //         }
-  //         <div className="parent-wrapper clearfix" id={cNode.parent_id} >
-  //             {this.getCurrent(cNode.id)}
-  //         </div>
-  //     </div>
-  // ))
 
   getCurrent = (node) =>
     this.state.arrs
@@ -123,18 +49,6 @@ class Sponsor extends Component {
               </div>
             </Link>
           ) : (
-            // <div className="eps-nc" nid={cNode.id}>
-            //     <div className="usr-pic">
-            //         <img src={cNode.picture}
-            //             className="img" /> </div>
-            //     <div className="usr-name">{cNode.name+' '+cNode.position}</div>
-            //     <div className="usr-popup">
-            //         <div className="popup-loader">
-            //             <div className="loader loader-bar" />
-            //         </div>
-            //     </div>
-            //     <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
-            // </div>
             <div>
               <div
                 className={`binary-node-single-item eps-nc ${
