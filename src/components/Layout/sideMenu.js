@@ -202,7 +202,7 @@ class SideMenu extends Component {
                     {/* <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> Top Up & Tagihan</span></Link></li> */}
                     {/* PPOB MODUL END */}
                     {/* WALLET MODUL START */}
-                    <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
+                    <li className={"treeview d-none" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isWallet')}><i className="fa fa-google-wallet" /> <span>Wallet</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isWallet===true?"block":"none"}}>
                             <li className={path==='/deposit'?"active":''}><Link to="/deposit" style={{width:'fit-content'}}> Deposit</Link></li>
