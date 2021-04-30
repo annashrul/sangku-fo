@@ -108,7 +108,7 @@ class IndexPinMutasi extends Component{
         } = this.props.data;
         
         return(
-            <Layout page="PIN Mutasi">
+            <Layout page="Riwayat PIN">
                <div className="row">
                    <div className="col-12 col-xs-6 col-md-3">
                         <div className="form-group">
@@ -159,14 +159,14 @@ class IndexPinMutasi extends Component{
                             (() => {
                             const list=[]
                                 for (let x = 0; x < 10; x++) {
-                                        list.push(<tr><td colSpan="7"><Skeleton style={{width:'100%'}}/></td></tr>)
+                                        list.push(<tr key={x}><td colSpan="7"><Skeleton style={{width:'100%'}}/></td></tr>)
                                 }
                                 return list
                             })()
                         :
                             this.props.data.data.length>0?
                                 this.props.data.data.map((item,key)=>{
-                                    return <tr>
+                                    return <tr key={key}>
                                                 <td className="text-center text-dark">{key+1 + (10 * (parseInt(current_page,10)-1))}</td>
                                                 <td className="text-center text-dark">{item.jenis_pin}</td>
                                                 <td className="text-center text-dark">{item.jenis_transaksi}</td>
@@ -198,7 +198,7 @@ class IndexPinMutasi extends Component{
                             (() => {
                             const list=[]
                                 for (let x = 0; x < 10; x++) {
-                                        list.push(<CardMobile isLoading={true}/>)
+                                        list.push(<CardMobile key={x} isLoading={true}/>)
                                 }
                                 return list
                             })()
@@ -206,6 +206,7 @@ class IndexPinMutasi extends Component{
                             this.props.data.data.length>0?
                                 this.props.data.data.map((item,key)=>{
                                     return <CardMobile
+                                        key={key}
                                         created_at={item.created_at}
                                         note={item.note}
                                         jenis_pin={item.jenis_pin}

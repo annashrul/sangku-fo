@@ -194,7 +194,7 @@ class SideMenu extends Component {
                         <ul className={"treeview-menu"} style={{display:this.state.isStokist===true?"block":"none"}}>
                             <li className={path==='/stokist/pin-aktivasi'?"active":''}><Link to="/stokist/pin-aktivasi" style={{width:'fit-content'}}> PIN Aktivasi</Link></li>
                             <li className={path==='/stokist/pin-ro'?"active":''}><Link to="/stokist/pin-ro" style={{width:'fit-content'}}>PIN RO</Link></li>
-                            <li className={path==='/stokist/pin-mutasi'?"active":''}><Link to="/stokist/pin-mutasi" style={{width:'fit-content'}}>PIN Mutasi</Link></li>
+                            <li className={path==='/stokist/pin-mutasi'?"active":''}><Link to="/stokist/pin-mutasi" style={{width:'fit-content'}}>Riwayat PIN</Link></li>
                         </ul>
                     </li>
                     {/* STKIST MODUL END */}

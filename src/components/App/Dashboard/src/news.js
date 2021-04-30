@@ -10,7 +10,7 @@ class Charts extends Component {
                     <h5 className="card-title">Berita Terbaru
                     <Link to={'/konten/berita'} style={{float:'right',fontSize:'.9em'}}>Lihat Semua</Link>
 </h5>
-                    <div className="row" style={{overflowX:'auto', height:'300px'}}>
+                    <div className="row" style={{overflowX:'auto', height:'300px', zoom:'80%'}}>
                         {
                             typeof this.props.list.data === 'object' ? this.props.list.data.length>0?
                                 this.props.list.data.map((v,i)=>{

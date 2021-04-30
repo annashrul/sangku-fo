@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Skeleton from 'react-loading-skeleton';
 // import Chart from "react-apexcharts";
 import { toRp } from '../../../../helper';
 
@@ -6,6 +7,9 @@ class Charts extends Component {
     render(){
         
         const columnStyle = {verticalAlign: "middle", textAlign: "center",whiteSpace:"nowrap"};
+        const {charge,daily,diamond,status} = this.props.ringkasan_bonus;
+
+        const tot_diamond = (parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond))-((parseFloat(charge.bank))+((parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond)*parseFloat(charge.penarikan))/100));
         return(
             <>
             <div className="row">
@@ -13,81 +17,85 @@ class Charts extends Component {
                     <div className="card h-100">
                         <div className="card-body">
                             <h5 className="card-title">Rekapitulasi Harian</h5>
+                            {this.props.list.length>0?
+                            <>
                             <h6 className="text-success m-0">Pertumbuhan</h6>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     Kiri
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].pertumbuhan_kiri}
                                 </div>
                             </div>
                             <div className="row mb-2">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     Kanan
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].pertumbuhan_kanan}
                                 </div>
                             </div>
                             <h6 className="text-success m-0">Tabungan</h6>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     Kiri
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].tabungan_kiri}
                                 </div>
                             </div>
                             <div className="row mb-2">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     Kanan
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].tabungan_kanan}
                                 </div>
                             </div>
                             <h6 className="text-success m-0">Balance</h6>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     Kiri
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].balance_kiri}
                                 </div>
                             </div>
                             <div className="row mb-2">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     Kanan
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].balance_kanan}
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     <h6 className="text-success m-0">Terpasang (T)</h6>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].hak_bonus}
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     <h6 className="text-success m-0">Bonus (T x 20.000)</h6>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].nominal_bonus}
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     <h6 className="text-success m-0">Sisa Plafon</h6>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-6 col-sm-6 col-md-6">
                                     :  {toRp(this.props.list[0].sisa_plafon)}
                                 </div>
                             </div>
+                            </>
+                            :<Skeleton count={8} style={{width:'100%'}}/>}
                         </div>
                     </div>
                 </div>
@@ -106,36 +114,38 @@ class Charts extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className="border-0 p-2">PAKET REPEAT ORDER</td>
-                                        <td className="border-0 p-2 text-right text-dark">BASIC</td>
+                                        <td className="border-0 p-2">BONUS RO</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(daily.ro.total))}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">BONUS SPONSOR</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 845.000</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(daily.sponsor.total))}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">BONUS PASANGAN</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 845.000</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(daily.pasangan.total))}</td>
                                     </tr>
                                     <tr className="table-primary">
                                         <td className="border-0 p-2">TOTAL BONUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 1.640.000</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))}</td>
                                     </tr>
                                     <tr className="table-danger">
-                                        <td className="border-0 p-2">ADMIN 10%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 164.000</td>
+                                        <td className="border-0 p-2">ADMIN {charge.penarikan}%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100)}</td>
                                     </tr>
                                     <tr className="table-danger">
                                         <td className="border-0 p-2">CHARGE BANK</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 6.500</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(charge.bank)}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">TOTAL TRANSFER</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 754.000</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))-(parseFloat(charge.bank)+((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100))}</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="table-secondary">
                                         <td className="border-0 p-2">STATUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">DIPROSES/DITRANSFER/DITOLAK</td>
+                                        <td className="border-0 p-2 text-right text-dark">
+                                            <a href={() => {return null}} className='badge badge-info text-white' style={{whiteSpace:'normal'}}>{status}</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -161,44 +171,45 @@ class Charts extends Component {
                                     <tr>
                                         <td className="border-0 p-2">DIAMOND</td>
                                         <td className="border-0 p-2 text-right">2%</td>
-                                        <td className="border-0 p-2 text-right text-dark">3.435.000</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.diamond))}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">RED DIAMOND</td>
                                         <td className="border-0 p-2 text-right">2%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 7.650.800</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.red_diamond))}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">BLUE DIAMOND</td>
                                         <td className="border-0 p-2 text-right">2%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 0</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.blue_diamond))}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">MAROON DIAMOND</td>
                                         <td className="border-0 p-2 text-right">1%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 0</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.maroon_diamond))}</td>
                                     </tr>
                                     <tr className="table-primary">
                                         <td className="border-0 p-2" colSpan="2">TOTAL BONUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 11.085.800</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond))}</td>
                                     </tr>
                                     <tr className="table-danger">
                                         <td className="border-0 p-2">ADMIN</td>
-                                        <td className="border-0 p-2 text-right">10%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 1.108.580</td>
+                                        <td className="border-0 p-2 text-right">{charge.penarikan}%</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp((parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond)*parseFloat(charge.penarikan))/100)}</td>
                                     </tr>
                                     <tr className="table-danger">
-                                        <td className="border-0 p-2">CHARGE BANK</td>
-                                        <td className="border-0 p-2 text-right">6.500</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 6.500</td>
+                                        <td className="border-0 p-2" colSpan="2">CHARGE BANK</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(charge.bank))}</td>
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2" colSpan="2">TOTAL TRANSFER</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. 9.970.720</td>
+                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(tot_diamond<=0?0:tot_diamond)}</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="table-secondary">
                                         <td className="border-0 p-2" colSpan="2">STATUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">DIPROSES/DITRANSFER/DITOLAK</td>
+                                        <td className="border-0 p-2 text-right text-dark">
+                                            <a href={() => {return null}} className='badge badge-info text-white' style={{whiteSpace:'normal'}}>{status}</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
