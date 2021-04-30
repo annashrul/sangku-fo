@@ -141,7 +141,7 @@ export const FetchMutasiPin = (id,where='',page=1,perpage=10)=>{
         if(where===''){
             url=`pin/mutasi?page=${page}&id_member=${id}`;
         }else{
-            url=`pin/mutasi?page=${page}&id_member=${id}&${where}`;
+            url=`pin/mutasi?page=${page}&id_member=${id}${where}`;
         }
         if(perpage!==''){
             url+=`&perpage=${perpage}`

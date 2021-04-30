@@ -141,7 +141,7 @@ class Charts extends Component {
                                         <td className="border-0 p-2">TOTAL TRANSFER</td>
                                         <td className="border-0 p-2 text-right text-dark">Rp. {toRp((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))-(parseFloat(charge.bank)+((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100))}</td>
                                     </tr>
-                                    <tr className="table-secondary">
+                                    <tr className="table-secondary d-none">
                                         <td className="border-0 p-2">STATUS</td>
                                         <td className="border-0 p-2 text-right text-dark">
                                             <a href={() => {return null}} className='badge badge-info text-white' style={{whiteSpace:'normal'}}>{status}</a>
@@ -205,7 +205,7 @@ class Charts extends Component {
                                         <td className="border-0 p-2" colSpan="2">TOTAL TRANSFER</td>
                                         <td className="border-0 p-2 text-right text-dark">Rp. {toRp(tot_diamond<=0?0:tot_diamond)}</td>
                                     </tr>
-                                    <tr className="table-secondary">
+                                    <tr className="table-secondary d-none">
                                         <td className="border-0 p-2" colSpan="2">STATUS</td>
                                         <td className="border-0 p-2 text-right text-dark">
                                             <a href={() => {return null}} className='badge badge-info text-white' style={{whiteSpace:'normal'}}>{status}</a>

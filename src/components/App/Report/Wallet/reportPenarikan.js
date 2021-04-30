@@ -225,6 +225,7 @@ class PenarikanReport extends Component{
                                         <th className="text-light" style={columnStyle}>No. Akun</th>
                                         <th className="text-light" style={columnStyle}>Amount</th>
                                         <th className="text-light" style={columnStyle}>Fee</th>
+                                        <th className="text-light" style={columnStyle}>Admin Bank</th>
                                         <th className="text-light" style={columnStyle}>Nama</th>
                                         <th className="text-light" style={columnStyle}>Status</th>
                                     </tr>
@@ -246,6 +247,7 @@ class PenarikanReport extends Component{
                                                                     <td style={columnStyle}>{v.acc_no}</td>
                                                                     <td style={columnStyle}>{toRp(v.amount)}</td>
                                                                     <td style={columnStyle}>{toRp(v.charge===null?0:v.charge)}</td>
+                                                                    <td style={columnStyle}>{toRp(v.bank_charge===null?0:v.bank_charge)}</td>
                                                                     <td style={columnStyle}>{v.full_name}</td>
                                                                     <td style={columnStyle}>{
                                                                         v.status===0?
