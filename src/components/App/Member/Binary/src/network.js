@@ -55,14 +55,7 @@ class Sponsor extends Component {
                   cNode.parent_id !== null ? "eps-path" : ""
                 } user-block user-12`}
                 style={{
-                  borderColor:
-                    cNode.membership === "Regular"
-                      ? "#c0c0c0"
-                      : cNode.membership === "Bisnis"
-                      ? "#DAA520"
-                      : cNode.membership === "Executive"
-                      ? "#732044"
-                      : "#000000",
+                    borderColor:"#c0c0c0",
                   borderWidth: "3px",
                 }}
               >
@@ -107,57 +100,61 @@ class Sponsor extends Component {
                 <div
                   class="alert alert-primary mt-2 font-12 text-dark img-thumbnail border-1"
                   style={{
-                    borderColor:
+                    borderColor:"#c0c0c0",
+                    borderWidth: "3px",
+                    zIndex: 1,
+                    padding: "0px",
+                    backgroundColor: "#ffffff",
+                    width:'10em',
+                    right:'2em',
+                    display:'inline-table'
+                  }}
+                >
+                  <div className="pop-up-content">
+                    <div className="profile_tooltip_pick p-0">
+                      <div className="full-name m-0 p-1 font-16" style={{backgroundColor:
                       cNode.membership === "Regular"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
                         : cNode.membership === "Executive"
                         ? "#732044"
-                        : "#000000",
-                    borderWidth: "3px",
-                    zIndex: 1,
-                    padding: "3px",
-                    backgroundColor: "#ffffff",
-                  }}
-                >
-                  <div className="pop-up-content">
-                    <div className="profile_tooltip_pick py-1 px-1">
-                      <div className="full-name m-0 font-18"><strong>{cNode.name}</strong></div>
-                      <div className="username">
-                        <span className="text-value">{cNode.id}</span>
+                        : "#000000",}}><strong className="text-light">{cNode.name}</strong></div>
+                      <div className="username d-flex justify-content-between align-items-center m-0">
+                        <span className="text-value p-1 text-light" style={{backgroundColor:cNode.kualifikasi>0?'#007bff':'#343a40'}}>{cNode.id}</span>
+                        <span className="text-value px-2 py-1 font-weight-bold text-dark">{cNode.kualifikasi}</span>
                       </div>
                     </div>
                     <div className="tooltip_profile_detaile">
                       <div className="row mb-2">
-                        <div className="col-md-6  text-center">
+                        <div className="col-6 col-md-6  text-center">
                           <span className="text-label font-11">KIRI</span>
                         </div>
-                        <div className="col-md-6  text-center">
+                        <div className="col-6 col-md-6  text-center">
                           <span className="text-label font-11">KANAN</span>
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-4  text-center">
+                        <div className="col-4 col-md-4  text-center">
                           <span className="text-value">{cNode.left_pv}</span>
                         </div>
-                        <div className="col-md-4  text-center">
+                        <div className="col-4 col-md-4  text-center">
                           <span className="text-value">PV</span>
                         </div>
-                        <div className="col-md-4  text-center">
+                        <div className="col-4 col-md-4  text-center">
                           <span className="text-value">{cNode.right_pv}</span>
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-4  text-center">
+                        <div className="col-4 col-md-4  text-center">
                           <span className="text-value">
                             {cNode.left_reward}
                           </span>
                         </div>
-                        <div className="col-md-4  text-center">
+                        <div className="col-4 col-md-4  text-center">
                           <span className="text-value">RW</span>
                         </div>
-                        <div className="col-md-4  text-center">
+                        <div className="col-4 col-md-4  text-center">
                           <span className="text-value">
                             {cNode.right_reward}
                           </span>

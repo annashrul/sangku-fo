@@ -1,21 +1,16 @@
 import React, {Component} from 'react'
-import {toRp} from "helper";
+// import {toRp} from "helper";
 import Chart from "react-apexcharts";
 
 class Overview extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-
             options: {
-                labels: ['Kiri','Kanan']
+                labels:[`${this.props.pv_kiri} Kiri`,`${this.props.pv_kanan} Kanan`]
             },
-
-
         };
     }
-
     render(){
         
         return(
@@ -37,8 +32,8 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5>{this.props.pv_kiri}</h5>
-                                                <p className="title-widget-team mb-0">PV Kiri</p>
+                                                <h5>{this.props.reward_kiri}</h5>
+                                                <p className="title-widget-team mb-0">Reward Kiri</p>
                                             </div>
                                         </div>
                                     </div>
@@ -49,8 +44,8 @@ class Overview extends Component {
                                     <div className="card-body" style={{padding:'10px'}}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h5>{this.props.pv_kanan}</h5>
-                                                <p className="title-widget-team mb-0">PV Kanan</p>
+                                                <h5>{this.props.reward_kanan}</h5>
+                                                <p className="title-widget-team mb-0">Reward Kanan</p>
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +78,7 @@ class Overview extends Component {
                                 </div>
                             </div>
                         </div>
-                         <div className="row mt-3 mb-4">
+                         {/* <div className="row mt-3 mb-4">
                             <div className='col-md-12'>
                                 <div className="card">
                                     <div className="card-body" style={{padding:'10px'}}>
@@ -96,7 +91,7 @@ class Overview extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

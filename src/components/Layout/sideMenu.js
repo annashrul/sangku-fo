@@ -79,7 +79,7 @@ class SideMenu extends Component {
             this.setState({
                 isWallet:true,
             })
-        }else if(path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'){
+        }else if(path==='/stokist/pin-aktivasi'||path==='/stokist/pin-ro'||path==='/stokist/pin-mutasi'){
             this.setState({
                 isStokist:true,
             })
@@ -194,6 +194,7 @@ class SideMenu extends Component {
                         <ul className={"treeview-menu"} style={{display:this.state.isStokist===true?"block":"none"}}>
                             <li className={path==='/stokist/pin-aktivasi'?"active":''}><Link to="/stokist/pin-aktivasi" style={{width:'fit-content'}}> PIN Aktivasi</Link></li>
                             <li className={path==='/stokist/pin-ro'?"active":''}><Link to="/stokist/pin-ro" style={{width:'fit-content'}}>PIN RO</Link></li>
+                            <li className={path==='/stokist/pin-mutasi'?"active":''}><Link to="/stokist/pin-mutasi" style={{width:'fit-content'}}>Riwayat PIN</Link></li>
                         </ul>
                     </li>
                     {/* STKIST MODUL END */}
@@ -201,7 +202,7 @@ class SideMenu extends Component {
                     {/* <li  className={path.split("/")[1]==='ppob' ?"active":''}><Link to="/ppob"> <i className="zmdi zmdi-card-sim" /><span> Top Up & Tagihan</span></Link></li> */}
                     {/* PPOB MODUL END */}
                     {/* WALLET MODUL START */}
-                    {/* <li className={"treeview" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
+                    {/* <li className={"treeview d-none" +(this.state.isWallet===true || path==='/deposit'||path==='/penarikan'||path==='/transfer' ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isWallet')}><i className="fa fa-google-wallet" /> <span>Wallet</span> <i className="fa fa-angle-right" /></a>
                         <ul className={"treeview-menu"} style={{display:this.state.isWallet===true?"block":"none"}}>
                             <li className={path==='/deposit'?"active":''}><Link to="/deposit" style={{width:'fit-content'}}> Deposit</Link></li>

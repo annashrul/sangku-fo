@@ -219,13 +219,14 @@ class PenarikanReport extends Component{
                                     <tr>
                                         <th className="text-light" style={columnStyle}>No</th>
                                         <th className="text-light" style={columnStyle}>No Faktur</th>
-                                        <th className="text-light" style={columnStyle}>Tanggal</th>
-                                        {/* <th className="text-light" style={columnStyle}>Nama Pemilik Bank</th> */}
+                                        <th className="text-light" style={columnStyle}>Tanggal/Waktu</th>
+                                        <th className="text-light" style={columnStyle}>Nama Pemilik Bank</th>
                                         <th className="text-light" style={columnStyle}>Bank</th>
-                                        {/* <th className="text-light" style={columnStyle}>No. Akun</th> */}
+                                        <th className="text-light" style={columnStyle}>No. Akun</th>
                                         <th className="text-light" style={columnStyle}>Amount</th>
                                         <th className="text-light" style={columnStyle}>Fee</th>
-                                        {/* <th className="text-light" style={columnStyle}>Nama</th> */}
+                                        <th className="text-light" style={columnStyle}>Admin Bank</th>
+                                        <th className="text-light" style={columnStyle}>Nama</th>
                                         <th className="text-light" style={columnStyle}>Status</th>
                                     </tr>
                                     </thead>
@@ -240,13 +241,14 @@ class PenarikanReport extends Component{
                                                                 <tr key={i}>
                                                                     <td style={columnStyle}> {i+1 + (10 * (parseInt(current_page,10)-1))}</td>
                                                                     <td style={columnStyle}>{v.kd_trx}</td>
-                                                                    <td style={columnStyle}>{moment(v.created_at).format("YYYY-MM-DD")}</td>
-                                                                    {/* <td style={columnStyle}>{v.acc_name}</td> */}
+                                                                    <td style={columnStyle}>{moment(v.created_at).format("YYYY-MM-DD / HH:mm")}</td>
+                                                                    <td style={columnStyle}>{v.acc_name}</td>
                                                                     <td style={columnStyle}>{v.bank_name}</td>
-                                                                    {/* <td style={columnStyle}>{v.acc_no}</td> */}
+                                                                    <td style={columnStyle}>{v.acc_no}</td>
                                                                     <td style={columnStyle}>{toRp(v.amount)}</td>
                                                                     <td style={columnStyle}>{toRp(v.charge===null?0:v.charge)}</td>
-                                                                    {/* <td style={columnStyle}>{v.full_name}</td> */}
+                                                                    <td style={columnStyle}>{toRp(v.bank_charge===null?0:v.bank_charge)}</td>
+                                                                    <td style={columnStyle}>{v.full_name}</td>
                                                                     <td style={columnStyle}>{
                                                                         v.status===0?
                                                                         <span className="btn-info p-2 text-white rounded">Pending</span>:
@@ -262,7 +264,7 @@ class PenarikanReport extends Component{
                                                 )
                                             }
                                             </tbody>
-                                        ) : <tbody><tr><td colSpan="7"><Spinner/></td></tr></tbody>
+                                        ) : <tbody><tr><td colSpan="10"><Spinner/></td></tr></tbody>
                                     }
                                 </table>
 

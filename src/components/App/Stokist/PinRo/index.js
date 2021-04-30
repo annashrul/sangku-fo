@@ -273,7 +273,7 @@ class PinRo extends Component {
   handleGetList(e, id) {
     // e.preventDefault()
     // alert('test');
-    if (e.target.id === "toListForm") {
+    if (e.target.id === "toListForm_") {
       this.setState({ idStokist: id });
       this.props.dispatch(FetchDetailPin(id));
       const bool = !this.props.isOpen;
@@ -367,7 +367,7 @@ class PinRo extends Component {
                         return (
                           <div
                             key={i}
-                            className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded"
+                            className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded"
                             label="Core Courses"
                             id="toListForm"
                             onClick={(e) =>

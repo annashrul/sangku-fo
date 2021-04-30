@@ -10,6 +10,7 @@ import Overview from './src/overview'
 import Saldo from './src/saldo'
 import Team from './src/teams'
 import News from './src/news'
+import Rwd from './src/r_wd'
 import Redeem from './src/redeem'
 import socketIOClient from "socket.io-client";
 import {HEADERS} from 'redux/actions/_constants'
@@ -23,6 +24,7 @@ import History from './src/history';
 import FormReaktivasiCopy from '../modals/member/form_reaktivasi-copy';
 import Swal from 'sweetalert2';
 import { setPopup } from '../../../redux/actions/dashboard/dashboard.action';
+import { FetchReport } from '../../../redux/actions/member/penarikan.action';
 const table = 'rekapitulasi';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
@@ -96,7 +98,8 @@ class Index extends Component {
             uid: "0",
             withdrawal: "0",
             load_socket:true,
-            membership_badge:""
+            membership_badge:"",
+            ringkasan_bonus:""
         };
 
         socket.on('refresh_dashboard',(data)=>{
@@ -104,6 +107,7 @@ class Index extends Component {
         })
        
         socket.on("set_dashboard", (data) => {
+            // console.log("data socket",data);
             
            this.setState({
                load_socket:false,
@@ -130,6 +134,7 @@ class Index extends Component {
                jenjang_karir_badge: data.jenjang_karir_badge,
                is_stockist: data.is_stockist,
                auto_wd: data.auto_wd,
+               ringkasan_bonus:data.ringkasan_bonus
            })
         });
 
@@ -225,14 +230,17 @@ class Index extends Component {
 
     componentWillMount(){
         this.refreshData(atob(Cookies.get('sangqu_exp')));
-        let start = moment(new Date()).subtract(4,'days');
-        let end = moment(new Date()).add(1,'days');
-        for (var m = moment(start); m.isBefore(end); m.add(1, 'days')) {
-            if(moment(m).format("yyyy-MM-DD")!==moment(new Date()).add(1,'days').format("yyyy-MM-DD")){
-                let param = 'tgl='+moment(m).format("yyyy-MM-DD")
-                this.props.dispatch(FetchRekapitulasi(param));
-            }
-        }
+        // let start = moment(new Date()).subtract(4,'days');
+        // let end = moment(new Date()).add(1,'days');
+        // for (var m = moment(start); m.isBefore(end); m.add(1, 'days')) {
+        //     if(moment(m).format("yyyy-MM-DD")!==moment(new Date()).add(1,'days').format("yyyy-MM-DD")){
+        //         let param = 'tgl='+moment(m).format("yyyy-MM-DD")
+        //         this.props.dispatch(FetchRekapitulasi(param));
+        //     }
+        // }
+        let param = 'tgl='+moment(new Date()).format("yyyy-MM-DD")
+        this.props.dispatch(FetchRekapitulasi(param));
+        this.props.dispatch(FetchReport(1));
         this.getData()
     }
 
@@ -281,6 +289,7 @@ class Index extends Component {
                             bonus_sponsor={this.state.bonus_sponsor}
                             withdrawal={this.state.withdrawal}
                             load={this.state.load_socket}
+                            plafon={this.state.plafon}
                         />
                     </div>
                     <div className="col-md-4">
@@ -291,6 +300,8 @@ class Index extends Component {
                             pv_kanan={this.state.pv_kanan}
                             pv_kiri={this.state.pv_kiri}
                             sponsor={this.state.sponsor}
+                            reward_kiri={this.state.reward_kiri}
+                            reward_kanan={this.state.reward_kanan}
                         />
                     </div>
                     <div className="col-md-4">
@@ -315,14 +326,17 @@ class Index extends Component {
                 <div className="row box-margin">
                     {/* <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" /> */}
                     <div className="col-md-12">
-                        <Redeem list={this.state.list}/>
+                        <Redeem list={this.state.list} ringkasan_bonus={this.state.ringkasan_bonus}/>
                     </div>
                 </div>
                 <div className="row d-flex box-margin">
-                     <div className="col-md-6">
+                     <div className="col-md-4">
+                         <Rwd list={this.props.riwayatWd}/>
+                    </div>
+                     <div className="col-md-4">
                          <News list={this.props.beritaBerita}/>
                     </div>
-                     <div className="col-md-6">
+                     <div className="col-md-4">
                         <History list={this.props.dataRiwayat}/>
                     </div>
 
@@ -350,7 +364,9 @@ const mapStateToProps = (state) =>{
         isLoadingBerita:state.beritaReducer.isLoadingBerita,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,
-        isShow: state.dashboardReducer.popupShow
+        isShow: state.dashboardReducer.popupShow,
+        riwayatWd:state.penarikanReducer.data_report,
+        isLoadingRiwayatWd: state.penarikanReducer.isLoadingReport,
      }
 }
 export default connect(mapStateToProps)(Index);

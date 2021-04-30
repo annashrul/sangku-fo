@@ -14,7 +14,7 @@ class History extends Component {
                         Riwayat Transaksi Terbaru
                             <Link to={'/report/riwayat'} style={{float:'right',fontSize:'.9em'}}>Lihat Semua</Link>
                     </h5>
-                    <div className="row" style={{overflowX:'auto', height:'300px'}}>
+                    <div className="row" style={{overflowX:'auto', height:'300px',zoom:'80%'}}>
                         {
                             typeof this.props.list === 'object' ? 
                                 this.props.list.length>0?

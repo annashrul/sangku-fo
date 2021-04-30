@@ -136,7 +136,7 @@ class Pin extends Component{
     handleGetList(e,id){
         // e.preventDefault()
         // alert(e.target.id);
-        if(e.target.id==='toListForm'){
+        if(e.target.id==='toListForm_'){
             this.setState({idStokist:id});
             this.props.dispatch(FetchDetailPin(id));
             const bool = !this.props.isOpen;
@@ -305,7 +305,7 @@ class Pin extends Component{
                                         typeof this.props.getPin === 'object' ?
                                             this.props.getPin.map((v,i)=>{
                                                 return(
-                                                    <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
+                                                    <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
                                                         <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
                                                         <br/>
                                                         <a href={() => false} className="font-24">{`${v.title}`}</a>

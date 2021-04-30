@@ -156,7 +156,7 @@
 .last_level_user {
   font-size: 1.6em;
   color: #6e7bad;
-  margin-top: 6em;
+  margin-top: 7em;
 }
 
 .last_level_user .fa-2x {
@@ -164,7 +164,7 @@
 }
 
 .binary-node-single-item .pop-up-content {
-  zoom: 85%;
+  zoom: 95%;
   border-radius: 2px;
   padding: 0;
   background-color: #fff;
