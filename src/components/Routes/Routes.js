@@ -27,6 +27,7 @@ const IndexAlamat = React.lazy(() => import('../App/Member/Alamat/indexAlamat'))
 const IndexBank = React.lazy(() => import('../App/Member/bank/indexBank'));
 const Binary = React.lazy(() => import('../App/Member/Binary'));
 const Sponsor = React.lazy(() => import('../App/Member/Sponsor'));
+const DaftarSponsor = React.lazy(() => import('../App/Member/DaftarSponsor'));
 const Testt = React.lazy(() => import('../App/Masterdata/test'));
 const RiwayatTransaksi = React.lazy(() => import('../App/transaction/riwayat'));
 const RiwayatPPOB = React.lazy(() => import('../App/Report/PPOB'));
@@ -82,6 +83,7 @@ const Routes = (
             <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
+            <PrivateRoute path="/daftar-sponsor" exact strict component={DaftarSponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />
             
             <PrivateRoute path="/stokist/pin-aktivasi" exact strict component={StokistAktivasi} />
