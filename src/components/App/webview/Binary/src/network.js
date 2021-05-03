@@ -164,7 +164,7 @@ class Sponsor extends Component{
                         ? "#732044"
                         : "#000000",}}><strong className="text-light">{cNode.name}</strong></div>
                       <div className="username d-flex justify-content-between align-items-center m-0">
-                        <span className="text-value p-1" style={{backgroundColor:cNode.kualifikasi>0?'#007bff':'#c0c0c0',color:cNode.kualifikasi>0?'#fff':'#000'}}>{cNode.id}</span>
+                        <span className="text-value p-1" style={{backgroundColor:cNode.kualifikasi>0?'#004896':'#c0c0c0',color:cNode.kualifikasi>0?'#fff':'#000'}}>{cNode.id}</span>
                         <span className="text-value px-2 py-1 font-weight-bold text-dark">{cNode.kualifikasi}</span>
                       </div>
                     </div>
