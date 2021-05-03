@@ -71,7 +71,7 @@ class SideMenu extends Component {
     componentDidMount(){
         this.getProps(this.props);
         const path = this.props.location.pathname;
-        if(path==='/downline/add' || path==='/binary' || path==='/sponsor' || path==='/rekapitulasi'){
+        if(path==='/downline/add' || path==='/binary' || path==='/sponsor' || path==='/rekapitulasi' || path==='/daftar-sponsor'){
             this.setState({
                 isNetwork:true,
             })
@@ -163,6 +163,7 @@ class SideMenu extends Component {
                         || path==='/downline/add'
                         ||path==='/alamat'
                         ||path==='/bank'
+                        ||path==='/daftar-sponsor'
                         ||path==='/rekapitulasi'
                         ?" active menu-open" : "")}>
                         <a href="!#" onClick={(e) => this.changeMenu(e,'isNetwork')}><i className="fa fa-sitemap" /><span>Jaringan</span> <i className="fa fa-angle-right" /></a>
@@ -173,6 +174,7 @@ class SideMenu extends Component {
                             <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
                             <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>
                             <li className={path==='/rekapitulasi'?"active":''}><Link to="/rekapitulasi" style={{width:'fit-content'}}> Rekapitulasi</Link></li>
+                            <li className={path==='/daftar-sponsor'?"active":''}><Link to="/daftar-sponsor" style={{width:'fit-content'}}> Daftar Sponsor</Link></li>
                         </ul>
                     </li>
                     {/* NETWORK MODUL END */}

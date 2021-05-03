@@ -51,7 +51,7 @@ class Sponsor extends Component{
         return (
             <>
             <table className="table table-hover table-striped" style={{tableLayout:'fixed',zoom:'85%'}}>
-                <thead className="bg-primary">
+                <thead style={{backgroundColor:'#732044'}}>
                     <tr>
                         <td width="10%" className="text-light text-center">NO</td>
                         <td width="30%" className="text-light text-center">NAMA</td>

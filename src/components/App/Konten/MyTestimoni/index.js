@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import VideoTesti from '../../modals/testimoni/video_testi';
 import FormAddTestimoni from '../../modals/testimoni/form_add_testimoni';
 import Default from '../../../../assets/default.png'
-import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown } from 'reactstrap';
+// import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown } from 'reactstrap';
 class MyTestimoni extends Component{
     constructor(props){
         super(props);
@@ -319,14 +319,14 @@ class MyTestimoni extends Component{
                                 </div>
                                 <div className="row justify-content-center d-flex" style={{paddingBottom:'40px'}}>
                                     <table className="table table-hover table-striped m-3" style={{tableLayout:'fixed'}}>
-                                        <thead className="bg-primary">
+                                        <thead style={{backgroundColor:'#732044'}}>
                                             <tr>
                                                 <td width="8%" className="text-center text-light">NO</td>
                                                 <td width="12%" className="text-center text-light">Penulis</td>
                                                 <td width="30%" className="text-center text-light">Isi Testi</td>
                                                 <td width="15%" className="text-center text-light">Pekerjaan</td>
                                                 <td width="15%" className="text-center text-light">Nama Lain</td>
-                                                <td width="10%" className="text-center text-light">AKSI</td>
+                                                {/* <td width="10%" className="text-center text-light">AKSI</td> */}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -342,7 +342,7 @@ class MyTestimoni extends Component{
                                                                     <td className="text-center">{v.caption}</td>
                                                                     <td className="text-center">{v.jobs}</td>
                                                                     <td className="text-center">{v.nama_lain}</td>
-                                                                    <td className="text-center">
+                                                                    {/* <td className="text-center">
                                                                         <UncontrolledButtonDropdown>
                                                                             <DropdownToggle  className="bg-primary border-none rounded font-22">
                                                                                 <i className="zmdi zmdi-more"></i>
@@ -352,7 +352,7 @@ class MyTestimoni extends Component{
                                                                             <DropdownItem onClick={(e)=>this.handleDeleteBank(e,v.id)}><i className="ti-trash"></i> Delete</DropdownItem>
                                                                         </DropdownMenu>
                                                                         </UncontrolledButtonDropdown>
-                                                                    </td>
+                                                                    </td> */}
                                                                 </tr>
                                                             )
                                                         })
@@ -368,7 +368,7 @@ class MyTestimoni extends Component{
                                                             <td><Skeleton/></td>
                                                             <td><Skeleton/></td>
                                                             <td><Skeleton/></td>
-                                                            <td><Skeleton/></td>
+                                                            {/* <td><Skeleton/></td> */}
                                                         </tr>
                                                     );
                                                 }

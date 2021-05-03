@@ -9,6 +9,8 @@ import webviewSponsor from '../App/webview/Sponsor';
 import webviewRegister from '../App/webview/AddMember';
 // import TestimoniSaya from '../App/Konten/TestimoniSaya';
 
+const Maintenance = React.lazy(() => import('../App/Maintenance'));
+
 const Landing = React.lazy(() => import('../App/Landing'));
 const Login = React.lazy(() => import('../App/Auth'));
 const Signup = React.lazy(() => import('../App/Regist'));
@@ -70,6 +72,7 @@ const Routes = (
         <ErrorBoundary>
         <Suspense fallback={<Preloader/>}>
         <Switch>
+            <Route path="/maintain" exact strict component={Maintenance} />
             <Route path="/" exact strict component={Landing} />
             <Route path="/privacy-policy" exact strict component={PagesSpace} />
             <Route path="/terms-and-condition" exact strict component={PagesSpace} />
