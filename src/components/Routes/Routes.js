@@ -85,6 +85,7 @@ const Routes = (
 
             <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />
+            <PrivateRoute path="/binary/:id" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
             <PrivateRoute path="/daftar-sponsor" exact strict component={DaftarSponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />

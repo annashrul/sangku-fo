@@ -7,7 +7,8 @@ import BinaryNetwork from './src/network'
 class Binary extends Component{
 
     getProps(props){
-        this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true,'network'))
+        console.log("data props",props.match.params.id);
+        this.props.dispatch(FetchNetwork(btoa(props.match.params.id===undefined?props.auth.user.referral_code:atob(props.match.params.id)),true,'network'))
         var head = document.getElementsByTagName('head')[0];
 
         var cssnode3 = document.createElement('link');
@@ -43,7 +44,7 @@ class Binary extends Component{
         document.querySelector("link[href='/genealogy/treedev.css']").remove()
     }
     componentDidUpdate(prevState){
-            if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code){
+            if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code||prevState.match.params.id!==this.props.match.params.id){
                 this.getProps(this.props);
             }
     }
@@ -55,7 +56,7 @@ class Binary extends Component{
                     <div className="card-body">
                         {
                             !this.props.isLoading?
-                            <BinaryNetwork dataList={this.props.list}/>
+                            <BinaryNetwork dataList={this.props.list} match={this.props.match}/>
                             :<Spinner/>
                         }
                     </div>

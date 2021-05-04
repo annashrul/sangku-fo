@@ -5,6 +5,8 @@ import noUser from 'assets/no-user.png';
 import Default from 'assets/default.png'
 import Preloader from 'PreloaderWebview'
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
+// import { UncontrolledTooltip } from 'reactstrap';
 
 class Sponsor extends Component{
     constructor(props){
@@ -104,7 +106,7 @@ class Sponsor extends Component{
                     
                 <div
                   className="ribbon_wrapper images_wrapper"
-                  style={{ height: "-webkit-fill-available" }}
+                  style={{ height: "-webkit-fill-available", position:'inherit', zIndex:'2'  }}
                 >
                   <div
                     className="ribbon ribbon-vertical-l d-none"
@@ -128,7 +130,9 @@ class Sponsor extends Component{
                   </div>
                   <img
                     className="profile-rounded-image-small h-100"
-                    style={{ borderColor: "#ccc" }}
+                    style={{
+                        borderColor: "#ccc",
+                        WebkitBoxReflect:'below 0px linear-gradient(to bottom, rgba(0,0,0,0.0), rgb(0 0 0 / 20%))'}}
                     src={cNode.picture}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -143,26 +147,41 @@ class Sponsor extends Component{
                 <div
                   class="alert alert-primary mt-2 font-12 text-dark img-thumbnail border-1"
                   style={{
-                    borderColor:"#c0c0c0",
+                    borderColor:cNode.membership === "Regular"
+                        ? "#c0c0c0"
+                        : cNode.membership === "Bisnis"
+                        ? "#DAA520"
+                        : cNode.membership === "Executive"
+                        ? "#732044"
+                        : "#000000",
                     borderWidth: "3px",
                     zIndex: 1,
                     padding: "0px",
-                    backgroundColor: "#ffffff",
+                    // backgroundColor: "#ffffff",
                     width:'10em',
                     right:'2em',
-                    display:'inline-table'
+                    display:'inline-table',
+                    backgroundColor:cNode.membership === "Regular"
+                        ? "#c0c0c0"
+                        : cNode.membership === "Bisnis"
+                        ? "#DAA520"
+                        : cNode.membership === "Executive"
+                        ? "#732044"
+                        : "#000000",
+                    top:'-7.4em'
                   }}
                 >
-                  <div className="pop-up-content">
-                    <div className="profile_tooltip_pick p-0">
-                      <div className="full-name m-0 p-1 font-16" style={{backgroundColor:
+                  <div className="pop-up-content" style={{height:'17em'}}>
+                    <div className="profile_tooltip_pick p-0" style={{marginTop:'7em'}}>
+                      <div className="full-name m-0 p-1 font-16 d-flex align-items-center justify-content-center" style={{backgroundColor:
                       cNode.membership === "Regular"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
                         : cNode.membership === "Executive"
                         ? "#732044"
-                        : "#000000",}}><strong className="text-light">{cNode.name}</strong></div>
+                        : "#000000",
+                        height:'6em'}}><strong className="text-light">{cNode.name}</strong></div>
                       <div className="username d-flex justify-content-between align-items-center m-0">
                         <span className="text-value p-1" style={{backgroundColor:cNode.kualifikasi>0?'#004896':'#c0c0c0',color:cNode.kualifikasi>0?'#fff':'#000'}}>{cNode.id}</span>
                         <span className="text-value px-2 py-1 font-weight-bold text-dark">{cNode.kualifikasi}</span>
@@ -207,7 +226,24 @@ class Sponsor extends Component{
                   </div>
                 </div>
              </div>
-                <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e)=>this.showNode(e,cNode.id)} style={{display:'none'}}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
+                <div
+                    id={`btnAdd_${cNode.id}`}
+                    className="last_level_user"
+                    style={{display:'none'}}
+                >
+                    <i id={"UncontrolledTooltipAdd_"+cNode.id} className="fa fa-plus-circle fa-2x zoom-hover" onClick={(e) => this.showNode(e, cNode.id)} />
+                    {/* <UncontrolledTooltip placement="bottom" target={"UncontrolledTooltipAdd_"+cNode.id}>
+                        Lihat downline langsung.
+                    </UncontrolledTooltip> */}
+                    {cNode.parent_id===null&&cNode.position===null?'':
+                        <Link to={{ pathname: `/web_view/binary/${btoa(cNode.id)}`}}>
+                        <i id={"UncontrolledTooltipNew_"+cNode.id} className="fa fa-level-up fa-2x zoom-hover mx-1" />
+                        {/* <UncontrolledTooltip placement="bottom" target={"UncontrolledTooltipNew_"+cNode.id}>
+                            Lihat downline sebagai Node utama.
+                        </UncontrolledTooltip> */}
+                        </Link>
+                    }
+                </div>
             </div>
             }
             {cNode.hasChild?
