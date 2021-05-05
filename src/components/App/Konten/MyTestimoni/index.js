@@ -7,13 +7,13 @@ import moment from "moment";
 import { getTestimoni, getTestimoniDetail, getTestimoniKategori } from '../../../../redux/actions/konten/testimoni.action';
 import Swal from 'sweetalert2';
 import Skeleton from 'react-loading-skeleton';
-import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import VideoTesti from '../../modals/testimoni/video_testi';
 import FormAddTestimoni from '../../modals/testimoni/form_add_testimoni';
 import Default from '../../../../assets/default.png'
+// import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown } from 'reactstrap';
 class MyTestimoni extends Component{
     constructor(props){
         super(props);
@@ -281,8 +281,6 @@ class MyTestimoni extends Component{
         localStorage.setItem('status_testimoni', st.value);
     }
     render(){
-        require('./src/testiStyle.css')
-        require('./src/owl.carousel.min.css')
         const {
             per_page,
             last_page,
@@ -290,74 +288,8 @@ class MyTestimoni extends Component{
             data
         } = this.props.testimoniTestimoni;
 
-        const settings = {
-            dots: true,
-            infinite: true,
-            speed: 3000,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            arrows: false,
-            pauseOnHover: true
-
-        };
         return (
             <Layout page="Testimoni">
-                <div className="row m-2 card p-3 d-none">
-                    <div className="col-md-12" style={{zoom:"100%"}}>
-                        <div className="row">
-                            <div className="col-6 col-xs-6 col-md-4">
-                                <div className="form-group">
-                                    <label>Cari</label>
-                                    <input className="form-control" type="text" style={{padding: '9px',fontWeight:'bolder'}} name="any" value={this.state.any} onChange={(e) => this.handleChange(e)}/>
-                                </div>
-                            </div>
-                            <div className="col-6 col-xs-6 col-md-2">
-                                <div className="form-group">
-                                    <button style={{marginTop:"28px",marginRight:"5px"}} className="btn btn-primary" onClick={this.handleSearch}>
-                                        <i className="fa fa-search"/>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="testimonial2 py-5 card m-2  d-none">
-                    <div className="container">
-                        <div className="heading"></div>
-                        <div className="owl-carousel owl-theme testi2 mt-4">
-                            <Slider {...settings}>
-                                {
-                                    data!==undefined?
-                                        data.map((item,index)=>{
-                                            return (
-                                                <div id="testimonial-slider" className="item" key={index}>
-                                                    <div className="row position-relative">
-                                                        <div className="col-lg-6 col-md-6 align-self-center">
-                                                            {/* <button className="btn rounded-circle btn-danger btn-md"><i className="fa fa-video" /></button> */}
-                                                            {item.video==='-'?'': <a href={item.video} className="btn rounded-circle btn-danger btn-md"><i class="fa fa-play" aria-hidden="true"></i>&nbsp;</a>}
-                                                            <h4 className="my-3">Apa Kata Mereka?</h4>
-                                                            <div dangerouslySetInnerHTML={{__html: item.caption}} />
-                                                            <h5 className="mt-4">{item.writer}</h5>
-                                                            <h6 className="subtitle font-weight-normal">{item.title}</h6>
-                                                        </div>
-                                                        <div className="col-lg-6 col-md-6 image-thumb d-none d-md-block">
-                                                            <img src={item.picture} alt={item.writer} className="rounded-circle img-fluid" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    :''
-                                }
-                            </Slider>
-                        </div>
-                    </div>
-                </div>
-                <div className="w-100 position-sticky fixed-bottom d-none" style={{bottom:'100px'}}>
-                    <button type="button" className="btn btn-info btn-lg btn-circle float-right shadow" onClick={(e)=>this.toggleAdd(e)}><i className="fa fa-plus"></i></button>
-                </div>
 
                 <div className="row">
                     <div className="col-md-12">
@@ -386,47 +318,42 @@ class MyTestimoni extends Component{
                                     </div>
                                 </div>
                                 <div className="row justify-content-center d-flex" style={{paddingBottom:'40px'}}>
+                                    <table className="table table-hover table-striped m-3" style={{tableLayout:'fixed'}}>
+                                        <thead style={{backgroundColor:'#732044'}}>
+                                            <tr>
+                                                <td width="8%" className="text-center text-light">NO</td>
+                                                <td width="12%" className="text-center text-light">Penulis</td>
+                                                <td width="30%" className="text-center text-light">Isi Testi</td>
+                                                <td width="15%" className="text-center text-light">Pekerjaan</td>
+                                                <td width="15%" className="text-center text-light">Nama Lain</td>
+                                                {/* <td width="10%" className="text-center text-light">AKSI</td> */}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                         {
                                             !this.props.isLoadingTestimoni?(
                                                 (
                                                     typeof data === 'object' ? data.length>0?
                                                         data.map((v,i)=>{
                                                             return(
-                                                                // <div className="card m-2">
-                                                                //     <div className="card-body">
-                                                                //         <img src={`https://picsum.photos/${Math.floor(Math.random() * 500) + 400}/${Math.floor(Math.random() * 400) + 300}`} alt="img"/>
-                                                                //     </div>
-                                                                // </div>
-                                                                <div className="col-md-4" style={{marginBottom:'70px'}}>
-                                                                    <div className="card m-2 h-100" ref={(node) => {if (node) {  node.style.setProperty("margin-top", "40px", "important");}}}>
-                                                                        <div className="text-center w-100" style={{marginTop:'-40px'}}><img className="border rounded-circle img-thumbnail shadow" src={v.foto} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt="sangqu" style={{width:'100px',height:'100px'}} /></div>
-                                                                        <div className="card-body d-flex align-items-center">
-                                                                            <div className="text-center w-100">
-                                                                                <i className="fa fa-quote-left text-warning"></i>
-                                                                                    <div dangerouslySetInnerHTML={{__html: v.caption}} />
-                                                                                <i className="fa fa-quote-right text-warning"></i>
-                                                                                <div className="text-center w-100 mt-2">
-                                                                                    <div><span className="text-warning font-20"><i className="fa fa-user"/>&nbsp;{v.writer}</span></div>
-                                                                                </div>
-                                                                                <div className="d-flex align-items-center justify-content-between">
-                                                                                    <p className="font-11"><i className="zmdi zmdi-group-work">&nbsp;{v.jobs}</i></p>
-                                                                                    <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD')}</p>
-                                                                                </div>
-                                                                                <div className="text-center w-100 mt-2">
-                                                                                    {v.video!=='-'&&v.video!==''&&v.video!==undefined?
-                                                                                        <div><button type="button" className="btn btn-outline-danger btn-circle" onClick={(e)=>this.toggleVideo(e,v.video)} ><i className="fa fa-play"/></button></div>
-                                                                                    :''}
-                                                                                    {String(v.picture).toLowerCase().search('default')!=='-1'?
-                                                                                    <div>
-                                                                                        {/* <button type="button" className="btn btn-outline-info btn-circle" onClick={(e)=>this.toggleFoto(e,v.picture)} ><i className="fa fa-file-image-o"/></button> */}
-                                                                                        <img src={v.picture} className="img-fluid w-50 rounded-lg cursor-pointer" alt="sangku" onClick={(e)=>this.toggleFoto(e,v.picture)} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}/>
-                                                                                    </div>
-                                                                                    :''}
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <tr key={i}>
+                                                                    <td className="text-center">{i+1 + (10 * (parseInt(current_page,10)-1))}</td>
+                                                                    <td className="text-center">{v.writer}</td>
+                                                                    <td className="text-center">{v.caption}</td>
+                                                                    <td className="text-center">{v.jobs}</td>
+                                                                    <td className="text-center">{v.nama_lain}</td>
+                                                                    {/* <td className="text-center">
+                                                                        <UncontrolledButtonDropdown>
+                                                                            <DropdownToggle  className="bg-primary border-none rounded font-22">
+                                                                                <i className="zmdi zmdi-more"></i>
+                                                                            </DropdownToggle>
+                                                                        <DropdownMenu>
+                                                                            <DropdownItem  onClick={(e)=>this.handleModalBank(e,i)}><i className="ti-pencil-alt"></i> Edit</DropdownItem>
+                                                                            <DropdownItem onClick={(e)=>this.handleDeleteBank(e,v.id)}><i className="ti-trash"></i> Delete</DropdownItem>
+                                                                        </DropdownMenu>
+                                                                        </UncontrolledButtonDropdown>
+                                                                    </td> */}
+                                                                </tr>
                                                             )
                                                         })
                                                         : "No data." : "No data."
@@ -435,31 +362,21 @@ class MyTestimoni extends Component{
                                                 const rows = [];
                                                 for (let i = 0; i < 9; i++) {
                                                     rows.push(
-                                                        <div className="col-md-4" style={{marginBottom:'70px'}}>
-                                                            <div className="card m-2 h-100" ref={(node) => {if (node) {  node.style.setProperty("margin-top", "40px", "important");}}}>
-                                                            <div className="text-center w-100" style={{marginTop:'-40px'}}><Skeleton circle={true} width={70} height={70} /></div>
-                                                                <div className="card-body d-flex align-items-center">
-                                                                    <div className="text-center w-100">
-                                                                        <i className="fa fa-quote-left text-warning"></i>
-                                                                            {/* <div dangerouslySetInnerHTML={{__html: v.caption}} /> */}
-                                                                            <Skeleton count={5} style={{width:'85%'}}/>
-                                                                        <i className="fa fa-quote-right text-warning"></i>
-                                                                        <div className="text-center w-100 mt-2">
-                                                                            <div><span className="text-warning font-20"><i className="fa fa-user"/>&nbsp;<Skeleton width={80}/></span></div>
-                                                                        </div>
-                                                                        <div className="d-flex align-items-center justify-content-between">
-                                                                            <p className="font-11"><i className="zmdi zmdi-group-work">&nbsp;<Skeleton width={70}/></i></p>
-                                                                            <p className="font-11"><i className="fa fa-calendar"/>&nbsp;<Skeleton width={70}/></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <tr key={i}>
+                                                            <td><Skeleton/></td>
+                                                            <td><Skeleton/></td>
+                                                            <td><Skeleton/></td>
+                                                            <td><Skeleton/></td>
+                                                            <td><Skeleton/></td>
+                                                            {/* <td><Skeleton/></td> */}
+                                                        </tr>
                                                     );
                                                 }
                                                 return rows;
                                             })()
                                         }
+                                        </tbody>
+                                        </table>
                                     </div>
                                 <div style={{"marginTop":"20px","float":"right"}}>
                                     <Paginationq

@@ -268,6 +268,7 @@ class Header extends Component {
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
                                         <i className="fa fa-user profile-icon bg-primary text-white" aria-hidden="true"/> Profile
                                         </DropdownItem>
+                                        
                                         {/* <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                         <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                         </DropdownItem>
@@ -518,6 +519,7 @@ class Header extends Component {
                                         <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/profile'});}}>
                                         <i className="fa fa-user profile-icon bg-primary" aria-hidden="true"/> Profile
                                         </DropdownItem>
+                                        
                                         {/* <DropdownItem  onClick={(e)=>{e.preventDefault();this.props.history.push({pathname: '/alamat'});}}>
                                         <i className="fa fa-map-marker profile-icon bg-info" aria-hidden="true"/> Alamat
                                         </DropdownItem>

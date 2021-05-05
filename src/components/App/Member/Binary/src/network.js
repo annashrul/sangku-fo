@@ -14,7 +14,9 @@ class Sponsor extends Component {
       numChildren: 0,
       loading: false,
       arrs: [],
+      id_member: "",
     };
+    this.handleChange = this.handleChange.bind(this)
   }
 
   getCurrent = (node) =>
@@ -61,7 +63,7 @@ class Sponsor extends Component {
               >
                 <div
                   className="ribbon_wrapper images_wrapper"
-                  style={{ height: "-webkit-fill-available" }}
+                  style={{ height: "-webkit-fill-available", position:'inherit', zIndex:'2' }}
                 >
                   <div
                     className="ribbon ribbon-vertical-l d-none"
@@ -85,7 +87,9 @@ class Sponsor extends Component {
                   </div>
                   <img
                     className="profile-rounded-image-small h-100"
-                    style={{ borderColor: "#ccc" }}
+                    style={{ 
+                      borderColor: "#ccc",
+                      WebkitBoxReflect:'below 0px linear-gradient(to bottom, rgba(0,0,0,0.0), rgb(0 0 0 / 20%))'}}
                     src={cNode.picture}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -100,28 +104,43 @@ class Sponsor extends Component {
                 <div
                   class="alert alert-primary mt-2 font-12 text-dark img-thumbnail border-1"
                   style={{
-                    borderColor:"#c0c0c0",
-                    borderWidth: "3px",
-                    zIndex: 1,
-                    padding: "0px",
-                    backgroundColor: "#ffffff",
-                    width:'10em',
-                    right:'2em',
-                    display:'inline-table'
-                  }}
-                >
-                  <div className="pop-up-content">
-                    <div className="profile_tooltip_pick p-0">
-                      <div className="full-name m-0 p-1 font-16" style={{backgroundColor:
-                      cNode.membership === "Regular"
+                    borderColor:cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
                         : cNode.membership === "Executive"
                         ? "#732044"
-                        : "#000000",}}><strong className="text-light">{cNode.name}</strong></div>
+                        : "#000000",
+                    borderWidth: "3px",
+                    zIndex: 1,
+                    padding: "0px",
+                    // backgroundColor: "#ffffff",
+                    width:'10em',
+                    right:'2em',
+                    display:'inline-table',
+                    backgroundColor:cNode.membership === "Basic"
+                        ? "#c0c0c0"
+                        : cNode.membership === "Bisnis"
+                        ? "#DAA520"
+                        : cNode.membership === "Executive"
+                        ? "#732044"
+                        : "#000000",
+                    top:'-7.4em'
+                  }}
+                >
+                  <div className="pop-up-content" style={{height:'max-content'}}>
+                    <div className="profile_tooltip_pick p-0" style={{marginTop:'7em'}}>
+                      <div className="full-name m-0 p-1 font-16 d-flex align-items-center justify-content-center" style={{backgroundColor:
+                      cNode.membership === "Basic"
+                        ? "#c0c0c0"
+                        : cNode.membership === "Bisnis"
+                        ? "#DAA520"
+                        : cNode.membership === "Executive"
+                        ? "#732044"
+                        : "#000000",
+                        height:'6em'}}><strong className="text-light">{cNode.name}</strong></div>
                       <div className="username d-flex justify-content-between align-items-center m-0">
-                        <span className="text-value p-1 text-light" style={{backgroundColor:cNode.kualifikasi>0?'#007bff':'#343a40'}}>{cNode.id}</span>
+                        <span className="text-value p-1" style={{backgroundColor:cNode.kualifikasi>0?'#004896':'#c0c0c0',color:cNode.kualifikasi>0?'#fff':'#000'}}>{cNode.id}</span>
                         <span className="text-value px-2 py-1 font-weight-bold text-dark">{cNode.kualifikasi}</span>
                       </div>
                     </div>
@@ -160,17 +179,37 @@ class Sponsor extends Component {
                           </span>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">
+                            {cNode.left_ro}
+                          </span>
+                        </div>
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">RO</span>
+                        </div>
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">
+                            {cNode.right_ro}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              {/* <Link to={{ pathname: `/binary/${cNode.id}`}}> */}
               <div
                 id={`btnAdd_${cNode.id}`}
                 className="last_level_user"
-                onClick={(e) => this.showNode(e, cNode.id)}
-                style={{ display: "none" }}
+                style={{ display: "none", zIndex:1 }}
               >
-                <i id="fa-2x-42" className="fa fa-plus-circle fa-2x" />
+                <i id="fa-2x-42" className="fa fa-plus-circle fa-2x zoom-hover" onClick={(e) => this.showNode(e, cNode.id)} />
+                {cNode.parent_id===null&&cNode.position===null?'':
+                <Link to={{ pathname: `/binary/${btoa(cNode.id)}`}}>
+                  <i id="fa-2x-42" className="fa fa-level-up fa-2x zoom-hover mx-1" />
+                </Link>
+                }
               </div>
             </div>
           )}
@@ -278,6 +317,9 @@ class Sponsor extends Component {
     });
     return r;
   }
+  handleChange = (event) => {
+      this.setState({ [event.target.name]: event.target.value });
+  };
   componentWillMount() {
     this.setState({ arrs: this.props.dataList });
     this.getProps(this.props);
@@ -300,6 +342,7 @@ class Sponsor extends Component {
       0
     );
     //
+    // arrayToTree(this.state.arrs === [] ? props.dataList : this.state.arrs, { id: "id", parentId: "parent_id", dataField: null, childrenField: "children"  })
 
     const findItemNested = (arr, itemId, nestingKey) =>
       arr.reduce((a, c) => {
@@ -319,6 +362,7 @@ class Sponsor extends Component {
         "children"
       );
 
+      console.log("res[0].children",res[0].children);
       if (res[0].children === undefined) {
         if (elemA.hasChild) {
           document.getElementById("btnAdd_" + elemA.id).style.display = "";
@@ -431,6 +475,16 @@ class Sponsor extends Component {
         <div className="binary-genealogy-tree binary_tree_extended">
           <div className="zoom-wrapper m-t-lg m-b-lg">
             <ul className="zoom-lists">
+              {this.props.match.params.id===undefined?'':
+              <li>
+                <button
+                  className="btn btn-primary btn-circle m-1"
+                  onClick={(e) => {e.preventDefault();window.history.back();}}
+                >
+                  <i className="fa fa-arrow-circle-left" />
+                </button>
+              </li>
+              }
               <li>
                 <button
                   className="btn btn-primary btn-circle m-1"
@@ -456,6 +510,17 @@ class Sponsor extends Component {
                 </button>
               </li>
             </ul>
+            <div className="row d-flex align-items-center justify-content-between">
+              <div className="col-md-4 col-sm-6 offset-md-4 offset-sm-3">
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="Cari berdasarkan ID Member" name="id_member" onChange={this.handleChange} />
+                  <div className="input-group-append">
+                    <button className="btn btn-primary" type="button" onClick={(e)=>{e.preventDefault(); if(this.state.id_member!==''){this.props.history.push({pathname: `/binary/${btoa(this.state.id_member)}`})};}}>Cari</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
           <div className="sponsor-tree-wrapper">
             <div className="eps-sponsor-tree eps-tree" zoom={6}>

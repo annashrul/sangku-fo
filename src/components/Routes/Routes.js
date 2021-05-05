@@ -9,6 +9,8 @@ import webviewSponsor from '../App/webview/Sponsor';
 import webviewRegister from '../App/webview/AddMember';
 // import TestimoniSaya from '../App/Konten/TestimoniSaya';
 
+const Maintenance = React.lazy(() => import('../App/Maintenance'));
+
 const Landing = React.lazy(() => import('../App/Landing'));
 const Login = React.lazy(() => import('../App/Auth'));
 const Signup = React.lazy(() => import('../App/Regist'));
@@ -27,6 +29,7 @@ const IndexAlamat = React.lazy(() => import('../App/Member/Alamat/indexAlamat'))
 const IndexBank = React.lazy(() => import('../App/Member/bank/indexBank'));
 const Binary = React.lazy(() => import('../App/Member/Binary'));
 const Sponsor = React.lazy(() => import('../App/Member/Sponsor'));
+const DaftarSponsor = React.lazy(() => import('../App/Member/DaftarSponsor'));
 const Testt = React.lazy(() => import('../App/Masterdata/test'));
 const RiwayatTransaksi = React.lazy(() => import('../App/transaction/riwayat'));
 const RiwayatPPOB = React.lazy(() => import('../App/Report/PPOB'));
@@ -69,6 +72,7 @@ const Routes = (
         <ErrorBoundary>
         <Suspense fallback={<Preloader/>}>
         <Switch>
+            <Route path="/maintain" exact strict component={Maintenance} />
             <Route path="/" exact strict component={Landing} />
             <Route path="/privacy-policy" exact strict component={PagesSpace} />
             <Route path="/terms-and-condition" exact strict component={PagesSpace} />
@@ -81,7 +85,9 @@ const Routes = (
 
             <PrivateRoute path="/profile" exact strict component={indexProfile} />
             <PrivateRoute path="/binary" exact strict component={Binary} />
+            <PrivateRoute path="/binary/:id" exact strict component={Binary} />
             <PrivateRoute path="/sponsor" exact strict component={Sponsor} />
+            <PrivateRoute path="/daftar-sponsor" exact strict component={DaftarSponsor} />
             <PrivateRoute path="/testt" exact strict component={Testt} />
             
             <PrivateRoute path="/stokist/pin-aktivasi" exact strict component={StokistAktivasi} />

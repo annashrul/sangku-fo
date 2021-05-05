@@ -20,6 +20,7 @@ import confirmY from 'assets/status/confirmation.svg'
 import confirmWhite from 'assets/status/confirmation_white.svg'
 import confirm from 'assets/status/confirmation_non.svg'
 import { isMobileOnly } from "react-device-detect";
+import Axios from "axios";
 // import { renderToString } from 'react-dom/server';
 
 
@@ -309,6 +310,27 @@ export const CapitalizeEachWord=(str)=>{
     return splitStr.join(' ');
 }
 
+export const emptyCache = ()=>{
+    if('caches' in window){
+        caches.keys().then((names) => {
+            // Delete all the cache files
+            names.forEach(name => {
+                caches.delete(name);
+            })
+        });
+
+        Axios.defaults.headers = {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+        };
+
+        // Makes sure the page reloads. Changes are only visible after you refresh.
+        document.cookie = "sangqu_datum=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "sangqu_exp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.replace(`/login`); //Removes the current page from the session history and navigates to the given URL.
+    }
+}
 class Paginationq extends Component{
     // constructor(props){
     //     super(props);

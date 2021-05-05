@@ -10,6 +10,7 @@ class Charts extends Component {
         const {charge,daily,diamond,status} = this.props.ringkasan_bonus;
 
         const tot_diamond = (parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond))-((parseFloat(charge.bank))+((parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond)*parseFloat(charge.penarikan))/100));
+        const tot_bonus = (parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))-(parseFloat(charge.bank)+((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100);
         return(
             <>
             <div className="row">
@@ -80,7 +81,7 @@ class Charts extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    <h6 className = "text-success m-0" > Bonus(T x {this.props.list[0].pairing_bonus}) </h6>
+                                    <h6 className="text-success m-0">Bonus (T x 25.000)</h6>
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].nominal_bonus}
@@ -106,10 +107,10 @@ class Charts extends Component {
                         <div className="card-body">
                             <h5 className="card-title">Pergerakan Bonus</h5>
                                 <table className="table table-hover table-striped" style={{tableLayout:'fixed',zoom:'85%'}}>
-                                <thead className="bg-info">
+                                <thead>
                                     <tr>
-                                        <td width="50%" className="text-light text-center">BONUS</td>
-                                        <td width="50%" className="text-light text-center">NILAI</td>
+                                        <td width="50%" className="text-light text-center" style={{backgroundColor:'#c0c0c0'}}>BONUS</td>
+                                        <td width="50%" className="text-light text-center" style={{backgroundColor:'#732044'}}>NILAI</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,25 +126,25 @@ class Charts extends Component {
                                         <td className="border-0 p-2">BONUS PASANGAN</td>
                                         <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(daily.pasangan.total))}</td>
                                     </tr>
-                                    <tr className="table-primary">
-                                        <td className="border-0 p-2">TOTAL BONUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))}</td>
-                                    </tr>
-                                    <tr className="table-danger">
-                                        <td className="border-0 p-2">ADMIN {charge.penarikan}%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100)}</td>
-                                    </tr>
-                                    <tr className="table-danger">
-                                        <td className="border-0 p-2">CHARGE BANK</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(charge.bank)}</td>
+                                    <tr>
+                                        <td className="border-0 p-2 text-info">TOTAL BONUS</td>
+                                        <td className="border-0 p-2 text-right text-info">Rp. {toRp(parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))}</td>
                                     </tr>
                                     <tr>
-                                        <td className="border-0 p-2">TOTAL TRANSFER</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))-(parseFloat(charge.bank)+((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100))}</td>
+                                        <td className="border-0 p-2 text-danger">ADMIN {charge.penarikan}%</td>
+                                        <td className="border-0 p-2 text-right text-danger">Rp. {toRp(((parseFloat(daily.ro.total)+parseFloat(daily.sponsor.total)+parseFloat(daily.pasangan.total))*charge.penarikan)/100)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border-0 p-2 text-danger">CHARGE BANK</td>
+                                        <td className="border-0 p-2 text-right text-danger">Rp. {toRp(charge.bank)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{backgroundColor:'#c0c0c0'}} className="border-0 p-2 text-dark">TOTAL TRANSFER</td>
+                                        <td style={{backgroundColor:'#732044'}} className="border-0 p-2 text-right text-light">Rp. {toRp(tot_bonus<=0?0:tot_bonus)}</td>
                                     </tr>
                                     <tr className="table-secondary d-none">
-                                        <td className="border-0 p-2">STATUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">
+                                        <td style={{backgroundColor:'#732044'}} className="border-0 p-2">STATUS</td>
+                                        <td style={{backgroundColor:'#c0c0c0'}} className="border-0 p-2 text-right text-dark">
                                             <a href={() => {return null}} className='badge badge-info text-white' style={{whiteSpace:'normal'}}>{status}</a>
                                         </td>
                                     </tr>
@@ -160,11 +161,11 @@ class Charts extends Component {
                         <div className="card-body">
                             <h5 className="card-title">Diamond Sharing</h5>
                                 <table className="table table-hover table-striped" style={{tableLayout:'fixed',zoom:'85%'}}>
-                                <thead className="bg-primary">
+                                <thead>
                                     <tr>
-                                        <td width="33%" className="text-light text-center">KUALIFIKASI</td>
-                                        <td width="33%" className="text-light text-center">NILAI</td>
-                                        <td width="33%" className="text-light text-center">BONUS</td>
+                                        <td width="33%" className="text-light text-center" style={{backgroundColor:'#ab3367'}}>KUALIFIKASI</td>
+                                        <td width="33%" className="text-light text-center" style={{backgroundColor:'#732044'}}>NILAI</td>
+                                        <td width="33%" className="text-dark text-center" style={{backgroundColor:'#ffb75d'}}>BONUS</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -188,26 +189,26 @@ class Charts extends Component {
                                         <td className="border-0 p-2 text-right">1%</td>
                                         <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.maroon_diamond))}</td>
                                     </tr>
-                                    <tr className="table-primary">
-                                        <td className="border-0 p-2" colSpan="2">TOTAL BONUS</td>
+                                    <tr>
+                                        <td style={{backgroundColor:'#c0c0c0'}} className="border-0 p-2 text-dark font-weight-bold" colSpan="2">TOTAL BONUS</td>
                                         <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond))}</td>
                                     </tr>
-                                    <tr className="table-danger">
-                                        <td className="border-0 p-2">ADMIN</td>
-                                        <td className="border-0 p-2 text-right">{charge.penarikan}%</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp((parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond)*parseFloat(charge.penarikan))/100)}</td>
-                                    </tr>
-                                    <tr className="table-danger">
-                                        <td className="border-0 p-2" colSpan="2">CHARGE BANK</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(charge.bank))}</td>
+                                    <tr>
+                                        <td className="border-0 p-2 text-danger">ADMIN</td>
+                                        <td className="border-0 p-2 text-right text-danger">{charge.penarikan}%</td>
+                                        <td className="border-0 p-2 text-right text-danger">Rp. {toRp((parseFloat(diamond.diamond)+parseFloat(diamond.red_diamond)+parseFloat(diamond.blue_diamond)+parseFloat(diamond.maroon_diamond)*parseFloat(charge.penarikan))/100)}</td>
                                     </tr>
                                     <tr>
-                                        <td className="border-0 p-2" colSpan="2">TOTAL TRANSFER</td>
-                                        <td className="border-0 p-2 text-right text-dark">Rp. {toRp(tot_diamond<=0?0:tot_diamond)}</td>
+                                        <td className="border-0 p-2 text-danger" colSpan="2">CHARGE BANK</td>
+                                        <td className="border-0 p-2 text-right text-danger">Rp. {toRp(parseFloat(charge.bank))}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{backgroundColor:'#c0c0c0'}} className="border-0 p-2 text-dark" colSpan="2">TOTAL TRANSFER</td>
+                                        <td style={{backgroundColor:'#ffb75d'}} className="border-0 p-2 text-right text-dark">Rp. {toRp(tot_diamond<=0?0:tot_diamond)}</td>
                                     </tr>
                                     <tr className="table-secondary d-none">
-                                        <td className="border-0 p-2" colSpan="2">STATUS</td>
-                                        <td className="border-0 p-2 text-right text-dark">
+                                        <td style={{backgroundColor:'#732044'}} className="border-0 p-2" colSpan="2">STATUS</td>
+                                        <td style={{backgroundColor:'#c0c0c0'}} className="border-0 p-2 text-right text-dark">
                                             <a href={() => {return null}} className='badge badge-info text-white' style={{whiteSpace:'normal'}}>{status}</a>
                                         </td>
                                     </tr>

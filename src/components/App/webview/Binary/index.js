@@ -42,7 +42,11 @@ class Binary extends Component{
         document.querySelector("link[href='/genealogy/tree.css']").remove()
         document.querySelector("link[href='/genealogy/treedev.css']").remove()
     }
-    
+    componentDidUpdate(prevState){
+        if(prevState.match.params.id!==this.props.match.params.id){
+            this.getProps(this.props);
+        }
+    }
     render(){
         return (
                 <div>

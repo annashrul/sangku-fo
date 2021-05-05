@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 // import {toRp} from "helper";
-import Chart from "react-apexcharts";
+// import Chart from "react-apexcharts";
+import { Pie } from "react-chartjs-2";
 
 class Overview extends Component {
     constructor(props) {
@@ -9,10 +10,26 @@ class Overview extends Component {
             options: {
                 labels:[`${this.props.pv_kiri} Kiri`,`${this.props.pv_kanan} Kanan`]
             },
+            dataPie: {
+            labels: [`${this.props.pv_kiri} Kiri`,`${this.props.pv_kanan} Kanan`],
+            datasets: [
+                {
+                data: this.props.pie_series,
+                backgroundColor: [
+                    "#1167b1",
+                    "#76d5fc",
+                ],
+                hoverBackgroundColor: [
+                    "#44b7fc",
+                    "#b4f2fc",
+                ]
+                }
+            ]
+            }
         };
     }
     render(){
-        
+        console.log("this.props.pie_series",this.props.pie_series);
         return(
             <div className="card h-100">
                 <div className="card-header heading-footer" style={{background:`url('https://image.freepik.com/free-vector/abstract-realistic-technology-particle-background_52683-33063.jpg')`,backgroundSize:'cover'}}>
@@ -20,7 +37,8 @@ class Overview extends Component {
                 </div>
                 <div className="card-block text-center">
                     <div className="panel-team-profile-img">
-                          <Chart options={this.state.options} series={this.props.pie_series} type="pie" width={250} height={125} />
+                          {/* <Chart options={this.state.options} series={this.props.pie_series} type="pie" width={250} height="125.7px" /> */}
+                          <Pie data={this.state.dataPie} options={{ responsive: false, maintainAspectRatio: false, plugins:{legend: { labels:{usePointStyle: true, color: "white"}, position:'right' }} }} redraw={true} width={250} height={130}/>
                     </div>
                     {/* <div className="saldo-aktif-title">
                         <h1>Saldo Aktif</h1>
