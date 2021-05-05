@@ -80,7 +80,7 @@ class Charts extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    <h6 className="text-success m-0">Bonus (T x 20.000)</h6>
+                                    <h6 className = "text-success m-0" > Bonus(T x {this.props.list[0].pairing_bonus}) </h6>
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
                                     :  {this.props.list[0].nominal_bonus}
@@ -180,7 +180,7 @@ class Charts extends Component {
                                     </tr>
                                     <tr>
                                         <td className="border-0 p-2">BLUE DIAMOND</td>
-                                        <td className="border-0 p-2 text-right">2%</td>
+                                        <td className="border-0 p-2 text-right">1%</td>
                                         <td className="border-0 p-2 text-right text-dark">Rp. {toRp(parseFloat(diamond.blue_diamond))}</td>
                                     </tr>
                                     <tr>

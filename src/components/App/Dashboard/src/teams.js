@@ -20,7 +20,7 @@ class Overview extends Component {
                 </div>
                 <div className="card-block text-center">
                     <div className="panel-team-profile-img">
-                          <Chart options={this.state.options} series={this.props.pie_series} type="pie" width={250} height="125.7px" />
+                          <Chart options={this.state.options} series={this.props.pie_series} type="pie" width={250} height={125} />
                     </div>
                     {/* <div className="saldo-aktif-title">
                         <h1>Saldo Aktif</h1>
