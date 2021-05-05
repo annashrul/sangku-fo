@@ -14,7 +14,9 @@ class Sponsor extends Component {
       numChildren: 0,
       loading: false,
       arrs: [],
+      id_member: "",
     };
+    this.handleChange = this.handleChange.bind(this)
   }
 
   getCurrent = (node) =>
@@ -102,7 +104,7 @@ class Sponsor extends Component {
                 <div
                   class="alert alert-primary mt-2 font-12 text-dark img-thumbnail border-1"
                   style={{
-                    borderColor:cNode.membership === "Regular"
+                    borderColor:cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
@@ -116,7 +118,7 @@ class Sponsor extends Component {
                     width:'10em',
                     right:'2em',
                     display:'inline-table',
-                    backgroundColor:cNode.membership === "Regular"
+                    backgroundColor:cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
@@ -126,10 +128,10 @@ class Sponsor extends Component {
                     top:'-7.4em'
                   }}
                 >
-                  <div className="pop-up-content" style={{height:'17em'}}>
+                  <div className="pop-up-content" style={{height:'max-content'}}>
                     <div className="profile_tooltip_pick p-0" style={{marginTop:'7em'}}>
                       <div className="full-name m-0 p-1 font-16 d-flex align-items-center justify-content-center" style={{backgroundColor:
-                      cNode.membership === "Regular"
+                      cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
@@ -177,6 +179,21 @@ class Sponsor extends Component {
                           </span>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">
+                            {cNode.left_ro}
+                          </span>
+                        </div>
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">RO</span>
+                        </div>
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">
+                            {cNode.right_ro}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -185,7 +202,7 @@ class Sponsor extends Component {
               <div
                 id={`btnAdd_${cNode.id}`}
                 className="last_level_user"
-                style={{ display: "none" }}
+                style={{ display: "none", zIndex:1 }}
               >
                 <i id="fa-2x-42" className="fa fa-plus-circle fa-2x zoom-hover" onClick={(e) => this.showNode(e, cNode.id)} />
                 {cNode.parent_id===null&&cNode.position===null?'':
@@ -300,6 +317,9 @@ class Sponsor extends Component {
     });
     return r;
   }
+  handleChange = (event) => {
+      this.setState({ [event.target.name]: event.target.value });
+  };
   componentWillMount() {
     this.setState({ arrs: this.props.dataList });
     this.getProps(this.props);
@@ -490,6 +510,17 @@ class Sponsor extends Component {
                 </button>
               </li>
             </ul>
+            <div className="row d-flex align-items-center justify-content-between">
+              <div className="col-md-4 col-sm-6 offset-md-4 offset-sm-3">
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="Cari berdasarkan ID Member" name="id_member" onChange={this.handleChange} />
+                  <div className="input-group-append">
+                    <button className="btn btn-primary" type="button" onClick={(e)=>{e.preventDefault(); if(this.state.id_member!==''){this.props.history.push({pathname: `/binary/${btoa(this.state.id_member)}`})};}}>Cari</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
           <div className="sponsor-tree-wrapper">
             <div className="eps-sponsor-tree eps-tree" zoom={6}>

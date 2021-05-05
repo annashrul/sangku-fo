@@ -7,6 +7,7 @@ import {HEADERS} from "./_constants";
 // import {getPaket} from "./product/paket.action";
 import {getCart} from "./product/cart.action";
 import Cookies from 'js-cookie'
+import { emptyCache } from '../../helper';
 
 // user register
 
@@ -275,6 +276,7 @@ export const logoutUser = () => dispatch =>{
     Cookies.remove('sangqu_exp');
     dispatch(setLoggedin(false));
     localStorage.clear()
+    emptyCache();
 
     // remove auth header for future request
     setAuthToken(false);

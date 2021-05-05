@@ -56,7 +56,7 @@ class Binary extends Component{
                     <div className="card-body">
                         {
                             !this.props.isLoading?
-                            <BinaryNetwork dataList={this.props.list} match={this.props.match}/>
+                            <BinaryNetwork dataList={this.props.list} match={this.props.match} history={this.props.history}/>
                             :<Spinner/>
                         }
                     </div>

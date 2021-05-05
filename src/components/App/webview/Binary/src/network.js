@@ -147,7 +147,7 @@ class Sponsor extends Component{
                 <div
                   class="alert alert-primary mt-2 font-12 text-dark img-thumbnail border-1"
                   style={{
-                    borderColor:cNode.membership === "Regular"
+                    borderColor:cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
@@ -161,7 +161,7 @@ class Sponsor extends Component{
                     width:'10em',
                     right:'2em',
                     display:'inline-table',
-                    backgroundColor:cNode.membership === "Regular"
+                    backgroundColor:cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
@@ -171,10 +171,10 @@ class Sponsor extends Component{
                     top:'-7.4em'
                   }}
                 >
-                  <div className="pop-up-content" style={{height:'17em'}}>
+                  <div className="pop-up-content" style={{height:'max-content'}}>
                     <div className="profile_tooltip_pick p-0" style={{marginTop:'7em'}}>
                       <div className="full-name m-0 p-1 font-16 d-flex align-items-center justify-content-center" style={{backgroundColor:
-                      cNode.membership === "Regular"
+                      cNode.membership === "Basic"
                         ? "#c0c0c0"
                         : cNode.membership === "Bisnis"
                         ? "#DAA520"
@@ -222,6 +222,21 @@ class Sponsor extends Component{
                           </span>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">
+                            {cNode.left_ro}
+                          </span>
+                        </div>
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">RO</span>
+                        </div>
+                        <div className="col-4 col-md-4  text-center">
+                          <span className="text-value">
+                            {cNode.right_ro}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -229,7 +244,7 @@ class Sponsor extends Component{
                 <div
                     id={`btnAdd_${cNode.id}`}
                     className="last_level_user"
-                    style={{display:'none'}}
+                    style={{ display: "none", zIndex:1 }}
                 >
                     <i id={"UncontrolledTooltipAdd_"+cNode.id} className="fa fa-plus-circle fa-2x zoom-hover" onClick={(e) => this.showNode(e, cNode.id)} />
                     {/* <UncontrolledTooltip placement="bottom" target={"UncontrolledTooltipAdd_"+cNode.id}>
