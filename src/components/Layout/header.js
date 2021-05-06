@@ -22,7 +22,7 @@ import {HEADERS} from 'redux/actions/_constants'
 import Cookies from 'js-cookie'
 import { NOTIF_ALERT } from '../../redux/actions/_constants';
 import { putNotif } from '../../redux/actions/site.action';
-import { deleteCart } from '../../redux/actions/product/cart.action';
+import { deleteCart, getCart } from '../../redux/actions/product/cart.action';
 const socket = socketIOClient(HEADERS.URL, {
     withCredentials: true,
     secure: true,
@@ -60,7 +60,7 @@ class Header extends Component {
         socket.on("set_notif", (data) => {
             this.setState({
                 list_notif:data.list_notif,
-                list_cart:data.list_cart,
+                // list_cart:data.list_cart,
                 pending_trx:data.pending_trx,
                 pending_tagihan:data.pending_tagihan,
             })
@@ -75,11 +75,12 @@ class Header extends Component {
             // 
             this.setState({
                 list_notif:data.list_notif,
-                list_cart:data.list_cart,
+                // list_cart:data.list_cart,
                 pending_trx:data.pending_trx,
                 pending_tagihan:data.pending_tagihan,
             })
         })
+        this.props.getCart();
     }
     rmCart(e,data){
         e.preventDefault();
@@ -115,7 +116,9 @@ class Header extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.resCart.data.length !== this.state.totCart){
-            this.setState({totCart:nextProps.resCart.data.length});
+            this.setState({
+                totCart:nextProps.resCart.data.length,
+                list_cart:nextProps.resCart.data,});
         }
     }
     
@@ -544,6 +547,7 @@ Header.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   putNotif: PropTypes.func.isRequired,
   deleteCart: PropTypes.func.isRequired,
+  getCart: PropTypes.func.isRequired,
   setEcaps: PropTypes.func.isRequired,
   setMobileEcaps: PropTypes.func.isRequired,
   auth: PropTypes.object,
@@ -560,4 +564,4 @@ const mapStateToProps = ({auth,siteReducer,cartReducer}) =>{
         triggerMobileEcaps: siteReducer.triggerMobileEcaps
      }
 }
-export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps,putNotif,deleteCart})(Header));
+export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps,putNotif,deleteCart,getCart})(Header));

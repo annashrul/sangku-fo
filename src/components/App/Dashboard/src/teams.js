@@ -26,12 +26,12 @@ class Overview extends Component {
                 {
                 data: this.props.pie_series,
                 backgroundColor: [
-                    "#1167b1",
-                    "#76d5fc",
+                    "#008ffb",
+                    "#00e396",
                 ],
                 hoverBackgroundColor: [
-                    "#44b7fc",
-                    "#b4f2fc",
+                    "#57b7ff",
+                    "#64ffca",
                 ],
                 hoverOffset: 2
                 }

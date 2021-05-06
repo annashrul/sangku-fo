@@ -341,9 +341,6 @@ class Sponsor extends Component {
       this.state.arrs === [] ? props.dataList : this.state.arrs,
       0
     );
-    //
-    // arrayToTree(this.state.arrs === [] ? props.dataList : this.state.arrs, { id: "id", parentId: "parent_id", dataField: null, childrenField: "children"  })
-
     const findItemNested = (arr, itemId, nestingKey) =>
       arr.reduce((a, c) => {
         return a.length
@@ -365,14 +362,6 @@ class Sponsor extends Component {
       if (res[0].children === undefined) {
         if (elemA.hasChild) {
           document.getElementById("btnAdd_" + elemA.id).style.display = "";
-          // document.getElementById('wrapper_'+elemA.id).remove();
-          // document.getElementById('node-wrapper-'+elemA.id).classList.remove("node-item-root")
-          // if(document.getElementById('line-left-'+elemA.id)!==null){
-          //     document.getElementById('line-left-'+elemA.id).style.display = '';
-          // }
-          // if(document.getElementById('line-right-'+elemA.id)!==null){
-          //     document.getElementById('line-right-'+elemA.id).style.display = '';
-          // }
         }
       } else {
         if (res[0].children.length === 1) {

@@ -19,6 +19,7 @@ export default class ErrorBoundary extends Component {
             error: error,
             errorInfo: errorInfo
         })
+        console.error(error, errorInfo);
         // You can also log error messages to an error reporting service here
     }
   
@@ -28,11 +29,11 @@ export default class ErrorBoundary extends Component {
         return (
             <div>
             <h2>Something went wrong.</h2>
-            <details style={{ whiteSpace: 'pre-wrap' }}>
+            {/* <details style={{ whiteSpace: 'pre-wrap' }}>
                 {this.state.error && this.state.error.toString()}
                 <br />
                 {this.state.errorInfo.componentStack}
-            </details>
+            </details> */}
             </div>
         );
       }
