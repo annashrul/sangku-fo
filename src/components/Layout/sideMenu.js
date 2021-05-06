@@ -174,7 +174,7 @@ class SideMenu extends Component {
                             <li className={path==='/bank'?"active":''}><Link to="/bank" style={{width:'fit-content'}}>Bank</Link></li> */}
                             <li className={path==='/sponsor'?"active":''}><Link to="/sponsor" style={{width:'fit-content'}}> Genealogy Sponsor</Link></li>
                             <li className={path==='/rekapitulasi'?"active":''}><Link to="/rekapitulasi" style={{width:'fit-content'}}> Rekapitulasi</Link></li>
-                            <li className={path==='/daftar-sponsor'?"active":''}><Link to="/daftar-sponsor" style={{width:'fit-content'}}> Daftar Sponsor</Link></li>
+                            {/* <li className={path==='/daftar-sponsor'?"active":''}><Link to="/daftar-sponsor" style={{width:'fit-content'}}> Daftar Sponsor</Link></li> */}
                         </ul>
                     </li>
                     {/* NETWORK MODUL END */}

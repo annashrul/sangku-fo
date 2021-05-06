@@ -157,14 +157,14 @@ class IndexPinMutasi extends Component{
                     {
                         this.props.isLoading?
                             (() => {
-                            const list=[]
+                                const list=[]
                                 for (let x = 0; x < 10; x++) {
                                         list.push(<tr key={x}><td colSpan="7"><Skeleton style={{width:'100%'}}/></td></tr>)
                                 }
                                 return list
                             })()
                         :
-                            this.props.data.data.length>0?
+                            this.props.data.data!==undefined && this.props.data.data.length > 0 ?
                                 this.props.data.data.map((item,key)=>{
                                     return <tr key={key}>
                                                 <td className="text-center text-dark">{key+1 + (10 * (parseInt(current_page,10)-1))}</td>
