@@ -7,7 +7,6 @@ import BinaryNetwork from './src/network'
 class Binary extends Component{
 
     getProps(props){
-        console.log("data props",props.match.params.id);
         this.props.dispatch(FetchNetwork(btoa(props.match.params.id===undefined?props.auth.user.referral_code:atob(props.match.params.id)),true,'network'))
         var head = document.getElementsByTagName('head')[0];
 

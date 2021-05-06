@@ -689,6 +689,67 @@ class IndexProfile extends Component{
                                         <div className="col-md-12">
                                             <div className="card box-margin">
                                                 <div className="card-body">
+                                                    <div className="form-inline d-flex justify-content-between mb-2">
+                                                        <h4>Bank Saya</h4>
+                                                        <div className="d-flex">
+                                                        <div className="input-group mr-2">
+                                                            <input type="text" className="form-control" name="any_bank" value={this.state.any_bank} onChange={(e) => this.handleChange(e)} placeholder="Cari data Bank" aria-label="Cari data Bank" aria-describedby="basic-addon2" />
+                                                            <div className="input-group-append">
+                                                                <button className="btn btn-outline-dark" type="button" onClick={(e)=>this.handleSearchBank(e)}><i className="zmdi zmdi-search"/></button>
+                                                            </div>
+                                                        </div>
+                                                        {/* <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.handleModalBank(e,'')} ><i className="zmdi zmdi-plus"></i></button> */}
+                                                        </div>
+                                                    </div>
+                                                    <div className="row justify-content-center d-flex mx-1" style={{maxHeight:'500px', minHeight:'auto',overflow:'auto'}} onScroll={() => this.handleLoadMoreBank()} ref={this.bankInnerRef}>
+                                                        <table className="table table-striped table-hovered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td className="text-center">Atas Nama</td>
+                                                                    <td className="text-center">Nama Bank</td>
+                                                                    <td className="text-center">No Rekening</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                    {
+                                                        typeof this.props.data_bank.data === 'object' ? this.props.data_bank.data.length > 0 ?
+                                                            this.props.data_bank.data.map((v, i) => {
+                                                                return (
+                                                                    <tr key={i}>
+                                                                        <td className="text-center">{v.acc_name}</td>
+                                                                        <td className="text-center">{v.bank_name}</td>
+                                                                        <td className="text-center">{v.acc_no}</td>
+                                                                    </tr>
+                                                                );
+                                                            })
+                                                            :(()=>{
+                                                                let container =[];
+                                                                for(let x=0; x<10; x++){
+                                                                    container.push(
+                                                                        <tr key={x}>
+                                                                            <td className="text-center"><Skeleton width={80} height={25}/></td>
+                                                                            <td className="text-center"><Skeleton width={80} height={25}/></td>
+                                                                            <td className="text-center"><Skeleton width={80} height={25}/></td>
+                                                                        </tr>
+                                                                    )
+                                                                }
+                                                                return container;
+                                                            })()
+                                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
+
+
+                                                    }
+                                                    
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12">
+                                            <div className="card box-margin">
+                                                <div className="card-body">
                                                     <div className="form-inline d-flex justify-content-between">
                                                         <h4>Alamat Saya</h4>
                                                         <div className="d-flex">
@@ -748,85 +809,6 @@ class IndexProfile extends Component{
                                                                             </div>
                                                                             <Skeleton width={50}/>
                                                                             </div>
-                                                                        </div>
-                                                                    )
-                                                                }
-                                                                return container;
-                                                            })()
-                                                            : <img src={NOTIF_ALERT.NO_DATA} alt="sangqu" />
-
-
-                                                    }
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12 d-none">
-                                            <div className="card box-margin">
-                                                <div className="card-body">
-                                                    <div className="form-inline d-flex justify-content-between">
-                                                        <h4>Bank Saya</h4>
-                                                        <div className="d-flex">
-                                                        <div className="input-group mr-2">
-                                                            <input type="text" className="form-control" name="any_bank" value={this.state.any_bank} onChange={(e) => this.handleChange(e)} placeholder="Cari data Bank" aria-label="Cari data Bank" aria-describedby="basic-addon2" />
-                                                            <div className="input-group-append">
-                                                                <button className="btn btn-outline-dark" type="button" onClick={(e)=>this.handleSearchBank(e)}><i className="zmdi zmdi-search"/></button>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.handleModalBank(e,'')} ><i className="zmdi zmdi-plus"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <hr/>
-                                                    <div className="row justify-content-center d-flex" style={{maxHeight:'500px', minHeight:'auto',overflow:'auto'}} onScroll={() => this.handleLoadMoreBank()} ref={this.bankInnerRef}>
-                                                    {
-                                                        typeof this.props.data_bank.data === 'object' ? this.props.data_bank.data.length > 0 ?
-                                                            this.props.data_bank.data.map((v, i) => {
-                                                                return (
-                                                                    <div className="col-md-6 box-margin">
-                                                                    <div className="card p-4 h-100">
-                                                                    <div className="d-flex align-items-center justify-content-between">
-                                                                    <div className="d-flex align-items-center mr-3">
-                                                                    <div className="mr-3">
-                                                                        <UncontrolledButtonDropdown>
-                                                                            <DropdownToggle  className="bg-primary border-none rounded font-22">
-                                                                                <i className="zmdi zmdi-more"></i>
-                                                                            </DropdownToggle>
-                                                                        <DropdownMenu>
-                                                                            <DropdownItem  onClick={(e)=>this.handleModalBank(e,i)}><i className="ti-pencil-alt"></i> Edit</DropdownItem>
-                                                                            <DropdownItem onClick={(e)=>this.handleDeleteBank(e,v.id)}><i className="ti-trash"></i> Delete</DropdownItem>
-                                                                        </DropdownMenu>
-                                                                        </UncontrolledButtonDropdown>
-                                                                    </div>
-                                                                        <div className="user-text-table">
-                                                                        <h6 className="d-inline-block font-20 mb-0">{v.bank_name}</h6>
-                                                                        <p className="mb-0">{v.acc_name}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <span className="bg-secondary p-1 rounded text-white">{v.acc_no}</span>
-                                                                    </div>
-                                                                    </div>
-                                                                    </div>
-                                                                );
-                                                            })
-                                                            :(()=>{
-                                                                let container =[];
-                                                                for(let x=0; x<10; x++){
-                                                                    container.push(
-                                                                        <div key={x} className="col-md-6">
-                                                                        <div className="card p-4 box-margin">
-                                                                            <div className="d-flex align-items-center justify-content-between">
-                                                                            <div className="d-flex align-items-center mr-3">
-                                                                            <div className="mr-3">
-                                                                                <Skeleton height={50} width={50}/>
-                                                                            </div>
-                                                                                <div className="user-text-table">
-                                                                                <h6 className="d-inline-block font-20 mb-0"><Skeleton width={50}/></h6>
-                                                                                <p className="mb-0"><Skeleton width={80}/></p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <Skeleton width={50}/>
-                                                                            </div>
-                                                                        </div>
                                                                         </div>
                                                                     )
                                                                 }

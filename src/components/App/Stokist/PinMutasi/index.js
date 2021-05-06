@@ -83,7 +83,9 @@ class IndexPinMutasi extends Component{
         this.setState({
             where_data:where
         })
-        this.props.dispatch(FetchMutasiPin(this.props.auth.user.id, where, pageNumber));
+        if(this.props.auth.user.id!==undefined){
+            this.props.dispatch(FetchMutasiPin(this.props.auth.user.id, where, pageNumber));
+        }
 
     }
     handleEvent = (event, picker) => {
