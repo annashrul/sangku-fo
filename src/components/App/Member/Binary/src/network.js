@@ -362,7 +362,6 @@ class Sponsor extends Component {
         "children"
       );
 
-      console.log("res[0].children",res[0].children);
       if (res[0].children === undefined) {
         if (elemA.hasChild) {
           document.getElementById("btnAdd_" + elemA.id).style.display = "";

@@ -107,7 +107,6 @@ class Index extends Component {
         })
        
         socket.on("set_dashboard", (data) => {
-            // console.log("data socket",data);
             
            this.setState({
                load_socket:false,

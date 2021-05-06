@@ -4,6 +4,7 @@ import PrivateRoute from '../common/PrivateRoute';
 import NotFound from '../common/notfound'
 import Preloader from '../../Preloader';
 import ErrorBoundary from '../../ErrorBoundary'
+import { ClearBrowserCacheBoundary } from 'react-clear-browser-cache';
 import webviewBinary from '../App/webview/Binary';
 import webviewSponsor from '../App/webview/Sponsor';
 import webviewRegister from '../App/webview/AddMember';
@@ -70,6 +71,7 @@ const ReportSangquota = React.lazy(() => import('../App/Report/Sangquota'));
 const Routes = (
     <div>
         <ErrorBoundary>
+        <ClearBrowserCacheBoundary auto={true} fallback={<Preloader/>} duration={60000}>
         <Suspense fallback={<Preloader/>}>
         <Switch>
             <Route path="/maintain" exact strict component={Maintenance} />
@@ -160,6 +162,7 @@ const Routes = (
 
         </Switch>
         </Suspense>
+        </ClearBrowserCacheBoundary>
         </ErrorBoundary>
     </div>
 )
