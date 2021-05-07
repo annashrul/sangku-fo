@@ -15,7 +15,7 @@ function Example() {
             </div>
           </div>
           {!isLatestVersion?
-          <p className="font-14 text-center py-2" style={{marginTop:'13em', position:'inherit', whiteSpace:'nowrap', zIndex:'1'}}>Versi Saat Ini : {latestVersion}</p>
+          <p className="font-14 text-center py-2" style={{marginTop:'13em', position:'inherit', whiteSpace:'nowrap', zIndex:'1'}}>Versi Saat Ini : {latestVersion===null||latestVersion===''||latestVersion===undefined?(isLatestVersion?'Terbaru':'Lama'):latestVersion}</p>
           :''}
         </div>
       </div>

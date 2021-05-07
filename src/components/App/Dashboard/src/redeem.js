@@ -18,7 +18,7 @@ class Charts extends Component {
                     <div className="card h-100">
                         <div className="card-body">
                             <h5 className="card-title">Rekapitulasi Harian</h5>
-                            {this.props.list.length>0?
+                            {this.props.list.pertumbuhan_kanan!==undefined?
                             <>
                             <h6 className="text-success m-0">Pertumbuhan</h6>
                             <div className="row">
@@ -26,7 +26,7 @@ class Charts extends Component {
                                     Kiri
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].pertumbuhan_kiri}
+                                    :  <span className="float-right">{toRp(this.props.list.pertumbuhan_kiri)}</span>
                                 </div>
                             </div>
                             <div className="row mb-2">
@@ -34,7 +34,7 @@ class Charts extends Component {
                                     Kanan
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].pertumbuhan_kanan}
+                                    :  <span className="float-right">{toRp(this.props.list.pertumbuhan_kanan)}</span>
                                 </div>
                             </div>
                             <h6 className="text-success m-0">Tabungan</h6>
@@ -43,7 +43,7 @@ class Charts extends Component {
                                     Kiri
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].tabungan_kiri}
+                                    :  <span className="float-right">{toRp(this.props.list.tabungan_kiri)}</span>
                                 </div>
                             </div>
                             <div className="row mb-2">
@@ -51,7 +51,7 @@ class Charts extends Component {
                                     Kanan
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].tabungan_kanan}
+                                    :  <span className="float-right">{toRp(this.props.list.tabungan_kanan)}</span>
                                 </div>
                             </div>
                             <h6 className="text-success m-0">Balance</h6>
@@ -60,7 +60,7 @@ class Charts extends Component {
                                     Kiri
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].balance_kiri}
+                                    :  <span className="float-right">{toRp(this.props.list.balance_kiri)}</span>
                                 </div>
                             </div>
                             <div className="row mb-2">
@@ -68,7 +68,7 @@ class Charts extends Component {
                                     Kanan
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].balance_kanan}
+                                    :  <span className="float-right">{toRp(this.props.list.balance_kanan)}</span>
                                 </div>
                             </div>
                             <div className="row">
@@ -76,7 +76,7 @@ class Charts extends Component {
                                     <h6 className="text-success m-0">Terpasang (T)</h6>
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].hak_bonus}
+                                    :  <span className="float-right">{toRp(this.props.list.hak_bonus)}</span>
                                 </div>
                             </div>
                             <div className="row">
@@ -84,7 +84,7 @@ class Charts extends Component {
                                     <h6 className="text-success m-0">Bonus (T x 25.000)</h6>
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {this.props.list[0].nominal_bonus}
+                                    :  <span className="float-right">Rp. {toRp(this.props.list.nominal_bonus)}</span>
                                 </div>
                             </div>
                             <div className="row">
@@ -92,7 +92,7 @@ class Charts extends Component {
                                     <h6 className="text-success m-0">Sisa Plafon</h6>
                                 </div>
                                 <div className="col-6 col-sm-6 col-md-6">
-                                    :  {toRp(this.props.list[0].sisa_plafon)}
+                                    :  <span className="float-right">Rp. {toRp(this.props.list.sisa_plafon)}</span>
                                 </div>
                             </div>
                             </>
@@ -163,9 +163,9 @@ class Charts extends Component {
                                 <table className="table table-hover table-striped" style={{tableLayout:'fixed',zoom:'85%'}}>
                                 <thead>
                                     <tr>
-                                        <td width="33%" className="text-light text-center" style={{backgroundColor:'#ab3367'}}>KUALIFIKASI</td>
-                                        <td width="33%" className="text-light text-center" style={{backgroundColor:'#732044'}}>NILAI</td>
-                                        <td width="33%" className="text-dark text-center" style={{backgroundColor:'#ffb75d'}}>BONUS</td>
+                                        <td width="40%" className="text-light text-center px-1" style={{backgroundColor:'#ab3367'}}>KUALIFIKASI</td>
+                                        <td width="25%" className="text-light text-center px-1" style={{backgroundColor:'#732044'}}>NILAI</td>
+                                        <td width="35%" className="text-dark text-center px-1" style={{backgroundColor:'#ffb75d'}}>BONUS</td>
                                     </tr>
                                 </thead>
                                 <tbody>

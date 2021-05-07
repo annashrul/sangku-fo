@@ -318,14 +318,15 @@ class MyTestimoni extends Component{
                                     </div>
                                 </div>
                                 <div className="row justify-content-center d-flex" style={{paddingBottom:'40px'}}>
+                                <div style={{overflowX:'auto'}}>
                                     <table className="table table-hover table-striped m-3" style={{tableLayout:'fixed'}}>
                                         <thead style={{backgroundColor:'#732044'}}>
                                             <tr>
-                                                <td width="8%" className="text-center text-light">NO</td>
-                                                <td width="12%" className="text-center text-light">Penulis</td>
-                                                <td width="30%" className="text-center text-light">Isi Testi</td>
-                                                <td width="15%" className="text-center text-light">Pekerjaan</td>
-                                                <td width="15%" className="text-center text-light">Nama Lain</td>
+                                                <td width="8%" className="text-center text-light" style={{whiteSpace:'nowrap'}}>NO</td>
+                                                <td width="12%" className="text-center text-light" style={{whiteSpace:'nowrap'}}>Penulis</td>
+                                                <td width="30%" className="text-center text-light" style={{whiteSpace:'nowrap'}}>Isi Testi</td>
+                                                <td width="20%" className="text-center text-light" style={{whiteSpace:'nowrap'}}>Pekerjaan</td>
+                                                <td width="20%" className="text-center text-light" style={{whiteSpace:'nowrap'}}>Nama Lain</td>
                                                 {/* <td width="10%" className="text-center text-light">AKSI</td> */}
                                             </tr>
                                         </thead>
@@ -356,7 +357,7 @@ class MyTestimoni extends Component{
                                                                 </tr>
                                                             )
                                                         })
-                                                        : "No data." : "No data."
+                                                        : <tr><td colSpan="5" className="text-center">No data.</td></tr> : <tr><td colSpan="5" className="text-center">No data.</td></tr>
                                                 )
                                             ):(() => {
                                                 const rows = [];
@@ -377,6 +378,7 @@ class MyTestimoni extends Component{
                                         }
                                         </tbody>
                                         </table>
+                                    </div>
                                     </div>
                                 <div style={{"marginTop":"20px","float":"right"}}>
                                     <Paginationq

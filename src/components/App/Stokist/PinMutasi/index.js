@@ -205,7 +205,7 @@ class IndexPinMutasi extends Component{
                                 return list
                             })()
                         :
-                            this.props.data.data.length>0?
+                            this.props.data.data!==undefined && this.props.data.data.length>0?
                                 this.props.data.data.map((item,key)=>{
                                     return <CardMobile
                                         key={key}

@@ -431,7 +431,7 @@ class IndexProfile extends Component{
                     <div className="col-12">
                         <div className="profile-header-area mb-130">
                         <div className="card border-none bg-transparent shadow-none">
-                            <div className="thumb bg-img height-300" style={{backgroundImage: `url(${imgCover})`,backgroundPosition:'bottom'}}>
+                            <div className="thumb bg-img height-300" style={{backgroundImage: `url(${imgCover})`,backgroundPosition:'bottom', backgroundAttachment:'fixed'}}>
                             </div>
                             <div className="row" style={{marginTop:'-100px', marginBottom:'-100px', zIndex:'1'}}>
                                 <div className="col-md-4">
@@ -540,8 +540,8 @@ class IndexProfile extends Component{
                                                                             <tr>
                                                                                 <td><h6 className="font-14"><span className="text-muted">PIN</span></h6></td>
                                                                                 <td>
-                                                                                    <div className="form-group">
-                                                                                        <div className="input-group mb-3">
+                                                                                    <div className="form-group mb-0">
+                                                                                        <div className="input-group">
                                                                                             <input
                                                                                                 className="form-control"
                                                                                                 type={this.state.showPin?"text":"password"}
@@ -555,11 +555,11 @@ class IndexProfile extends Component{
                                                                                             <div className="input-group-append">
                                                                                                 <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e)} disabled={!this.state.isEdit}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
                                                                                             </div>
-                                                                                            <small id="passwordHelpBlock" class="form-text text-muted">
-                                                                                                Kosongkan jika tidak akan di update.
-                                                                                            </small>
                                                                                         </div>
                                                                                     </div>
+                                                                                            <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+                                                                                                Kosongkan jika tidak akan di update.
+                                                                                            </small>
                                                                                 </td>
                                                                                 {/* <td><h6 className="font-14">: {parseFloat(investment).toFixed(8)}</h6></td> */}
                                                                             </tr>
@@ -637,7 +637,21 @@ class IndexProfile extends Component{
                                                         </div>
                                                         {/* <a className="user-avatar text-right" href={()=>null}><img src="http://ptnetindo.com:6694/badge/executive.png" alt="user" className="img-fluid w-50" /> </a> */}
                                                     </div>
-                                                    <div className="form-inline d-flex justify-content-between w-50 mb-30">
+                                                    <div className="form-inline d-none justify-content-between w-50 mb-30 d-md-flex"> {/*desktop version*/}
+                                                        <div>
+                                                            <p className="text-muted m-0">Jenjang Karir</p>
+                                                            <h5 className="text-black">{jenjang_karir}</h5>
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-muted m-0">Saldo</p>
+                                                            <h5 className="text-black">{toRp(saldo)}</h5>
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-muted m-0">Total Pembayaran</p>
+                                                            <h5 className="text-black">{toRp(total_payment)}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div className="form-inline d-flex justify-content-between w-100 mb-30 d-md-none"> {/*mobile version*/}
                                                         <div>
                                                             <p className="text-muted m-0">Jenjang Karir</p>
                                                             <h5 className="text-black">{jenjang_karir}</h5>
@@ -653,28 +667,28 @@ class IndexProfile extends Component{
                                                     </div>
                                                     <div className="card bg-transparent border img-thumbnail p-4 shadow-none">
                                                         <div className="row form-inline d-flex justify-content-between">
-                                                            <div className="col-md-3 border-right">
+                                                            <div className="col-6 col-md-3 border-right">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-primary-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-user" aria-hidden="true" style={{}} /></span>
                                                                     Total Sponsor
                                                                 </p>
                                                                 <h5 className="text-black">{sponsor}</h5>
                                                             </div>
-                                                            <div className="col-md-3 border-right">
+                                                            <div className="col-6 col-md-3 border-right">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-warning-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-shield" aria-hidden="true" style={{}} /></span>
                                                                     PIN Tersedia
                                                                 </p>
                                                                 <h5 className="text-black">{pin}</h5>
                                                             </div>
-                                                            <div className="col-md-3 border-right">
+                                                            <div className="col-6 col-md-3 border-right">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-success-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-arrow-left" aria-hidden="true" style={{}} /></span>
                                                                     PV Kiri
                                                                 </p>
                                                                 <h5 className="text-black">{left_pv}</h5>
                                                             </div>
-                                                            <div className="col-md-3">
+                                                            <div className="col-6 col-md-3">
                                                                 <p className="text-muted m-0">
                                                                     <span className="circle bg-danger-soft mr-2" style={{width: '25px', height: '25px', lineHeight: '25px', float: 'left'}}><i className="fa fa-arrow-right" aria-hidden="true" style={{}} /></span>
                                                                     PV Kanan
@@ -769,26 +783,27 @@ class IndexProfile extends Component{
                                                             this.props.data_alamat.data.map((v, i) => {
                                                                 return (
                                                                     <div className="card p-3 mb-2">
-                                                                    <div className="d-flex align-items-center justify-content-between">
-                                                                    <div className="d-flex align-items-center mr-3">
-                                                                    <div className="mr-3">
-                                                                        <UncontrolledButtonDropdown>
-                                                                            <DropdownToggle  className="bg-primary border-none rounded font-22">
-                                                                                <i className="zmdi zmdi-more"></i>
-                                                                            </DropdownToggle>
-                                                                        <DropdownMenu>
-                                                                            <DropdownItem  onClick={(e)=>this.handleModalAlamat(e,i)}><i className="ti-pencil-alt"></i> Edit</DropdownItem>
-                                                                            <DropdownItem onClick={(e)=>this.handleDeleteAlamat(e,v.id)}><i className="ti-trash"></i> Delete</DropdownItem>
-                                                                        </DropdownMenu>
-                                                                        </UncontrolledButtonDropdown>
-                                                                    </div>
-                                                                        <div className="user-text-table">
-                                                                        <h6 className="d-inline-block font-20 mb-0">{v.title} - {v.penerima}</h6>
-                                                                        <p className="mb-0">{v.main_address}</p>
+                                                                        <div className="d-flex align-items-center justify-content-between">
+                                                                            <div className="d-flex align-items-center mr-3">
+                                                                                <div className="mr-3">
+                                                                                    <UncontrolledButtonDropdown>
+                                                                                        <DropdownToggle  className="bg-primary border-none rounded font-22">
+                                                                                            <i className="zmdi zmdi-more"></i>
+                                                                                        </DropdownToggle>
+                                                                                    <DropdownMenu>
+                                                                                        <DropdownItem  onClick={(e)=>this.handleModalAlamat(e,i)}><i className="ti-pencil-alt"></i> Edit</DropdownItem>
+                                                                                        <DropdownItem onClick={(e)=>this.handleDeleteAlamat(e,v.id)}><i className="ti-trash"></i> Delete</DropdownItem>
+                                                                                    </DropdownMenu>
+                                                                                    </UncontrolledButtonDropdown>
+                                                                                </div>
+                                                                                <div className="user-text-table">
+                                                                                <h6 className="d-inline-block font-20 mb-0">{v.title} - {v.penerima}</h6>
+                                                                                <p className="mb-0 d-md-block d-none">{v.main_address}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <span className="bg-secondary p-1 rounded text-white">{v.no_hp}</span>
                                                                         </div>
-                                                                    </div>
-                                                                    <span className="bg-secondary p-1 rounded text-white">{v.no_hp}</span>
-                                                                    </div>
+                                                                        <p className="mb-0 d-md-none d-block">{v.main_address}</p>
                                                                     </div>
                                                                 );
                                                             })

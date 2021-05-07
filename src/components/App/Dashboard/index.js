@@ -325,7 +325,7 @@ class Index extends Component {
                 <div className="row box-margin">
                     {/* <Charts title="Pertumbuhan Downline" data={this.state.pertumbuhan_downline} type="area" /> */}
                     <div className="col-md-12">
-                        <Redeem list={this.state.list} ringkasan_bonus={this.state.ringkasan_bonus}/>
+                        <Redeem list={this.props.rekapData} ringkasan_bonus={this.state.ringkasan_bonus}/>
                     </div>
                 </div>
                 <div className="row d-flex box-margin">

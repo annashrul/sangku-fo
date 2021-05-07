@@ -102,7 +102,7 @@ class Sponsor extends Component {
                   />
                 </div>
                 <div
-                  class="alert alert-primary mt-2 font-12 text-dark img-thumbnail border-1"
+                  class="alert alert-primary mt-2 font-12 text-dark border-1"
                   style={{
                     borderColor:cNode.membership === "Basic"
                         ? "#c0c0c0"
