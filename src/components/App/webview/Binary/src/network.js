@@ -251,7 +251,7 @@ class Sponsor extends Component{
                         Lihat downline langsung.
                     </UncontrolledTooltip> */}
                     {cNode.parent_id===null&&cNode.position===null?'':
-                        <Link to={{ pathname: `/web_view/binary/${btoa(cNode.id)}`}}>
+                        <Link to={{ pathname: `/web_view/binary/${btoa(cNode.id+'|'+String(atob(this.props.datum)).split('|')[1])}`}}>
                         <i id={"UncontrolledTooltipNew_"+cNode.id} className="fa fa-level-up fa-2x zoom-hover mx-1" />
                         {/* <UncontrolledTooltip placement="bottom" target={"UncontrolledTooltipNew_"+cNode.id}>
                             Lihat downline sebagai Node utama.

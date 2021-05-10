@@ -20,6 +20,7 @@ import IntlTelInput from 'react-intl-tel-input/dist/components/IntlTelInput';
 import { getBankData } from '../../../../../redux/actions/member/bank.action';
 import Select, { components } from "react-select";
 import { FetchAvailableMember } from '../../../../../redux/actions/member/member.action';
+import Skeleton from 'react-loading-skeleton';
 // import { object } from 'prop-types';
 // import OTPInput, { ResendOTP } from "otp-input-react";
 const resendTime = 300;
@@ -863,6 +864,7 @@ class MemberForm extends Component{
                                                                     {
                                                                         (
                                                                             typeof this.props.availPin === 'object' ?
+                                                                            this.props.availPin.length>0?
                                                                                 this.props.availPin.map((v,i)=>{
                                                                                     return(
                                                                                         <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
@@ -874,6 +876,22 @@ class MemberForm extends Component{
                                                                                         </Tab>
                                                                                     )
                                                                                 })
+                                                                                    :
+                                                                                    (() => {
+                                                                                        const rows = [];
+                                                                                        for (let i = 0; i < 2; i++) {
+                                                                                        rows.push(
+                                                                                            <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded">
+                                                                                                <Skeleton style={{width:'100px', height:'100px'}} circle={true}/>
+                                                                                                <br/>
+                                                                                                <Skeleton style={{width:'30%', height:'30px'}} />
+                                                                                                <br/>
+                                                                                                <Skeleton style={{width:'45%', height:'20px'}} />
+                                                                                            </Tab>
+                                                                                        );
+                                                                                        }
+                                                                                        return rows;
+                                                                                    })()
                                                                                 : "No data."
                                                                         )
                                                                     }
@@ -951,7 +969,7 @@ class MemberForm extends Component{
                                                                 value={this.state.pin}
                                                                 onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
                                                                 onChange={this.handleChange}  />
-                                                            <div className="input-group-append">
+                                                            <div className="input-group-append" style={{zIndex:0}}>
                                                                 <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPin')}><i className={`zmdi zmdi-eye${this.state.showPin?'':'-off'}`}></i></button>
                                                             </div>
                                                         </div>
@@ -972,7 +990,7 @@ class MemberForm extends Component{
                                                                 value={this.state.pin_re}
                                                                 onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }}
                                                                 onChange={this.handleChange}  />
-                                                            <div className="input-group-append">
+                                                            <div className="input-group-append" style={{zIndex:0}}>
                                                                 <button type="button" className="btn btn-outline-dark" onClick={(e)=>this.showPin(e,'showPinRe')}><i className={`zmdi zmdi-eye${this.state.showPinRe?'':'-off'}`}></i></button>
                                                             </div>
                                                         </div>

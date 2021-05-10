@@ -22,6 +22,7 @@ import { getBankData } from '../../../../../redux/actions/member/bank.action';
 import Spinner from 'Spinner'
 
 import Select, { components } from "react-select";
+import Skeleton from 'react-loading-skeleton';
 const { Option } = components;
 const IconOption = props => (
 <Option {...props}>
@@ -655,6 +656,7 @@ class MemberForm extends Component{
                                                                     {
                                                                         (
                                                                             typeof this.props.availPin === 'object' ?
+                                                                                this.props.availPin.length>0?
                                                                                 this.props.availPin.map((v,i)=>{
                                                                                     return(
                                                                                         <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded" label="Core Courses" onClick={(e) =>this.handleMembership(e,v)}>
@@ -666,6 +668,22 @@ class MemberForm extends Component{
                                                                                         </Tab>
                                                                                     )
                                                                                 })
+                                                                                    :
+                                                                                    (() => {
+                                                                                        const rows = [];
+                                                                                        for (let i = 0; i < 2; i++) {
+                                                                                        rows.push(
+                                                                                            <Tab key={i} className="col-md-5 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center cursor-pointer text-uppercase shadow-sm rounded">
+                                                                                                <Skeleton style={{width:'100px', height:'100px'}} circle={true}/>
+                                                                                                <br/>
+                                                                                                <Skeleton style={{width:'30%', height:'30px'}} />
+                                                                                                <br/>
+                                                                                                <Skeleton style={{width:'45%', height:'20px'}} />
+                                                                                            </Tab>
+                                                                                        );
+                                                                                        }
+                                                                                        return rows;
+                                                                                    })()
                                                                                 : "No data."
                                                                         )
                                                                     }

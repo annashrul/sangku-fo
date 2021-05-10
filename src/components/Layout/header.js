@@ -383,7 +383,7 @@ class Header extends Component {
                                                     return (
                                                         <a href={()=> false} className="dropdown-item">
                                                             {/* <i className="zmdi zmdi-notifications-active bg-success" /> */}
-                                                            <img className="img-fluid mr-2" src={HEADERS.URL+'images/'+v.foto} style={{height:'40px'}} alt={v.title}/>
+                                                            <img className="img-fluid mr-2" src={v.foto} style={{height:'40px'}} alt={v.title}/>
                                                             <div className="d-flex justify-content-between align-items-center w-100">
                                                                 <span>{v.title}<br/><small className="text-muted">{toRp(v.harga)}</small></span>
                                                                 <div className="d-flex">

@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import { FetchNetworkWebview } from 'redux/actions/member/network.action';
+import { FetchNetworkWebview } from '../../../../redux/actions/member/network.action';
+// import { FetchNetworkWebview } from 'redux/actions/member/network.action';
 import BinaryNetwork from './src/network'
 class Binary extends Component{
 
     getProps(props){
         const params = (atob(props.match.params.id)).split('|')
+        console.log("sssssssssssssss",params);
         this.props.dispatch(FetchNetworkWebview(btoa(params[0]), true, 'network', params[1]))
 
         var head = document.getElementsByTagName('head')[0];

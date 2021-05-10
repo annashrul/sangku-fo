@@ -1,4 +1,4 @@
-import {PIN, HEADERS} from "../_constants";
+import {PIN, HEADERS, RESET_PROPS} from "../_constants";
 import axios from 'axios'
 import Swal from "sweetalert2";
 import {ModalToggle} from "redux/actions/modal.action";
@@ -159,6 +159,7 @@ export const FetchMutasiPin = (id,where='',page=1,perpage=10)=>{
 }
 export const FetchAvailablePin = (type='aktivasi')=>{
     return (dispatch) => {
+        dispatch(setAvailablePin(RESET_PROPS));
         dispatch(setLoadingAvail(true));
         let url = 'transaction/pin_available?type='+type;
         axios.get(HEADERS.URL+url)

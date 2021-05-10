@@ -47,7 +47,7 @@ export const FetchNetworkWebview = (uid, first, param,token,upline=false) => {
         }
         axios.get(HEADERS.URL + url, {
                 headers: {
-                    Authorization: btoa(token),
+                    Authorization: atob(token),
                     username: HEADERS.USERNAME,
                     password: HEADERS.PASSWORD,
                     myconnection: `apps`,

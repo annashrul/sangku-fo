@@ -8,10 +8,11 @@ import WrapperModal from "../_wrapper.modal";
 // import { Tab, Tabs, TabList } from 'react-tabs';
 import { pinTransfer } from '../../../../redux/actions/pin/pin.action';
 import ModalPin from '../../modals/modal_pin'
-import { FetchAvailableMember } from '../../../../redux/actions/member/member.action';
+import { FetchAvailableMember, setMemberAvail } from '../../../../redux/actions/member/member.action';
 import Spinner from 'Spinner'
 // import noUser from 'assets/no-user.png';
 import Default from 'assets/default.png'
+import { RESET_PROPS } from '../../../../redux/actions/_constants';
 
 class FormPinTransfer extends Component{
     constructor(props){
@@ -72,6 +73,7 @@ class FormPinTransfer extends Component{
                 uuid:'',
             });
         }
+        this.props.dispatch(setMemberAvail(RESET_PROPS));
     };
     handlePin(){
          if(this.state.member_data.referral_code===''||this.state.member_data.referral_code===undefined){
@@ -138,7 +140,9 @@ class FormPinTransfer extends Component{
         this.setState({error: err});
     };
     render(){
-        
+        // console.log("this.state.member_data.picture",this.state.member_data.picture);
+        // console.log("this.state.member_data",this.state.member_data);
+        console.log("aaaaaaaaaaaaaaaaaaaaaa", this.props.memberAvail);
         return (
             <div>
             <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormPinTransfer"} size="md">

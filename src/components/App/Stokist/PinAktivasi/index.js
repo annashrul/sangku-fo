@@ -16,6 +16,7 @@ import ModalPin from '../../modals/modal_pin'
 import { Tabs } from 'react-tabs';
 import Swal from 'sweetalert2';
 import FormListStokist from '../../modals/member/form_list_stokist';
+import Skeleton from 'react-loading-skeleton';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -303,23 +304,56 @@ class Pin extends Component{
                                 {
                                     (
                                         typeof this.props.getPin === 'object' ?
-                                            this.props.getPin.map((v,i)=>{
-                                                return(
-                                                    <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
-                                                        <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
-                                                        <br/>
-                                                        <a href={() => false} className="font-24">{`${v.title}`}</a>
-                                                        <br/>
-                                                        <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
-                                                        <br/>
-                                                        <br/>
-                                                        <div className="w-100 text-center">
-                                                            <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleTransfer(e,v)}>TRANSFER</button>
-                                                            <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasi(e,v)}>REAKTIVASI</button>
+                                            this.props.getPin.length>0 ?
+                                                this.props.getPin.map((v,i)=>{
+                                                    return(
+                                                        <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
+                                                            {this.props.isLoading?<Skeleton style={{width:'100px', height:'100px'}} circle={true}/>:
+                                                                <img className="img-fluid" src={v.badge} alt="sangqu" style={{height:'100px'}}/>
+                                                            }
+                                                            <br/>
+                                                            {this.props.isLoading?<Skeleton style={{width:'30%', height:'30px'}} />:
+                                                                <a href={() => false} className="font-24">{`${v.title}`}</a>
+                                                            }
+                                                            <br/>
+                                                            {this.props.isLoading?<Skeleton style={{width:'45%', height:'20px'}} />:
+                                                            <a href={() => false} className="font-11">Sebanyak {`${v.jumlah}`} PIN Tersedia</a>
+                                                            }
+                                                            <br/>
+                                                            <br/>
+                                                            <div className="w-100 text-center">
+                                                                {this.props.isLoading?<Skeleton style={{width:'30%', height:'30px', marginRight:'10px'}} />:
+                                                                    <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleTransfer(e,v)}>TRANSFER</button>
+                                                                }
+                                                                {this.props.isLoading?<Skeleton style={{width:'30%', height:'30px'}} />:
+                                                                    <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasi(e,v)}>REAKTIVASI</button>
+                                                                }
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })
+                                                    )
+                                                })
+                                                :
+                                                (() => {
+                                                    const rows = [];
+                                                    for (let i = 0; i < 2; i++) {
+                                                    rows.push(
+                                                        <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded">
+                                                            <Skeleton style={{width:'100px', height:'100px'}} circle={true}/>
+                                                            <br/>
+                                                            <Skeleton style={{width:'30%', height:'30px'}} />
+                                                            <br/>
+                                                            <Skeleton style={{width:'45%', height:'20px'}} />
+                                                            <br/>
+                                                            <br/>
+                                                            <div className="w-100 text-center">
+                                                                <Skeleton style={{width:'30%', height:'30px', marginRight:'10px'}} />
+                                                                <Skeleton style={{width:'30%', height:'30px'}} />
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                    }
+                                                    return rows;
+                                                })()
                                             : "No data."
                                     )
                                 }

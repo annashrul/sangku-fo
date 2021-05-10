@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import MemberForm from './src/member_form'
 import {connect} from 'react-redux'
-import { FetchAvailablePinWebView } from 'redux/actions/pin/pin.action';
+// import { FetchAvailablePinWebView } from 'redux/actions/pin/pin.action';
 import { setRegistered } from 'redux/actions/authActions';
 import Preloader from 'PreloaderWebview'
-import { FetchNetworkWebview } from 'redux/actions/member/network.action';
+import { FetchNetworkWebview } from '../../../../redux/actions/member/network.action';
+import { FetchAvailablePinWebView } from '../../../../redux/actions/pin/pin.action';
+// import { FetchNetworkWebview } from 'redux/actions/member/network.action';
 
 class AddMember extends Component {
 
@@ -23,12 +25,12 @@ class AddMember extends Component {
         this.setState({
             posisi: uplines.position,
             raw_token: datum[0],
-            token: atob(decodeURIComponent(params))
+            token: atob(params[1])
         })
         this.props.dispatch(FetchNetworkWebview(btoa(params[0]), true, 'network', params[1]));
         this.props.dispatch(FetchNetworkWebview(btoa(uplines.parent_id), true, 'network', params[1], true));
 
-        this.props.dispatch(FetchAvailablePinWebView(atob(decodeURIComponent(params))));
+        this.props.dispatch(FetchAvailablePinWebView(atob(params[1])));
         this.props.dispatch(setRegistered(false));
         // this.props.dispatch(FetchNetwork(btoa(this.props.location.data===undefined?null:this.props.location.data.parent_id),true,'network'))
     }

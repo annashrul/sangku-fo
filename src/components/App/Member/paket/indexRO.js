@@ -98,6 +98,7 @@ class IndexRO extends Component{
                                 {
                                     (
                                         typeof this.props.getPin === 'object' ?
+                                            this.props.getPin.length>0 ?
                                             this.props.getPin.map((v,i)=>{
                                                 return(
                                                     <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark cursor-pointer w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded" label={v.title} id="toListForm" onClick={(e)=>this.handleGetList(e,String(v.title).toLowerCase())}>
@@ -109,6 +110,22 @@ class IndexRO extends Component{
                                                     </div>
                                                 )
                                             })
+                                                :
+                                                (() => {
+                                                    const rows = [];
+                                                    for (let i = 0; i < 2; i++) {
+                                                    rows.push(
+                                                        <div key={i} className="col-sm-5 col-md-4 col-lg-4 col-12 btn btn-outline-dark w-40 m-2 p-4 text-center text-uppercase shadow-sm rounded">
+                                                            <Skeleton style={{width:'100px', height:'100px'}} circle={true}/>
+                                                            <br/>
+                                                            <Skeleton style={{width:'30%', height:'30px'}} />
+                                                            <br/>
+                                                            <br/>
+                                                        </div>
+                                                    );
+                                                    }
+                                                    return rows;
+                                                })()
                                             : "No data."
                                     )
                                 }
