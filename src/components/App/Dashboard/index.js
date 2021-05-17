@@ -224,7 +224,7 @@ class Index extends Component {
 
     refreshData(id){
         socket.emit('get_dashboard', {id_member:id})
-        socket.emit('get_notif', {id_member:id})
+        // socket.emit('get_notif', {id_member:id})
     }
 
     componentWillMount(){

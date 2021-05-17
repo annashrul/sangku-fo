@@ -53,6 +53,7 @@ class IndexProfile extends Component{
         this.handleLoadMoreBank    = this.handleLoadMoreBank.bind(this);
         this.handleAutoWd    = this.handleAutoWd.bind(this);
         this.showPin    = this.showPin.bind(this);
+        this.listenToScroll    = this.listenToScroll.bind(this);
         this.alamatInnerRef = React.createRef();
         this.bankInnerRef = React.createRef();
         this.state = {
@@ -73,6 +74,7 @@ class IndexProfile extends Component{
             crop: { x: 0, y: 0 },
             zoom: 1,
             aspect: 1 / 1,
+            position:0
         }
         
         socket.on('refresh_dashboard',(data)=>{
@@ -109,6 +111,19 @@ class IndexProfile extends Component{
             member_detail:nextProps.data_member,
         })
     }
+    componentDidMount() {
+    window.addEventListener('scroll', this.listenToScroll)
+    }
+
+    componentWillUnmount() {
+    window.removeEventListener('scroll', this.listenToScroll)
+    }
+
+    listenToScroll = () => {
+        this.setState({
+                position: window.pageYOffset,
+        })
+    }
 
     onCropChange = crop => {
         this.setState({ crop })
@@ -121,7 +136,7 @@ class IndexProfile extends Component{
     
     refreshData(id){
         socket.emit('get_dashboard', {id_member:id})
-        socket.emit('get_notif', {id_member:id})
+        // socket.emit('get_notif', {id_member:id})
     }
     onCropComplete = (croppedArea, croppedAreaPixels) => {
     // 
@@ -413,7 +428,7 @@ class IndexProfile extends Component{
     }
 
     render(){
-        
+        console.log('this.state.position',this.state.position);
         const {
             saldo,
             sponsor,
@@ -431,7 +446,7 @@ class IndexProfile extends Component{
                     <div className="col-12">
                         <div className="profile-header-area mb-130">
                         <div className="card border-none bg-transparent shadow-none">
-                            <div className="thumb bg-img height-300" style={{backgroundImage: `url(${imgCover})`,backgroundPosition:'bottom', backgroundAttachment:'fixed'}}>
+                            <div className="thumb bg-img height-300" style={{backgroundImage: `url(${imgCover})`,backgroundPosition:`center -${((parseInt(this.state.position,10)*0.5)+200)}px`, backgroundAttachment:'fixed'}}>
                             </div>
                             <div className="row" style={{marginTop:'-100px', marginBottom:'-100px', zIndex:'1'}}>
                                 <div className="col-md-4">
@@ -705,7 +720,7 @@ class IndexProfile extends Component{
                                                 <div className="card-body">
                                                     <div className="form-inline d-flex justify-content-between mb-2">
                                                         <h4>Bank Saya</h4>
-                                                        <div className="d-flex">
+                                                        <div className="d-none">
                                                         <div className="input-group mr-2">
                                                             <input type="text" className="form-control" name="any_bank" value={this.state.any_bank} onChange={(e) => this.handleChange(e)} placeholder="Cari data Bank" aria-label="Cari data Bank" aria-describedby="basic-addon2" />
                                                             <div className="input-group-append">

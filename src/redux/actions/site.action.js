@@ -56,6 +56,12 @@ export function setLoadingSitePaket(load) {
         load
     }
 }
+export function setLoadingSiteNotif(load) {
+    return {
+        type: SITE.LOADING_SITE_NOTIF,
+        load
+    }
+}
 export function setSite(data = []) {
     return {
         type: SITE.SUCCESS,
@@ -77,6 +83,12 @@ export function setWalletConfig(data = []) {
 export function setSitePaket(data = []) {
     return {
         type: SITE.SUCCESS_SITE_PAKET,
+        data
+    }
+}
+export function setSiteNotif(data = []) {
+    return {
+        type: SITE.SUCCESS_SITE_NOTIF,
         data
     }
 }
@@ -218,6 +230,40 @@ export const FetchSitePaket = () => {
             .catch(function (error) {
                 // handle error
                 dispatch(setLoadingSitePaket(false));
+                if (error.message === 'Network Error') {
+                    Swal.fire(
+                        'Network Failed!.',
+                        'Please check your connection',
+                        'error'
+                    );
+                }
+                else{
+                    Swal.fire({
+                        title: 'failed',
+                        icon: 'error',
+                        text: error.response.data.msg,
+                    });
+
+                    if (error.response) {
+
+                    }
+                }
+            })
+
+    }
+}
+export const FetchSiteNotif = () => {
+    return (dispatch) => {
+        dispatch(setLoadingSiteNotif(true));
+        axios.get(HEADERS.URL + `site/get/notif`)
+            .then(function (response) {
+                const data = response.data;
+                dispatch(setSiteNotif(data));
+                dispatch(setLoadingSiteNotif(false));
+            })
+            .catch(function (error) {
+                // handle error
+                dispatch(setLoadingSiteNotif(false));
                 if (error.message === 'Network Error') {
                     Swal.fire(
                         'Network Failed!.',

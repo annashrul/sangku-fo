@@ -9,7 +9,9 @@ const initialState = {
     isLoadingWalletConfig: false,
     data: [],
     isLoadingSitePaket: false,
+    isLoadingSiteNotif: false,
     data_paket: [],
+    data_notif: [],
     data_config: [],
     datum: [],
     data_folder: [],
@@ -68,9 +70,19 @@ export const siteReducer = (state = initialState, action) => {
                 status: action.data.status,
                 data_paket: action.data.result
             });
+        case SITE.SUCCESS_SITE_NOTIF:
+            return Object.assign({}, state,{
+                msg: action.data.msg,
+                status: action.data.status,
+                data_notif: action.data.result
+            });
         case SITE.LOADING_SITE_PAKET:
             return Object.assign({}, state, {
                 isLoadingSitePaket: action.load
+            });
+        case SITE.LOADING_SITE_NOTIF:
+            return Object.assign({}, state, {
+                isLoadingSiteNotif: action.load
             });
         case SITE.SUCCESS_LIST:
             return Object.assign({}, state,{

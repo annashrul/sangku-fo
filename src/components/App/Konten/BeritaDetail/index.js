@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { Collapse } from 'reactstrap';
+import Default from '../../../../assets/default.png'
 class BeritaDetail extends Component{
     constructor(props){
         super(props);
@@ -92,15 +93,15 @@ class BeritaDetail extends Component{
                     <div className="col-md-8">
                         {!this.props.isLoadingBeritaDetail?
                         <div className="card box-margin">
-                            <img className="img-fluid" src={picture} alt="img"/>
+                            <img className="img-fluid" src={picture} alt="img" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}}/>
                             <div className="card-body">
                                 <h3 className="mt-0 font-24">{title}</h3>
                                 <div className="d-flex align-items-center justify-content-between mb-2">
-                                    <p className="font-12"><i className="fa fa-user"/>&nbsp;{writer}</p>
-                                    <p className="font-12"><i className="fa fa-calendar"/>&nbsp;{moment(created_at).format('YYYY-MM-DD HH:mm')}</p>
+                                    <p className="font-12 m-0"><i className="fa fa-user"/>&nbsp;{writer}</p>
+                                    <p className="font-12 m-0"><i className="fa fa-calendar"/>&nbsp;{moment(created_at).format('YYYY-MM-DD HH:mm')}</p>
                                 </div>
                                 <div>
-                                    <h6 className="font-12">Kategori : {category}</h6>
+                                    <h6 className="font-12 mb-4">Kategori : {category}</h6>
                                     {video!=='-'&&video!==null&&video!==undefined?
                                     <div className="embed-responsive embed-responsive-16by9">
                                         <iframe title="video" className="embed-responsive-item" src={video} allowFullScreen />
@@ -150,7 +151,7 @@ class BeritaDetail extends Component{
                                                                         <Link key={i} to={`/konten/berita/${v.id}`} style={{flex:'1 1 auto'}}>
                                                                             <div class="cards card1 bg-light mr-1 pb-1 cursor-pointer">
                                                                                 <div className="d-flex align-items-center justify-content-start">
-                                                                                    <img className="img-fluid mr-2 mt-n3" src={v.picture} alt={v.title} style={{height:'50px', width:'auto'}}/>
+                                                                                    <img className="img-fluid mr-2 mt-n3" src={v.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt={v.title} style={{height:'50px', width:'auto'}}/>
                                                                                     <p className="font-20">{v.title}</p>
                                                                                 </div>
                                                                                 <div className="go-corner bg-danger" href="#">
@@ -198,7 +199,7 @@ class BeritaDetail extends Component{
                                                             <Link key={i} to={`/konten/berita/${v.id}`} style={{flex:'1 1 auto'}}>
                                                                 <div class="cards card1 bg-light mr-1 pb-1 cursor-pointer">
                                                                     <div className="d-flex align-items-center justify-content-start">
-                                                                        <img className="img-fluid mr-2 mt-n3" src={v.picture} alt={v.title} style={{height:'50px', width:'auto'}}/>
+                                                                        <img className="img-fluid mr-2 mt-n3" src={v.picture} onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} alt={v.title} style={{height:'50px', width:'auto'}}/>
                                                                         <p className="font-20 text-dark">{v.title}</p>
                                                                     </div>
                                                                     <div className="go-corner bg-danger" href="#">

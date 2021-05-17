@@ -6,10 +6,8 @@ import {setEcaps} from 'redux/actions/site.action'
 import {setMobileEcaps} from 'redux/actions/site.action'
 import { Link, withRouter } from 'react-router-dom';
 import isMobile from 'react-device-detect';
-// import moment from "moment";
 import Swal from "sweetalert2";
 import {toRp} from "helper";
-// import {HEADERS} from "redux/actions/_constants"
 import {
     UncontrolledButtonDropdown,
     DropdownMenu,
@@ -17,19 +15,10 @@ import {
     DropdownToggle
 } from 'reactstrap';
 import {noImage} from "helper";
-import socketIOClient from "socket.io-client";
-import {HEADERS} from 'redux/actions/_constants'
 import Cookies from 'js-cookie'
 import { NOTIF_ALERT } from '../../redux/actions/_constants';
-import { putNotif } from '../../redux/actions/site.action';
+import { FetchSiteNotif, putNotif } from '../../redux/actions/site.action';
 import { deleteCart, getCart } from '../../redux/actions/product/cart.action';
-const socket = socketIOClient(HEADERS.URL, {
-    withCredentials: true,
-    secure: true,
-    extraHeaders: {
-        "my-custom-header": "abcd"
-    }
-});
 
 class Header extends Component {
     constructor(props) {
@@ -47,40 +36,10 @@ class Header extends Component {
             pending_trx:[],
             pending_tagihan:[],
         }
-        socket.on('refresh_notif',(data)=>{
-            const my_id = atob(Cookies.get('sangqu_exp'));
-            const update_id=data.id;
-            
-            if(my_id===update_id){
-            
-
-                this.refreshData(update_id);
-            }
-        })
-        socket.on("set_notif", (data) => {
-            this.setState({
-                list_notif:data.list_notif,
-                // list_cart:data.list_cart,
-                pending_trx:data.pending_trx,
-                pending_tagihan:data.pending_tagihan,
-            })
-        })
     }
     refreshData(id){
-        setInterval(function () {
-            // socket.emit('getMessages')
-            socket.emit('get_notif', {id_member:id})
-        }, 2000); /* Request data from the socket every 10 seconds */
-        socket.on("set_notif", (data) => {
-            // 
-            this.setState({
-                list_notif:data.list_notif,
-                // list_cart:data.list_cart,
-                pending_trx:data.pending_trx,
-                pending_tagihan:data.pending_tagihan,
-            })
-        })
         this.props.getCart();
+        this.props.FetchSiteNotif();
     }
     rmCart(e,data){
         e.preventDefault();
@@ -119,6 +78,21 @@ class Header extends Component {
             this.setState({
                 totCart:nextProps.resCart.data.length,
                 list_cart:nextProps.resCart.data,});
+        }
+        if(nextProps.resNotif.pending_tagihan !== this.state.pending_tagihan && nextProps.resNotif.pending_tagihan !==undefined){
+            this.setState({
+                pending_tagihan:nextProps.resNotif.pending_tagihan,
+            });
+        }
+        if(nextProps.resNotif.pending_trx !== this.state.pending_trx && nextProps.resNotif.pending_trx !==undefined){
+            this.setState({
+                pending_trx:nextProps.resNotif.pending_trx,
+            });
+        }
+        if(nextProps.resNotif.list_notif !== this.state.list_notif && nextProps.resNotif.list_notif !==undefined){
+            this.setState({
+                list_notif:nextProps.resNotif.list_notif,
+            });
         }
     }
     
@@ -548,6 +522,7 @@ Header.propTypes = {
   putNotif: PropTypes.func.isRequired,
   deleteCart: PropTypes.func.isRequired,
   getCart: PropTypes.func.isRequired,
+  FetchSiteNotif: PropTypes.func.isRequired,
   setEcaps: PropTypes.func.isRequired,
   setMobileEcaps: PropTypes.func.isRequired,
   auth: PropTypes.object,
@@ -561,7 +536,8 @@ const mapStateToProps = ({auth,siteReducer,cartReducer}) =>{
         resCart:cartReducer,
         auth: auth,
         triggerEcaps: siteReducer.triggerEcaps,
-        triggerMobileEcaps: siteReducer.triggerMobileEcaps
+        triggerMobileEcaps: siteReducer.triggerMobileEcaps,
+        resNotif: siteReducer.data_notif
      }
 }
-export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps,putNotif,deleteCart,getCart})(Header));
+export default withRouter(connect(mapStateToProps,{logoutUser,setEcaps,setMobileEcaps,putNotif,deleteCart,getCart,FetchSiteNotif})(Header));

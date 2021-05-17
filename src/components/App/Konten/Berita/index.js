@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { Collapse } from 'reactstrap';
 import Spinner from 'Spinner'
+import Default from '../../../../assets/default.png'
 class Berita extends Component{
     constructor(props){
         super(props);
@@ -314,7 +315,7 @@ class Berita extends Component{
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row">
-                                            <div className="col-12 col-xs-6 col-md-4">
+                                            <div className="col-12 col-xs-6 col-md-4 offset-md-8 offset-xs-6">
                                                 <div className="form-group">
                                                     <label>Cari</label>
                                                     <div className="input-group">
@@ -330,13 +331,73 @@ class Berita extends Component{
                                         </div>
                                     </div>
                                 </div>
+                                <div className="row">
+                                    {
+                                        !this.props.isLoadingBerita?(
+                                            (
+                                                typeof data === 'object' ? data.length>0?
+                                                    data.filter((_, i) => (i === 0)).map((v,i)=>{
+                                                        return(
+                                                            <>
+                                                            <div className="col-md-12 d-none d-md-block"> {/* Desktop Version */}
+                                                                <div className="card m-2" style={{position:'relative', height:'400px', backgroundImage:`url('${v.picture}'),url('${Default}')`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover'}}>
+                                                                    {/* <img className="img-fluid" src={v.picture} alt="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} /> */}
+                                                                    <div className="card-body w-100" style={{position:'absolute', bottom:0, backgroundImage:'linear-gradient(to bottom, rgba(255,0,0,0), rgb(0 0 0 / 75%))'}}>
+                                                                        <Link to={`/konten/berita/${v.id}`}><h5 className="font-30 mb-0 text-light mt-4">{v.title}</h5></Link>
+                                                                        <p className="font-14 text-light">Oleh <span className="font-weight-bold">{v.writer}</span> &nbsp;{moment(v.created_at).format('LLL')}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-12 d-md-none d-block"> {/* Mobile Version */}
+                                                                <div className="card m-2">
+                                                                    <img className="img-fluid" src={v.picture} alt="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} />
+                                                                    <div className="card-body">
+                                                                        <Link to={`/konten/berita/${v.id}`}><h5 className="font-20 mb-0">{v.title}</h5></Link>
+                                                                        <div className="d-flex align-items-center justify-content-between mt-2">
+                                                                            <p className="font-11"><i className="fa fa-user"/>&nbsp;{v.writer}</p>
+                                                                            <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD HH:mm')}</p>
+                                                                        </div>
+                                                                        <div dangerouslySetInnerHTML={{__html: String(v.caption).replace(/(<([^>]+)>)/ig,'').substr(0,80)}} />
+                                                                        <div className="row mt-3">
+                                                                        <div className="col-6">
+                                                                            {/* <a href={() => false} className="btn btn-primary text-uppercase btn-block">friend</a> */}
+                                                                        </div>
+                                                                        <div className="col-6">
+                                                                            <Link to={`/konten/berita/${v.id}`} className="btn text-uppercase border btn-block btn-outline-secondary">Baca</Link>
+                                                                        </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            </>
+                                                        )
+                                                    })
+                                                    : "No data." : "No data."
+                                            )
+                                        ):(() => {
+                                            const rows = [];
+                                            for (let i = 0; i < 1; i++) {
+                                                rows.push(
+                                                    <div className="card m-2 w-100">
+                                                        <Skeleton className="img-fluid" style={{height:'200px'}}/>
+                                                        <div className="card-body">
+                                                            <Skeleton width={100} height={20}/>
+                                                            <p className="font-14 text-light"><Skeleton style={{width:'80%'}}/></p>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                            return rows;
+                                        })()
+                                    }
+                                </div>
                                 <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 1, 900: 2}}>
                                     <Masonry>
                                         {
                                             !this.props.isLoadingBerita?(
                                                 (
                                                     typeof data === 'object' ? data.length>0?
-                                                        data.map((v,i)=>{
+                                                        data.filter((_, i) => (i !== 0)).map((v,i)=>{
                                                             return(
                                                                 // <div className="card m-2">
                                                                 //     <div className="card-body">
@@ -344,15 +405,15 @@ class Berita extends Component{
                                                                 //     </div>
                                                                 // </div>
                                                                 <div className="card m-2">
-                                                                    <img className="img-fluid" src={v.picture} alt="sangqu" />
+                                                                    <img className="img-fluid" src={v.picture} alt="sangqu" onError={(e)=>{e.target.onerror = null; e.target.src=`${Default}`}} />
                                                                     <div className="card-body">
                                                                         <Link to={`/konten/berita/${v.id}`}><h5 className="font-20 mb-0">{v.title}</h5></Link>
-                                                                        <div className="d-flex align-items-center justify-content-between">
+                                                                        <div className="d-flex align-items-center justify-content-between mt-2">
                                                                             <p className="font-11"><i className="fa fa-user"/>&nbsp;{v.writer}</p>
                                                                             <p className="font-11"><i className="fa fa-calendar"/>&nbsp;{moment(v.created_at).format('YYYY-MM-DD HH:mm')}</p>
                                                                         </div>
-                                                                        <div dangerouslySetInnerHTML={{__html: String(v.caption).substr(0,50)}} />
-                                                                        <div className="row">
+                                                                        <div dangerouslySetInnerHTML={{__html: String(v.caption).replace(/(<([^>]+)>)/ig,'').substr(0,80)}} />
+                                                                        <div className="row mt-3">
                                                                         <div className="col-6">
                                                                             {/* <a href={() => false} className="btn btn-primary text-uppercase btn-block">friend</a> */}
                                                                         </div>
