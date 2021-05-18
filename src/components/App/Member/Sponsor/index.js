@@ -1,16 +1,17 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import SponsorNode from './src/sponsor';
 import { FetchNetwork } from 'redux/actions/member/network.action';
 import Spinner from 'Spinner'
+import MyNProgress from '../../../../myNProgress';
 // import jQuery from 'jquery';
-class Sponsor extends Component{
-   
+class Sponsor extends Component {
 
-   getProps(props){
-      if(props.auth.user.referral_code!==undefined){
-         this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code),true,'sponsor'))
+
+   getProps(props) {
+      if (props.auth.user.referral_code !== undefined) {
+         this.props.dispatch(FetchNetwork(btoa(props.auth.user.referral_code), true, 'sponsor'))
       }
       var head = document.getElementsByTagName('head')[0];
 
@@ -46,38 +47,39 @@ class Sponsor extends Component{
       document.querySelector("link[href='/sponsor/tree.css']").remove()
       document.querySelector("link[href='/sponsor/treedev.css']").remove()
    }
-   componentDidUpdate(prevState){
-      if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code){
+   componentDidUpdate(prevState) {
+      if (prevState.auth.user.referral_code !== this.props.auth.user.referral_code) {
          this.getProps(this.props);
       }
    }
 
-    render(){
-       return (
-            <Layout page="Sponsor">
-               <div className="card">
-                  <div className="card-body">
+   render() {
+      return (
+         <Layout page="Sponsor">
+            <MyNProgress isAnimating={this.props.isLoading} />
+            <div className="card">
+               <div className="card-body">
 
-                        {/* ========================================================= */}
-                        {
-                        !this.props.isLoading?
-                        <SponsorNode dataList={this.props.list}/>
-                        :<Spinner/>
-                     }
-                        {/* ====================================================== */}
-                  </div>
+                  {/* ========================================================= */}
+                  {
+                     !this.props.isLoading ?
+                        <SponsorNode dataList={this.props.list} />
+                        : <Spinner />
+                  }
+                  {/* ====================================================== */}
                </div>
-            </Layout>
-        );
-    }
+            </div>
+         </Layout>
+      );
+   }
 }
 
 
 const mapStateToProps = (state) => {
-   
+
    return {
-      isLoading:state.networkReducer.isLoading,
-      list:state.networkReducer.data,
+      isLoading: state.networkReducer.isLoading,
+      list: state.networkReducer.data,
       auth: state.auth
    }
 }

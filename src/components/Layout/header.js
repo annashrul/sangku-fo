@@ -72,6 +72,13 @@ class Header extends Component {
             toggleMobileNav:!this.state.toggleMobileNav
         })
     }
+    componentDidUpdate(prevState){
+        if (prevState.resCart.data !== this.props.resCart.data) {
+            this.setState({
+                list_cart: this.props.resCart.data,
+            });
+        }
+    }
 
     UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.resCart.data.length !== this.state.totCart){

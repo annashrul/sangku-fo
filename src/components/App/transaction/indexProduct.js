@@ -8,6 +8,7 @@ import Layout from 'components/Layout';
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import IndexRegister from '../../App/Member/paket/indexRegister';
 import IndexRO from '../../App/Member/paket/indexRO';
+import MyNProgress from '../../../myNProgress';
 
 
 class IndexProduct extends Component{
@@ -24,6 +25,7 @@ class IndexProduct extends Component{
 
         return(
             <Layout page="Product">
+                <MyNProgress isAnimating={this.props.isLoadingPin}/>
                 <div className="card">
                     <Tabs>
                         <div className="card-body d-flex align-items-center justify-content-between">
@@ -54,7 +56,8 @@ const mapStateToProps = (state) => {
         auth: state.auth,
         resPaket:state.paketReducer.data,
         isLoading: state.paketReducer.isLoading,
-        isLoadingPost:state.cartReducer.isLoadingPost
+        isLoadingPost:state.cartReducer.isLoadingPost,
+        isLoadingPin:state.pinReducer.isLoadingAvail,
     }
 }
 export default connect(mapStateToProps)(IndexProduct);

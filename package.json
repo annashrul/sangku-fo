@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanem/react-nprogress": "^3.0.66",
     "@types/reactstrap": "^8.5.0",
     "apexcharts": "^3.23.0",
     "axios": "^0.18.0",

@@ -17,6 +17,7 @@ import ModalPin from "../../modals/modal_pin";
 import FormListStokist from "../../modals/member/form_list_stokist";
 import { Tabs } from "react-tabs";
 import Skeleton from "react-loading-skeleton";
+import MyNProgress from "../../../../myNProgress";
 
 class PinRo extends Component {
   constructor(props) {
@@ -358,6 +359,7 @@ class PinRo extends Component {
   render() {
     return (
       <Layout page="PIN RO" subpage="Stokist">
+        <MyNProgress isAnimating={this.props.isLoadingPin}/>
         <Tabs>
           <div className="row">
             <div className="col-md-12">
@@ -453,6 +455,7 @@ const mapStateToProps = (state) => {
     pinPin: state.pinReducer.data,
     getPin: state.pinReducer.data_available,
     isLoading: state.pinReducer.isLoading,
+    isLoadingPin: state.pinReducer.isLoadingAvail,
     isOpen: state.modalReducer,
     type: state.modalTypeReducer,
   };

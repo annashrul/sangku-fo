@@ -1,13 +1,14 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import Layout from "../../../Layout";
 import connect from "react-redux/es/connect/connect";
 import { FetchNetwork } from 'redux/actions/member/network.action';
 import Spinner from 'Spinner'
 import BinaryNetwork from './src/network'
-class Binary extends Component{
+import MyNProgress from '../../../../myNProgress';
+class Binary extends Component {
 
-    getProps(props){
-        this.props.dispatch(FetchNetwork(btoa(props.match.params.id===undefined?props.auth.user.referral_code:atob(props.match.params.id)),true,'network'))
+    getProps(props) {
+        this.props.dispatch(FetchNetwork(btoa(props.match.params.id === undefined ? props.auth.user.referral_code : atob(props.match.params.id)), true, 'network'))
         var head = document.getElementsByTagName('head')[0];
 
         var cssnode3 = document.createElement('link');
@@ -42,21 +43,22 @@ class Binary extends Component{
         document.querySelector("link[href='/genealogy/tree.css']").remove()
         document.querySelector("link[href='/genealogy/treedev.css']").remove()
     }
-    componentDidUpdate(prevState){
-            if(prevState.auth.user.referral_code!==this.props.auth.user.referral_code||prevState.match.params.id!==this.props.match.params.id){
-                this.getProps(this.props);
-            }
+    componentDidUpdate(prevState) {
+        if (prevState.auth.user.referral_code !== this.props.auth.user.referral_code || prevState.match.params.id !== this.props.match.params.id) {
+            this.getProps(this.props);
+        }
     }
-    render(){
-        
+    render() {
+
         return (
             <Layout page="Genealogy Binary" subpage="Jaringan">
+                <MyNProgress isAnimating={this.props.isLoading} />
                 <div className="card">
                     <div className="card-body">
                         {
-                            !this.props.isLoading?
-                            <BinaryNetwork dataList={this.props.list} match={this.props.match} history={this.props.history}/>
-                            :<Spinner/>
+                            !this.props.isLoading ?
+                                <BinaryNetwork dataList={this.props.list} match={this.props.match} history={this.props.history} />
+                                : <Spinner />
                         }
                     </div>
                 </div>
@@ -69,8 +71,8 @@ class Binary extends Component{
 const mapStateToProps = (state) => {
     // 
     return {
-        isLoading:state.networkReducer.isLoading,
-        list:state.networkReducer.data,
+        isLoading: state.networkReducer.isLoading,
+        list: state.networkReducer.data,
         auth: state.auth
 
     }

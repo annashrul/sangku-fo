@@ -17,6 +17,7 @@ import { Tabs } from 'react-tabs';
 import Swal from 'sweetalert2';
 import FormListStokist from '../../modals/member/form_list_stokist';
 import Skeleton from 'react-loading-skeleton';
+import MyNProgress from '../../../../myNProgress';
 class Pin extends Component{
     constructor(props){
         super(props);
@@ -297,6 +298,7 @@ class Pin extends Component{
     render(){
         return (
             <Layout page="PIN Aktivasi" subpage="Stokist">
+                <MyNProgress isAnimating={this.props.isLoadingPin}/>
                 <Tabs>
                     <div className="row">
                         <div className="col-md-12">
@@ -380,6 +382,7 @@ const mapStateToProps = (state) => {
         memberAvail:state.memberReducer.data_avail,
         getPin:state.pinReducer.data_available,
         isLoading:state.pinReducer.isLoading,
+        isLoadingPin:state.pinReducer.isLoadingAvail,
         listPaket:state.siteReducer.data_paket,
         isOpen: state.modalReducer,
         type: state.modalTypeReducer,

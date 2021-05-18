@@ -55,15 +55,15 @@ export function setTestimoniDetail(data = []) {
         data
     }
 }
-export const getTestimoni = (page=1,where='')=>{
+export const getTestimoni = (page = 1, where = '') => {
     return (dispatch) => {
         dispatch(setLoadingTestimoni(true));
-        let url=`content/testimoni?page=${page==='NaN'||page===null||page===''||page===undefined?1:page}`;
-        if(where!==''){
-            url+=where
+        let url = `content/testimoni?page=${page === 'NaN' || page === null || page === '' || page === undefined ? 1 : page}`;
+        if (where !== '') {
+            url += where
         }
-        
-        axios.get(HEADERS.URL+url)
+
+        axios.get(HEADERS.URL + url)
             .then(function (response) {
                 const data = response.data;
                 dispatch(setTestimoni(data));
@@ -76,15 +76,15 @@ export const getTestimoni = (page=1,where='')=>{
 
     }
 }
-export const getTestimoniKategori = (page=1,where='')=>{
+export const getTestimoniKategori = (page = 1, where = '') => {
     return (dispatch) => {
         dispatch(setLoadingTestimoniKategori(true));
-        let url=`category/testimoni?page=${page==='NaN'||page===null||page===''||page===undefined?1:page}`;
-        if(where!==''){
-            url+=where
+        let url = `category/testimoni?page=${page === 'NaN' || page === null || page === '' || page === undefined ? 1 : page}`;
+        if (where !== '') {
+            url += where
         }
-        
-        axios.get(HEADERS.URL+url)
+
+        axios.get(HEADERS.URL + url)
             .then(function (response) {
                 const data = response.data;
                 dispatch(setTestimoniKategori(data));
@@ -97,11 +97,11 @@ export const getTestimoniKategori = (page=1,where='')=>{
 
     }
 }
-export const getTestimoniDetail = (id='')=>{
+export const getTestimoniDetail = (id = '') => {
     return (dispatch) => {
         dispatch(setLoadingTestimoniDetail(true));
-        let url=`content/get/${id}`;
-        axios.get(HEADERS.URL+url)
+        let url = `content/get/${id}`;
+        axios.get(HEADERS.URL + url)
             .then(function (response) {
                 const data = response.data;
                 dispatch(setTestimoniDetail(data));
@@ -118,8 +118,8 @@ export const postTestimoni = (data) => {
     return (dispatch) => {
         dispatch(setLoadingPost(true));
         const url = HEADERS.URL + `content`;
-        
-        axios.post(url,data)
+
+        axios.post(url, data)
             .then(function (response) {
                 const data = (response.data);
                 if (data.status === 'success') {
@@ -150,7 +150,7 @@ export const postTestimoni = (data) => {
                         'error'
                     );
                 }
-                else{
+                else {
                     Swal.fire({
                         title: 'failed',
                         icon: 'error',
@@ -164,4 +164,57 @@ export const postTestimoni = (data) => {
 
             })
     }
+}
+export const deleteTesti = (id) => async dispatch => {
+    Swal.fire({
+        title: 'Tunggu sebentar.',
+        html: NOTIF_ALERT.CHECKING,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+        onClose: () => { }
+    })
+
+    axios.delete(HEADERS.URL + `content/${id}`)
+        .then(response => {
+            setTimeout(
+                function () {
+                    Swal.close();
+                    const data = (response.data);
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Success',
+                            icon: 'success',
+                            text: NOTIF_ALERT.SUCCESS,
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'failed',
+                            icon: 'error',
+                            text: NOTIF_ALERT.FAILED,
+                        });
+                    }
+                }, 800)
+
+        }).catch(error => {
+            Swal.close()
+            if (error.message === 'Network Error') {
+                Swal.fire(
+                    'Network Failed!.',
+                    'Please check your connection',
+                    'error'
+                );
+            }
+            else {
+                Swal.fire({
+                    title: 'failed',
+                    icon: 'error',
+                    text: error.response.data.msg,
+                });
+                if (error.response) {
+
+                }
+            }
+
+        });
 }
