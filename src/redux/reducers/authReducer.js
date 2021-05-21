@@ -6,7 +6,8 @@ const initialState = {
     isErrorNo:false,
     isLoading:false,
     isRegistered:false,
-    isRegisterPin:false
+    isRegisterPin:false,
+    authMsg:'',
 }
 
 export default function(state= initialState, action){
@@ -41,6 +42,10 @@ export default function(state= initialState, action){
         case AUTH.IS_REGISTERED:
             return Object.assign({}, state, {
                 isRegisterPin: action.load
+            });
+        case AUTH.AUTH_MSG:
+            return Object.assign({}, state, {
+                authMsg: action.data,
             });
         default:
             return state;

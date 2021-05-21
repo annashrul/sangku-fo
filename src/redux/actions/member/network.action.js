@@ -27,10 +27,13 @@ export const FetchNetwork = (uid,first,param)=>{
         axios.get(HEADERS.URL+url)
         .then(function(response){
             const data = response.data;
-            
+
+            console.log("qwrqrqrqwrqwrq", response);
             dispatch(setNetwork(data));
             dispatch(setLoading(false));
         }).catch(function(error){
+            console.log("asdadadadasdas",error.response.data);
+            if (error.response.data!==undefined) dispatch(setNetwork(error.response.data));
             dispatch(setLoading(false));
         })
     }

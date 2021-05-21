@@ -6,6 +6,7 @@ import Default from 'assets/default.png'
 import Preloader from 'PreloaderWebview'
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 // import { UncontrolledTooltip } from 'reactstrap';
 
 class Sponsor extends Component {
@@ -274,7 +275,14 @@ class Sponsor extends Component {
 
     showFetch(id) {
         this.setState({ loading: true });
-        fetch(HEADERS.URL + `member/network/${btoa(id)}`)
+        const headers = {
+            'Authorization': atob(Cookies.get('sangqu_datum')),
+            'username': HEADERS.USERNAME,
+            'password': HEADERS.PASSWORD,
+            'myconnection': `apps`,
+            'Content-Type': `application/x-www-form-urlencoded`
+        }
+        fetch(HEADERS.URL + `member/network/${btoa(id)}`, { headers })
             .then(res => res.json())
             .then(
                 (data) => {

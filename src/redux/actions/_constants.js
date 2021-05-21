@@ -19,8 +19,8 @@ export const NOTIF_ALERT = {
     NO_DATA: "https://www.mediseller.com/front_assets/img/search.png"
 }
 export const HEADERS ={
-  // URL: 'http://192.168.100.10:3010/',
-  URL: 'https://api.sangqu.id/',
+  URL: 'http://192.168.100.10:3010/',
+  // URL: 'https://api.sangqu.id/',
   // URL: 'http://ptnetindo.com:6701/',
   TOKEN:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwY2RiN2M5OC0wNWNmLTQ4NDgtOGM3Yy0yZTFiYTczZGUwNmYiLCJpYXQiOjE1NzAxNzM0ODYsImV4cCI6MTU3MDc3ODI4Nn0.1NiWtt2luG83am8FJSvWpL5p35Oxd8GSJJTwhFmAdgw",
   USERNAME: "netindo",
@@ -55,7 +55,8 @@ export const AUTH = {
   SET_CURRENT_USER:'SET_CURRENT_USER',
   SET_CURRENT_OTP:'SET_CURRENT_OTP',
   SET_LOGGED_USER:'SET_LOGGED_USER',
-    IS_ERROR_NO:'IS_ERROR_NO'
+  IS_ERROR_NO:'IS_ERROR_NO',
+  AUTH_MSG:'SET_AUTH_MSG'
 }
 export const REGISTER = {
   PROCESS: 'SET_REGISTER_PROCESS',
@@ -509,4 +510,12 @@ export const RESET_PROPS = {
     status:'',
     msg:'',
     result:{}
+}
+/****************
+ RESET PROPS
+ *****************/
+export const RESET_PROPS_ARR = {
+    status:'',
+    msg:'',
+    result:[]
 }

@@ -219,8 +219,9 @@ export const loginUser = (userData) =>
                 dispatch({type: AUTH.GET_ERRORS, payload: err.response.data.msg})
 
             }
+            if (err.response.data.msg !== 'Loggedin' && err.response.data.msg !== undefined) dispatch({ type: AUTH.AUTH_MSG, data: err.response.data.msg });
             if(err.response.data.msg==='PIN Tidak Sesuai.'){
-                
+
             } else {
                 window.location.reload();
             }
@@ -231,7 +232,12 @@ export const loginUser = (userData) =>
 export function setLoading(load){
     return {type : AUTH.LOADING,load}
 }
-
+export function setAuthMsg(data = '') {
+    return {
+        type: AUTH.AUTH_MSG,
+        data
+    }
+}
 export function setRegistered(load){
     return {type : AUTH.REGISTERED,load}
 }

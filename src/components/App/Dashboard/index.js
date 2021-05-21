@@ -340,7 +340,7 @@ class Index extends Component {
                     </div>
 
                 </div>
-                {this.props.getPin !== undefined || Object.keys(this.props.getPin).length !== 0 ?
+                {this.props.getPin !== undefined && Object.keys(this.props.getPin).length !== 0  ?
                     <FormReaktivasiCopy availPin={this.props.getPin} directPin={undefined} />
                     : ''}
             </Layout>

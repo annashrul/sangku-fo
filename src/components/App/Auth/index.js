@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { FetchSiteConfig } from '../../../redux/actions/site.action';
 import { putMember } from '../../../redux/actions/member/member.action';
 import Skeleton from 'react-loading-skeleton';
+import { AUTH } from '../../../redux/actions/_constants';
 
 
 class Auth extends Component{
@@ -136,8 +137,15 @@ class Auth extends Component{
             this.setState({type:nextProps.otp_config.type});
         // }
 
+        
     }
 
+    componentDidUpdate(){
+        if (this.props.auth.authMsg !== 'Loggedin' && this.props.auth.authMsg !== undefined && this.props.auth.authMsg !== '') {
+            this.setState({ disclaim: false });
+            this.props.dispatch({ type: AUTH.AUTH_MSG, data: '' });
+        }
+    }
 
     componentDidMount(){
         if(this.props.auth.isAuthenticated){

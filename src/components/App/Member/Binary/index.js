@@ -5,6 +5,9 @@ import { FetchNetwork } from 'redux/actions/member/network.action';
 import Spinner from 'Spinner'
 import BinaryNetwork from './src/network'
 import MyNProgress from '../../../../myNProgress';
+import { setNetwork } from '../../../../redux/actions/member/network.action';
+import { RESET_PROPS_ARR } from '../../../../redux/actions/_constants';
+import Swal from 'sweetalert2';
 class Binary extends Component {
 
     getProps(props) {
@@ -43,10 +46,33 @@ class Binary extends Component {
         document.querySelector("link[href='/genealogy/tree.css']").remove()
         document.querySelector("link[href='/genealogy/treedev.css']").remove()
     }
+    // componentWillReceiveProps(nextProps){
+    //     if (this.props.msg ==="Upline tidak dikenali."){
+    //         alert('Upline tidak dikenali.')
+    //     }
+    // }
     componentDidUpdate(prevState) {
         if (prevState.auth.user.referral_code !== this.props.auth.user.referral_code || prevState.match.params.id !== this.props.match.params.id) {
             this.getProps(this.props);
         }
+        if (this.props.msg !== "Berhasil mengambil data." && this.props.msg!==undefined && this.props.msg!=='') {
+            Swal.fire({
+                title: 'Informasi !!!',
+                text: this.props.msg,
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                // cancelButtonColor: '#d33',
+                confirmButtonText: 'Saya Mengerti',
+                // cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.value) {
+                    this.props.dispatch(setNetwork(RESET_PROPS_ARR));
+                    window.history.back();
+                }
+            })
+        }
+        console.log(this.props.msg);
     }
     render() {
 
@@ -73,6 +99,7 @@ const mapStateToProps = (state) => {
     return {
         isLoading: state.networkReducer.isLoading,
         list: state.networkReducer.data,
+        msg: state.networkReducer.msg,
         auth: state.auth
 
     }
