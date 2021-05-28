@@ -434,7 +434,7 @@ class IndexProfile extends Component {
     }
 
     render() {
-        console.log('this.state.position', this.state.position);
+        
         const {
             saldo,
             sponsor,

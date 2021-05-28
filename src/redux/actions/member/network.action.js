@@ -28,11 +28,11 @@ export const FetchNetwork = (uid,first,param)=>{
         .then(function(response){
             const data = response.data;
 
-            console.log("qwrqrqrqwrqwrq", response);
+            
             dispatch(setNetwork(data));
             dispatch(setLoading(false));
         }).catch(function(error){
-            console.log("asdadadadasdas",error.response.data);
+            
             if (error.response.data!==undefined) dispatch(setNetwork(error.response.data));
             dispatch(setLoading(false));
         })

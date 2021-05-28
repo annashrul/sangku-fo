@@ -179,7 +179,7 @@ class FormReaktivasi extends Component {
     };
     render() {
 
-        console.log("this.props.availPin", this.props.availPin);
+        
         return (
             <div>
                 <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormReaktivasiCopy"} size={'lg'}>

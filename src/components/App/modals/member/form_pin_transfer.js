@@ -140,9 +140,9 @@ class FormPinTransfer extends Component {
         this.setState({ error: err });
     };
     render() {
-        // console.log("this.state.member_data.picture",this.state.member_data.picture);
-        // console.log("this.state.member_data",this.state.member_data);
-        // console.log("aaaaaaaaaaaaaaaaaaaaaa", this.props.memberAvail);
+        
+        
+        
         return (
             <div>
                 <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormPinTransfer"} size="md">

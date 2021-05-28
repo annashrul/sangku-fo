@@ -72,7 +72,7 @@ class Binary extends Component {
                 }
             })
         }
-        console.log(this.props.msg);
+        
     }
     render() {
 
