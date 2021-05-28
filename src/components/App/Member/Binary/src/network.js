@@ -207,10 +207,11 @@ class Sponsor extends Component {
                 className="last_level_user"
                 style={{ display: "none", zIndex: 1 }}
               >
-                <i id="fa-2x-42" className="fa fa-plus-circle fa-2x zoom-hover" onClick={(e) => this.showNode(e, cNode.id)} />
+                <i id={`toHide_${cNode.id}`} className="fa fa-plus-circle fa-2x zoom-hover mr-2" onClick={(e) => this.showNode(e, cNode.id)} />
+                <div id={`toShow_${cNode.id}`} className="spinner-border spinner-border-sm mb-2 mr-2" role="status" style={{ display: "none", cursor:'no-drop'}}></div>
                 {cNode.parent_id === null && cNode.position === null ? '' :
                   <Link to={{ pathname: `/binary/${btoa(cNode.id)}` }}>
-                    <i id="fa-2x-42" className="fa fa-level-up fa-2x zoom-hover mx-1" />
+                    <i id="fa-2x-42" className="fa fa-level-up fa-2x zoom-hover ml-2" />
                   </Link>
                 }
               </div>
@@ -233,6 +234,10 @@ class Sponsor extends Component {
       'myconnection': `apps`,
       'Content-Type': `application/x-www-form-urlencoded`
     }
+    document.getElementById("toHide_" + id).style.display = 'none';
+    document.getElementById("toShow_" + id).style.display = '';
+    // document.getElementById("btnAdd_" + id).style.pointerEvents = 'none';
+    // document.getElementById("btnAdd_" + id).style.cursor = 'no-drop';
     fetch(HEADERS.URL + `member/network/${btoa(id)}`, {headers})
       .then((res) => res.json())
       .then(
@@ -259,9 +264,13 @@ class Sponsor extends Component {
                 arrs: joined,
               });
               document.getElementById("btnAdd_" + id).style.display = "none";
+              // document.getElementById("btnAdd_" + id).style.pointerEvents = '';
+              // document.getElementById("btnAdd_" + id).style.cursor = '';
               // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
             } else {
               document.getElementById("btnAdd_" + id).style.display = "none";
+              // document.getElementById("btnAdd_" + id).style.pointerEvents = '';
+              // document.getElementById("btnAdd_" + id).style.cursor = '';
               // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
 
               if (data.result.length === 1) {
@@ -340,6 +349,9 @@ class Sponsor extends Component {
     }
     if (this.state.arrs.length !== prevState.arrs.length) {
       this.getProps(this.props);
+    }
+    if (this.props.match.params.id!==undefined && this.state.id_member==='') {
+      this.setState({id_member:this.props.match.params.id!==undefined?atob(this.props.match.params.id):this.props.match.params.id})
     }
   }
   componentDidMount() {
@@ -512,7 +524,7 @@ class Sponsor extends Component {
             <div className="row d-flex align-items-center justify-content-between">
               <div className="col-md-4 col-sm-6 offset-md-4 offset-sm-3">
                 <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Cari berdasarkan ID Member" name="id_member" onChange={this.handleChange} />
+                  <input type="text" className="form-control" placeholder="Cari berdasarkan ID Member" defaultValue={this.state.id_member} name="id_member" onChange={this.handleChange} />
                   <div className="input-group-append">
                     <button className="btn btn-primary" type="button" onClick={(e) => { e.preventDefault(); if (this.state.id_member !== '') { this.props.history.push({ pathname: `/binary/${btoa(this.state.id_member)}` }) }; }}>Cari</button>
                   </div>

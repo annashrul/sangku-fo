@@ -19,8 +19,10 @@ class Sponsor extends Component {
             numChildren: 0,
             loading: false,
             arrs: [],
-            isOpen: true
+            isOpen: true,
+            id_member:''
         };
+    this.handleChange = this.handleChange.bind(this)
     }
 
     alertHandle(e, cNode) {
@@ -330,6 +332,9 @@ class Sponsor extends Component {
             )
     }
 
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
     showNode(e, data) {
         e.preventDefault();
         this.showFetch(data);
@@ -366,6 +371,9 @@ class Sponsor extends Component {
         }
         if (this.state.arrs.length !== prevState.arrs.length) {
             this.getProps(this.props);
+        }
+        if (this.props.match.params.id!==undefined && this.state.id_member==='') {
+            this.setState({id_member:this.props.match.params.id!==undefined?atob(this.props.match.params.id).split('|')[0]:this.props.match.params.id})
         }
     }
     componentDidMount() {
@@ -411,6 +419,17 @@ class Sponsor extends Component {
                     <Preloader />
                     :
                     <div id="block-system-main" className="block block-system clearfix" >
+                        <div className="row d-flex align-items-center justify-content-between mt-1 mx-1">
+                            <div className="col-md-4 col-sm-6 offset-md-4 offset-sm-3">
+                                <div className="input-group">
+                                <input type="text" className="form-control" placeholder="Cari berdasarkan ID Member" defaultValue={this.state.id_member} name="id_member" onChange={this.handleChange} />
+                                <div className="input-group-append">
+                                    <button className="btn btn-primary" type="button" onClick={(e) => { e.preventDefault(); if (this.state.id_member !== '') { this.props.history.push({pathname: `/web_view/binary/${btoa(this.state.id_member + '|' + String(atob(this.props.datum)).split('|')[1])}`}) }}}>Cari</button>
+                                </div>
+                                </div>
+                            </div>
+
+                            </div>
                         <div className="binary-genealogy-tree binary_tree_extended">
 
                             <div className="sponsor-tree-wrapper">

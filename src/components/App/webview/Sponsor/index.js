@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import SponsorNode from './src/sponsor';
 import { FetchNetworkWebview } from 'redux/actions/member/network.action';
-// import jQuery from 'jquery';
+import Preloader from 'PreloaderWebview'
 class Sponsor extends Component{
 
    getProps(props){
@@ -54,7 +54,7 @@ class Sponsor extends Component{
                   {
                      !this.props.isLoading?
                      <SponsorNode dataList={this.props.list}/>
-                     :''
+                     :<Preloader/>
                   }
             </div>
         );

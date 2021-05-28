@@ -3,6 +3,7 @@ import connect from "react-redux/es/connect/connect";
 import { FetchNetworkWebview } from '../../../../redux/actions/member/network.action';
 // import { FetchNetworkWebview } from 'redux/actions/member/network.action';
 import BinaryNetwork from './src/network'
+import Preloader from 'PreloaderWebview'
 class Binary extends Component{
 
     getProps(props){
@@ -54,8 +55,8 @@ class Binary extends Component{
                 <div>
                     {
                         !this.props.isLoading?
-                        <BinaryNetwork dataList={this.props.list} datum={this.props.match.params.id}/>
-                        :''
+                        <BinaryNetwork dataList={this.props.list} match={this.props.match} datum={this.props.match.params.id} history={this.props.history}/>
+                        :<Preloader />
                     }
                 </div>
         );

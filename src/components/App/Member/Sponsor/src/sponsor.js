@@ -91,7 +91,11 @@ class Sponsor extends Component {
                     </div>
                     {
                         cNode.hasChild ?
-                            <div id={`btnAdd_${cNode.id}`} className="last_level_user" onClick={(e) => this.showNode(e, cNode.id)} style={{ display: 'none' }}><i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /></div>
+                            <div id={`btnAdd_${cNode.id}`} className="last_level_user" style={{ display: 'none' }}>
+                                {/* <i id="fa-2x-42" className="fa fa-plus-circle fa-2x" /> */}
+                                <i id={`toHide_${cNode.id}`} className="fa fa-plus-circle fa-2x zoom-hover" onClick={(e) => this.showNode(e, cNode.id)} />
+                                <div id={`toShow_${cNode.id}`} className="spinner-border spinner-border-sm mb-2" role="status" style={{ display: "none", cursor:'no-drop'}}></div>
+                            </div>
                             : ''
                     }
                 </div>
@@ -113,11 +117,15 @@ class Sponsor extends Component {
             'myconnection': `apps`,
             'Content-Type': `application/x-www-form-urlencoded`
         }
+        document.getElementById("toHide_" + id).style.display = 'none';
+        document.getElementById("toShow_" + id).style.display = '';
         fetch(HEADERS.URL + `member/sponsor/${btoa(id)}`, { headers })
             .then(res => res.json())
             .then(
                 (data) => {
                     this.setState({ loading: false });
+                    document.getElementById('btnAdd_' + id).style.display = 'none';
+                    document.getElementById("toShow_" + id).style.display = 'none';
                     if (data.status === 'success') {
                         // document.getElementById('li_'+id).innerHTML = '<ul id=wrapper_'+id+'></ul>';
                         if (data.result.length <= 0) {
@@ -128,7 +136,7 @@ class Sponsor extends Component {
                             // this.setState({
                             //     arrs:joined
                             // })
-                            document.getElementById('btnAdd_' + id).style.display = 'none';
+                            // document.getElementById('btnAdd_' + id).style.display = 'none';
                             // document.getElementById('node-wrapper-'+id).classList.add("node-item-root");
                         } else {
                             document.getElementById('btnAdd_' + id).style.display = 'none';
