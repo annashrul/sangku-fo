@@ -96,6 +96,8 @@ class FormAktivasiRo extends Component {
         this.setState({ error: err });
     };
     render() {
+        console.log("this.state.pin_data",this.state.pin_data);
+        console.log("this.props.data",this.props.data);
         return (
             <div>
                 <WrapperModal isOpen={this.props.isOpen && this.props.type === "FormAktivasiRo"} size="md">

@@ -443,7 +443,7 @@ class PinRo extends Component {
         </Tabs>
         <FormPinTransfer data={this.state.pin_data} jenis={1} />
         <FormListStokist idStokist={this.state.idStokist} />
-        <FormAktivasiPinRo data={this.state.pin_data} />
+        <FormAktivasiPinRo data={this.state.pin_reaktivasi} />
         {this.state.isModal ? (
           <ModalPin
             isLoading={this.props.isLoadingPost}
