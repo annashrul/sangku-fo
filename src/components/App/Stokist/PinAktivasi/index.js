@@ -94,29 +94,35 @@ class Pin extends Component{
     };
     handleReaktivasi(e,data){
         e.preventDefault()
-        // const bool = !this.props.isOpen;
-        // this.props.dispatch(ModalToggle(bool));
-        // this.props.dispatch(ModalType("FormReaktivasi"));
-        Swal.fire({
-            title: 'Informasi?',
-            text: "Anda akan melakukan Reaktivasi PIN "+data.title,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Process!'
-        }).then((result) => {
-            if (result.value) {
-                // this.props.dispatch(FetchDelete(id));
-                this.setState({
-                    isModal:true,
-                    pin_reaktivasi:data
-                });
-                const bool = !this.props.isOpen;
-                this.props.dispatch(ModalToggle(bool));
-                this.props.dispatch(ModalType("modalPin"));
-            }
-        })
+        if(parseInt(data.jumlah)===0){
+            Swal.fire({
+                title: 'PERHATIAN',
+                text: "Anda tidak memiliki PIN ini. Silahkan lakukan pembelian paket.",
+                icon: 'warning',
+            })
+
+        }else{
+            Swal.fire({
+                title: 'Informasi?',
+                text: "Anda akan melakukan Reaktivasi PIN "+data.title,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Process!'
+            }).then((result) => {
+                if (result.value) {
+                    // this.props.dispatch(FetchDelete(id));
+                    this.setState({
+                        isModal:true,
+                        pin_reaktivasi:data
+                    });
+                    const bool = !this.props.isOpen;
+                    this.props.dispatch(ModalToggle(bool));
+                    this.props.dispatch(ModalType("modalPin"));
+                }
+            })
+        }
     }
 
     handleSave(num){

@@ -133,12 +133,19 @@ class PinRo extends Component {
     // this.props.dispatch(getPinDetail(code))
   }
   handleReaktivasi(e, data) {
-    console.log("test");
     e.preventDefault();
-    this.setState({ pin_reaktivasi: data });
-    const bool = !this.props.isOpen;
-    this.props.dispatch(ModalToggle(bool));
-    this.props.dispatch(ModalType("FormAktivasiRo"));
+    if (parseInt(data.jumlah) === 0) {
+      Swal.fire({
+        title: "PERHATIAN",
+        text: "Anda tidak memiliki PIN ini. Silahkan lakukan pembelian paket.",
+        icon: "warning",
+      });
+    } else {
+      this.setState({ pin_reaktivasi: data });
+      const bool = !this.props.isOpen;
+      this.props.dispatch(ModalToggle(bool));
+      this.props.dispatch(ModalType("FormAktivasiRo"));
+    }
   }
   handleEvent = (event, picker) => {
     const awal = moment(picker.startDate._d).format("YYYY-MM-DD");
@@ -339,7 +346,7 @@ class PinRo extends Component {
   handleAktivasiPinRo(e, v) {
     Swal.fire({
       title: "Informasi?",
-      text: "Anda akan melakukan Reaktivasi PIN RO " + v.title,
+      text: "Anda akan melakukan Aktivasi PIN RO " + v.title,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -400,7 +407,7 @@ class PinRo extends Component {
                                     <button className="btn btn-warning rounded-lg mr-3" onClick={(e)=>this.handleTransfer(e,v)}>TRANSFER</button>
                                 }
                                 {this.props.isLoading?<Skeleton style={{width:'30%', height:'30px'}} />:
-                                    <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasi(e,v)}>REAKTIVASI</button>
+                                    <button className="btn btn-primary rounded-lg" onClick={(e)=>this.handleReaktivasi(e,v)}>AKTIVASI</button>
                                 }
                             </div>
                           </div>
