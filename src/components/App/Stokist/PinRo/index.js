@@ -133,11 +133,12 @@ class PinRo extends Component {
     // this.props.dispatch(getPinDetail(code))
   }
   handleReaktivasi(e, data) {
+    console.log("test");
     e.preventDefault();
     this.setState({ pin_reaktivasi: data });
     const bool = !this.props.isOpen;
     this.props.dispatch(ModalToggle(bool));
-    this.props.dispatch(ModalType("FormReaktivasi"));
+    this.props.dispatch(ModalType("FormAktivasiRo"));
   }
   handleEvent = (event, picker) => {
     const awal = moment(picker.startDate._d).format("YYYY-MM-DD");
